@@ -113,7 +113,7 @@ button,input,textarea{font:inherit;color:inherit}
   </div>
   <div style="grid-column:3;grid-row:1;align-self:start;display:flex;flex-direction:column;align-items:flex-end;gap:6px">
     <div style="text-align:right;line-height:1.25"><div id="cd" style="font-size:12px;color:var(--dm)"></div><div id="ct" style="font-size:20px;font-weight:600"></div></div>
-    <div class="row"><button class="ib" id="dtb" data-tip="插入日期時間"><span data-ic="cal"></span></button><button class="ib" id="cpb" data-tip="複製內文"><span data-ic="copy" id="cpi"></span></button><span class="sep"></span><button class="ib" id="exp" data-tip="匯出備份"><span data-ic="out"></span></button><button class="ib" id="imp" data-tip="匯入備份"><span data-ic="inn"></span></button></div>
+    <div class="row"><button class="ib" id="dtb" data-tip="插入日期時間"><span data-ic="cal"></span></button><button class="ib" id="cpb" data-tip="複製內文"><span data-ic="copy" id="cpi"></span></button><span class="sep"></span><button class="ib" id="exp" data-tip="匯出備份"><span data-ic="out"></span></button><button class="ib" id="imp" data-tip="匯入備份"><span data-ic="inn"></span></button><span class="sep"></span><button class="ib" id="hlp" data-tip="使用說明"><span data-ic="help"></span></button></div>
   </div>
   <div class="row" style="grid-column:3;grid-row:2"><div class="fld"><span data-ic="search"></span><input id="sq" autocomplete="off"></div><div id="sn" class="row" style="display:none;align-items:center"><span id="sc" style="font-size:13px;color:var(--dm);min-width:40px;text-align:center"></span><button class="ib" id="sp" data-tip="上一個"><span data-ic="up"></span></button><button class="ib" id="sd" data-tip="下一個"><span data-ic="dn"></span></button><button class="ib" id="sx" data-tip="清除搜尋"><span data-ic="x"></span></button></div><div class="row" id="ths"><button class="ib" data-th="d" data-tip="破曉"><span data-ic="sun"></span></button><button class="ib" data-th="u" data-tip="逢魔"><span data-ic="dusk"></span></button><button class="ib" data-th="n" data-tip="月華"><span data-ic="moon"></span></button></div></div>
   <div id="shelf" style="grid-column:3;grid-row:3;display:flex;align-items:center;gap:6px;min-width:0;overflow:hidden"></div>
@@ -124,10 +124,11 @@ button,input,textarea{font:inherit;color:inherit}
 <input type="file" id="file" accept=".json,application/json" hidden>
 <canvas id="cv"></canvas><div id="tip"></div><div id="pk"></div><div id="toast"></div>
 <script>
-const VERSION='1.04';
+const VERSION='1.05';
 const KEY='R_note',LK='R_note_layout',ICONS=['📝','⬜','✅','📌','💡','⭐','📕','🔥','❤️','🔒','⚠️','🚧','📋','🛒','🍽','🎬','🎮','🎁','🔔','💼','📆','🎨','🎵','⚙'];
 const P={plus:'<path d="M12 5v14M5 12h14"/>',search:'<circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5L21 21"/>',clock:'<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',hand:'<path d="M8 13V6a1.5 1.5 0 0 1 3 0v5M11 11V4.5a1.5 1.5 0 0 1 3 0V11M14 11V6a1.5 1.5 0 0 1 3 0v8a6 6 0 0 1-6 6h-1a6 6 0 0 1-5-2.7L3.5 13.5a1.5 1.5 0 0 1 2.5-1.6L8 14"/>',abc:'<path d="M3 17l4-10 4 10M4.7 13h4.6M15 8h6M15 12h6M15 16h6"/>',tag:'<path d="M4 4h7l9 9-7 7-9-9zM8 8h.01"/>',up:'<path d="M7 15l5-7 5 7z"/>',dn:'<path d="M7 9l5 7 5-7z"/>',cpp:'<path d="M9 4h6v3H9zM7 5H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-1M12 11v6M9 14h6"/>',out:'<path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8zM14 3v5h5M12 18v-6M9.5 14.5L12 12l2.5 2.5"/>',inn:'<path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8zM14 3v5h5M12 12v6M9.5 15.5L12 18l2.5-2.5"/>',cal:'<path d="M4 6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zM4 10h16M8 3v3M16 3v3M12 13v3l2 1"/>',copy:'<path d="M9 9h10a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1V10a1 1 0 0 1 1-1zM5 15H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v1"/>',trash:'<path d="M4 7h16M10 11v6M14 11v6M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2l1-12M9 7V4h6v3"/>',R:'<path d="M7 20V4h5a4.5 4.5 0 0 1 0 9H7M12 13l5 7"/>',x:'<path d="M6 6l12 12M18 6L6 18"/>',ok:'<path d="M5 12l5 5 9-10"/>',lock:'<rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/>'};
 P.sun='<path d="M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8zM12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>';P.dusk='<path d="M5 16a7 7 0 0 1 14 0M3 19h18M12 5v2M5.6 8.6l1.4 1.4M18.4 8.6L17 10M2 16h2M20 16h2"/>';P.moon='<path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/>';
+P.help='<circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.6 2.2c-.7.4-1.1 1-1.1 1.8M12 17h.01"/>';
 const sv=(n,s=20)=>`<svg viewBox="0 0 24 24" width="${s}" height="${s}" fill="${n=='up'||n=='dn'?'currentColor':'none'}" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">${P[n]}</svg>`;
 const $=id=>document.getElementById(id),ta=$('body');
 document.querySelectorAll('[data-ic]').forEach(e=>e.innerHTML=sv(e.dataset.ic,+e.dataset.s||20));
@@ -139,12 +140,12 @@ S.notes.forEach(n=>{n.content=String(n.content||'').replace(/\r\n?/g,'\n')});
 let ms=new Set(),anchor=null,mzone='a',dragIds=[];
 let fxPrev=0,fxHint=null,comp=false,vaultOn=false,GC='210,210,210',HEAD='#fff';
 const inBot=n=>vaultOn?!!n.vault:(!!n.archived&&!n.vault);
-let st;const save=()=>{clearTimeout(st);st=setTimeout(()=>{try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}},200)};
+let st;const save=()=>{clearTimeout(st);st=setTimeout(()=>{try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){if(!save.w||Date.now()-save.w>15000){save.w=Date.now();toast('儲存空間已滿或無法寫入，請先匯出備份',5000)}}},200)};
 const saveL=()=>{try{localStorage.setItem(LK,JSON.stringify(L))}catch(e){}};
 const byId=id=>S.notes.find(n=>n.id===id);
 const p2=x=>String(x).padStart(2,'0');
 const fmt=t=>{const d=new Date(t);return `${d.getFullYear()}/${p2(d.getMonth()+1)}/${p2(d.getDate())} ${p2(d.getHours())}:${p2(d.getMinutes())}`};
-function toast(m){const t=$('toast');t.textContent=m;t.style.display='block';clearTimeout(toast.t);toast.t=setTimeout(()=>t.style.display='none',1800)}
+function toast(m,ms){const t=$('toast');t.textContent=m;t.style.display='block';clearTimeout(toast.t);toast.t=setTimeout(()=>t.style.display='none',ms||1800)}
 function uniq(raw,self){
   const name=raw.trim().replace(/\s+/g,'_');if(!name)return '';
   const o=S.notes.filter(m=>m.id!==self).map(m=>m.title),has=t=>o.includes(t);
@@ -281,14 +282,9 @@ $('file').onchange=e=>{
   r.onload=()=>{try{
     const j=JSON.parse(r.result);if(!j||!Array.isArray(j.notes)||(j.app&&j.app!=='R_note'))throw 0;
     const newer=parseFloat(j.appVersion||0)>parseFloat(VERSION),g2=j.global&&j.global.coin>0;
-    let msg='匯入會取代目前所有內容（共 '+j.notes.length+' 則）。';
-    if(newer)msg+='\n這份備份來自較新的版本（'+j.appVersion+'），部分資料可能無法顯示。';
-    if(g2)msg+='\n備份裡的全域錢包金額，會放進第一則筆記的錢袋。';
-    if(!confirm(msg+'\n確定嗎？'))return;
     const seen={},now=Date.now();
-    S.notes=j.notes.filter(n=>n&&typeof n==='object').map((n,i)=>{n.id=String(n.id||('n'+now+i));while(seen[n.id])n.id+='x';seen[n.id]=1;n.title=String(n.title||'未命名'+(i+1));n.content=String(n.content||'').replace(/\r\n?/g,'\n');n.created=+n.created||now;n.modified=+n.modified||n.created;n.order=+n.order||i;return n});
-    if(g2&&S.notes[0])S.notes[0].coin=(S.notes[0].coin||0)+j.global.coin;
-    if(j.sort)S.sort=j.sort;S.sel=null;S.q='';$('sq').value='';ensureReadme();save();render();
+    const clean=j.notes.filter(n=>n&&typeof n==='object').map((n,i)=>{n.id=String(n.id||('n'+now+i));while(seen[n.id])n.id+='x';seen[n.id]=1;n.title=String(n.title||'未命名'+(i+1));n.content=String(n.content||'').replace(/\r\n?/g,'\n');n.created=+n.created||now;n.modified=+n.modified||n.created;n.order=+n.order||i;return n});
+    importDialog(j,clean,newer,g2);
   }catch(x){toast('無法讀取這個檔案')}e.target.value=''};
   r.readAsText(f,'UTF-8');
 };
@@ -420,7 +416,7 @@ const OC=['#bfeaff','#e0314b','#3f77ff','#2fbf71','#a56bff','#ffd23f','#cfd6df',
 const OP=[['M7 4h10l4 5-9 11L3 9z','M3 9h18M8.5 9L12 20l3.5-11M7 4l5 5 5-5M7 4l1.5 5M17 4l-1.5 5',0],['M12 3C12 3 6 10 6 14a6 6 0 0 0 12 0C18 10 12 3 12 3z','M12 3L8.2 12h7.6zM8.2 12L12 19.6l3.8-7.6M12 12v7.6M9.4 7.6L14.6 12M14.6 7.6L9.4 12',-28],['M9 4h6a5 5 0 0 1 5 5v6a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5V9a5 5 0 0 1 5-5z','M9 8h6a1 1 0 0 1 1 1v6a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1zM5.6 5.6L8 8M18.4 5.6L16 8M5.6 18.4L8 16M18.4 18.4L16 16M12 4v4M12 16v4M4 12h4M16 12h4',0],['M9 2h6l3 3v14l-3 3H9l-3-3V5z','M9.5 6h5l1.5 1.5v9L14.5 18h-5L8 16.5v-9zM9 2l.5 4M15 2l-.5 4M6 5l2 2.5M18 5l-2 2.5M6 19l2-2.5M18 19l-2-2.5M9 22l.5-4M15 22l-.5-4',0],['M12 1.5l4 5v11l-4 5-4-5v-11z','M8 6.5l8 11M16 6.5L8 17.5M8 6.5h8M8 17.5h8M12 1.5v21',30]];
 function oreSvg(i,z){const st=i>4,[p,f,r]=st?['M5 9l5-6 7 2 4 6-3 8-7 2-5-5z','M10 3l1 8 10 0M11 11L5 9M11 11l7 8M11 11l0 10',0]:OP[i];const t=i>4?'translate(12 12) scale(.8) translate(-12 -12)':r?`rotate(${r} 12 12)`:'';
   return `<svg viewBox="0 0 24 24" width="${z}" height="${z}" fill="none" stroke-linecap="round" stroke-linejoin="round"><g transform="${t}"><path d="${p}" fill="${OC[i]}${i==9?'55':'38'}" stroke="${OC[i]}" stroke-width="1.7"/><path d="${f}" stroke="${OC[i]}" stroke-width="1.1" opacity=".8"/></g></svg>`}
-const bagSvg=z=>`<svg viewBox="0 0 24 24" width="${z}" height="${z}" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M10 8.4C6.2 10.8 4.8 14.6 6 17.8 6.9 20 9.2 21 12 21s5.1-1 6-3.2c1.2-3.2-.2-7-4-9.4z" fill="#ffc94a38" stroke="#ffc94a" stroke-width="1.7"/><g transform="rotate(16 12 8.4)"><path d="M9.2 4.2c1 1.2 4.6 1.2 5.6 0L14 8.4h-4z" fill="#ffc94a38" stroke="#ffc94a" stroke-width="1.7"/><path d="M9.6 4.6L8 2.8M14.4 4.6L16.2 3.2" stroke="#ffc94a" stroke-width="1.5"/></g><path d="M14.4 13c-.5-.9-1.3-1.3-2.4-1.3-1.3 0-2.3.7-2.3 1.8s1 1.6 2.3 2 2.3.9 2.3 2-1 1.8-2.3 1.8c-1.2 0-2.1-.5-2.5-1.4M12 11v9.4" stroke="#ffc94a" stroke-width="1.7"/></svg>`;
+const bagSvg=z=>`<svg viewBox="0 0 24 24" width="${z}" height="${z}" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8c-4 0-7.5 3-7.5 7 0 3.2 3 5.5 7.5 5.5s7.5-2.3 7.5-5.5c0-4-3.5-7-7.5-7z" fill="#ffc94a38" stroke="#ffc94a" stroke-width="1.7"/><g transform="rotate(12 12 7.6)"><path d="M9 7.6c1.2.8 4.8.8 6 0" stroke="#ffc94a" stroke-width="1.7"/><path d="M12 6.8c-1-2-3-2.4-3.6-1.4M12 6.8c1-2 3-2.4 3.6-1.4" stroke="#ffc94a" stroke-width="1.5"/></g><path d="M14.4 13c-.5-.9-1.3-1.3-2.4-1.3-1.3 0-2.3.7-2.3 1.8s1 1.6 2.3 2 2.3.9 2.3 2-1 1.8-2.3 1.8c-1.2 0-2.1-.5-2.5-1.4M12 11v9.4" stroke="#ffc94a" stroke-width="1.5"/></svg>`;
 const hx=a=>Math.round(a*255).toString(16).padStart(2,'0');
 function shelf(){
   const el=$('shelf'),n=byId(S.sel);
@@ -430,7 +426,7 @@ function shelf(){
   ids.forEach(i=>{const c=o[i],g=Math.min(1,Math.log(c+1)/Math.log(201));
     h+=`<button class="ib ore" data-i="${i}" data-tip="${i?'賣出可得 '+c*PR[i]:'?'}" style="${c>0?`background:radial-gradient(circle,${OC[i]}${hx(.16+g*.5)} 0%,${OC[i]}${hx(.06+g*.18)} ${25+g*30}%,transparent ${45+g*45}%),var(--p2)`:'opacity:.6'}">${oreSvg(i,24)}<b>${c}</b></button>`});
   if(ids.length)h+='<span class="sep"></span>';
-  h+=`<span style="flex:none;display:flex">${bagSvg(26)}</span>`+(n.coin>0?`<span style="user-select:text;white-space:nowrap">${n.coin}</span>`:'');
+  h+=`<span style="flex:none;display:flex">${bagSvg(32)}</span>`+(n.coin>0?`<span style="user-select:text;white-space:nowrap;font-size:18px">${n.coin}</span>`:'');
   el.innerHTML=h;
   if(!RM())el.querySelectorAll('.ore').forEach(b=>{const p=prev[b.dataset.i];if(p===undefined)return;const dx=p-b.getBoundingClientRect().left;if(Math.abs(dx)>1)b.animate([{transform:`translateX(${dx}px)`},{transform:'none'}],{duration:150,easing:'ease-out'})});
 }
@@ -499,7 +495,7 @@ const README=`R note 使用說明
 
 【這是什麼】
 R note 是一個簡單的網頁小工具，用來建立純文字資料，並分門別類地記錄與存放。
-打開網址就能使用。內容只有純文字，沒有複雜的排版指令，就像排在書架上、可以隨手翻閱與書寫的一份份文件。
+打開網址就能使用。內容只有純文字，沒有複雜的排版指令，就像排在書架上、可以隨手翻閱與書寫的各類筆記本。
 工具裡還藏了一些小祕密：游標光暈、打字碎石、挖礦寶石、換取金額……讓你寫的每一篇文章都自帶「含金量」，打字也多一點樂趣。
 
 適合用來記錄：
@@ -509,44 +505,75 @@ R note 是一個簡單的網頁小工具，用來建立純文字資料，並分�
 ．想買的東西、看過的電影
 ．交換日記（？）
 
+使用環境
+．以 Chrome 為研發基礎，主要提供桌面版瀏覽器（Chrome、Edge）使用。
+．大量使用滑鼠拖曳、滑鼠停留提示與鍵盤快速鍵，不推薦在手機或平板上操作。
+．Firefox、Safari 沒有經過完整測試。
+
 
 【先看這一段：你的資料存在哪裡】
-你寫的每一個字，都只存在「你現在使用的這台電腦、這個瀏覽器」裡面，不會上傳到網路，作者和其他人都看不到，也不會自動同步到別的裝置。
+你寫的每一個字，都只存在「你現在使用的這台電腦、這個瀏覽器」裡，不會上傳到網路，作者和其他人都看不到，也不會自動同步到別的裝置。
 
 可以這樣想：
-．它像一本放在你書桌抽屜裡的日記本。換一台電腦、換一個瀏覽器（例如從 Chrome 換成 Edge），就像走進另一間房間，那裡的抽屜是空的，沒有你的日記。
-．「清除瀏覽器資料」或「重灌電腦」，就像把整個抽屜清空，日記本也一起不見，而且找不回來。
+．它像一本放在書桌抽屜裡的日記本。換一台電腦、換一個瀏覽器（例如從 Chrome 換成 Edge），就像走進另一間房間，那裡的抽屜是空的。
+．「清除瀏覽器資料」或「重灌電腦」，就像把整個抽屜清空，日記本一起不見，而且找不回來。
 ．用「無痕視窗」開啟，就像寫在便條紙上，關掉視窗就丟掉了。
-．如果和別人共用同一台電腦、同一個瀏覽器帳號，對方打開這個網址就看得到你的筆記，所以不建議在公用電腦使用。
+．和別人共用同一台電腦、同一個瀏覽器帳號時，對方打開這個網址就看得到你的筆記，不建議在公用電腦使用。
+．資料是以明文存放，不建議記錄密碼、帳號、身分證字號等敏感資料。
 
 所以請養成備份的習慣，備份就像把日記影印一份，收到別的地方：
-．每週匯出一次，或寫了重要的內容就匯出。
+．每週匯出一次，或寫了重要內容就匯出。
 ．換電腦、重灌、清理瀏覽器之前，一定要先匯出。
-．備份檔不要只放在同一台電腦裡，可以放進雲端硬碟，或用 Email 寄給自己。
+．備份檔不要只放在同一台電腦裡，可以放進雲端硬碟，或寄給自己。
+．右上角的匯出按鈕，超過 120 小時（5 天）沒有備份就會出現小紅點，提醒你該備份了。
 
-右上角的匯出按鈕，超過 120 小時（5 天）沒有備份就會出現小紅點，是在提醒你該備份了。
+其他要知道的
+．瀏覽器能存放的容量有上限（通常約 5MB），一般記事用不完；如果出現「儲存空間已滿」的提示，請先匯出備份，再刪除不需要的筆記。
+．請不要同時開兩個分頁編輯這個網址，後存檔的分頁會把先存檔的內容蓋掉。
+．圖示使用系統內建的表情符號，在不同電腦上的樣子會略有不同。
 
 
 【備份與搬家】
 匯出（備份）
-．按右上角的匯出按鈕，會下載一個檔案，檔名像 R_note_backup_20261020_2130.json，通常在瀏覽器的「下載」資料夾裡。
-．這個檔案裡有你所有的筆記（含封存區與隱藏櫃），請妥善保存。
+．按右上角的匯出按鈕，會下載一個檔案，檔名像 R_note_backup_20261013_1711.json，通常在瀏覽器的「下載」資料夾裡。
+．檔案裡有你所有的筆記（含封存區與隱藏櫃），內容是明文，請妥善保存。
 
 匯入（還原、搬家）
-．按右上角的匯入按鈕，選擇備份檔，確認後，目前所有內容會被備份檔取代，請小心操作。
+．按右上角的匯入按鈕，選擇備份檔，會出現兩個選項：
+　1. 取代現有筆記：目前所有內容會被備份檔取代，請小心操作。
+　2. 追加為新筆記：把備份裡的筆記加進來，不動現有的。可能出現重複的標題或內容，追加的筆記會標上 ⚠，標題相同時會加上「_新匯入」，方便檢查整理。
 ．想把資料搬到另一台電腦：先在舊電腦匯出，把檔案帶過去，在新電腦打開同一個網址，再按匯入。
-．如果你以前是下載網頁檔來使用，資料也不會自動出現在這個網址，同樣用「舊的那邊匯出、這邊匯入」就能搬過來。
+．以前如果是把網頁檔存在硬碟上使用，資料也不會自動出現在這個網址，同樣用「舊的那邊匯出、這邊匯入」搬過來。
 
 更新
-．這個工具放在網路上，每次打開同一個網址，就是最新版，不用重新下載。更新之後如果畫面沒有變，按 Ctrl＋F5 重新整理。
-．你的筆記不會因為更新而消失，但未免意外請時常匯出備份。
-．如果有在硬碟單機使用過，跟網址使用是不同的存放位置，建議到單機頁面匯出資料，於網址頁面匯入資料使用。
+．這個工具放在網路上，每次打開同一個網址就是最新版，不用重新下載。更新後如果畫面沒有變，請按 Ctrl＋F5 重新整理；更新成功時，畫面下方會短暫出現版本提示。
+．你的筆記不會因為更新而消失，但為免意外，請時常匯出備份。
+
+
+【把它存成自己的單機版（離線使用）】
+想在沒有網路的地方使用，或不想依賴網站，可以把這個網頁存成一個檔案，放在自己的電腦裡。
+
+步驟（Chrome、Edge）
+1. 先打開這個網址。
+2. 在頁面空白處按右鍵，選「另存新檔」（或按 Ctrl＋S）。
+3. 儲存類型選「網頁，僅 HTML」，不要選「網頁，完整」。
+4. 存到你固定放資料的資料夾，例如「文件」，檔名可以自己取，例如 R_note.html。
+5. 以後直接在這個檔案上按兩下，就會用瀏覽器打開，不需要網路。
+
+注意事項
+．單機版和網址版的資料是分開存放的，就像兩間房間，彼此看不到對方的筆記。要互通，請在一邊匯出、另一邊匯入。
+．單機版不會自動更新。想升級時，回到網址重新存一次檔案；請先在舊版匯出備份，換成新檔案後再匯入，最保險。
+．檔案請放在固定的位置，不要隨意搬動或換資料夾。搬動之後如果發現筆記像是不見了，用備份匯入就能找回來。
+．如果存下來打開是一片空白或樣子不對，通常是存成了「網頁，完整」，請重新存一次「僅 HTML」。
+．單機版開啟時，有些瀏覽器每次按「貼上並新增」都會詢問是否允許讀取剪貼簿，這是正常的。
+．清除瀏覽器資料、換瀏覽器、換電腦，單機版的資料也不會跟著走，請照樣定期備份。
+
 
 【基本操作】
 新增筆記
 ．在左側輸入框輸入標題，按 Enter 建立新筆記，新標題排在列表最上方。
-．輸入框左邊的 + ，會直接建立一則日記，標題是「年/月/日_週幾」，圖示 📕；同一天重複建立，會自動加上 (2)、(3)……。
-．輸入框右邊的剪貼簿按鈕，會把剪貼簿裡的文字貼成新筆記，標題取第一行有內容的文字（最多 12 個半形字，約 6 個全形字），圖示 📋；剪貼簿沒有文字時不會建立。
+．輸入框左邊的 + ，直接建立一則日記，標題是「年/月/日_週幾」（例如 2026/10/13_週二），圖示 📕；同一天重複建立，會自動加上 (2)、(3)……。
+．輸入框右邊的剪貼簿按鈕，把剪貼簿裡的文字貼成新筆記，標題取第一行有內容的文字（最多 12 個半形字，約 6 個全形字），圖示 📋；剪貼簿沒有文字時不會建立。第一次使用時，瀏覽器可能會詢問是否允許讀取剪貼簿，請選擇允許。
 
 標題與圖示
 ．點一下標題，右邊顯示它的內容；雙擊標題，或選取後按 Enter，可以改名（Enter 確認，Esc 取消）。
@@ -573,14 +600,13 @@ R note 是一個簡單的網頁小工具，用來建立純文字資料，並分�
 搜尋
 ．在搜尋框輸入關鍵字，按 Enter，列表只會留下標題或內容符合的筆記。
 
+介面配色
+．搜尋框最右邊的三顆按鈕，依序是「破曉」「逢魔」「月華」，一鍵切換整個介面的配色，會被記住。
+
 內文與右上角按鈕
 ．內文是純文字，可用 Ctrl＋Z 復原（切換到別則筆記後，上一則的復原紀錄會消失）。
-．右上角按鈕依序是：插入日期時間（格式 2026_1014_0944，插在游標處）、複製內文（不含標題）、匯出備份、匯入備份。
-
-備份
-．匯出會下載 R_note_backup_日期_時間.json；匯入會用備份檔取代目前所有內容（會先確認）。
-．超過 120 小時沒有匯出，匯出按鈕會出現小紅點，滑鼠停上去會顯示未備份的時數。
-．清除瀏覽器資料、換瀏覽器或換電腦，資料都不會跟著走，請定期備份。
+．右上角按鈕依序是：插入日期時間（格式 2026_1013_1711，插在游標處）、複製內文（不含標題）、匯出備份、匯入備份、使用說明（問號）。
+．按「使用說明」，會打開最新版的說明筆記「_讀我」；你編輯過的舊說明不會被覆蓋，只會另外新增一篇。
 
 
 隱藏在 LOGO 裡的祕密功能
@@ -613,16 +639,49 @@ n：隱藏櫃
 
 【小提醒】
 ．o、t、e 的開關狀態會被記住；R 與 n 每次開啟都是關閉。
-．如果所有筆記都被刪光，下次開啟時會重新產生這份說明。
+．如果所有筆記都被刪光，下次開啟時會重新產生這份說明；也可以隨時按右上角的問號取得。
 
 
 作者
 ════════════════════════
 本工具由 Roger Jian 構思、Claude 討論編寫而成。你也可以把這個網頁的原始碼交給 AI 修改，客製成更適合自己的色調、圖樣與功能。
-LINE貼圖小舖：像素刻工館
+歡迎參觀作者的 LINE 貼圖小舖：像素刻工館
+
 祝順心如意。`;
-function ensureReadme(){if(S.notes.length)return;const now=Date.now(),id='n'+now+'r';S.notes.push({id,title:'_讀我',content:README,created:now,modified:now,archived:false,archivedAt:0,order:0,icon:'📜'});S.sel=id;save()}
+function ensureReadme(){if(S.notes.length)return;const now=Date.now(),id='n'+now+'r';S.notes.push({id,title:'_讀我',content:README,created:now,modified:now,archived:false,archivedAt:0,order:0,icon:'📜',hv:VERSION});S.sel=id;save()}
 ensureReadme();
+function helpOpen(){
+  let n=S.notes.find(m=>m.hv===VERSION&&m.icon==='📜'&&m.content===README);
+  if(n){n.archived=false;n.vault=false}
+  else{n=addNote(uniq('_讀我',null),README,'📜');n.hv=VERSION}
+  S.q='';$('sq').value='';S.sel=n.id;ms.clear();save();render();
+  const el=document.querySelector('.item[data-id="'+n.id+'"]');if(el){el.scrollIntoView({block:'nearest'});el.focus()}
+}
+$('hlp').onclick=helpOpen;
+function doReplace(j,clean,g2){S.notes=clean;if(g2&&S.notes[0])S.notes[0].coin=(S.notes[0].coin||0)+j.global.coin;if(j.sort)S.sort=j.sort;S.sel=null;S.q='';$('sq').value='';ensureReadme();save();render()}
+function doAppend(clean,skip){
+  const now=Date.now(),base=Math.min(0,...S.notes.map(n=>n.order||0))-clean.length;let add=0,sk=0;
+  clean.forEach((n,i)=>{
+    if(skip&&S.notes.some(m=>m.title===n.title&&m.content===n.content)){sk++;return}
+    let t=n.title;const ex=new Set(S.notes.map(m=>m.title));
+    if(ex.has(t)){const b=t+'_新匯入';t=b;let k=2;while(ex.has(t))t=b+'('+(k++)+')'}
+    S.notes.push(Object.assign({},n,{id:'n'+now+'i'+i+Math.random().toString(36).slice(2,5),title:t,icon:'⚠️',order:base+i}));add++;
+  });
+  S.q='';$('sq').value='';save();render();toast('已追加 '+add+' 則'+(sk?'，略過 '+sk+' 則完全相同的':''),3500);
+}
+function importDialog(j,clean,newer,g2){
+  const o=document.createElement('div');
+  o.style.cssText='position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:90;display:flex;align-items:center;justify-content:center;padding:16px';
+  const b='padding:8px 14px;border-radius:8px;border:1px solid var(--ln);background:var(--p2);color:var(--tx);cursor:pointer;font:inherit';
+  o.innerHTML=`<div style="background:var(--p1);color:var(--tx);border:1px solid var(--ln);border-radius:12px;padding:18px 20px;width:min(440px,100%);font-size:14px;line-height:1.7"><div style="font-size:16px;font-weight:600;margin-bottom:6px">匯入方式</div><div style="color:var(--dm);margin-bottom:10px">備份內容：${clean.length} 則筆記　版本 ${j.appVersion||'舊版'}${newer?'（比目前新，部分資料可能無法顯示）':''}</div><div style="margin:10px 0 4px"><button id="imR" style="${b}">取代現有筆記</button></div><div style="color:var(--dm);font-size:13px">目前所有內容會被備份檔取代，請小心操作。</div><div style="margin:14px 0 4px"><button id="imA" style="${b}">追加為新筆記</button></div><div style="color:var(--dm);font-size:13px">可能出現重複的標題或內容。追加的筆記會標上 ⚠，標題相同時會加上「_新匯入」，方便檢查整理；封存區與隱藏櫃的筆記維持原位。</div><label style="display:flex;align-items:center;gap:6px;margin:8px 0 12px;font-size:13px"><input type="checkbox" id="imS" checked> 略過標題與內容都完全相同的筆記</label><div style="text-align:right"><button id="imC" style="${b}">取消</button></div></div>`;
+  document.body.appendChild(o);
+  const close=()=>o.remove();
+  o.querySelector('#imC').onclick=close;o.addEventListener('mousedown',e=>{if(e.target===o)close()});
+  o.querySelector('#imR').onclick=()=>{close();doReplace(j,clean,g2)};
+  o.querySelector('#imA').onclick=()=>{const sk=o.querySelector('#imS').checked;close();doAppend(clean,sk)};
+}
+const WHATSNEW='已更新到 '+VERSION+'　新增使用說明按鈕、匯入功能可選「追加為新筆記」';
+try{const seen=localStorage.getItem('R_note_seen');if(seen&&seen!==VERSION)setTimeout(()=>toast(WHATSNEW,6000),600);localStorage.setItem('R_note_seen',VERSION)}catch(e){}
 function applyTh(){const th=S.th||'n';document.documentElement.dataset.th=th;GC=getComputedStyle(document.documentElement).getPropertyValue('--gc').trim()||'210,210,210';HEAD=th=='d'?'#23262d':'#fff';document.querySelectorAll('#ths .ib').forEach(b=>b.classList.toggle('on',b.dataset.th==th))}
 document.querySelectorAll('#ths .ib').forEach(b=>b.onclick=()=>{S.th=b.dataset.th;save();applyTh()});
 $('ver').textContent=VERSION;applyTh();layout();render();fxVis(false);
