@@ -138,6 +138,9 @@ html.ph #tr{grid-column:2!important;grid-row:1!important}
 html.ph #tr>div:first-child{display:none}
 html.ph #tr .row>:not(#cpb){display:none!important}
 html.ph #nr,html.ph #sorts,html.ph #vs,html.ph #sr,html.ph #dv,html.ph #arc,html.ph .fld,html.ph #sn,html.ph #rob,html.ph #dtb,html.ph #snd{display:none!important}
+html.ph #logo svg *{pointer-events:none!important}
+html.ph #phn{grid-column:1/-1;grid-row:2;font-size:13px;line-height:1.45;color:var(--al);padding:2px 4px;align-self:center}
+html.ph #sysmsg:has(.ln)~#phn{visibility:hidden}
 html.ph #sysmsg{grid-column:1/-1;grid-row:2;margin-right:0;height:44px}
 html.ph #sysmsg .ln{left:4px;right:4px;white-space:normal}
 html.ph #r2{grid-column:1/-1!important;grid-row:3!important}
@@ -180,7 +183,7 @@ html.ph #cell{grid-column:1/-1!important;grid-row:7!important}
 <input type="file" id="file" accept=".json,application/json" hidden>
 <canvas id="cv"></canvas><div id="tip"></div><div id="pk"></div>
 <script>
-const VERSION='1.11';
+const VERSION='1.12';
 const PROMO_URL='https://line.me/S/shop/sticker/author/123908';
 // 手機簡易版：觸控為主、沒有滑鼠停留、畫面窄。測試用：網址後面加 ?phone=1 強制簡易版，?phone=0 強制完整版
 const PH=(()=>{try{const q=new URLSearchParams(location.search).get('phone');if(q==='1')return true;if(q==='0')return false;return matchMedia('(pointer:coarse)').matches&&!matchMedia('(hover:hover)').matches&&Math.min(screen.width,innerWidth)<=820}catch(e){return false}})();
@@ -256,10 +259,10 @@ function pick(id){
   document.querySelectorAll('.item.sel').forEach(e=>e.classList.remove('sel'));
   const e=document.querySelector('.item[data-id="'+id+'"]');if(e)e.classList.add('sel');
   showNote();
-  {const n=byId(id);sIdx=0;if(S.q&&occ(n).length)goTo(0);else if(n){ta.setSelectionRange(n.caret||0,n.caret||0);reveal(n.caret||0)}refreshNav()}
+  {const n=byId(id);sIdx=0;if(S.q&&occ(n).length)goTo(0);else if(n){if(PH&&n.icon==='📜'){n.caret=0;ta.setSelectionRange(0,0);ta.scrollTop=0}else{ta.setSelectionRange(n.caret||0,n.caret||0);reveal(n.caret||0)}}refreshNav()}
 }
 function focusItem(id){const e=document.querySelector('.item[data-id="'+id+'"]');if(e)e.focus()}
-function rename(d,n){if(pend){lockMsg();return}
+function rename(d,n){if(PH)return;if(pend){lockMsg();return}
   const i=document.createElement('input');i.value=n.title;d.draggable=false;d.replaceChild(i,d.querySelector('.t'));i.focus();i.select();
   let done=false;const end=(ok,back)=>{if(done)return;done=true;if(ok){const v=uniq(i.value,n.id);if(v&&v!==n.title){n.title=v;save()}}render();if(back)focusItem(n.id)};
   i.onkeydown=e=>{if(e.isComposing)return;if(e.key=='Enter'){e.preventDefault();end(true,true)}else if(e.key=='Escape')end(false,true)};
@@ -765,7 +768,7 @@ function tryLeave(m){
   retire(m,false);
 }
 function say(text,o){
-  o=o||{};const lv=o.lv||'info',host=$('sysmsg');if(!host||!text)return;
+  o=o||{};const lv=o.lv||'info',host=$('sysmsg');if(!host||!text)return;if(PH&&lv!=='warn'&&lv!=='crit')return;
   if(o.id&&SM.list.some(m=>m.id===o.id&&!m.leaving))return;
   const sticky=lv==='wait'||lv==='crit'||lv==='act',warn=lv==='warn'||lv==='crit';
   if(sticky){const st=SM.list.filter(m=>m.sticky&&!m.leaving);if(st.length>=2){const v=st.find(m=>!m.pin)||(lv==='crit'?st[0]:null);if(!v)return;retire(v,true)}}
@@ -838,18 +841,68 @@ function chime(d){
   if(PH)return;const h=d.getHours();
   if(d.getMinutes()<=2&&h!==chH){chH=h;say('現在時間 '+(S.h12?(h<12?'AM ':'PM ')+p2(h%12||12)+':00':p2(h)+':00'),{lv:'info'});playSfx('hour')}
 }
-const RAND_MIN=12,RAND_MAX=20;   // 隨機系統訊息的間隔（分鐘）
-let lastTyped=0,nextRand=Date.now()+rnd(RAND_MIN,RAND_MAX)*60000,promoShown=false;
-document.addEventListener('keydown',()=>{lastTyped=Date.now()},true);
+// 1.12：系統訊息改為「看你在做什麼」才出現，重新整理不會主動跳訊息
+const IDLE=['想不到要寫什麼？那就寫「想不到要寫什麼」。','發呆也是工作的一部分。','卡住了嗎？先把亂七八糟的想法倒出來就好。','寫下來，腦袋就輕了。','你是認真來寫作，不是來玩的吧？'];
+const REST=['喝口水，伸個懶腰再繼續。','眼睛休息一下，看看遠方吧。','背挺直，肩膀放鬆。','記得喝水。','有記得去尿尿嗎？'];
+const NIGHT=['夜深了，記完就早點休息。','這麼晚還沒睡，把想法放進來就好。','該睡覺囉～','蔡依林比你早睡。','明天的你會感謝現在去睡的你。'];
+const BACK=['歡迎回來～','回來啦，剛剛想到什麼了嗎？'];
+const TIPS=POOL.filter(t=>!IDLE.includes(t)&&!REST.includes(t)&&!NIGHT.includes(t)&&t!=='歡迎回來～');
+const A={chars:0,tot:0,run:0,last:Date.now(),act:Date.now(),recent:[],warm:false,msg:0,hAt:0,idleAt:0,restAt:0,nightAt:0,away:false,promo:false,ready:null};
+const MKEY='R_note_msg';let MS={};try{MS=JSON.parse(localStorage.getItem(MKEY)||'{}')}catch(e){}
+const msSave=()=>{try{localStorage.setItem(MKEY,JSON.stringify(MS))}catch(e){}};
+const dayKey=()=>{const d=new Date();return d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate()};
+function touch(typed){
+  const t=Date.now();
+  if(t-A.act>5*60000){A.away=true;A.run=0}        // 離開超過 5 分鐘
+  A.act=t;
+  if(typed){A.chars++;A.tot++;A.recent.push(t);if(A.recent.length>200)A.recent.shift()}
+}
+['keydown','pointerdown','mousemove','touchstart','wheel'].forEach(ev=>document.addEventListener(ev,()=>touch(false),{passive:true,capture:true}));
+ta.addEventListener('input',()=>touch(true));
+document.addEventListener('visibilitychange',()=>{if(!document.hidden&&Date.now()-A.act>5*60000){A.away=true;A.run=0}});
+function fire(kind){
+  const now=Date.now();let t=null;
+  if(MS.hd!==dayKey()){const h=holiday();if(h){t=h;MS.hd=dayKey();msSave()}}
+  if(!t){
+    if(kind==='warm')t=greet()||pickNR(TIPS);
+    else if(kind==='back')t=Math.random()<.5?pickOf(BACK):(greet()||pickOf(BACK));
+    else if(kind==='idle')t=pickNR(IDLE);
+    else if(kind==='rest')t=pickNR(REST);
+    else if(kind==='night')t=pickNR(NIGHT);
+    else{
+      if(!A.promo&&Math.random()<1/12){A.promo=true;A.msg=now;say('你知道【像素刻工館】的 LINE 貼圖嗎？',{lv:'info',link:{word:'像素刻工館',url:PROMO_URL},hold:9000});return}
+      t=pickNR(TIPS);
+    }
+  }
+  A.msg=now;A.chars=0;say(t);
+  if(kind==='warm'){A.warm=true;MS.wt=now;msSave()}
+}
 setInterval(()=>{
-  if(PH||document.hidden||Date.now()<nextRand||Date.now()-lastTyped<15000||pv)return;
+  if(PH||document.hidden||pv||pend)return;
+  const now=Date.now(),idle=now-A.act;
   if(SM.list.some(m=>!m.leaving&&(m.lv==='warn'||m.lv==='crit')))return;
-  nextRand=Date.now()+rnd(RAND_MIN,RAND_MAX)*60000;
-  if(!promoShown&&Math.random()<1/15){promoShown=true;say('你知道【像素刻工館】的 LINE 貼圖嗎？',{lv:'info',link:{word:'像素刻工館',url:PROMO_URL},hold:9000});return}
-  say((Math.random()<.5&&greet())||pickNR(POOL));
-},30000);
-if(PH)setTimeout(()=>say('這是手機簡易版，完整功能請用電腦瀏覽器。',{lv:'info',hold:9000}),450);
-setTimeout(()=>say(holiday()||greet()),PH?2300:450);
+  if(now-A.msg<4*60000)return;                        // 任兩則隨機訊息至少相隔 4 分鐘
+  const h=new Date().getHours(),recent=A.recent.filter(x=>now-x<120000).length;
+  // 連續使用時間（中間沒有離開超過 5 分鐘）
+  if(idle<5*60000)A.run=A.run||now;
+  // 1. 回座：離開後回來，操作一下，停手 3 秒
+  if(A.away&&idle>=3000&&idle<60000&&now-A.act<60000){A.away=false;A.run=now;fire('back');return}
+  // 2. 暖身：這次開頁面累積打了 60 字，停手 3 秒；半小時內出現過就不再暖身
+  if(!A.warm&&A.tot>=60&&idle>=3000&&idle<20000){if(now-(MS.wt||0)<30*60000){A.warm=true}else{fire('warm');return}}
+  // 節日當天還沒收到：打了 20 字停手就給
+  if(MS.hd!==dayKey()&&A.tot>=20&&idle>=3000&&idle<20000&&holiday()){fire('warm');return}
+  // 3. 發呆：剛剛還在打字（2 分鐘內 20 字以上），停了 25 秒
+  if(recent>=20&&idle>=25000&&idle<40000&&now-A.idleAt>10*60000){A.idleAt=now;fire('idle');return}
+  // 4. 累了：連續使用超過 60 分鐘，停手 3 秒；深夜 23～5 點打字停手 3 秒（40 分鐘一次）
+  if(idle>=3000&&idle<20000){
+    if((h>=23||h<5)&&A.chars>=30&&now-A.nightAt>40*60000){A.nightAt=now;fire('night');return}
+    if(A.run&&now-A.run>60*60000&&now-A.restAt>45*60000){A.restAt=now;fire('rest');return}
+    // 5. 功能提示：累積 300 字，停手 3 秒
+    if(A.chars>=300){fire('tip');return}
+  }
+},1000);
+if(PH){const d=document.createElement('div');d.id='phn';d.textContent='手機檢視僅提供簡易便條紙，完整功能請用電腦瀏覽器。';$('sysmsg').after(d)}
+
 // 1.10：網址（按住 Ctrl 亮起）、唯讀、匯入確認
 function findLinks(v,rd){
   const r=[],ur=/https?:\/\/[A-Za-z0-9\-._~:\/?#\[\]@!$&'()*+,;=%]+/g;let m;
