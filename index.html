@@ -7,8 +7,8 @@
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='5' fill='%231b1c20'/%3E%3Cpath d='M8 19V5h4.5a4 4 0 0 1 0 8H8M12.5 13L16 19' fill='none' stroke='%23ff8080' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
 <style>
 :root{--bg:#1b1c20;--p1:#23252a;--p2:#2b2d33;--ln:#3a3d45;--tx:#d9dbe0;--dm:#8b8f99;--ry:#ff8080;--ac:#408040;--al:#8fd18f;--abg:rgba(64,128,64,.25);--abd:#408040;--dg:#e5484d;--pv:217,219,224;--sbt:#2b2d33;--sbh:#9096a1;--cs:#000;--sr:#ff6b5f;--gc:210,210,210;--oref:none}
-html[data-th=d]{--bg:#e9ecf1;--p1:#ffffff;--p2:#f1f3f7;--ln:#c8cdd8;--tx:#23262d;--dm:#6a7180;--ry:#e0566a;--ac:#3d8b4a;--al:#256b33;--abg:rgba(61,139,74,.16);--abd:#3d8b4a;--dg:#d63a3f;--pv:35,38,45;--sbt:#e4e7ee;--sbh:#9aa1b0;--cs:#fff;--sr:#d93f33;--gc:70,70,70;--oref:brightness(.82) saturate(1.2)}
-html[data-th=u]{--bg:#2a1f18;--p1:#35271e;--p2:#43322a;--ln:#5c4637;--tx:#f1e2cf;--dm:#b39d86;--ry:#ff9a7a;--ac:#c9873c;--al:#f0c58a;--abg:rgba(201,135,60,.22);--abd:#c9873c;--pv:241,226,207;--sbt:#43322a;--sbh:#b39d86;--cs:#1a110b;--gc:255,214,160}
+html[data-th=d]{--bg:#e9ecf1;--p1:#ffffff;--p2:#f1f3f7;--ln:#c8cdd8;--tx:#23262d;--dm:#6a7180;--ac:#3b82d6;--al:#1f5fb0;--abg:rgba(59,130,214,.16);--abd:#3b82d6;--dg:#d63a3f;--pv:35,38,45;--sbt:#e4e7ee;--sbh:#9aa1b0;--cs:#fff;--sr:#d93f33;--gc:70,70,70;--oref:brightness(.82) saturate(1.2)}
+html[data-th=u]{--bg:#2a1f18;--p1:#35271e;--p2:#43322a;--ln:#5c4637;--tx:#f1e2cf;--dm:#b39d86;--ac:#c9873c;--al:#f0c58a;--abg:rgba(201,135,60,.22);--abd:#c9873c;--pv:241,226,207;--sbt:#43322a;--sbh:#b39d86;--cs:#1a110b;--gc:255,214,160}
 html[data-th=d]::-webkit-scrollbar-button:vertical:decrement{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M1 6l3-4 3 4z' fill='%23606876'/%3E%3C/svg%3E")}
 html[data-th=d]::-webkit-scrollbar-button:vertical:increment{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M1 2l3 4 3-4z' fill='%23606876'/%3E%3C/svg%3E")}
 html[data-th=u]::-webkit-scrollbar-button:vertical:decrement{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M1 6l3-4 3 4z' fill='%23b39d86'/%3E%3C/svg%3E")}
@@ -108,6 +108,10 @@ button,input,textarea{font:inherit;color:inherit}
 html[data-th=d]{--bag:#b8651f;--bgl:255,205,30}
 #pk .x{font-size:13px;gap:4px;color:var(--tx)}
 #odot,#oglow{transform-box:fill-box;transform-origin:center}
+#sysmsg{grid-column:3;grid-row:1;align-self:end;justify-self:stretch;margin-right:min(280px,40%);height:64px;overflow:hidden;position:relative;pointer-events:none;font-size:14px;line-height:20px}
+#sysmsg .ln{position:absolute;left:11px;top:4px;white-space:nowrap;color:var(--al);transition:transform .22s ease-out}
+#sysmsg .ln.w{color:var(--dg)}
+#sysmsg .ln span{display:inline-block;white-space:pre}
 </style>
 </head>
 <body>
@@ -115,6 +119,7 @@ html[data-th=d]{--bag:#b8651f;--bgl:255,205,30}
   <div id="logo" style="grid-column:1;grid-row:1;align-self:end;position:relative"><span id="ver" style="position:absolute;left:228px;top:12px;font-size:12px;color:var(--dm);pointer-events:none;user-select:none"></span>
     <svg viewBox="0 0 106 36" width="240" style="display:block;fill:none;stroke:var(--tx);stroke-width:2.2px;stroke-linecap:round;stroke-linejoin:round" aria-label="R note"><rect id="rbox" x="1" y="2" width="24" height="32" rx="4" style="display:none;fill:rgba(255,128,128,.16);stroke:rgba(255,128,128,.55);stroke-width:1px;vector-effect:non-scaling-stroke"/><path d="M6 28V6h7a6 6 0 0 1 0 12H6M13 18l7 10" style="stroke:var(--ry);vector-effect:non-scaling-stroke"/><defs><linearGradient id="sg" x1="0" x2="1" y1="0" y2="0"><stop offset=".4" style="stop-color:var(--bg)" stop-opacity="0"/><stop offset="1" style="stop-color:var(--bg)" stop-opacity=".9"/></linearGradient><radialGradient id="og"><stop offset="0" stop-color="#fff" stop-opacity=".95"/><stop offset=".6" stop-color="#fff" stop-opacity=".35"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient></defs><g id="ng" style="transform-box:fill-box;transform-origin:center"><path id="nl" d="M28 28V12M28 18a6 6 0 0 1 12 0v10" style="vector-effect:non-scaling-stroke"/><path id="nu" d="M28 28V12l12 16V12" style="vector-effect:non-scaling-stroke;opacity:0"/><rect id="nshade" x="26" y="4" width="16" height="26" fill="url(#sg)" opacity="0" style="stroke:none;pointer-events:none"/></g><circle cx="54" cy="20" r="8" style="vector-effect:non-scaling-stroke"/><circle id="odot" cx="54" cy="20" r="2.6" style="display:none;fill:var(--tx);stroke:none"/><circle id="oglow" cx="54" cy="20" r="7.4" fill="url(#og)" style="display:none;stroke:none;pointer-events:none"/><path d="M71 8v16a4 4 0 0 0 4 4h2M71 14h6" style="vector-effect:non-scaling-stroke"/><path id="tl" d="M66 14h5" style="vector-effect:non-scaling-stroke"/><path id="ep" d="M84 20h16a8 8 0 1 0-2.343 5.657" style="vector-effect:non-scaling-stroke"/><rect id="rhit" x="1" y="2" width="24" height="32" fill="transparent" stroke="none" style="pointer-events:all"/><rect id="ohit" x="44" y="10" width="20" height="20" fill="transparent" stroke="none" style="pointer-events:all"/><rect id="thit" x="64" y="4" width="16" height="28" fill="transparent" stroke="none" style="pointer-events:all"/><rect id="nhit" x="26" y="4" width="16" height="28" fill="transparent" stroke="none" style="pointer-events:all"/><rect id="ehit" x="82" y="10" width="20" height="20" fill="transparent" stroke="none" style="pointer-events:all"/></svg><div id="rglass"></div>
   </div>
+  <div id="sysmsg"></div>
   <div class="row" style="grid-column:1;grid-row:2">
     <div class="fld"><span data-ic="plus" id="dy" data-tip="新增日記" style="cursor:pointer"></span><input id="nt" autocomplete="off"></div>
     <button class="ib" id="pn" data-tip="貼上並新增"><span data-ic="cpp"></span></button>
@@ -137,9 +142,9 @@ html[data-th=d]{--bag:#b8651f;--bgl:255,205,30}
   <div id="cell" style="grid-column:3;grid-row:4;min-height:0;position:relative"><textarea id="body" spellcheck="false" disabled></textarea><div id="glow"></div><div id="spot"></div></div>
 </div>
 <input type="file" id="file" accept=".json,application/json" hidden>
-<canvas id="cv"></canvas><div id="tip"></div><div id="pk"></div><div id="toast"></div>
+<canvas id="cv"></canvas><div id="tip"></div><div id="pk"></div>
 <script>
-const VERSION='1.08';
+const VERSION='1.09';
 const KEY='R_note',LK='R_note_layout',ICONS=['📝','⬜','✅','📌','💡','⭐','📕','🔥','❤️','🔒','⚠️','🚧','📋','🛒','🍽','🎬','🎮','🎁','🔔','💼','📆','🎨','🎵','🛠️','✉️','🔗','📚','⏰','🏝️','👨‍👩‍👧'];
 const P={plus:'<path d="M12 5v14M5 12h14"/>',search:'<circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5L21 21"/>',clock:'<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',hand:'<path d="M8 13V6a1.5 1.5 0 0 1 3 0v5M11 11V4.5a1.5 1.5 0 0 1 3 0V11M14 11V6a1.5 1.5 0 0 1 3 0v8a6 6 0 0 1-6 6h-1a6 6 0 0 1-5-2.7L3.5 13.5a1.5 1.5 0 0 1 2.5-1.6L8 14"/>',abc:'<path d="M3 17l4-10 4 10M4.7 13h4.6M15 8h6M15 12h6M15 16h6"/>',tag:'<path d="M4 4h7l9 9-7 7-9-9zM8 8h.01"/>',up:'<path d="M7 15l5-7 5 7z"/>',dn:'<path d="M7 9l5 7 5-7z"/>',cpp:'<path d="M9 4h6v3H9zM7 5H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-1M12 11v6M9 14h6"/>',out:'<path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8zM14 3v5h5M12 18v-6M9.5 14.5L12 12l2.5 2.5"/>',inn:'<path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8zM14 3v5h5M12 12v6M9.5 15.5L12 18l2.5-2.5"/>',cal:'<path d="M4 6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zM4 10h16M8 3v3M16 3v3M12 13v3l2 1"/>',copy:'<path d="M9 9h10a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1V10a1 1 0 0 1 1-1zM5 15H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v1"/>',trash:'<path d="M4 7h16M10 11v6M14 11v6M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2l1-12M9 7V4h6v3"/>',R:'<path d="M7 20V4h5a4.5 4.5 0 0 1 0 9H7M12 13l5 7"/>',x:'<path d="M6 6l12 12M18 6L6 18"/>',ok:'<path d="M5 12l5 5 9-10"/>',lock:'<rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/>'};
 P.sun='<path d="M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8zM12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>';P.dusk='<path d="M5 16a7 7 0 0 1 14 0M3 19h18M12 5v2M5.6 8.6l1.4 1.4M18.4 8.6L17 10M2 16h2M20 16h2"/>';P.moon='<path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/>';
@@ -148,7 +153,7 @@ P.vol0='<path d="M3 9.5h3l4-3.5v12l-4-3.5H3z"/><circle cx="17" cy="12" r="4.5"/>
 const sv=(n,s=20)=>`<svg viewBox="0 0 24 24" width="${s}" height="${s}" fill="${n=='up'||n=='dn'?'currentColor':'none'}" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">${P[n]}</svg>`;
 const $=id=>document.getElementById(id),ta=$('body');
 document.querySelectorAll('[data-ic]').forEach(e=>e.innerHTML=sv(e.dataset.ic,+e.dataset.s||20));
-let S={notes:[],sort:{k:'time',dir:'desc'},sel:null,q:'',born:Date.now(),lastExport:0},L={sw:240,ah:60};
+let S={notes:[],sort:{k:'custom',dir:'asc'},sel:null,q:'',born:Date.now(),lastExport:0},L={sw:240,ah:60};
 try{const s=JSON.parse(localStorage.getItem(KEY)||localStorage.getItem('plain-notes-v1'));if(s&&Array.isArray(s.notes))Object.assign(S,s)}catch(e){}
 try{const l=JSON.parse(localStorage.getItem(LK)||localStorage.getItem('plain-notes-layout-v1'));if(l)Object.assign(L,l)}catch(e){}
 S.q='';if(!S.born)S.born=Date.now();S.sfx=[0,1,2].includes(S.sfx)?S.sfx:0;S.fx=Object.assign({glow:false,chips:false,mine:false},S.fx);
@@ -156,12 +161,12 @@ S.notes.forEach(n=>{n.content=String(n.content||'').replace(/\r\n?/g,'\n');if(n.
 let ms=new Set(),anchor=null,mzone='a',dragIds=[];
 let fxPrev=0,fxHint=null,comp=false,vaultOn=false,GC='210,210,210',HEAD='#fff';
 const inBot=n=>vaultOn?!!n.vault:(!!n.archived&&!n.vault);
-let st;const save=()=>{clearTimeout(st);st=setTimeout(()=>{try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){if(!save.w||Date.now()-save.w>15000){save.w=Date.now();toast('儲存空間已滿或無法寫入，請先匯出備份',5000)}}},200)};
+let st;const save=()=>{clearTimeout(st);st=setTimeout(()=>{try{localStorage.setItem(KEY,JSON.stringify(S));if(SM.list.length)sayOff('store')}catch(e){if(!save.w||Date.now()-save.w>15000){save.w=Date.now();toast('儲存空間已滿或無法寫入，請先匯出備份',5000)}}},200)};
 const saveL=()=>{try{localStorage.setItem(LK,JSON.stringify(L))}catch(e){}};
 const byId=id=>S.notes.find(n=>n.id===id);
 const p2=x=>String(x).padStart(2,'0');
 const fmt=t=>{const d=new Date(t);return `${d.getFullYear()}/${p2(d.getMonth()+1)}/${p2(d.getDate())} ${p2(d.getHours())}:${p2(d.getMinutes())}`};
-function toast(m,ms){const t=$('toast');if(/無法|沒有文字|已滿/.test(m))playSfx('err');t.textContent=m;t.style.display='block';clearTimeout(toast.t);toast.t=setTimeout(()=>t.style.display='none',ms||1800)}
+function toast(m,ms){const e=/無法|沒有文字|已滿/.test(m);if(e)playSfx('err');say(m,e?(/已滿/.test(m)?{lv:'crit',id:'store'}:{lv:'warn'}):{lv:'info'})}
 function uniq(raw,self){
   const name=raw.trim().replace(/\s+/g,'_');if(!name)return '';
   const o=S.notes.filter(m=>m.id!==self).map(m=>m.title),has=t=>o.includes(t);
@@ -198,7 +203,7 @@ function fill(box,list,arch){
     box.appendChild(d);
   });
 }
-function render(){for(const id of [...ms]){const n=byId(id);if(!n||(mzone=='r'?!inBot(n):(n.archived||n.vault)))ms.delete(id)}paintSort();$('arc').style.background=vaultOn?'var(--bg)':'';fill($('act'),activeList(),false);fill($('arc'),archList(),true);if(document.activeElement!==ta)showNote();else meta();refreshNav()}
+function render(){for(const id of [...ms]){const n=byId(id);if(!n||(mzone=='r'?!inBot(n):(n.archived||n.vault)))ms.delete(id)}paintSort();$('arc').style.background=vaultOn?'var(--bg)':'';fill($('act'),activeList(),false);fill($('arc'),archList(),true);if(document.activeElement!==ta)showNote();else meta();refreshNav();tutCheck()}
 function pick(id){
   S.sel=id;save();
   document.querySelectorAll('.item.sel').forEach(e=>e.classList.remove('sel'));
@@ -455,7 +460,7 @@ function fxVis(anim){$('ep').style.transform=S.fx.mine?'rotate(-90deg)':'none';s
 const GOLD=['#ffd23f','#ffc21a','#ffb627','#ff9f1c','#f28a1c'];
 function logoBurst(id,pal){const r=$(id).getBoundingClientRect();spawn(r.left+r.width/2,r.top+r.height/2,6,'up',true,pal)}
 $('ohit').onclick=()=>{S.fx.glow=!S.fx.glow;playSfx('logo',{k:'o',on:S.fx.glow});save();oPose(S.fx.glow,true);glow();if(!S.fx.glow)$('spot').style.display='none'};
-$('thit').onclick=()=>{S.fx.chips=!S.fx.chips;playSfx('logo',{k:'t',on:S.fx.chips});save();fxVis(true);logoBurst('thit')};
+$('thit').onclick=()=>{tutClick('t');S.fx.chips=!S.fx.chips;playSfx('logo',{k:'t',on:S.fx.chips});save();fxVis(true);logoBurst('thit')};
 const OC=['#bfeaff','#e0314b','#3f77ff','#2fbf71','#a56bff','#ffd23f','#cfd6df','#d9783a','#8fa3bd','#8a8a99'],PR=[0,80,70,50,40,30,20,6,3,1];
 const OP=[['M7 4h10l4 5-9 11L3 9z','M3 9h18M8.5 9L12 20l3.5-11M7 4l5 5 5-5M7 4l1.5 5M17 4l-1.5 5',0],['M12 3C12 3 6 10 6 14a6 6 0 0 0 12 0C18 10 12 3 12 3z','M12 3L8.2 12h7.6zM8.2 12L12 19.6l3.8-7.6M12 12v7.6M9.4 7.6L14.6 12M14.6 7.6L9.4 12',-28],['M9 4h6a5 5 0 0 1 5 5v6a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5V9a5 5 0 0 1 5-5z','M9 8h6a1 1 0 0 1 1 1v6a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1zM5.6 5.6L8 8M18.4 5.6L16 8M5.6 18.4L8 16M18.4 18.4L16 16M12 4v4M12 16v4M4 12h4M16 12h4',0],['M9 2h6l3 3v14l-3 3H9l-3-3V5z','M9.5 6h5l1.5 1.5v9L14.5 18h-5L8 16.5v-9zM9 2l.5 4M15 2l-.5 4M6 5l2 2.5M18 5l-2 2.5M6 19l2-2.5M18 19l-2-2.5M9 22l.5-4M15 22l-.5-4',0],['M12 1.5l4 5v11l-4 5-4-5v-11z','M8 6.5l8 11M16 6.5L8 17.5M8 6.5h8M8 17.5h8M12 1.5v21',30]];
 function oreSvg(i,z){const st=i>4,[p,f,r]=st?['M5 9l5-6 7 2 4 6-3 8-7 2-5-5z','M10 3l1 8 10 0M11 11L5 9M11 11l7 8M11 11l0 10',0]:OP[i];const t=i>4?'translate(12 12) scale(.8) translate(-12 -12)':r?`rotate(${r} 12 12)`:'';
@@ -506,7 +511,7 @@ function gain(i,x,y){
   fl.push({x0:x,y0:y,x1,y1,qx:(x+x1)/2+rnd(-140,140),qy:Math.min(y,y1)-rnd(10,120),t:0,c:OC[i],i,cb:done});
   if(!raf)raf=requestAnimationFrame(loop);
 }
-$('ehit').onclick=()=>{S.fx.mine=!S.fx.mine;playSfx('logo',{k:'e',on:S.fx.mine});save();fxVis(false);logoBurst('ehit',GOLD)};
+$('ehit').onclick=()=>{tutClick('e');S.fx.mine=!S.fx.mine;playSfx('logo',{k:'e',on:S.fx.mine});save();fxVis(false);logoBurst('ehit',GOLD)};
 function flipN(on){
   const d=420;
   if(!RM()){
@@ -606,6 +611,7 @@ const SFX={
   gem:i=>{const b=2300-i*140,n=i<=4?3:i<=7?2:1,r=[1,1.26,1.5];for(let k=0;k<n;k++)tone(b*r[k],.18,{v:.09,at:k*.05});if(i==0)noise(.25,{ft:'highpass',f:6000,v:.05,at:.1})},
   coin:n=>{const k=Math.min(6,2+Math.ceil(Math.log2((n||1)+1)));for(let i=0;i<k;i++)tone(1568*(1+i*.07),.12,{type:'square',v:.05,at:i*.045});tone(2349,.2,{v:.06,at:k*.045})},
   wc100:()=>{tone(400,.35,{v:.04,to:1800});tone(1568,.5,{type:'triangle',v:.12,at:.05});tone(2349,.6,{type:'triangle',v:.09,at:.11});tone(3136,.7,{v:.06,at:.17});noise(.4,{ft:'highpass',f:5000,v:.06,at:.1})},
+  hour:()=>{tone(1046,.9,{v:.1});tone(1568,.7,{v:.07,at:.02});tone(2093,.5,{v:.04,at:.04})},
   // 未來功能預留（尚未接上）：十字鎬升級、購買、解鎖
   upgrade:()=>[523,659,784,1047].forEach((f,k)=>tone(f,.14,{type:'triangle',v:.1,at:k*.07})),
   buy:()=>{tone(1319,.08,{type:'square',v:.06});tone(1760,.14,{type:'square',v:.06,at:.07})},
@@ -676,8 +682,100 @@ function fitSq(){
   mcv.font=getComputedStyle(i).font;
   f.style.flex='0 1 '+(Math.ceil(mcv.measureText(i.value||S.q).width)+32+32+2)+'px';
 }
+// 1.09：系統訊息（搜尋框上方）
+// say(文字,{lv,id,hold})：lv = info 一般（主框色、數秒後捲走）／wait 等待型（常駐、波浪字、條件達成才離開）／warn 警告（紅、停留較久、點一下關掉）／crit 嚴重（紅、常駐、點一下關掉或問題解決才消失）
+const SM={list:[],LH:20};
+function smLayout(){
+  const live=SM.list.filter(m=>!m.leaving),st=live.filter(m=>m.sticky),nm=live.filter(m=>!m.sticky),nr=3-st.length,over=[];
+  st.forEach((m,i)=>{m.el.style.transform=`translateY(${(nr+i)*SM.LH}px)`});
+  nm.slice().reverse().forEach((m,j)=>{const r=nr-1-j;if(r<0)over.push(m);else m.el.style.transform=`translateY(${r*SM.LH}px)`});
+  over.forEach(m=>retire(m,true));
+}
+function retire(m,fast){
+  if(!m||m.leaving)return;
+  m.leaving=true;m.tm.forEach(clearTimeout);
+  const el=m.el,d=RM()?0:(fast?240:1400);
+  el.style.pointerEvents='none';
+  el.style.transition=d?`transform ${d}ms ${fast?'ease-out':'ease-in'},opacity ${d}ms ease-in`:'none';
+  el.style.transform=`translateY(${-(SM.LH+10)}px)`;
+  if(m.sticky||fast)el.style.opacity='0';
+  setTimeout(()=>{el.remove();SM.list=SM.list.filter(x=>x!==m)},d+80);
+  smLayout();
+}
+function sayOff(id){SM.list.filter(m=>m.id===id&&!m.leaving).forEach(m=>retire(m,false))}
+function waveLoop(m){
+  if(m.leaving||RM())return;
+  m.sp.forEach((s,i)=>s.animate([{transform:'translateY(0)'},{transform:'translateY(-5px)'},{transform:'translateY(0)'}],{duration:560,delay:i*45,easing:'ease-in-out'}));
+  m.tm.push(setTimeout(()=>waveLoop(m),3600+m.sp.length*45));
+}
+function tryLeave(m){
+  if(m.leaving)return;
+  if(SM.list.some(x=>x!==m&&!x.sticky&&!x.leaving&&x.born<m.born)){m.tm.push(setTimeout(()=>tryLeave(m),300));return}
+  retire(m,false);
+}
+function say(text,o){
+  o=o||{};const lv=o.lv||'info',host=$('sysmsg');if(!host||!text)return;
+  if(o.id&&SM.list.some(m=>m.id===o.id&&!m.leaving))return;
+  const sticky=lv==='wait'||lv==='crit',warn=lv==='warn'||lv==='crit';
+  if(sticky){const st=SM.list.filter(m=>m.sticky&&!m.leaving);if(st.length>=2)retire(st[0],true)}
+  const m={id:o.id||null,lv,sticky,leaving:false,el:document.createElement('div'),tm:[],born:Date.now(),sp:[]};
+  m.el.className='ln'+(warn?' w':'');if(RM())m.el.style.transition='none';
+  [...String(text)].forEach(c=>{const sp=document.createElement('span');sp.textContent=c;if(!RM())sp.style.opacity='0';m.el.appendChild(sp);m.sp.push(sp)});
+  if(warn){m.el.style.pointerEvents='auto';m.el.style.cursor='pointer';m.el.onclick=()=>retire(m,false)}
+  host.appendChild(m.el);SM.list.push(m);smLayout();
+  const typed=()=>{
+    if(m.leaving)return;
+    if(lv==='wait')waveLoop(m);
+    else if(!sticky)m.tm.push(setTimeout(()=>tryLeave(m),o.hold||((warn?9000:4200)+m.sp.length*(warn?60:50))));
+  };
+  let i=0;
+  const step=()=>{if(m.leaving)return;if(i<m.sp.length){m.sp[i++].style.opacity='';m.tm.push(setTimeout(step,26))}else typed()};
+  if(RM()){m.sp.forEach(x=>x.style.opacity='');typed()}else step();
+}
+// 新手教學：只剩「讀我」時出現；t、e 各點過一次就飄走（不記錄狀態，每次重開、只剩讀我都會再來一次）
+let tutA=false,tutDone=false,tutF={t:0,e:0};
+const tutCond=()=>S.notes.length===1&&S.notes[0].icon==='📜';
+function tutCheck(){
+  if(tutDone)return;
+  const c=tutCond();
+  if(c&&!tutA){tutA=true;tutF={t:0,e:0};setTimeout(()=>{if(tutA&&!tutDone&&tutCond())say('請試著點擊左上角 R note 的字母……',{lv:'wait',id:'tut'})},2200)}
+  else if(!c&&tutA){tutA=false;sayOff('tut')}
+}
+function tutClick(k){if(!tutA)return;tutF[k]=1;if(tutF.t&&tutF.e){tutDone=true;tutA=false;sayOff('tut')}}
+// 問候、節日、整點、隨機提示
+function lunarMD(d){
+  try{const p=new Intl.DateTimeFormat('en-u-ca-chinese',{month:'numeric',day:'numeric'}).formatToParts(d),mo=p.find(x=>x.type==='month').value,dy=+p.find(x=>x.type==='day').value;if(/\D/.test(mo))return null;return[+mo,dy]}catch(e){return null}
+}
+function holiday(){
+  const d=new Date(),k=(d.getMonth()+1)+'/'+d.getDate();
+  const sol={'1/1':'新年快樂！新的一年，從第一行字開始。','2/14':'情人節快樂。','10/10':'國慶日快樂。','10/31':'萬聖節快樂，今天的筆記也許會有點魔法。','12/24':'平安夜快樂。','12/25':'聖誕快樂！','12/31':'今年的最後一天，辛苦了。'};
+  if(sol[k])return sol[k];
+  const l=lunarMD(d);if(!l)return null;
+  const n=lunarMD(new Date(d.getTime()+864e5)),lk=l[0]+'/'+l[1];
+  if(n&&n[0]===1&&n[1]===1)return '除夕快樂，團圓的日子到了。';
+  const lun={'1/1':'春節快樂，恭喜發財！','1/15':'元宵節快樂。','5/5':'端午節快樂。','7/7':'七夕快樂。','8/15':'中秋節快樂，月亮今天特別圓。','9/9':'重陽節快樂。'};
+  return lun[lk]||null;
+}
+const GREET={m:['早安，今天也慢慢寫。','早安，先記下今天最重要的一件事吧。'],n:['午安，吃飽了嗎？','午安，記一筆再繼續忙吧。'],a:['下午好，來杯茶再繼續？','下午好，把剛想到的先寫下來。'],e:['晚上好，來整理今天的想法吧。','晚安，今天辛苦了。'],l:['夜深了，記完就早點休息。','這麼晚還沒睡，把想法放進來就好。']};
+const TIPS=['雙擊標題可以改名。','按住 Ctrl 點標題，可以一次選取多則。','把標題拖到下方，就是封存。','筆記裡的網址，按住 Ctrl 再點就能開啟。','左上角的字母，都可以點點看。','搜尋框輸入關鍵字後，按 Enter 開始搜尋。','拖曳左右欄之間的拉條可以調整寬度，雙擊還原。','選取筆記後按 Delete，可以移到封存區。','喝口水，伸個懶腰再繼續。','寫下來，腦袋就輕了。'];
+const pickOf=a=>a[Math.floor(Math.random()*a.length)];
+function greet(){const h=new Date().getHours();return pickOf(GREET[h>=5&&h<11?'m':h>=11&&h<14?'n':h>=14&&h<18?'a':h>=18&&h<23?'e':'l'])}
+let chH=new Date().getHours();
+function chime(d){
+  const h=d.getHours();
+  if(d.getMinutes()<=2&&h!==chH){chH=h;say('整點報時：'+(S.h12?(h<12?'上午 ':'下午 ')+(h%12||12)+' 點':p2(h)+':00'),{lv:'info'});playSfx('hour')}
+}
+let lastTyped=0,nextRand=Date.now()+rnd(6,12)*60000;
+document.addEventListener('keydown',()=>{lastTyped=Date.now()},true);
+setInterval(()=>{
+  if(document.hidden||Date.now()<nextRand||Date.now()-lastTyped<15000||pv)return;
+  if(SM.list.some(m=>!m.leaving&&(m.lv==='warn'||m.lv==='crit')))return;
+  say(Math.random()<.5?pickOf(Object.values(GREET).flat()):pickOf(TIPS));
+  nextRand=Date.now()+rnd(8,15)*60000;
+},30000);
+setTimeout(()=>say(holiday()||greet()),450);
 // 時鐘
-function tick(){const d=new Date();$('cd').textContent=`${d.getFullYear()}/${p2(d.getMonth()+1)}/${p2(d.getDate())} 週${'日一二三四五六'[d.getDay()]}`;$('ct').textContent=S.h12?`${d.getHours()<12?'上午':'下午'} ${p2(d.getHours()%12||12)}:${p2(d.getMinutes())}`:`${p2(d.getHours())}:${p2(d.getMinutes())}`}
+function tick(){const d=new Date();chime(d);$('cd').textContent=`${d.getFullYear()}/${p2(d.getMonth()+1)}/${p2(d.getDate())} 週${'日一二三四五六'[d.getDay()]}`;$('ct').textContent=S.h12?`${d.getHours()<12?'上午':'下午'} ${p2(d.getHours()%12||12)}:${p2(d.getMinutes())}`:`${p2(d.getHours())}:${p2(d.getMinutes())}`}
 tick();setInterval(tick,5000);{const cb=$('ct').parentNode;cb.style.userSelect='none';cb.onclick=()=>{S.h12=!S.h12;save();tick();playSfx('clock')}}chk();setInterval(chk,60000);
 const README=`R note 使用說明
 ════════════════════════
@@ -714,7 +812,7 @@ R note 是一個簡單的網頁小工具，用來建立純文字資料，並分�
 ．每週匯出一次，或寫了重要內容就匯出。
 ．換電腦、重灌、清理瀏覽器之前，一定要先匯出。
 ．備份檔不要只放在同一台電腦裡，可以放進雲端硬碟，或寄給自己。
-．右上角的匯出按鈕，超過 120 小時（5 天）沒有備份就會出現小紅點，提醒你該備份了。
+．右上角的匯出按鈕，太久沒有備份就會出現小紅點，提醒你該備份了。
 
 其他要知道的
 ．瀏覽器能存放的容量有上限（通常約 5MB），一般記事用不完；如果出現「儲存空間已滿」的提示，請先匯出備份，再刪除不需要的筆記。
@@ -735,7 +833,7 @@ R note 是一個簡單的網頁小工具，用來建立純文字資料，並分�
 ．以前如果是把網頁檔存在硬碟上使用，資料也不會自動出現在這個網址，同樣用「舊的那邊匯出、這邊匯入」搬過來。
 
 更新
-．這個工具放在網路上，每次打開同一個網址就是最新版，不用重新下載。更新後如果畫面沒有變，請按 Ctrl＋F5 重新整理；更新成功時，畫面下方會短暫出現版本提示。
+．這個工具放在網路上，每次打開同一個網址就是最新版，不用重新下載。更新後如果畫面沒有變，請按 Ctrl＋F5 重新整理；更新成功時，LOGO 右上角的版本號會改變。
 ．你的筆記不會因為更新而消失，但為免意外，請時常匯出備份。
 
 
@@ -761,8 +859,8 @@ R note 是一個簡單的網頁小工具，用來建立純文字資料，並分�
 【基本操作】
 新增筆記
 ．在左側輸入框輸入標題，按 Enter 建立新筆記，新標題排在列表最上方。
-．輸入框左邊的 + ，直接建立一則日記，標題是「年/月/日_週幾」（例如 2026/10/13_週二），圖示 📕；同一天重複建立，會自動加上 (2)、(3)……。
-．輸入框右邊的剪貼簿按鈕，把剪貼簿裡的文字貼成新筆記，標題取第一行有內容的文字（最多 12 個半形字，約 6 個全形字），圖示 📋；剪貼簿沒有文字時不會建立。第一次使用時，瀏覽器可能會詢問是否允許讀取剪貼簿，請選擇允許。
+．輸入框左邊的 + ，直接建立一則今天的日記；同一天重複建立，標題後面會自動加上編號。
+．輸入框右邊的剪貼簿按鈕，把剪貼簿裡的文字貼成新筆記，標題取第一行有內容的文字；剪貼簿沒有文字時不會建立。第一次使用時，瀏覽器可能會詢問是否允許讀取剪貼簿，請選擇允許。
 
 標題與圖示
 ．點一下標題，右邊顯示它的內容；雙擊標題，或選取後按 Enter，可以改名（Enter 確認，Esc 取消）。
@@ -794,10 +892,11 @@ R note 是一個簡單的網頁小工具，用來建立純文字資料，並分�
 
 內文與右上角按鈕
 ．內文是純文字，可用 Ctrl＋Z 復原（切換到別則筆記後，上一則的復原紀錄會消失）。
-．內文上方靠右顯示這則筆記的「總字數」：中文、英文每個字元各算一字，空白與換行不計；每滿 100 字會有一點小特效。
+．內文上方靠右顯示這則筆記的「總字數」，空白與換行不計；每達到整百字會有一點小特效。
 ．音效由瀏覽器即時合成，不需要下載聲音檔；打字、按鈕、LOGO 字母、挖礦等都有對應的聲音，預設是無聲。
 ．筆記裡的網址（http:// 或 https:// 開頭），按住 Ctrl 再點一下，就會在新分頁開啟。
-．右上角按鈕依序是：音效（點一下依序切換：無聲、小聲、大聲，預設無聲）、插入日期時間（格式 2026_1013_1711，插在游標處）、複製內文（不含標題）、匯出備份、匯入備份、使用說明（問號）。
+．搜尋框上方的文字是系統訊息：偶爾會有問候、整點報時和功能提示；紅色的是警告，點一下可以關掉。
+．右上角按鈕依序是：音效（點一下依序切換：無聲、小聲、大聲，預設無聲）、插入日期時間（插在游標處）、複製內文（不含標題）、匯出備份、匯入備份、使用說明（問號）。
 ．按「使用說明」，會打開最新版的說明筆記「_讀我」；你編輯過的舊說明不會被覆蓋，只會另外新增一篇。
 
 
@@ -807,7 +906,7 @@ R note 是一個簡單的網頁小工具，用來建立純文字資料，並分�
 
 R：防窺模式
 ．開啟後內文變成較淡的灰色，左側列表的標題與圖示也會慢慢變模糊，讓遠處的人不容易看清內容。
-．這個狀態下一分鐘沒有敲鍵盤，除了 LOGO 以外的畫面全部模糊，並且暫時不能用滑鼠操作；按任意鍵即可恢復。
+．這個狀態下一段時間沒有敲鍵盤，除了 LOGO 以外的畫面全部模糊，並且暫時不能用滑鼠操作；按任意鍵即可恢復。
 ．再點一次 R 關閉。
 
 o：光暈
@@ -836,7 +935,7 @@ n：隱藏櫃
 
 作者
 ════════════════════════
-本工具由 Roger Jian 構思、Claude 討論編寫而成。你也可以把這個網頁的原始碼交給 AI 修改，客製成更適合自己的色調、圖樣與功能。
+本工具由 Roger Jian 構思、Claude 討論編寫而成。
 歡迎參觀作者的 LINE 貼圖小舖：【像素刻工館】
 https://line.me/S/shop/sticker/author/123908
 
@@ -873,8 +972,7 @@ function importDialog(j,clean,newer,g2){
   o.querySelector('#imR').onclick=()=>{close();doReplace(j,clean,g2)};
   o.querySelector('#imA').onclick=()=>{const sk=o.querySelector('#imS').checked;close();doAppend(clean,sk)};
 }
-const WHATSNEW='已更新到 '+VERSION+'　文字游標閃動時每次敲鍵都有聲音（含中文輸入中、方向鍵）、LOGO 特效調整、說明書可點連結';
-try{const seen=localStorage.getItem('R_note_seen');if(seen&&seen!==VERSION)setTimeout(()=>toast(WHATSNEW,6000),600);localStorage.setItem('R_note_seen',VERSION)}catch(e){}
+try{localStorage.setItem('R_note_seen',VERSION)}catch(e){}
 function applyTh(){const th=S.th||'n';document.documentElement.dataset.th=th;GC=getComputedStyle(document.documentElement).getPropertyValue('--gc').trim()||'210,210,210';HEAD=th=='d'?'#23262d':'#fff';document.querySelectorAll('#ths .ib').forEach(b=>b.classList.toggle('on',b.dataset.th==th))}
 document.querySelectorAll('#ths .ib').forEach(b=>b.onclick=()=>{S.th=b.dataset.th;save();applyTh()});
 paintSnd();$('ver').textContent=VERSION;applyTh();layout();render();fxVis(false);
