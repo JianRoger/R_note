@@ -186,7 +186,7 @@ html.ph #cell{grid-column:1/-1!important;grid-row:7!important}
 <input type="file" id="file" accept=".json,application/json" hidden>
 <canvas id="cv"></canvas><div id="tip"></div><div id="pk"></div>
 <script>
-const VERSION='1.13';
+const VERSION='1.14';
 const PROMO_URL='https://line.me/S/shop/sticker/author/123908';
 // 手機簡易版：觸控為主、沒有滑鼠停留、畫面窄。測試用：網址後面加 ?phone=1 強制簡易版，?phone=0 強制完整版
 const PH=(()=>{try{const q=new URLSearchParams(location.search).get('phone');if(q==='1')return true;if(q==='0')return false;return matchMedia('(pointer:coarse)').matches&&!matchMedia('(hover:hover)').matches&&Math.min(screen.width,innerWidth)<=820}catch(e){return false}})();
@@ -205,7 +205,7 @@ document.querySelectorAll('[data-ic]').forEach(e=>e.innerHTML=sv(e.dataset.ic,+e
 let S={notes:[],sort:{k:'custom',dir:'asc'},sel:null,q:'',born:Date.now(),lastExport:0},L={sw:240,ah:60};
 try{const s=JSON.parse(localStorage.getItem(KEY)||localStorage.getItem('plain-notes-v1'));if(s&&Array.isArray(s.notes))Object.assign(S,s)}catch(e){}
 try{const l=JSON.parse(localStorage.getItem(LK)||localStorage.getItem('plain-notes-layout-v1'));if(l)Object.assign(L,l)}catch(e){}
-S.q='';if(!S.born)S.born=Date.now();S.sfx=[0,1,2].includes(S.sfx)?S.sfx:0;S.fx=Object.assign({glow:false,chips:false,mine:false},S.fx);if(PH){S.fx.chips=true;S.fx.mine=true;S.sfx=2}
+S.q='';S.ser=Object.assign({n:0,u:0,d:0},S.ser);['n','u','d'].forEach(t=>{const v=+S.ser[t];S.ser[t]=v>=0&&v<5?Math.floor(v):0});if(!S.born)S.born=Date.now();S.sfx=[0,1,2].includes(S.sfx)?S.sfx:0;S.fx=Object.assign({glow:false,chips:false,mine:false},S.fx);if(PH){S.fx.chips=true;S.fx.mine=true;S.sfx=2}
 S.notes.forEach(n=>{n.content=String(n.content||'').replace(/\r\n?/g,'\n');if(n.icon==='⚙'||n.icon==='⚙️')n.icon=ICONS[23];if(!n.icon)n.icon=ICONS[0]});
 let pend=null,booted=false;const PKEY='R_note_prev';
 try{const r=localStorage.getItem(PKEY);if(r){const p=JSON.parse(r);if(p&&Array.isArray(p.notes))pend={snap:p,persisted:true};else localStorage.removeItem(PKEY)}}catch(e){}
@@ -615,24 +615,60 @@ document.addEventListener('mousedown',hideTip);
 document.documentElement.addEventListener('mouseleave',()=>{hideTip();tcur=null});
 // 1.06：總字數、搜尋框縮窄、音效掛點
 // ===== 音效（全部用 Web Audio 即時合成，不需要任何聲音檔）=====
-// 三段音量：0 無聲、1 小聲、2 大聲。新增功能時只要在 SFX 裡加一個聲音，再呼叫 playSfx('名稱') 即可。
-let AC=null,MG=null,NB=null;const VOL=[0,.3,1],rr=(a,b)=>a+Math.random()*(b-a);
+// 三段音量：0 無聲、1 小聲、2 大聲。五組音效「型態」依光色順序綁定：R N O T E（目前先綁在一起體驗）。
+let AC=null,MG=null,NB=null,DL=null,DG=null,voices=0;const VOL=[0,.3,1],rr=(a,b)=>a+Math.random()*(b-a);
 function actx(){
-  if(!AC){const C=window.AudioContext||window.webkitAudioContext;if(!C)return null;AC=new C();MG=AC.createGain();const cp=AC.createDynamicsCompressor();MG.connect(cp);cp.connect(AC.destination)}
+  if(!AC){const C=window.AudioContext||window.webkitAudioContext;if(!C)return null;AC=new C();MG=AC.createGain();const cp=AC.createDynamicsCompressor();MG.connect(cp);cp.connect(AC.destination);
+    DL=AC.createDelay(1);DL.delayTime.value=.17;const fb=AC.createGain();fb.gain.value=.38;DL.connect(fb);fb.connect(DL);DG=AC.createGain();DG.gain.value=1;DL.connect(DG);DG.connect(MG)}
   if(AC.state==='suspended')AC.resume();
   MG.gain.value=VOL[S.sfx]||0;return AC;
 }
-function tone(f,d,o){o=o||{};const c=AC,t=c.currentTime+(o.at||0),g=c.createGain(),x=c.createOscillator(),v=o.v||.15;
-  x.type=o.type||'sine';x.frequency.setValueAtTime(f,t);if(o.to)x.frequency.exponentialRampToValueAtTime(o.to,t+d);
-  g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(v,t+(o.a||.004));g.gain.exponentialRampToValueAtTime(.0001,t+d);
-  x.connect(g);g.connect(MG);x.start(t);x.stop(t+d+.03)}
-function noise(d,o){o=o||{};const c=AC,t=c.currentTime+(o.at||0),v=o.v||.15;
+// ---------- 音階鎖定 ----------
+const PENT=[0,2,4,7,9];
+function snap(f){if(f<70||f>5000)return f;const m=69+12*Math.log2(f/440),o=Math.floor(m/12),pc=m-o*12;let best=0,bd=99;for(const p of PENT.concat([12])){const d=Math.abs(pc-p);if(d<bd){bd=d;best=p}}return 440*Math.pow(2,(o*12+best-69)/12)}
+const semi=f=>Math.round(69+12*Math.log2(f/440)),mf=m=>440*Math.pow(2,(m-69)/12);
+function pickPent(lo,hi){const a=[];for(let m=semi(lo);m<=semi(hi);m++)if(PENT.includes(((m%12)+12)%12))a.push(mf(m));return a[Math.floor(Math.random()*a.length)]}
+// ---------- 引擎 ----------
+const PK={};
+function mkPack(id,cfg){PK[id]=Object.assign({id,semi:0,lp:1,dec:1,vol:1,snap:false,sp:0},cfg);return PK[id]}
+function baseTone(P,f,d,o){const c=AC;if(voices>26)return;o=o||{};const t=c.currentTime+(o.at||0);
+  let f1=f*Math.pow(2,P.semi/12),f2=o.to?o.to*Math.pow(2,P.semi/12):0;if(P.snap){f1=snap(f1);if(f2)f2=snap(f2)}
+  const dd=d*P.dec,v=(o.v||.15)*P.vol,g=c.createGain(),type=P.mapType?P.mapType(o.type||'sine'):(o.type||'sine');
+  let out=g;const parts=P.partials?P.partials(type):[{type,r:1,g:1}];
+  if(P.filter){const fl=c.createBiquadFilter();fl.type='lowpass';const top=P.filter.f*P.lp;fl.frequency.setValueAtTime(top,t);fl.frequency.exponentialRampToValueAtTime(Math.max(200,top*(P.filter.end||1)),t+dd);fl.Q.value=P.filter.q||1;g.connect(fl);out=fl}
+  g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(v,t+(o.a||P.att||.004));g.gain.exponentialRampToValueAtTime(.0001,t+dd);
+  parts.forEach(pt=>{const x=c.createOscillator(),pg=c.createGain();x.type=pt.type;pg.gain.value=pt.g;if(pt.det)x.detune.value=pt.det;
+    x.frequency.setValueAtTime(f1*pt.r,t);if(f2){if(P.step){const n=P.step,arr=new Float32Array(n);for(let i=0;i<n;i++)arr[i]=mf(Math.round(semi(f1)+(semi(f2)-semi(f1))*(i/(n-1))))*pt.r;x.frequency.setValueCurveAtTime(arr,t,dd)}else x.frequency.exponentialRampToValueAtTime(f2*pt.r,t+dd)}
+    if(P.vib){const l=c.createOscillator(),lg=c.createGain();l.frequency.value=5.2;lg.gain.value=P.vib;l.connect(lg);lg.connect(x.detune);l.start(t);l.stop(t+dd+.03)}
+    x.connect(pg);pg.connect(g);x.start(t);x.stop(t+dd+.03);voices++;x.onended=()=>voices--});
+  out.connect(MG);if(P.sp&&DL){const s=c.createGain();s.gain.value=P.sp;out.connect(s);s.connect(DL)}}
+function baseNoise(P,d,o){const c=AC;if(voices>26)return;o=o||{};const t=c.currentTime+(o.at||0),v=(o.v||.15)*P.vol*(P.nv||1);
   if(!NB){NB=c.createBuffer(1,c.sampleRate,c.sampleRate);const a=NB.getChannelData(0);for(let i=0;i<a.length;i++)a[i]=Math.random()*2-1}
-  const s=c.createBufferSource(),f=c.createBiquadFilter(),g=c.createGain();s.buffer=NB;s.loop=true;f.type=o.ft||'lowpass';f.frequency.setValueAtTime(o.f||1000,t);
-  if(o.to)f.frequency.exponentialRampToValueAtTime(o.to,t+d);f.Q.value=o.q||1;
-  g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(v,t+(o.a||.004));g.gain.exponentialRampToValueAtTime(.0001,t+d);
-  s.connect(f);f.connect(g);g.connect(MG);s.start(t,Math.random());s.stop(t+d+.03)}
-const SFX={
+  const dd=d*P.dec*(P.nd||1),s=c.createBufferSource(),f=c.createBiquadFilter(),g=c.createGain();s.buffer=NB;s.loop=true;
+  let ft=o.ft||'lowpass',fq=(o.f||1000)*(P.nf||1)*(ft==='lowpass'?P.lp:1);f.type=ft;f.frequency.setValueAtTime(fq,t);if(o.to)f.frequency.exponentialRampToValueAtTime((o.to)*(P.nf||1),t+dd);f.Q.value=o.q||1;
+  g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(v,t+(o.a||.004));g.gain.exponentialRampToValueAtTime(.0001,t+dd);
+  s.connect(f);f.connect(g);g.connect(MG);s.start(t,Math.random());s.stop(t+dd+.03);voices++;s.onended=()=>voices--}
+// ---------- 新：揉紙（24）引擎 ----------
+// 不再是一整團噪音「啪」一下，而是：幾波手指收緊的節奏 × 很多細小的紙纖維爆裂聲，底下墊一層很輕的沙沙聲；
+// 低頻全部切掉，所以不會有巴掌或鐵盒的「身體」。
+// o 參數：d 長度、dens 每秒爆裂數、cl 收緊幾波、gmin/gmax 單顆爆裂長短、bed 沙沙底噪、hp/lp 濾波、bits/hold 八位元化、v 音量
+function baseCrumple(P,o){const c=AC;if(voices>26)return;o=o||{};const sr=c.sampleRate,dur=(o.d||.5)*P.dec,n=Math.max(64,Math.floor(sr*dur)),buf=c.createBuffer(1,n,sr),a=buf.getChannelData(0);
+  const cl=o.cl||3,cen=[];for(let k=0;k<cl;k++)cen.push(rr(.08,.85));
+  const ev=Math.round((o.dens||110)*dur);
+  for(let e=0;e<ev;e++){let pos=o.skew?Math.pow(Math.random(),o.skew)*.95:cen[Math.floor(Math.random()*cl)]+(Math.random()+Math.random()-1)*.12;pos=Math.min(.97,Math.max(.03,pos));
+    const p=Math.floor(pos*n),amp=Math.pow(Math.random(),1.6),len=Math.floor(sr*rr(o.gmin||.0015,o.gmax||.009)),tau=len*rr(.15,.4);
+    for(let i=0;i<len&&p+i<n;i++)a[p+i]+=(Math.random()*2-1)*amp*Math.exp(-i/tau)}
+  const bed=o.bed==null?.07:o.bed;for(let i=0;i<n;i++){const x=i/n,env=o.env==='decay'?Math.min(1,x*40)*Math.exp(-x*4):Math.pow(Math.sin(Math.PI*Math.min(1,x*1.15)),2);a[i]+=(Math.random()*2-1)*bed*env}
+  if(o.bits){const q=Math.pow(2,o.bits-1),h=o.hold||4;let last=0;for(let i=0;i<n;i++){if(i%h===0)last=Math.round(a[i]*q)/q;a[i]=last}}
+  let pk=0;for(let i=0;i<n;i++)pk=Math.max(pk,Math.abs(a[i]));if(pk>0)for(let i=0;i<n;i++)a[i]/=pk;
+  const fi=Math.floor(sr*.008);for(let i=0;i<fi&&i<n/2;i++){a[i]*=i/fi;a[n-1-i]*=i/fi}
+  const s=c.createBufferSource();s.buffer=buf;const hp=c.createBiquadFilter();hp.type='highpass';hp.frequency.value=o.hp||1300;hp.Q.value=.6;
+  const lp=c.createBiquadFilter();lp.type='lowpass';const t0=c.currentTime+(o.at||0),lf=Math.min(16000,(o.lp||8000)*P.lp);lp.frequency.setValueAtTime(lf,t0);if(o.lpTo)lp.frequency.exponentialRampToValueAtTime(o.lpTo,t0+dur);const g=c.createGain();g.gain.value=(o.v||.32)*P.vol;
+  s.connect(hp);hp.connect(lp);lp.connect(g);g.connect(MG);if(P.sp&&DL){const sd=c.createGain();sd.gain.value=P.sp;g.connect(sd);sd.connect(DL)}
+  s.start(c.currentTime+(o.at||0));voices++;s.onended=()=>voices--}
+
+// 基底事件表（R note 原本的全部聲音；tone / noise / cr 由各組引擎代入）
+function SFXF(tone,noise,cr){const SFX={
   // 打字
   key:()=>{tone(rr(1500,2100),.035,{type:'square',v:.05});if(S.fx.chips)noise(.03,{ft:'highpass',f:3500,v:.05})},
   commit:()=>{tone(880,.07,{type:'triangle',v:.09});tone(1318,.1,{type:'triangle',v:.08,at:.035})},   // 中文（輸入法）字送出
@@ -677,7 +713,63 @@ const SFX={
   buy:()=>{tone(1319,.08,{type:'square',v:.06});tone(1760,.14,{type:'square',v:.06,at:.07})},
   unlock:()=>{SFX.lock();[784,1047,1568].forEach((f,k)=>tone(f,.16,{v:.09,at:.1+k*.06}))}
 };
-function playSfx(name,arg){if(!S.sfx)return;try{if(!actx())return;const f=SFX[name];if(f)f(arg)}catch(e){}}
+return SFX}
+// ---------- 六組 ----------
+mkPack('R',{name:'R 預設（目前 R note 使用的音效）',desc:'不動，就是現在這一版；只有 24 刪除特效換成新寫法（燃燒）。'});
+mkPack('N',{name:'N 機械木質',desc:'鍵盤的悶響、木魚與低音木琴；高頻壓弱、音域下沉。',semi:-12,snap:true,dec:.85,
+  mapType:t=>t==='sine'?'sine':'triangle',partials:t=>[{type:t,r:1,g:1},{type:'sine',r:2,g:.22}],filter:{f:1900,end:.5,q:1},att:.003});
+mkPack('O',{name:'O 八位元',desc:'方波、三角波、階梯式音高，舊掌機的短促。',semi:0,dec:.8,
+  mapType:t=>t==='sawtooth'?'square':t==='sine'?'triangle':t,step:5,nv:.8,nd:.6,nf:1.5});
+mkPack('T',{name:'T 賽博龐克',desc:'失諧鋸齒波、濾波器掃頻、尾巴帶回音。',semi:-5,snap:false,dec:1.05,
+  mapType:()=>'sawtooth',partials:t=>[{type:'sawtooth',r:1,g:.6,det:-9},{type:'sawtooth',r:1,g:.6,det:9}],filter:{f:5200,end:.14,q:6},nf:1.3,sp:.28});
+mkPack('E',{name:'E 草原',desc:'輕柔的撥弦與笛聲，帶一點顫音，像風吹過草地。',semi:0,snap:true,dec:1.3,vol:.9,
+  mapType:t=>t==='square'||t==='sawtooth'?'triangle':t,partials:t=>[{type:t,r:1,g:1},{type:'sine',r:2,g:.25},{type:'sine',r:3.01,g:.1}],vib:6,att:.01,nv:.5,nf:.7});
+mkPack('G',{name:'G 水晶玻璃（預留・篩選／隱藏版）',desc:'杯緣輕敲、水晶風鈴：非整數倍泛音、清透長尾、一點殘響。',semi:0,snap:true,dec:1.5,vol:.85,
+  mapType:()=>'sine',partials:()=>[{type:'sine',r:1,g:1},{type:'sine',r:2.76,g:.38},{type:'sine',r:5.40,g:.16},{type:'sine',r:8.93,g:.06}],att:.002,sp:.16,nv:.45,nf:1.6});
+
+// 調音工作台調好的參數
+Object.assign(PK.N,{semi:-10,lp:.6,dec:1.05,vol:.95,snap:true});
+Object.assign(PK.O,{semi:2,lp:.9,dec:1.25,vol:.95,snap:false});
+Object.assign(PK.T,{semi:-6,lp:.7,dec:.7,vol:.95,snap:false,sp:.10});
+Object.assign(PK.E,{semi:-3,lp:.75,dec:1.2,vol:.9,snap:true,vib:16});
+// ---------- 各組特色事件 ----------
+function build(id){const P=PK[id],T=(f,d,o)=>baseTone(P,f,d,o),N=(d,o)=>baseNoise(P,d,o),C=o=>baseCrumple(P,o),K=(sec,vol,o)=>C(Object.assign({d:sec/P.dec,v:vol/P.vol},o)),TT=(f,d,o)=>{o=Object.assign({},o);o.v=(o.v||.15)/P.vol;T(f,d/P.dec,o)};
+  const sfx=SFXF(T,N,C);
+  if(id==='R'){sfx.crumple=()=>K(.35,.22,{hp:500,lp:3800,dens:55,skew:1.8,env:'decay',bed:.12,gmax:.004,lpTo:1500});return sfx} // 燃燒：紙邊小火花
+  if(id==='N'){
+    sfx.key=()=>{N(.05,{ft:'bandpass',f:rr(260,380),q:2,v:.28});T(rr(180,260),.07,{v:.2,to:rr(110,140)});N(.012,{ft:'highpass',f:2500,v:.05})};
+    sfx.commit=()=>{const f=pickPent(330,660);T(f,.3,{v:.16});T(f*3.9,.07,{v:.05});T(f*1.5,.24,{v:.1,at:.05})};
+    sfx.enter=()=>{N(.07,{ft:'bandpass',f:200,q:1.5,v:.3});T(150,.12,{v:.22,to:80})};
+    sfx.del=()=>{N(.04,{ft:'bandpass',f:420,q:2,v:.18});T(210,.06,{v:.12,to:130})};
+    sfx.crumple=()=>{for(let i=0;i<6;i++)TT(rr(200,420),.07,{type:'triangle',v:.15*(1-i*.13),at:i*.045+rr(0,.012),to:rr(110,160)});K(.3,.1,{hp:400,lp:2400,dens:40,skew:1.4,env:'decay',bed:.06,at:.02})};            // 牛皮紙：厚、悶、顆粒大
+  }else if(id==='O'){
+    sfx.key=()=>T(pickPent(660,1500),.03,{type:'square',v:.05});
+    sfx.commit=()=>{T(659,.05,{type:'square',v:.07});T(988,.08,{type:'square',v:.07,at:.05})};
+    sfx.del=()=>T(220,.06,{type:'square',v:.06,to:110});
+    sfx.crumple=()=>{K(.235,.17,{hp:300,lp:3500,bits:3,hold:5,dens:300,gmax:.008,env:'decay',bed:.2,lpTo:700});TT(160,.2,{type:'square',v:.07,to:40})};                // 降解析度的揉紙
+  }else if(id==='T'){
+    sfx.key=()=>{T(rr(1500,2400),.03,{type:'sawtooth',v:.045});N(.02,{ft:'bandpass',f:6500,q:8,v:.04})};
+    sfx.commit=()=>{T(587,.12,{v:.09,to:1175});T(880,.16,{v:.08,at:.06})};
+    sfx.del=()=>{T(400,.08,{v:.08,to:140});N(.04,{ft:'highpass',f:5000,v:.04})};
+    sfx.crumple=()=>{K(.33,.14,{hp:700,lp:4500,dens:90,bits:4,hold:3,env:'decay',skew:1.2,lpTo:1200});TT(900,.3,{type:'sawtooth',v:.05,to:120});[0,.08,.17].forEach(a=>TT(rr(400,900),.04,{type:'square',v:.03,at:a}))};                       // 錫箔／塑膠包裝，尾巴吃回音
+  }else if(id==='E'){
+    sfx.key=()=>{const f=pickPent(523,1568);T(f,.2,{type:'triangle',v:.07});T(f*4.2,.05,{type:'sine',v:.025})};
+    sfx.commit=()=>{const f=pickPent(523,880);T(f,.4,{v:.12});T(f*1.5,.5,{v:.1,at:.07})};
+    sfx.del=()=>T(330,.12,{type:'sine',v:.07,to:250});
+    sfx.crumple=()=>K(.455,.15,{hp:900,lp:3800,dens:30,bed:.3,gmax:.003,lpTo:1800});                      // 乾葉子在手裡碎掉
+  }else if(id==='G'){
+    sfx.key=()=>T(pickPent(1568,2637),.14,{v:.04});
+    sfx.commit=()=>{const f=pickPent(1046,1568);T(f,.5,{v:.08});T(f*1.5,.5,{v:.06,at:.04})};
+    sfx.enter=()=>{T(523,.7,{v:.1});T(784,.6,{v:.05,at:.02})};
+    sfx.del=()=>T(1760,.18,{v:.05,to:1318});
+    sfx.ui=()=>T(2093,.1,{v:.05});
+    sfx.crumple=()=>{K(.2,.1,{hp:2500,lp:6500,dens:120,skew:2.5,env:'decay',bed:.02,gmax:.003});for(let i=0;i<5;i++)TT(pickPent(2093,4186),.22,{v:.035-.003*i,at:.03+i*.055})}; // 玻璃碎裂＋碎晶灑落
+  }
+  return sfx}
+
+const LET5='RNOTE',SFXS={};
+function curPack(){const t=S.th||'n';return LET5[(S.ser&&S.ser[t])||0]||'R'}
+function playSfx(name,arg){if(!S.sfx)return;try{if(!actx())return;const id=curPack(),sx=SFXS[id]||(SFXS[id]=build(id)),f=sx[name];if(f)f(arg)}catch(e){}}
 let lastKey=0;
 document.addEventListener('keydown',e=>{
   if(!S.sfx)return;
@@ -1257,8 +1349,27 @@ function importDialog(j,clean,newer,g2){
   const N=o.querySelector('#imN');if(N)N.onclick=()=>{close();const r=buildAppend(fresh,false);if(commitImport(r))say('已追加 '+r.add+' 則標題全新的筆記',{lv:'info'})};
 }
 try{localStorage.setItem('R_note_seen',VERSION)}catch(e){}
-function applyTh(){const th=S.th||'n';document.documentElement.dataset.th=th;GC=getComputedStyle(document.documentElement).getPropertyValue('--gc').trim()||'210,210,210';HEAD=th=='d'?'#23262d':'#fff';document.querySelectorAll('#ths .ib').forEach(b=>b.classList.toggle('on',b.dataset.th==th))}
-document.querySelectorAll('#ths .ib').forEach(b=>b.onclick=()=>{S.th=b.dataset.th;save();applyTh()});
+// 光色：每個主題五個光色 [名稱,H,S,L,內文區明度差]，主框色 [主框,淺色,填色] 依序綁定 R N O T E
+const TH5={n:{dark:1,ser:[['月華',228,8,12,3.5],['寒霜',206,30,12,5.5],['濁墨',222,3,14,4],['紫宵',280,22,11,4.5],['漆焦',210,12,7,2]]},
+ u:{dark:1,ser:[['逢魔',17,23,24,4],['晨霧',188,32,21,4],['紫霞',291,14,28,5],['瓦磚',4,30,25,4.5],['暮靄',215,20,22,3.5]]},
+ d:{dark:0,ser:[['破曉',218,25,91,3.5],['初雪',230,56,96,1],['金宣',42,43,91,7.5],['荷涼',150,24,90,3.5],['櫻落',345,44,94,6]]}};
+const ACC5={n:[['#529ea7','#afd0d4',.26],['#7d8da6','#c3cedf',.32],['#b9b1b1','#dfc3c3',.17],['#7969bf','#c8c2e0',.24],['#4c4eae','#afafd5',.11]],
+ u:[['#d49063','#e8cdbb',.19],['#72abc5','#c1d7e1',.42],['#a488cd','#cec2e0',.26],['#c28e6b','#e1cec1',.19],['#467495','#9cb6c9',.30]],
+ d:[['#41a7c3','#2d7a8f',.23],['#30afc5','#227c8c',.13],['#ab775f','#7f5643',.34],['#1bb8c0','#127c81',.18],['#ef85c7','#e746a9',.18]]};
+const h2x=(h,s,l)=>{s/=100;l/=100;const f=n=>{const k=(n+h/30)%12,a=s*Math.min(l,1-l);return Math.round(255*(l-a*Math.max(-1,Math.min(k-3,9-k,1))))};return'#'+[f(0),f(8),f(4)].map(v=>v.toString(16).padStart(2,'0')).join('')};
+const clp=x=>Math.max(0,Math.min(100,x)),hrgb=h=>[1,3,5].map(i=>parseInt(h.substr(i,2),16));
+function palOf(t,k){const T=TH5[t],[n,h,s,l,d]=T.ser[k];
+  if(T.dark)return{bg:h2x(h,s,l),tx:h2x(h,Math.min(s,14),87),p1:h2x(h,s,clp(l+d)),p2:h2x(h,s,clp(l+2.1*d)),ln:h2x(h,Math.min(s+4,40),clp(l+3.7*d)),sbt:h2x(h,s,clp(l+2.1*d)),sbh:h2x(h,Math.min(s,12),62),dm:h2x(h,Math.min(s,12),58)};
+  return{bg:h2x(h,s,l),tx:h2x(h,Math.min(s,20),15),p1:h2x(h,s,clp(l+2*d)),p2:h2x(h,s,clp(l+.7*d)),ln:h2x(h,s,clp(l-3.2*d)),sbt:h2x(h,s,clp(l-.45*d)),sbh:h2x(h,Math.min(s,20),66),dm:h2x(h,Math.min(s,16),47)}}
+function applyTh(){const th=S.th||'n',k=S.ser[th]||0,P=palOf(th,k),A=ACC5[th][k],r=document.documentElement;r.dataset.th=th;
+  const set=(a,b)=>r.style.setProperty(a,b);set('--bg',P.bg);set('--p1',P.p1);set('--p2',P.p2);set('--ln',P.ln);set('--tx',P.tx);set('--dm',P.dm);set('--sbt',P.sbt);set('--sbh',P.sbh);set('--pv',hrgb(P.tx).join(','));
+  set('--ac',A[0]);set('--al',A[1]);set('--abd',A[0]);set('--abg','rgba('+hrgb(A[0]).join(',')+','+A[2]+')');
+  let ds=document.getElementById('dynarr');if(!ds){ds=document.createElement('style');ds.id='dynarr';document.head.appendChild(ds)}
+  const ar=(d,fill)=>`html[data-th]::-webkit-scrollbar-button:vertical:${d==='u'?'decrement':'increment'}{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='${d==='u'?'M1 6l3-4 3 4z':'M1 2l3 4 3-4z'}' fill='%23${fill.slice(1)}'/%3E%3C/svg%3E")}`;
+  ds.textContent=ar('u',P.dm)+'\n'+ar('d',P.dm);
+  GC=getComputedStyle(r).getPropertyValue('--gc').trim()||'210,210,210';HEAD=th=='d'?'#23262d':'#fff';
+  document.querySelectorAll('#ths .ib').forEach(b=>{const t=b.dataset.th;b.classList.toggle('on',t==th);b.dataset.tip=TH5[t].ser[S.ser[t]][0]})}
+document.querySelectorAll('#ths .ib').forEach(b=>b.onclick=()=>{const t=b.dataset.th;if((S.th||'n')===t)S.ser[t]=(S.ser[t]+1)%5;else S.th=t;save();applyTh()});
 paintSnd();$('ver').textContent=VERSION;applyTh();phoneEnsure();layout();render();fxVis(false);booted=true;if(pend)setTimeout(pendMsg,1200);
 {const n=byId(S.sel);if(n){if(!PH)ta.focus();ta.setSelectionRange(n.caret||0,n.caret||0);reveal(n.caret||0)}}
 </script>
