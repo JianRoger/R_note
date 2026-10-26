@@ -1339,7 +1339,7 @@ function place(){
   const a=$('pn'),b=$('snd');if(!a||!b)return;
   const ra=a.getBoundingClientRect(),rb=b.getBoundingClientRect();
   if(!ra.width||!rb.width){cv.style.display='none';return}
-  cv.style.left=Math.round(ra.left-2)+'px';cv.style.top=Math.round(ra.top-46)+'px';
+  cv.style.left=Math.round(ra.left+2)+'px';cv.style.top=Math.round(ra.top-46)+'px';
   cv.style.display=(R.on||R.vis>0)?'block':'none'}
 addEventListener('resize',place);
 
