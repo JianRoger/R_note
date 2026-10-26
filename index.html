@@ -24,6 +24,8 @@ button,input,textarea{font:inherit;color:inherit}
 .ib.on{background:var(--abg);border-color:var(--abd);color:var(--al)}
 .ib[disabled]{opacity:.4;cursor:default}
 .ib.dot::after{content:"";position:absolute;top:3px;right:3px;width:8px;height:8px;border-radius:50%;background:var(--dg)}
+.ib.dot.pls::after{animation:bkp .9s ease-in-out 3}
+@keyframes bkp{0%,100%{transform:scale(1);box-shadow:0 0 0 0 rgba(229,72,77,.55)}50%{transform:scale(1.5);box-shadow:0 0 0 4px rgba(229,72,77,0)}}
 .sb{flex:1 1 0;min-width:0;transition:flex-grow .18s}
 .sb.on{flex-grow:1.7}
 .sb .c{display:none}
@@ -98,8 +100,8 @@ button,input,textarea{font:inherit;color:inherit}
 #toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:#0e0f12;color:#e6e8ec;border:1px solid var(--ln);padding:6px 14px;border-radius:8px;display:none;z-index:70;font-size:13px}
 #ths{margin-left:auto}
 .item .ic,.item .t{transition:filter .5s}
-.app.pvm #lst .item .ic,.app.pvm #lst .item .t{filter:blur(3px)}
-.app.bl #lst .item .ic,.app.bl #lst .item .t{filter:none;transition:none}
+.app.pvm #lst{filter:blur(3px);transition:filter .5s}
+.app.bl #lst{filter:blur(7px);transition:none}
 .bagw{position:relative;flex:none;width:34px;height:34px;background:radial-gradient(circle 15px at 50% 64%,rgba(var(--bgl),.75) 0%,rgba(var(--bgl),.38) 50%,transparent 100%)}
 .bagw svg{position:absolute;left:0;top:3px}
 .coin{flex:none;align-self:flex-end;margin-bottom:-3px;line-height:20px;font-size:16px;white-space:nowrap;user-select:text}
@@ -116,6 +118,7 @@ html[data-th=d]{--bag:#b8651f;--bgl:255,205,30}
 #sysmsg .ln span{display:inline-block;white-space:pre}
 #sysmsg .ln button{pointer-events:auto;margin-left:8px;height:18px;padding:0 9px;font-size:12px;line-height:16px;border:1px solid currentColor;border-radius:9px;background:transparent;color:inherit;cursor:pointer;vertical-align:1px}
 #sysmsg .ln button:hover{background:var(--abg)}
+#rbt{position:fixed;left:0;top:0;width:48px;height:48px;image-rendering:pixelated;pointer-events:none;z-index:3;display:none}
 #hatch{position:absolute;inset:0;border-radius:8px;pointer-events:none;display:none}
 #hatch,#twh,#hatch.fv{background:repeating-linear-gradient(135deg,rgba(var(--pv),.10) 0 1.5px,transparent 1.5px 18px)}
 #hatch.none,#hatch.fv{display:block}
@@ -275,7 +278,7 @@ html.ph #cell{grid-column:1/-1!important;grid-row:7!important}
   </div>
   <div id="tr" style="grid-column:3;grid-row:1;align-self:start;display:flex;flex-direction:column;align-items:flex-end;gap:6px">
     <div style="text-align:right;line-height:1.25"><div id="cd" style="font-size:12px;color:var(--dm)"></div><div id="ct" style="font-size:20px;font-weight:600"></div></div>
-    <div class="row"><button class="ib" id="snd" data-tip="音效：無聲"><span data-ic="vol0"></span></button><button class="ib" id="twb" data-tip="鎖定打字範圍"><span data-ic="tw"></span></button><button class="ib" id="dtb" data-tip="插入日期時間"><span data-ic="cal"></span></button><button class="ib" id="cpb" data-tip="複製內文"><span data-ic="copy" id="cpi"></span></button><span class="sep"></span><button class="ib" id="exp" data-tip="匯出備份"><span data-ic="out"></span></button><button class="ib" id="imp" data-tip="匯入備份"><span data-ic="inn"></span></button><span class="sep"></span><button class="ib" id="hlp" data-tip="使用說明"><span data-ic="help"></span></button></div>
+    <div class="row"><button class="ib" id="snd" data-tip="音效：無聲"><span data-ic="vol0"></span></button><button class="ib" id="twb" data-tip="鎖定打字範圍"><span data-ic="tw"></span></button><button class="ib" id="dtb" data-tip="插入日期時間"><span data-ic="cal"></span></button><button class="ib" id="cpb" data-tip="複製內文"><span data-ic="copy" id="cpi"></span></button><button class="ib" id="lipb" data-tip="關閉日常問候語"></button><span class="sep"></span><button class="ib" id="exp" data-tip="匯出備份"><span data-ic="out"></span></button><button class="ib" id="imp" data-tip="匯入備份"><span data-ic="inn"></span></button><span class="sep"></span><button class="ib" id="hlp" data-tip="使用說明"><span data-ic="help"></span></button></div>
   </div>
   <div class="row" id="r2" style="grid-column:3;grid-row:2"><div class="fld"><span data-ic="search"></span><input id="sq" autocomplete="off"></div><div id="sn" class="row" style="display:none;align-items:center"><span id="sc" style="font-size:13px;color:var(--dm);min-width:40px;text-align:center"></span><button class="ib" id="sp" data-tip="上一個"><span data-ic="up"></span></button><button class="ib" id="sd" data-tip="下一個"><span data-ic="dn"></span></button><button class="ib" id="sx" data-tip="清除搜尋"><span data-ic="x"></span></button></div><div class="row" id="ths"><button class="ib" data-th="d" data-tip="破曉"><span data-ic="sun"></span></button><button class="ib" data-th="u" data-tip="逢魔"><span data-ic="dusk"></span></button><button class="ib" data-th="n" data-tip="月華"><span data-ic="moon"></span></button></div><div id="phbag"></div></div>
   <div id="shelf" style="grid-column:3;grid-row:3;display:flex;align-items:center;gap:6px;min-width:0;overflow:hidden"></div>
@@ -287,7 +290,7 @@ html.ph #cell{grid-column:1/-1!important;grid-row:7!important}
 <input type="file" id="file" accept=".json,application/json" hidden>
 <canvas id="cv"></canvas><div id="tip"></div><div id="pk"></div>
 <script>
-const VERSION='1.15';
+const VERSION='1.17';
 const PROMO_URL='https://line.me/S/shop/sticker/author/123908';
 // 手機簡易版：觸控為主、沒有滑鼠停留、畫面窄。測試用：網址後面加 ?phone=1 強制簡易版，?phone=0 強制完整版
 const PH=(()=>{try{const q=new URLSearchParams(location.search).get('phone');if(q==='1')return true;if(q==='0')return false;return matchMedia('(pointer:coarse)').matches&&!matchMedia('(hover:hover)').matches&&Math.min(screen.width,innerWidth)<=820}catch(e){return false}})();
@@ -297,6 +300,7 @@ const IS_TW=(()=>{try{return (navigator.languages||[navigator.language]).some(l=
 const KEY='R_note',LK='R_note_layout',ICONS=['📝','⬜','✅','📌','💡','⭐','📕','🔥','❤️','🔒','⚠️','🚧','📋','🛒','🍽','🎬','🎮','🎁','🔔','💼','📆','🎨','🎵','🛠️','✉️','🔗','📚','⏰','🏝️','👨‍👩‍👧'];
 const P={plus:'<path d="M12 5v14M5 12h14"/>',search:'<circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5L21 21"/>',clock:'<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',hand:'<path d="M8 13V6a1.5 1.5 0 0 1 3 0v5M11 11V4.5a1.5 1.5 0 0 1 3 0V11M14 11V6a1.5 1.5 0 0 1 3 0v8a6 6 0 0 1-6 6h-1a6 6 0 0 1-5-2.7L3.5 13.5a1.5 1.5 0 0 1 2.5-1.6L8 14"/>',abc:'<path d="M3 17l4-10 4 10M4.7 13h4.6M15 8h6M15 12h6M15 16h6"/>',tag:'<path d="M4 4h7l9 9-7 7-9-9zM8 8h.01"/>',up:'<path d="M7 15l5-7 5 7z"/>',dn:'<path d="M7 9l5 7 5-7z"/>',cpp:'<path d="M9 4h6v3H9zM7 5H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-1M12 11v6M9 14h6"/>',out:'<path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8zM14 3v5h5M12 18v-6M9.5 14.5L12 12l2.5 2.5"/>',inn:'<path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8zM14 3v5h5M12 12v6M9.5 15.5L12 18l2.5-2.5"/>',cal:'<path d="M4 6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zM4 10h16M8 3v3M16 3v3M12 13v3l2 1"/>',copy:'<path d="M9 9h10a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1V10a1 1 0 0 1 1-1zM5 15H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v1"/>',trash:'<path d="M4 7h16M10 11v6M14 11v6M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2l1-12M9 7V4h6v3"/>',R:'<path d="M7 20V4h5a4.5 4.5 0 0 1 0 9H7M12 13l5 7"/>',x:'<path d="M6 6l12 12M18 6L6 18"/>',ok:'<path d="M5 12l5 5 9-10"/>',lock:'<rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/>'};
 P.sun='<path d="M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8zM12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>';P.dusk='<path d="M5 16a7 7 0 0 1 14 0M3 19h18M12 5v2M5.6 8.6l1.4 1.4M18.4 8.6L17 10M2 16h2M20 16h2"/>';P.moon='<path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/>';
+P.rbo='<path d="M3.5 21.2V13.7Q3.5 9.2 8 9.2H16Q20.5 9.2 20.5 13.7V21.2Z"/><path d="M8 9.2V6.6"/><path d="M8.8 13.8v3M15.2 13.8v3"/><circle cx="8" cy="4.9" r="1.7" fill="#4fd17a" stroke="none"/>';P.rbx='<path d="M3.5 21.2V13.7Q3.5 9.2 8 9.2H16Q20.5 9.2 20.5 13.7V21.2Z"/><path d="M8 9.2V6.6"/><path d="M7.2 15.7h3M13.8 15.7h3"/><circle cx="8" cy="4.9" r="1.7" fill="#8a93a6" stroke="none"/><path d="M17.6 1.6h3l-3 3.2h3" stroke-width="1.4"/>';P.lips='<path d="M3 12C5 9.2 8 8.4 10.6 9.4C11.4 9.7 12 10.3 12 10.3C12 10.3 12.6 9.7 13.4 9.4C16 8.4 19 9.2 21 12C19 15.4 15.5 17.4 12 17.4C8.5 17.4 5 15.4 3 12Z"/><path d="M3 12C7 13.6 17 13.6 21 12"/>';P.lipx=P.lips+'<path d="M4.5 4.5L19.5 19.5"/>';
 P.help='<circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.6 2.2c-.7.4-1.1 1-1.1 1.8M12 17h.01"/>';
 P.vol0='<path d="M3 9.5h3l4-3.5v12l-4-3.5H3z"/><circle cx="17" cy="12" r="4.5"/><path d="M13.8 15.2L20.2 8.8"/>';P.vol1='<path d="M3 9.5h3l4-3.5v12l-4-3.5H3z"/><path d="M13.5 9.8a3.2 3.2 0 0 1 0 4.4"/>';P.vol2='<path d="M3 9.5h3l4-3.5v12l-4-3.5H3z"/><path d="M13.5 9.8a3.2 3.2 0 0 1 0 4.4M16.5 7.2a7 7 0 0 1 0 9.6M19.3 5a10.5 10.5 0 0 1 0 14"/>';
 P.ro='<path d="M4 20l1.2-4.2L16.5 4.5a2.1 2.1 0 0 1 3 3L8.2 18.8zM14.5 6.5l3 3M3.5 3.5l17 17"/>';
@@ -307,7 +311,7 @@ document.querySelectorAll('[data-ic]').forEach(e=>e.innerHTML=sv(e.dataset.ic,+e
 let S={notes:[],sort:{k:'custom',dir:'asc'},sel:null,q:'',born:Date.now(),lastExport:0},L={sw:276,ah:60};
 try{const s=JSON.parse(localStorage.getItem(KEY)||localStorage.getItem('plain-notes-v1'));if(s&&Array.isArray(s.notes))Object.assign(S,s)}catch(e){}
 try{const l=JSON.parse(localStorage.getItem(LK)||localStorage.getItem('plain-notes-layout-v1'));if(l)Object.assign(L,l)}catch(e){}
-S.q='';S.ser=Object.assign({n:0,u:0,d:0},S.ser);['n','u','d'].forEach(t=>{const v=+S.ser[t];S.ser[t]=v>=0&&v<5?Math.floor(v):0});if(!S.born)S.born=Date.now();S.sfx=[0,1,2].includes(S.sfx)?S.sfx:0;S.fx=Object.assign({glow:false,chips:false,mine:false},S.fx);if(PH){S.fx.chips=true;S.fx.mine=true;S.sfx=2}
+S.q='';S.ser=Object.assign({n:0,u:0,d:0},S.ser);['n','u','d'].forEach(t=>{const v=+S.ser[t];S.ser[t]=v>=0&&v<5?Math.floor(v):0});if(!S.born)S.born=Date.now();S.sfx=[0,1,2].includes(S.sfx)?S.sfx:0;S.mute=S.mute?1:0;S.fx=Object.assign({glow:false,chips:false,mine:false},S.fx);if(PH){S.fx.chips=true;S.fx.mine=true;S.sfx=2}
 S.notes.forEach(n=>{n.content=String(n.content||'').replace(/\r\n?/g,'\n');if(n.icon==='⚙'||n.icon==='⚙️')n.icon=ICONS[23];if(!n.icon)n.icon=ICONS[0]});
 S.folders=(Array.isArray(S.folders)?S.folders:[]).filter(f=>f&&f.id&&f.name).map(f=>({id:String(f.id),name:String(f.name),color:+f.color||0,created:+f.created||0}));S.notes.forEach(n=>{delete n.pf;if((n.vault||n.archived)&&n.folderId)delete n.folderId;if(n.folderId&&!S.folders.some(f=>f.id===n.folderId))delete n.folderId});
 let pend=null,booted=false;const PKEY='R_note_prev';
@@ -316,7 +320,7 @@ const isRO=n=>!!(pend||(n&&n.ro));
 let ms=new Set(),anchor=null,mzone='a',dragIds=[];
 let fxPrev=0,fxHint=null,comp=false,vaultOn=false,GC='210,210,210',HEAD='#fff';
 const inBot=n=>vaultOn?!!n.vault:(!!n.archived&&!n.vault);
-let st;const save=()=>{clearTimeout(st);st=setTimeout(()=>{try{localStorage.setItem(KEY,JSON.stringify(S));if(SM.list.length)sayOff('store')}catch(e){if(!save.w||Date.now()-save.w>15000){save.w=Date.now();toast('儲存空間已滿或無法寫入，請先匯出備份',5000)}}},200)};
+let st;const save=()=>{clearTimeout(st);st=setTimeout(()=>{try{localStorage.setItem(KEY,JSON.stringify(S));if(SM.list.length)sayOff('store')}catch(e){if(!save.w||Date.now()-save.w>15000){save.w=Date.now();toast('儲存空間已滿或無法寫入，請先匯出備份。',5000)}}},200)};
 const saveL=()=>{try{localStorage.setItem(LK,JSON.stringify(L))}catch(e){}};
 const byId=id=>S.notes.find(n=>n.id===id);
 const p2=x=>String(x).padStart(2,'0');
@@ -328,7 +332,7 @@ function uniq(raw,self){
   if(!has(name))return name;
   const b=name.replace(/\(\d+\)$/,'')||name;let k=2;while(has(b+'('+k+')'))k++;return b+'('+k+')';
 }
-function layout(){const r=document.documentElement.style;r.setProperty('--sw',L.sw+'px');r.setProperty('--ah',L.ah+'%');placeWc();ulRefresh()}
+function layout(){const r=document.documentElement.style;r.setProperty('--sw',L.sw+'px');r.setProperty('--ah',L.ah+'%');placeWc();ulRefresh();rbPlace()}
 const match=n=>!S.q||n.content.toLowerCase().includes(S.q)||n.title.toLowerCase().includes(S.q);
 function activeList(){return sortL(S.notes.filter(n=>!n.archived&&!n.vault&&match(n)&&inView(n)))}
 function sortL(a){
@@ -391,8 +395,8 @@ $('nt').onkeydown=e=>{
 const W=c=>/[ᄀ-ᅟ⺀-꓏가-힣豈-﫿︰-﹯＀-｠￠-￦]/.test(c)?2:1;
 $('pn').onclick=async()=>{
   let tx='';
-  try{tx=await navigator.clipboard.readText()}catch(e){toast('無法讀取剪貼簿');return}
-  if(!tx||!tx.trim()){toast('剪貼簿沒有文字');return}
+  try{tx=await navigator.clipboard.readText()}catch(e){toast('無法讀取剪貼簿。');return}
+  if(!tx||!tx.trim()){toast('剪貼簿沒有文字。');return}
   const line=tx.split(/\r?\n/).find(l=>l.trim())||'';
   let s=line.trim().replace(/\s+/g,'_'),o='',w=0;
   for(const c of s){w+=W(c);if(w>12)break;o+=c}
@@ -400,13 +404,13 @@ $('pn').onclick=async()=>{
   if(addNote(uniq(o,null),tx.replace(/\r\n?/g,'\n'),'📋'))slabTop();
 };
 ta.oninput=()=>{const n=byId(S.sel);if(!n)return;n.content=ta.value;n.modified=Date.now();save();meta()};
-$('sq').onkeydown=e=>{if(e.key=='Enter'&&!e.isComposing){S.q=e.target.value.trim().toLowerCase();sIdx=0;fms.clear();fmulti=false;playSfx('search');render()}};
+$('sq').onkeydown=e=>{if(e.key=='Enter'&&!e.isComposing){S.q=e.target.value.trim().toLowerCase();sIdx=0;fms.clear();fmulti=false;playSfx('search');render();searchMsg()}};
 $('sq').oninput=e=>{if(!e.target.value.trim()&&S.q){S.q='';render()}else if(S.q)fitSq()};
 document.querySelectorAll('.sb').forEach(b=>b.onclick=()=>{
   const k=b.dataset.k;
   if(S.sort.k==k){if(k!='custom')S.sort.dir=S.sort.dir=='asc'?'desc':'asc'}
   else S.sort={k,dir:k=='time'?'desc':'asc'};
-  if(S.folders.length>=2&&!MS.fh){MS.fh=1;msSave();say('資料夾僅能手動排序',{lv:'info'})}
+  if(S.folders.length>=2&&!MS.fh){MS.fh=1;msSave();say('資料夾僅能手動排序。',{lv:'info'})}
   save();render();
 });
 $('dtb').onclick=()=>{
@@ -438,8 +442,8 @@ function asEmoji(t){
   return /\p{Emoji_Presentation}|️|⃣|\p{Regional_Indicator}/u.test(g)&&g!=='📜'?g:null;
 }
 async function pasteIcon(n){
-  let t='';try{t=await navigator.clipboard.readText()}catch(e){toast('無法讀取剪貼簿');return}
-  const g=asEmoji(t);if(!g){toast('剪貼簿裡不是單一個 Emoji');return}
+  let t='';try{t=await navigator.clipboard.readText()}catch(e){toast('無法讀取剪貼簿。');return}
+  const g=asEmoji(t);if(!g){toast('剪貼簿裡不是單一個 Emoji。');return}
   n.icon=g;playSfx('pick');save();render();pk.style.display='none';
 }
 function previewPk(id){
@@ -473,12 +477,14 @@ bar($('vs'),e=>{L.sw=Math.max(180,Math.min(innerWidth-380,e.clientX-12-4));layou
 bar($('dv'),e=>{const r=$('lst').getBoundingClientRect();L.ah=Math.max(10,Math.min(90,(e.clientY-$('top').getBoundingClientRect().top)/r.height*100));layout()});
 $('vs').ondblclick=()=>{L.sw=276;layout();saveL()};$('dv').ondblclick=()=>{L.ah=60;layout();saveL()};
 // 匯出入
-function chk(){const h=Math.floor((Date.now()-(S.lastExport||S.born))/36e5),b=$('exp');b.classList.toggle('dot',h>=120);b.dataset.tip=h>=120?`資料未備份長達 ${h} 小時`:'匯出備份'}
+// 1.16：距離上次匯出超過 7 小時，而且這段期間有新增、修改或刪除，才出現紅點（浮現時脈動 3 次）；按匯出就消失
+function bkDirty(){const t=S.lastExport||S.born;return S.notes.some(n=>(n.modified||0)>t||(n.created||0)>t)||S.notes.length!==(S.bkN===undefined?S.notes.length:S.bkN)||S.folders.length!==(S.bkF===undefined?S.folders.length:S.bkF)}
+function chk(){const h=Math.floor((Date.now()-(S.lastExport||S.born))/36e5),b=$('exp'),on=h>=7&&bkDirty(),was=b.classList.contains('dot');b.classList.toggle('dot',on);if(on&&!was){b.classList.remove('pls');void b.offsetWidth;b.classList.add('pls')}if(!on)b.classList.remove('pls');b.dataset.tip=on?`資料未備份長達 ${h} 小時`:'匯出備份'}
 $('exp').onclick=()=>{
   const d=new Date(),a=document.createElement('a');
   a.href=URL.createObjectURL(new Blob([JSON.stringify({app:'R_note',version:2,appVersion:VERSION,exported:d.toISOString(),notes:S.notes,folders:S.folders,sort:S.sort},null,2)],{type:'application/json;charset=utf-8'}));
   a.download=`R_note_backup_${d.getFullYear()}${p2(d.getMonth()+1)}${p2(d.getDate())}_${p2(d.getHours())}${p2(d.getMinutes())}.json`;a.click();URL.revokeObjectURL(a.href);
-  S.lastExport=Date.now();save();chk();
+  S.lastExport=Date.now();S.bkN=S.notes.length;S.bkF=S.folders.length;save();chk();
 };
 $('imp').onclick=()=>{if(pend){lockMsg();return}$('file').click()};
 $('file').onchange=e=>{
@@ -489,7 +495,7 @@ $('file').onchange=e=>{
     const seen={},now=Date.now();
     const clean=j.notes.filter(n=>n&&typeof n==='object').map((n,i)=>{n.id=String(n.id||('n'+now+i));while(seen[n.id])n.id+='x';seen[n.id]=1;n.title=String(n.title||'未命名'+(i+1));n.content=String(n.content||'').replace(/\r\n?/g,'\n');n.created=+n.created||now;n.modified=+n.modified||n.created;n.order=+n.order||i;if(n.icon==='⚙'||n.icon==='⚙️')n.icon=ICONS[23];if(!n.icon)n.icon=ICONS[0];n.ro=!!n.ro;return n});
     importDialog(j,clean,newer,g2);
-  }catch(x){toast('無法讀取這個檔案')}e.target.value=''};
+  }catch(x){toast('無法讀取這個檔案。')}e.target.value=''};
   r.readAsText(f,'UTF-8');
 };
 // 防窺
@@ -571,9 +577,10 @@ function loop(){
 }
 const shake=()=>$('cell').animate([{transform:'translate(2px,1px)'},{transform:'translate(-2px,0)'},{transform:'none'}],{duration:150});
 function slabTop(){if(!S.fx.chips||RM())return;playSfx('paste');const r=ta.getBoundingClientRect();for(let i=0;i<48;i++)spawn(r.left+Math.random()*r.width,r.top+4,2,'rubble');shake()}
-function burst(n,h){
+function burst(n,h,ime){
+  if(ime&&n>20)n=20;   // 1.16：輸入法一次送出整句不再當成貼上，最多算 20 個字
   const vis=S.fx.chips&&!RM(),end=ta.selectionStart,start=end-n,L=lh(),idx=[];
-  if(n<=8||h=='date'){
+  if(n<=8||h=='date'||ime){
     for(let i=start+1;i<=end;i++)idx.push(i);
     const mine=h!='date';
     if(!vis&&!(mine&&S.fx.mine)){if(mine)idx.forEach(()=>roll(0,0));return}
@@ -587,7 +594,7 @@ function glow(){
   const c=carets([ta.selectionStart])[0];g.style.display='block';g.style.left=(ta.clientLeft+c.x-26)+'px';g.style.top=(ta.clientTop+c.y+lh()/2-26)+'px';
 }
 ta.addEventListener('compositionstart',()=>comp=true);
-ta.addEventListener('compositionend',e=>{comp=false;setTimeout(wcUpdate,0);const n=(e.data||'').length;fxPrev=ta.value.length;if(n){playSfx('commit');burst(n)}glow()});
+ta.addEventListener('compositionend',e=>{comp=false;setTimeout(wcUpdate,0);const n=(e.data||'').length;fxPrev=ta.value.length;if(n){playSfx('commit');burst(n,undefined,true)}glow()});
 ta.addEventListener('input',e=>{
   glow();if(comp||e.isComposing)return;
   const t=e.inputType||'',n=ta.value.length-fxPrev,h=fxHint;fxPrev=ta.value.length;fxHint=null;
@@ -666,11 +673,12 @@ function gain(i,x,y){
   n.ore=n.ore||{};if(n.ore[i]===undefined)n.ore[i]=0;save();shelf();
   const done=()=>{
     const m=byId(id);if(!m)return;m.ore=m.ore||{};m.ore[i]=Math.min(999,(m.ore[i]||0)+1);if(S.fx.mine)playSfx('gem',i);save();shelf();
-    if(RM())return;const b=document.querySelector('.ore[data-i="'+i+'"]');
+    rbMine(i===0?'diamond':i<=4?'gem':'ore');
+    if(RM()||!S.fx.mine)return;const b=document.querySelector('.ore[data-i="'+i+'"]');
     if(b){b.querySelector('svg').animate([{transform:'scale(1)'},{transform:'scale(1.35)'},{transform:'scale(1)'}],{duration:280,easing:'ease-out'});b.querySelector('b').animate([{transform:'scale(1)'},{transform:'scale(1.7)'},{transform:'scale(1)'}],{duration:280,easing:'ease-out'})}
   };
   const b=document.querySelector('.ore[data-i="'+i+'"]');
-  if(RM()){done();return}
+  if(RM()||!S.fx.mine){done();return}   // 1.17：e 關閉時不飛粒子、不彈動
   // 手機上數量 0 的礦石不顯示，飛行目標改成展示櫃目前最右邊的位置
   let x1,y1;
   if(b){const r=b.getBoundingClientRect();x1=r.left+r.width/2;y1=r.top+r.height/2}
@@ -896,7 +904,7 @@ function paintSnd(){const b=$('snd');b.innerHTML=sv('vol'+S.sfx);b.dataset.tip=S
 $('snd').onclick=()=>{S.sfx=[2,0,1][S.sfx];save();paintSnd();playSfx('vol')};
 document.addEventListener('click',e=>{
   const b=e.target.closest('button.ib,#srx');if(!b)return;
-  const m={dtb:'date',cpb:'copy',exp:'export',imp:'import',hlp:'help',sp:'tick',sd:'tick',sx:'clear',srx:'clear'},id=b.id;
+  const m={twb:'ui',lipb:'ui',dtb:'date',cpb:'copy',exp:'export',imp:'import',hlp:'help',sp:'tick',sd:'tick',sx:'clear',srx:'clear'},id=b.id;
   if(m[id])playSfx(m[id]);else if(b.classList.contains('sb'))playSfx('ui');else if(b.dataset.th)playSfx('theme',b.dataset.th);
 },true);
 const WCX=/[\s\u0000-\u001F\u007F​-‍⁠️﻿]/g;
@@ -919,9 +927,10 @@ function wcUpdate(){
   const c=wcCount(n.content),k=Math.floor(c/100);$('wcn').textContent=c;
   if(wcMax[n.id]===undefined)wcMax[n.id]=k;
   let hit=false;if(k>wcMax[n.id]){wcMax[n.id]=k;hit=true}
-  placeWc();if(hit)wcFx();
+  placeWc();if(hit){wcFx();rbMine('wc')}
 }
 function wcFx(){
+  if(!S.fx.chips)return;   // 1.17：跟 t 一樣，關掉就沒有粒子、數字振動和聲音
   playSfx('wc100');
   if(RM())return;
   const wa=$('wcl').getBoundingClientRect(),wb=$('wcn').getBoundingClientRect(),r={left:wa.left,width:wb.right-wa.left},tr=ta.getBoundingClientRect(),SC=['#f4f6f9','#d3d8e0','#b0b7c3','#ffffff'];
@@ -946,11 +955,11 @@ function smLayout(){
   let tot=0;order.forEach(m=>{m.h=m.el.offsetHeight||SM.LH;tot+=m.h});
   while(tot>H){const v=order.find(m=>!m.sticky);if(!v)break;tot-=v.h;order.splice(order.indexOf(v),1);retire(v,true,true)}
   let y=H-tot;
-  order.forEach(m=>{m.el.style.transform=`translateY(${y}px)`;y+=m.h});
+  order.forEach(m=>{m.y=y;m.el.style.transform=`translateY(${y}px)`;y+=m.h});
 }
 function retire(m,fast,nl){
   if(!m||m.leaving)return;
-  m.leaving=true;m.tm.forEach(clearTimeout);
+  m.leaving=true;m.tm.forEach(clearTimeout);if(fast)m.fastOut=1;
   const el=m.el,gone=d=>setTimeout(()=>{el.remove();SM.list=SM.list.filter(x=>x!==m)},d);
   el.style.pointerEvents='none';
   if(RM()){gone(0)}
@@ -965,6 +974,16 @@ function retire(m,fast,nl){
     el.style.transform=`translateY(${ceil}px)`;el.style.opacity='0';gone(rise+fade+120);
   }
   if(!nl)smLayout();
+  rbRel(m);
+}
+// 1.17：新訊息出現時，還在慢慢離場的舊訊息如果擋到位置，就加快往上讓開
+function shove(){
+  const host=$('sysmsg'),hr=host.getBoundingClientRect(),live=SM.list.filter(m=>!m.leaving);if(!live.length||RM())return;
+  const lim=Math.min(...live.map(m=>m.y)),ceil=-hr.top-2;
+  SM.list.filter(m=>m.leaving&&!m.fastOut&&!m.shoved).forEach(m=>{
+    const cur=m.el.getBoundingClientRect().top-hr.top-4;
+    if(cur>lim-SM.LH+2){m.shoved=1;m.el.style.transition='transform .5s ease-out,opacity 2000ms linear';m.el.style.transform=`translateY(${ceil}px)`}
+  });
 }
 function sayOff(id){SM.list.filter(m=>m.id===id&&!m.leaving).forEach(m=>retire(m,false))}
 function waveLoop(m){
@@ -982,14 +1001,16 @@ function say(text,o){
   o=o||{};const lv=o.lv||'info',host=$('sysmsg');if(!host||!text)return;if(PH&&lv!=='warn'&&lv!=='crit')return;
   if(o.id&&SM.list.some(m=>m.id===o.id&&!m.leaving))return;
   const sticky=lv==='wait'||lv==='crit'||lv==='act',warn=lv==='warn'||lv==='crit';
+  if(!sticky&&!o.actions&&SM.list.some(m=>!m.leaving&&m.text===text))return;   // 1.17：同一句話還在畫面上就不再重複
   if(sticky){const st=SM.list.filter(m=>m.sticky&&!m.leaving);if(st.length>=2){const v=st.find(m=>!m.pin)||(lv==='crit'?st[0]:null);if(!v)return;retire(v,true)}}
-  const m={id:o.id||null,lv,sticky,pin:!!o.pin,leaving:false,el:document.createElement('div'),tm:[],born:Date.now(),sp:[]};
+  const m={id:o.id||null,text,lv,sticky,pin:!!o.pin,leaving:false,el:document.createElement('div'),tm:[],born:Date.now(),sp:[]};
   m.el.className='ln'+(warn?' w':'');if(RM())m.el.style.transition='none';
   const chars=[...String(text)];let ls=-1,le=-1;
   if(o.link){const w=[...o.link.word];for(let i=0;i+w.length<=chars.length;i++){if(chars.slice(i,i+w.length).join('')===w.join('')){ls=i;le=i+w.length;break}}}
   chars.forEach((c,i)=>{const sp=document.createElement('span');sp.textContent=c;if(!RM())sp.style.opacity='0';if(i>=ls&&i<le){sp.style.textDecoration='underline';sp.style.cursor='pointer';sp.style.pointerEvents='auto';sp.onclick=ev=>{ev.stopPropagation();window.open(o.link.url,'_blank','noopener')}}m.el.appendChild(sp);m.sp.push(sp)});
   if(warn){m.el.style.pointerEvents='auto';m.el.style.cursor='pointer';m.el.onclick=()=>retire(m,false)}
-  host.appendChild(m.el);SM.list.push(m);smLayout();
+  host.appendChild(m.el);SM.list.push(m);smLayout();shove();
+  rbReact(m,o.rx||{info:'nod',wait:'wait',warn:'warn',crit:'crit',act:'act'}[lv],o.rxd);
   const typed=()=>{
     if(m.leaving)return;
     if(o.actions)o.actions.forEach(a=>{const bt=document.createElement('button');bt.textContent=a.label;bt.onclick=ev=>{ev.stopPropagation();playSfx('ui');a.fn()};m.el.appendChild(bt)});
@@ -1025,91 +1046,418 @@ function holiday(){
   const lun={'1/1':'新年快樂！祝你紅包滿滿……不對，已經到了發紅包的年紀了！？','1/15':'圓鍬……不是！元宵節快樂。（沒有燈謎給你猜）','5/5':'端牛節……不對！端午節快樂！（粽子少吃點）','7/7':'祝天下有情人終成父母（欸！）……七夕快樂！','8/15':'中抽節……不對！中秋節快樂！（烤肉別烤焦，脂肪少囤點）'};
   return lun[lk]||null;
 }
+// ===== 1.16 系統訊息 =====
+// 每句話有「個性」：幽默版只在機器人開著時出現；正經版（功能提示）機器人休息時也會出現。
+// 可調數字（按鍵數，不是字數）：warm 暖身、hol 節日、night 深夜、idle 發呆判斷（2 分鐘內）、tip 隨機小語、long 久寫、fast／vfast 打很快（2 分鐘內）
+const MK={warm:100,hol:40,night:50,idle:40,tip:500,long:3500,fast:160,vfast:240};
+// 間隔：gap 任兩則訊息、fast 打很快、rest 累了／久寫、night 深夜、idle 發呆、tip 機器人休息時時的功能提示、paste 貼上反應、longAway 算「好久才回來」
+const MCD={gap:4*60000,fast:20*60000,rest:45*60000,night:40*60000,idle:10*60000,tip:2*3600000,paste:10*60000,longAway:40*60000};
 // 時段問候：[起點含, 終點不含, 句子]；沒有涵蓋到的時間就沒有問候，重疊的時段句子合併
 const SLOTS=[
-  [5,9,['嗨嗨～大腦順利開機了嗎？','早安，先記下今天最重要的一件事吧。','早安，文思泉湧了嗎？']],
+  [5,9,['噹噹！大腦順利開機！','早安，寫下現在的心情吧。','早安，今天的計劃是什麼？']],
   [11,13,['午安，吃飽了嗎？','記得午休瞇一下再繼續忙。','想好午餐吃什麼了嗎？']],
-  [13,14,['午餐吃了什麼？要記下來嗎？','午休睡飽了嗎？','下午的計畫是什麼？']],
-  [15,16,['何不來杯下午茶再繼續？','把剛想到的先寫下來吧。','點個飲料來喝吧～']],
+  [13,14,['午餐吃了什麼？要記下來嗎？','午休睡飽了嗎？','起來走走，喝杯水。']],
+  [15,16,['何不來杯下午茶？','把剛想到的先寫下來吧。','點個飲料來喝吧～']],
   [17,18,['下班去哪玩？','晚餐吃什麼好？','下班就別再忙了。']],
   [18,23,['來整理今天的想法吧。','今天辛苦了。','要記帳嗎？']],
   [21,22,['蔡依林比你早睡。','好寶寶睡覺時間。','晚安，歡迎回來～']],
-  [23,5,['夜深了，記完就早點休息。','這麼晚還沒睡，把想法放進來就好。','該睡覺囉～']]
+  [23,5,['夜深了，大綱寫完就早點休息。','這麼晚還沒睡，先記下想法，明天再說。','（呵欠～）準備要睡了嗎？']],
+  [2,4,['你還不睡嗎？我都想睡了……','再不睡，我不幫你存檔了（開玩笑的）']],
+  [4,5,['難不成你在等待日出？']]
 ];
-// 隨機小語（功能提示、幽默、關心）
-const POOL=['雙擊標題可以改名。','按住 Ctrl 點標題，可以一次選取多則。','把標題拖到下方，就是封存。','想了解更多功能細節，請點擊右上角的『？』圖示。','你是認真來寫作，不是來玩的吧？','你好，來挖礦的嗎？','複製一個 Emoji，再點標題前的圖示，選「貼上自訂 Emoji」，就能自訂筆記圖示喔。','按住 Ctrl，筆記裡的網址會亮起來，點一下就能在新分頁開啟。','右上的鉛筆按鈕，可以把筆記設為唯讀。','左上角的字母，都可以點點看。','這裡很適合草擬 AI 對話。','搜尋框輸入關鍵字後，按 Enter 開始搜尋。','拖曳左右欄之間的拉條可以調整寬度，雙擊還原。','選取筆記後按 Delete，可以移到封存區。','喝口水，伸個懶腰再繼續。','寫下來，腦袋就輕了。','按一下標題框左邊的 +，就能新增今天的日記。','記得喝水。','歡迎回來～','有記得去尿尿嗎？',
-  '要不要先存檔？……不用，這裡會自動存。','Ctrl + Z 可以後悔。','想不到要寫什麼？那就寫「想不到要寫什麼」。','重要的筆記，記得匯出備份一份。','備份了嗎？右上角的匯出按鈕等你很久了。','寫到一百字，會有小驚喜喔。','點一下標題前面的圖示，可以換成別的。','封存區裡的筆記還在，只是先收起來而已。','搜尋連封存區都找得到。','背挺直，肩膀放鬆。','眼睛休息一下，看看遠方吧。','文字不會長胖，放心打。'];
+// 星期幾：[星期（0=日）, 起點含, 終點不含, 句子]；有對應時，問候有一半機率改抽這組
+const WK=[
+  [[1],5,12,'週一症候群發作了嗎？先喝杯咖啡。'],
+  [[1],0,24,'新的一週，從打開這個頁面開始。'],
+  [[2,4],0,24,'離週末還有幾天……不要算，越算越久。'],
+  [[3],17,24,'恭喜撐過小週末！'],
+  [[5],12,17,'週五下午，心已經不在辦公室了吧？'],
+  [[5],17,24,'週末快到了，心早就飄走了吧！'],
+  [[6,0],0,24,'週末還在寫？也太自律了吧。']
+];
+// 隨機小語：功能提示（FN 中性、FH 幽默、FF 是幽默句的正經版）和閒聊（CHAT，只有幽默）
+const FN=['點兩下標題可以改名。','按住 Ctrl 點標題，可以一次選取多則。','把標題拖到下方，就是封存。','想了解更多功能細節，請點擊右上角的『？』圖示。','複製一個 Emoji，再點標題前的圖示，選「貼上自訂 Emoji」，就能自訂筆記圖示喔。','按住 Ctrl，筆記裡的網址會亮起來，點一下就能在新分頁開啟。','右上的鉛筆按鈕，可以把筆記設為唯讀。','搜尋框輸入關鍵字後，按 Enter 開始搜尋。','拖曳左右欄之間的拉條可以調整寬度，點兩下拉條還原預設位置。','選取筆記後按 Delete，會移到底下的封存區。','按一下標題框左邊的 +，就能新增今天的日記。','重要的筆記，記得匯出備份一份。','寫到一百字，會有小驚喜喔。','點一下標題前面的圖示，可以換成別的。','封存區裡的筆記還在，只是先收起來而已。','搜尋連封存區都找得到。'];
+const FH=['↖左上角的Rnote字母，每個都點過了嗎？','要不要先存檔？……不用，這裡會自動存。','Ctrl + Z 可以反悔，在離開同一筆記之前；走了只剩後悔。','備份了嗎？右上角的匯出按鈕等你很久了。'];
+const FF=['左上角的 Rnote 字母都可以點擊。','資料會自動儲存，不需要手動存檔。','Ctrl + Z 可以復原；離開同一筆記後，復原紀錄會清除。','建議定期使用匯出功能備份資料。'];
+const CHAT=['你好，來挖礦的嗎？','這裡很適合草擬 AI 對話。','打字不會變胖，請放心打。'];
+const TIPS=FN.concat(FH,FF,CHAT),QTIPS=FN.concat(FF);
+const IDLE=['想不到要寫什麼？那就寫「想不到要寫什麼」。','發呆也是工作的一部分。','想法卡住了嗎？『鎖定打字範圍』會讓打字區域卡得很貼心喔！（按兩隻鉛筆圖示）','寫下來，腦袋就可以放空了。','你是認真來寫作，不是來玩的吧？'];
+const REST=['喝口水，伸個懶腰再繼續。','眼睛休息一下，看看遠方吧。','背挺直，肩膀放鬆。','記得喝水。','有記得去尿尿嗎？'];
+const NIGHT=['夜深了，大綱寫完就早點休息。','這麼晚還沒睡，先記下想法，明天再說。','（呵欠～）準備要睡了嗎？','蔡依林比你早睡。','明天的你會感謝現在去睡的你。'];
+const BACK=['歡迎回來～','回來啦，剛剛想到什麼了嗎？','回來啦，剛剛去倒水嗎？','你回來了，要繼續了嗎？'];
+const LONGB=['你終於回來了！','去哪啦？我等你好久。','好久不見，筆記都想你了。','欸，你終於出現了。','回來啦，我都快睡著了。','剛剛忙什麼去了？','久等了？不，是我等你。'];
+const WROTE=['你是在寫小說嗎？主角還好嗎？','論文寫到這個份上，教授應該會心疼的。','這個字數，出版社已經在敲門了。','靈感很旺，但手腕也要顧，甩一甩吧。','寫這麼久了，主角需要吃飯，你也是。','寫了這麼多字，手指還好嗎？甩甩手吧。','你的椅子在求救，站起來讓它喘口氣。','起來走三步再回來，字不會跑掉。'];
+const FAST=['手速驚人，鍵盤快冒煙了。','你的手指是不是偷偷開了外掛？','慢慢來，標點符號也想被愛。'];
+const VFAST=['這速度，輸入法都快跟不上了。','你確定你不是在用外掛輸入文字？','鍵盤：「請問我可以休息一下嗎？」'];
+const M1=['欸？你剛剛是不是手滑了？','才剛走就回來，捨不得我對吧？','剛剛那一下是手滑，我懂，我不說。','我剛要躺下休息，你就回來了。','放心，你的筆記都好好的。'];
+const M2=['忘東西了嗎？我幫你顧著呢。','就知道你會回來，筆記都還在。','這麼快回來，是想到什麼了嗎？','剛剛去哪啦？我這邊一切正常。','回來啦，剛剛的靈感還在嗎？'];
+const P1=['你想灌水喔？','貼得好快，是從別處搬家過來嗎？','這一大段不是你打的吧？我有看到喔。'];
+const P2=['整本書都搬進來了嗎？','這個份量，先匯出備份比較安心。'];
+const P3=['這是在拼貼嗎？','貼上鍵：「我快要冒煙了。」','你是在整理資料，還是在灌水？'];
+const HUSH=['好吧，我閉嘴。','我不要走～我還想陪著你～','嗚……那我安靜待著就好。','收到，我會躲在角落，不打擾你。','真的要關嗎？……好啦，尊重你。','（默默把天線收起來）','需要我的時候，再按一下我的頭就好。'];
+const HELLO=['我回來了！有沒有想我？','耶，終於可以說話了！','謝謝你讓我回來～','就知道你捨不得我。','憋好久了，我可以講話了嗎？（其實我一直都在）','歡迎回來……不對，是我回來了（開心）。'];
+const SHUM=['找不到『{字}』……也許它在躲你。','『{字}』不在這裡，是不是記在別的地方？','搜尋『{字}』沒有結果，它可能藏在你的心中。'];
+const SFOR=['找不到符合『{字}』的筆記。','沒有符合『{字}』的結果。','搜尋『{字}』：0 筆結果。'];
+const POOLS={idle:IDLE,rest:REST,night:NIGHT,back:BACK,long:LONGB,wrote:WROTE,fast:FAST,vfast:VFAST,m1:M1,m2:M2,p1:P1,p2:P2,p3:P3};
+const REACT=['fast','vfast','p1','p2','p3'];
 const pickOf=a=>a[Math.floor(Math.random()*a.length)];
-let lastMsg='';
-function pickNR(a){let t,i=0;do{t=pickOf(a)}while(t===lastMsg&&a.length>1&&i++<5);lastMsg=t;return t}
+// 連續 4 次不重複（記在 MS.rc，重新整理後也記得）；候選不夠時才放寬
+function pickRec(a){
+  const rc=Array.isArray(MS.rc)?MS.rc:[];
+  let c=a.filter(t=>!rc.includes(t));if(!c.length)c=a.filter(t=>t!==rc[rc.length-1]);if(!c.length)c=a;
+  const t=pickOf(c);MS.rc=rc.concat([t]).slice(-4);msSave();return t;
+}
 function greet(){
-  const h=new Date().getHours(),c=[];
+  const d=new Date(),h=d.getHours(),dy=d.getDay(),c=[],w=[];
   SLOTS.forEach(([a,b,t])=>{if(a<b?(h>=a&&h<b):(h>=a||h<b))c.push(...t)});
-  return c.length?pickNR(c):null;
+  WK.forEach(([ds,a,b,t])=>{if(ds.includes(dy)&&h>=a&&h<b)w.push(t)});
+  if(w.length&&(!c.length||Math.random()<.5))return pickRec(w);
+  return c.length?pickRec(c):null;
 }
 let chH=new Date().getHours();
 function chime(d){
   if(PH)return;const h=d.getHours();
-  if(d.getMinutes()<=2&&h!==chH){chH=h;say('現在時間 '+(S.h12?(h<12?'AM ':'PM ')+p2(h%12||12)+':00':p2(h)+':00'),{lv:'info'});playSfx('hour')}
+  if(d.getMinutes()<=2&&h!==chH){chH=h;if(S.mute)return;say('現在時間 '+(S.h12?(h<12?'AM ':'PM ')+p2(h%12||12)+':00':p2(h)+':00'),{lv:'info',rx:'chime'});playSfx('hour')}
 }
 // 1.12：系統訊息改為「看你在做什麼」才出現，重新整理不會主動跳訊息
-const IDLE=['想不到要寫什麼？那就寫「想不到要寫什麼」。','發呆也是工作的一部分。','卡住了嗎？先把亂七八糟的想法倒出來就好。','寫下來，腦袋就輕了。','你是認真來寫作，不是來玩的吧？'];
-const REST=['喝口水，伸個懶腰再繼續。','眼睛休息一下，看看遠方吧。','背挺直，肩膀放鬆。','記得喝水。','有記得去尿尿嗎？'];
-const NIGHT=['夜深了，記完就早點休息。','這麼晚還沒睡，把想法放進來就好。','該睡覺囉～','蔡依林比你早睡。','明天的你會感謝現在去睡的你。'];
-const BACK=['歡迎回來～','回來啦，剛剛想到什麼了嗎？'];
-const TIPS=POOL.filter(t=>!IDLE.includes(t)&&!REST.includes(t)&&!NIGHT.includes(t)&&t!=='歡迎回來～');
-const A={chars:0,tot:0,run:0,last:Date.now(),act:Date.now(),recent:[],warm:false,msg:0,hAt:0,idleAt:0,restAt:0,nightAt:0,away:false,promo:false,ready:null};
+const A={chars:0,tot:0,run:0,runKeys:0,last:Date.now(),act:Date.now(),t0:Date.now(),recent:[],warm:false,msg:0,hAt:0,idleAt:0,restAt:0,nightAt:0,fastAt:0,pasteAt:0,away:false,awayGap:0,promo:false,qp:true,pastes:[]};
 const MKEY='R_note_msg';let MS={};try{MS=JSON.parse(localStorage.getItem(MKEY)||'{}')}catch(e){}
 const msSave=()=>{try{localStorage.setItem(MKEY,JSON.stringify(MS))}catch(e){}};
 const dayKey=()=>{const d=new Date();return d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate()};
+// 離開多久：頁面開著時每 5 秒記一次時間，重新開啟時比對（重新整理不算）
+const HBK='R_note_hb';let hbPrev=0;try{hbPrev=+localStorage.getItem(HBK)||0}catch(e){}
+const hbSave=()=>{try{localStorage.setItem(HBK,String(Date.now()))}catch(e){}};
+hbSave();setInterval(hbSave,5000);addEventListener('pagehide',hbSave);
+// 敲打數：只算實際按下的字母、數字、空白、標點；長按連發、Ctrl 組合鍵、刪除、方向鍵、貼上都不算
 function touch(typed){
   const t=Date.now();
-  if(t-A.act>5*60000){A.away=true;A.run=0}        // 離開超過 5 分鐘
+  if(t-A.act>5*60000){A.away=true;A.awayGap=t-A.act;A.run=0;A.runKeys=0;A.qp=true}   // 離開超過 5 分鐘
   A.act=t;
-  if(typed){A.chars++;A.tot++;A.recent.push(t);if(A.recent.length>200)A.recent.shift()}
+  if(typed){rbType();A.chars++;A.tot++;A.runKeys++;A.recent.push(t);if(A.recent.length>600)A.recent.shift()}
 }
 ['keydown','pointerdown','mousemove','touchstart','wheel'].forEach(ev=>document.addEventListener(ev,()=>touch(false),{passive:true,capture:true}));
-ta.addEventListener('input',()=>touch(true));
-document.addEventListener('visibilitychange',()=>{if(!document.hidden&&Date.now()-A.act>5*60000){A.away=true;A.run=0}});
+ta.addEventListener('keydown',e=>{
+  if(ta.readOnly||e.repeat||e.ctrlKey||e.metaKey||e.altKey)return;
+  const k=e.key;let ok=k.length===1;
+  if(!ok&&(k==='Process'||k==='Unidentified'||e.keyCode===229))ok=/^(Key|Digit|Numpad[0-9]|Minus|Equal|Bracket|Semicolon|Quote|Comma|Period|Slash|Backquote|Backslash|IntlBackslash|Space)/.test(e.code||'');
+  if(ok)touch(true);
+});
+document.addEventListener('visibilitychange',()=>{if(!document.hidden){if(Date.now()-A.act>5*60000){A.away=true;A.awayGap=Date.now()-A.act;A.run=0;A.runKeys=0;A.qp=true}}else hbSave()});
+function canSay(){return !(PH||document.hidden||pv||pend||SM.list.some(m=>!m.leaving&&(m.lv==='warn'||m.lv==='crit')))}
+function sayPromo(){A.promo=true;A.msg=Date.now();say('你知道【像素刻工館】的 LINE 貼圖嗎？',{lv:'info',rx:'greet',link:{word:'像素刻工館',url:PROMO_URL},hold:9000})}
 function fire(kind){
+  if(S.mute)return;
   const now=Date.now();let t=null;
-  if(MS.hd!==dayKey()){const h=holiday();if(h){t=h;MS.hd=dayKey();msSave()}}
+  let hol=false;
+  if(!REACT.includes(kind)&&MS.hd!==dayKey()){const h=holiday();if(h){t=h;hol=true;MS.hd=dayKey();msSave()}}
   if(!t){
-    if(kind==='warm')t=greet()||pickNR(TIPS);
-    else if(kind==='back')t=Math.random()<.5?pickOf(BACK):(greet()||pickOf(BACK));
-    else if(kind==='idle')t=pickNR(IDLE);
-    else if(kind==='rest')t=pickNR(REST);
-    else if(kind==='night')t=pickNR(NIGHT);
+    if(kind==='warm')t=greet()||pickRec(TIPS);
+    else if(kind==='back')t=Math.random()<.5?pickRec(BACK):(greet()||pickRec(BACK));
+    else if(POOLS[kind])t=pickRec(POOLS[kind]);
     else{
-      if(!A.promo&&Math.random()<1/12){A.promo=true;A.msg=now;say('你知道【像素刻工館】的 LINE 貼圖嗎？',{lv:'info',link:{word:'像素刻工館',url:PROMO_URL},hold:9000});return}
-      t=pickNR(TIPS);
+      if(!A.promo&&Math.random()<1/12){sayPromo();return}
+      t=pickRec(TIPS);
     }
   }
-  A.msg=now;A.chars=0;say(t);
+  A.msg=now;A.chars=0;
+  say(t,{rx:hol?'holiday':CHAT.includes(t)?'greet':({warm:'greet',back:'back',m1:'back',m2:'back',long:'long',idle:'idle',rest:'tired',wrote:'tired',night:'tired',fast:'fast',vfast:'vfast',p1:'startle',p2:'startle',p3:'startle',tip:'tip'})[kind]});
   if(kind==='warm'){A.warm=true;MS.wt=now;msSave()}
 }
+// 機器人休息時：只有「剛回來」時，間隔夠久才出一則功能提示（正經版、沒看過的優先、停留加倍）
+function fireQuiet(){
+  const now=Date.now();
+  if(!A.promo&&Math.random()<1/12){sayPromo();MS.qt=now;msSave();return}
+  const seen=Array.isArray(MS.seen)?MS.seen:[];let c=QTIPS.filter(t=>!seen.includes(t));
+  if(!c.length){MS.seen=[];c=QTIPS.slice()}
+  const t=pickRec(c);MS.seen=(Array.isArray(MS.seen)?MS.seen:[]).concat([t]);MS.qt=now;msSave();
+  A.msg=now;say(t,{lv:'info',rx:'tip',hold:(4200+[...t].length*50)*2});
+}
+// 貼上：單次 500 字以上、超大 3000 字以上、5 秒內連貼 4 次
+ta.addEventListener('paste',e=>{
+  if(ta.readOnly||PH||S.mute)return;
+  const len=((e.clipboardData&&e.clipboardData.getData('text'))||'').replace(/\s/g,'').length;if(!len)return;
+  const now=Date.now();A.pastes=A.pastes.filter(t=>now-t<5000);A.pastes.push(now);
+  let k=null;if(A.pastes.length>=4){k='p3';A.pastes=[]}else if(len>=3000)k='p2';else if(len>=500)k='p1';
+  if(!k||now-A.pasteAt<MCD.paste)return;A.pasteAt=now;
+  setTimeout(()=>{if(canSay())fire(k)},700);
+});
+// 搜尋沒有結果：機器人開著用幽默版，關著用正式版（「像素刻工館」留給之後的隱藏獎勵）
+function searchMsg(){
+  const raw=$('sq').value.trim();if(!S.q||PH||raw==='像素刻工館')return;
+  if(S.notes.some(n=>(vaultOn?!n.archived:!n.vault)&&match(n)))return;
+  const now=Date.now();if(now-(A.srT||0)<3000)return;A.srT=now;
+  const w=[...raw],s=w.length>8?w.slice(0,8).join('')+'…':raw;
+  say(pickRec(S.mute?SFOR:SHUM).replace('{字}',s),{lv:'info',rx:'no'});
+}
+// 機器人按鈕（原嘴唇按鈕）：開關日常問候語；關掉時機器人離場
+function paintLip(){const b=$('lipb');b.innerHTML=sv(S.mute?'rbx':'rbo');b.dataset.tip=S.mute?'叫醒機器人（開啟日常問候語）':'讓機器人休息（關閉日常問候語）'}
+let lipT=[];
+$('lipb').onclick=()=>{
+  const now=Date.now();lipT=lipT.filter(t=>now-t<60000);lipT.push(now);
+  S.mute=S.mute?0:1;A.qp=false;save();paintLip();rbSwitch();
+  // 1.17：訊息改成像鉛筆按鈕那樣往上堆疊，不再互相取代；機器人回來時登場完才反應
+  const rx=S.mute?'none':'back',rxd=S.mute?0:650;
+  if(lipT.length>=3){lipT=[];say('你是在跟我玩嗎？',{lv:'info',rx,rxd});return}
+  if(S.mute){
+    say(pickRec(HUSH),{lv:'info',rx});
+    if(!MS.lm)setTimeout(()=>{if(S.mute&&!MS.lm){MS.lm=1;msSave();say('日常問候已關閉，功能提示仍會保留。',{lv:'info',hold:6000,rx:'none'})}},1500);
+  }else say(pickRec(HELLO),{lv:'info',rx,rxd});
+};
+paintLip();
+// ===== 1.17 小機器人（常駐吉祥物）=====
+// 24×24 像素、顯示 48×48；站在「貼上並新增」按鈕上方。機器人按鈕（原嘴唇）開關；手機直式不顯示。
+// 生鏽：停手 2 分鐘後開始、10 分鐘生鏽到底；每打一個字恢復 1%（也重新計 2 分鐘）。生鏽超過 30% 就拿不出燈泡。
+// 訊息配合：天線燈 0.4 秒變成對應燈色＋一個動作；動作一次一個，高階打斷低階。挖礦（e 開著）也會有反應。
+var RB=(function(){
+if(PH)return null;
+const D={"default":[[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,"346e9a","7cabb9","346e9a",null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,"7cabb9","9fc9ca","7cabb9",null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,"346e9a","588da7","346e9a",null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,"295377",null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,"1d3854",null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],[null,null,null,null,"0b0e1f","0b0e1f","0b0e1f","0b0e1f","0b0e1f","0b0e1f","0b0e1f","0b0e1f",null,null,null,null,null,null,null,null,null,null,null,null],[null,null,"0b0e1f","0b0e1f","9ba8b5","9ba8b5","9ba8b5","9ba8b5","9ba8b5","9ba8b5","9ba8b5","9ba8b5","0b0e1f","0b0e1f",null,null,null,null,null,null,null,null,null,null],[null,"0b0e1f","788797","9ba8b5","c5d3d3","9ba8b5","788797","788797","788797","788797","788797","9ba8b5","9ba8b5","788797","0b0e1f",null,null,null,null,null,null,null,null,null],[null,"0b0e1f","788797","9ba8b5","9ba8b5","788797","788797","788797","788797","788797","788797","788797","9ba8b5","9ba8b5","0b0e1f",null,null,null,null,null,null,null,null,null],[null,"0b0e1f","788797","9ba8b5","788797","788797","0b0e1f","788797","788797","788797","0b0e1f","788797","9ba8b5","9ba8b5","0b0e1f",null,null,"0b0e1f","0b0e1f",null,null,"0b0e1f","0b0e1f",null],[null,"0b0e1f","788797","788797","788797","788797","0b0e1f","788797","788797","788797","0b0e1f","788797","9ba8b5","9ba8b5","0b0e1f",null,"0b0e1f","c5d3d3","0b0e1f",null,null,"0b0e1f","c5d3d3","0b0e1f"],[null,"0b0e1f","788797","788797","788797","788797","788797","788797","788797","788797","788797","788797","9ba8b5","9ba8b5","0b0e1f",null,"0b0e1f","9ba8b5","0b0e1f",null,null,"0b0e1f","9ba8b5","0b0e1f"],[null,"0b0e1f","788797","788797","788797","0b0e1f","0b0e1f","0b0e1f","0b0e1f","0b0e1f","0b0e1f","788797","9ba8b5","9ba8b5","0b0e1f",null,"0b0e1f","788797","525d75","0b0e1f","0b0e1f","525d75","788797","0b0e1f"],[null,"0b0e1f","0b0e1f","0b0e1f","0b0e1f",null,null,null,null,null,null,"0b0e1f","0b0e1f","0b0e1f","0b0e1f",null,"0b0e1f","788797","525d75","c5d3d3","c5d3d3","525d75","788797","0b0e1f"],[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,"0b0e1f","788797","9ba8b5","9ba8b5","788797","0b0e1f",null],[null,null,null,null,null,"0b0e1f","0b0e1f","0b0e1f","0b0e1f","0b0e1f",null,null,null,null,null,null,null,null,"0b0e1f","0b0e1f","0b0e1f","0b0e1f",null,null],[null,null,null,"0b0e1f","0b0e1f","525d75","788797","788797","788797","525d75","0b0e1f","0b0e1f",null,null,null,null,null,null,"0b0e1f","788797","9ba8b5","0b0e1f",null,null],[null,null,"0b0e1f","788797","9ba8b5","9ba8b5","9ba8b5","9ba8b5","9ba8b5","9ba8b5","9ba8b5","788797","0b0e1f",null,null,null,null,null,"0b0e1f","525d75","525d75","0b0e1f",null,null],[null,"0b0e1f","788797","9ba8b5","c5d3d3","9ba8b5","788797","788797","788797","9ba8b5","9ba8b5","9ba8b5","788797","0b0e1f",null,null,"0b0e1f","0b0e1f","525d75","788797","9ba8b5","0b0e1f",null,null],[null,"0b0e1f","788797","9ba8b5","9ba8b5","788797","788797","788797","788797","788797","9ba8b5","9ba8b5","788797","0b0e1f",null,"0b0e1f","525d75","788797","788797","525d75","0b0e1f",null,null,null],[null,"0b0e1f","788797","9ba8b5","788797","788797","788797","788797","788797","788797","9ba8b5","9ba8b5","788797","0b0e1f",null,null,"0b0e1f","0b0e1f","0b0e1f","0b0e1f",null,null,null,null],[null,"0b0e1f","0b0e1f","0b0e1f","0b0e1f","0b0e1f","0b0e1f","0b0e1f","0b0e1f","0b0e1f","0b0e1f","0b0e1f","0b0e1f","0b0e1f",null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null]],"rust":[[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,"343f55","525d75","343f55",null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,"525d75","9ba8b5","525d75",null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,"343f55","525d75","343f55",null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,"343f55",null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,"343f55",null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],[null,null,null,null,"0b0e1f","0b0e1f","0b0e1f","0b0e1f","0b0e1f","0b0e1f","0b0e1f","0b0e1f",null,null,null,null,null,null,null,null,null,null,null,null],[null,null,"0b0e1f","0b0e1f","b06b6c","9ba8b5","a08060","886848","b06b6c","a08060","a08060","b06b6c","0b0e1f","0b0e1f",null,null,null,null,null,null,null,null,null,null],[null,"0b0e1f","b06b6c","9ba8b5","c5d3d3","9ba8b5","788797","b06b6c","886848","788797","886848","9ba8b5","9ba8b5","886848","0b0e1f",null,null,null,null,null,null,null,null,null],[null,"0b0e1f","b06b6c","9ba8b5","9ba8b5","788797","788797","8f5151","788797","788797","705038","788797","9ba8b5","a08060","0b0e1f",null,null,null,null,null,null,null,null,null],[null,"0b0e1f","886848","9ba8b5","a08060","788797","0b0e1f","788797","788797","886848","0b0e1f","788797","9ba8b5","a08060","0b0e1f",null,null,"502820","502820",null,null,"502820","502820",null],[null,"0b0e1f","705038","788797","788797","a08060","0b0e1f","788797","705038","74403f","0b0e1f","788797","9ba8b5","a08060","0b0e1f",null,"401818","a08060","401818",null,null,"401818","a08060","0b0e1f"],[null,"0b0e1f","705038","886848","788797","788797","788797","886848","74403f","8f5151","74403f","886848","886848","a08060","0b0e1f",null,"401818","a08060","603828",null,null,"401818","a08060","0b0e1f"],[null,"0b0e1f","705038","705038","886848","0b0e1f","0b0e1f","0b0e1f","0b0e1f","0b0e1f","0b0e1f","74403f","8f5151","b06b6c","0b0e1f",null,"401818","886848","74403f","502820","401818","886848","8f5151","0b0e1f"],[null,"0b0e1f","0b0e1f","0b0e1f","0b0e1f",null,null,null,null,null,null,"0b0e1f","0b0e1f","0b0e1f","0b0e1f",null,"0b0e1f","886848","74403f","886848","886848","74403f","788797","0b0e1f"],[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,"0b0e1f","788797","a08060","a08060","8f5151","0b0e1f",null],[null,null,null,null,null,"0b0e1f","0b0e1f","0b0e1f","0b0e1f","0b0e1f",null,null,null,null,null,null,null,null,"0b0e1f","512b2a","512b2a","0b0e1f",null,null],[null,null,null,"0b0e1f","0b0e1f","705038","886848","886848","886848","705038","0b0e1f","0b0e1f",null,null,null,null,null,null,"0b0e1f","886848","8f5151","0b0e1f",null,null],[null,null,"0b0e1f","788797","9ba8b5","9ba8b5","9ba8b5","9ba8b5","788797","a08060","886848","8f5151","0b0e1f",null,null,null,null,null,"0b0e1f","603828","603828","0b0e1f",null,null],[null,"0b0e1f","788797","9ba8b5","c5d3d3","9ba8b5","788797","886848","886848","886848","a08060","a08060","b06b6c","0b0e1f",null,null,"0b0e1f","0b0e1f","705038","886848","b06b6c","0b0e1f",null,null],[null,"0b0e1f","a08060","9ba8b5","9ba8b5","705038","886848","886848","788797","788797","9ba8b5","a08060","b06b6c","0b0e1f",null,"0b0e1f","705038","886848","788797","705038","0b0e1f",null,null,null],[null,"0b0e1f","886848","9ba8b5","705038","886848","705038","788797","788797","a08060","9ba8b5","a08060","886848","0b0e1f",null,null,"0b0e1f","0b0e1f","0b0e1f","0b0e1f",null,null,null,null],[null,"0b0e1f","0b0e1f","0b0e1f","0b0e1f","0b0e1f","0b0e1f","0b0e1f","0b0e1f","0b0e1f","0b0e1f","0b0e1f","0b0e1f","0b0e1f",null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null]],"bulbdim":[[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,"353e49","476f5c","353e49",null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,"476f5c","59a16e","476f5c",null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,"353e49","476f5c","353e49",null,null,null,null,null,null,null,null,null,null,"476f5c","476f5c","476f5c","476f5c",null,null],[null,null,null,null,null,null,"343f55",null,null,null,null,null,null,null,null,null,null,"476f5c","9ba8b5","9ba8b5","9ba8b5","9ba8b5","476f5c",null],[null,null,null,null,null,null,"353e49",null,null,null,null,null,null,null,null,null,"476f5c","9ba8b5","c5d3d3","9ba8b5","9ba8b5","9ba8b5","9ba8b5","476f5c"],[null,null,null,null,"0b0e1f","0b0e1f","0b0e1f","0b0e1f","0b0e1f","0b0e1f","0b0e1f","0b0e1f",null,null,null,null,"476f5c","c5d3d3","dee5e6","c5d3d3","9ba8b5","9ba8b5","9ba8b5","476f5c"],[null,null,"0b0e1f","0b0e1f","9ba8b5","9ba8b5","9ba8b5","9ba8b5","9ba8b5","9ba8b5","9ba8b5","9ba8b5","0b0e1f","0b0e1f",null,null,"476f5c","9ba8b5","c5d3d3","9ba8b5","9ba8b5","9ba8b5","c5d3d3","476f5c"],[null,"0b0e1f","788797","9ba8b5","c5d3d3","9ba8b5","788797","788797","788797","788797","788797","9ba8b5","9ba8b5","788797","0b0e1f",null,"476f5c","9ba8b5","9ba8b5","9ba8b5","9ba8b5","9ba8b5","c5d3d3","476f5c"],[null,"0b0e1f","788797","9ba8b5","9ba8b5","788797","788797","788797","788797","788797","788797","788797","9ba8b5","9ba8b5","0b0e1f",null,"476f5c","9ba8b5","9ba8b5","9ba8b5","9ba8b5","c5d3d3","9ba8b5","476f5c"],[null,"0b0e1f","788797","9ba8b5","788797","788797","0b0e1f","788797","788797","788797","0b0e1f","788797","9ba8b5","9ba8b5","0b0e1f",null,null,"476f5c","9ba8b5","9ba8b5","9ba8b5","9ba8b5","476f5c",null],[null,"0b0e1f","788797","788797","788797","788797","0b0e1f","788797","788797","788797","0b0e1f","788797","9ba8b5","9ba8b5","0b0e1f",null,null,null,"476f5c","9ba8b5","9ba8b5","476f5c",null,null],[null,"0b0e1f","788797","788797","788797","788797","788797","788797","788797","788797","788797","788797","9ba8b5","9ba8b5","0b0e1f",null,null,null,"476f5c","788797","788797","476f5c",null,null],[null,"0b0e1f","788797","788797","788797","0b0e1f","0b0e1f","0b0e1f","0b0e1f","0b0e1f","0b0e1f","788797","9ba8b5","9ba8b5","0b0e1f",null,null,"0b0e1f","a67049","525d75","525d75","a67049","0b0e1f",null],[null,"0b0e1f","0b0e1f","0b0e1f","0b0e1f",null,null,null,null,null,null,"0b0e1f","0b0e1f","0b0e1f","0b0e1f",null,null,"8c5a3b","d9b179","a67049","a67049","d9b179","8c5a3b",null],[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,"0b0e1f","a67049","d9b179","d9b179","a67049","0b0e1f",null],[null,null,null,null,null,"0b0e1f","0b0e1f","0b0e1f","0b0e1f","0b0e1f","0b0e1f",null,null,null,null,null,null,null,"0b0e1f","8c5a3b","8c5a3b","0b0e1f",null,null],[null,null,null,"0b0e1f","0b0e1f","525d75","788797","788797","788797","525d75","0b0e1f","0b0e1f",null,null,null,null,null,null,"0b0e1f","0b0e1f","0b0e1f","0b0e1f",null,null],[null,null,"0b0e1f","788797","9ba8b5","9ba8b5","9ba8b5","9ba8b5","9ba8b5","9ba8b5","9ba8b5","788797","0b0e1f",null,null,null,null,null,"0b0e1f","788797","9ba8b5","0b0e1f",null,null],[null,"0b0e1f","788797","9ba8b5","c5d3d3","9ba8b5","788797","788797","788797","9ba8b5","9ba8b5","9ba8b5","788797","0b0e1f","0b0e1f","0b0e1f","0b0e1f","0b0e1f","343f55","343f55","525d75","0b0e1f",null,null],[null,"0b0e1f","788797","9ba8b5","9ba8b5","788797","788797","788797","788797","788797","9ba8b5","9ba8b5","788797","0b0e1f","788797","9ba8b5","525d75","9ba8b5","525d75","9ba8b5","0b0e1f",null,null,null],[null,"0b0e1f","788797","9ba8b5","788797","788797","788797","788797","788797","788797","9ba8b5","9ba8b5","788797","0b0e1f","0b0e1f","0b0e1f","0b0e1f","0b0e1f","0b0e1f","0b0e1f",null,null,null,null],[null,"0b0e1f","0b0e1f","0b0e1f","0b0e1f","0b0e1f","0b0e1f","0b0e1f","0b0e1f","0b0e1f","0b0e1f","0b0e1f","0b0e1f","0b0e1f",null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null]],"bulblit":[[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,"476f5c","59a16e","476f5c",null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,"59a16e","9dc89a","59a16e",null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,"476f5c","59a16e","476f5c",null,null,null,null,null,null,null,null,null,null,"7bb484","9dc89a","9dc89a","7bb484",null,null],[null,null,null,null,null,null,"353e49",null,null,null,null,null,null,null,null,null,null,"7bb484","f0f5ea","f0f5ea","f0f5ea","f0f5ea","7bb484",null],[null,null,null,null,null,null,"353e49",null,null,null,null,null,null,null,null,null,"7bb484","f0f5ea","f0f5ea","f0f5ea","f0f5ea","f0f5ea","f0f5ea","7bb484"],[null,null,null,null,"0b0e1f","0b0e1f","0b0e1f","0b0e1f","0b0e1f","353e49","353e49","353e49",null,null,null,null,"9dc89a","f0f5ea","f0f5ea","f0f5ea","f0f5ea","f0f5ea","f0f5ea","9dc89a"],[null,null,"0b0e1f","0b0e1f","9ba8b5","9ba8b5","9ba8b5","7bb484","7bb484","9dc89a","9dc89a","7bb484","353e49","353e49",null,null,"9dc89a","f0f5ea","f0f5ea","f0f5ea","f0f5ea","f0f5ea","f0f5ea","9dc89a"],[null,"0b0e1f","788797","9ba8b5","c5d3d3","9ba8b5","788797","788797","788797","7bb484","9dc89a","9dc89a","c6dfc2","9dc89a","353e49",null,"7bb484","f0f5ea","f0f5ea","f0f5ea","f0f5ea","f0f5ea","f0f5ea","7bb484"],[null,"0b0e1f","788797","9ba8b5","9ba8b5","788797","788797","788797","788797","788797","7bb484","9dc89a","c6dfc2","f0f5ea","353e49",null,"59a16e","9dc89a","f0f5ea","f0f5ea","f0f5ea","f0f5ea","9dc89a","59a16e"],[null,"0b0e1f","788797","9ba8b5","788797","788797","0b0e1f","788797","788797","788797","0b0e1f","9dc89a","f0f5ea","f0f5ea","353e49",null,null,"7bb484","c6dfc2","f0f5ea","f0f5ea","c6dfc2","7bb484",null],[null,"0b0e1f","788797","788797","788797","788797","0b0e1f","788797","788797","788797","0b0e1f","9dc89a","f0f5ea","f0f5ea","353e49",null,null,"59a16e","7bb484","f0f5ea","f0f5ea","7bb484","59a16e",null],[null,"0b0e1f","788797","788797","788797","788797","788797","788797","788797","788797","7bb484","9dc89a","c6dfc2","f0f5ea","353e49",null,null,null,"7bb484","c6dfc2","c6dfc2","7bb484",null,null],[null,"0b0e1f","788797","788797","788797","0b0e1f","0b0e1f","0b0e1f","0b0e1f","0b0e1f","0b0e1f","7bb484","9dc89a","c6dfc2","353e49",null,null,"0b0e1f","f7f0c8","9dc89a","9dc89a","f7f0c8","0b0e1f",null],[null,"0b0e1f","0b0e1f","0b0e1f","0b0e1f",null,null,null,null,null,null,"0b0e1f","0b0e1f","0b0e1f","0b0e1f",null,null,"8c5a3b","d9b179","f7f0c8","f7f0c8","d9b179","8c5a3b",null],[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,"0b0e1f","a67049","d9b179","d9b179","a67049","0b0e1f",null],[null,null,null,null,null,"0b0e1f","0b0e1f","0b0e1f","0b0e1f","0b0e1f","0b0e1f",null,null,null,null,null,null,null,"0b0e1f","8c5a3b","8c5a3b","0b0e1f",null,null],[null,null,null,"0b0e1f","0b0e1f","59a16e","7bb484","7bb484","9dc89a","9dc89a","9dc89a","353e49",null,null,null,null,null,null,"0b0e1f","0b0e1f","0b0e1f","0b0e1f",null,null],[null,null,"0b0e1f","788797","9ba8b5","9ba8b5","9ba8b5","9ba8b5","9ba8b5","9dc89a","9dc89a","c6dfc2","353e49",null,null,null,null,null,"0b0e1f","9dc89a","9dc89a","0b0e1f",null,null],[null,"0b0e1f","788797","9ba8b5","c5d3d3","9ba8b5","788797","788797","9ba8b5","9ba8b5","c6dfc2","f0f5ea","f0f5ea","353e49","0b0e1f","0b0e1f","0b0e1f","0b0e1f","343f55","343f55","525d75","0b0e1f",null,null],[null,"0b0e1f","788797","9ba8b5","9ba8b5","788797","788797","788797","788797","9ba8b5","9dc89a","c6dfc2","f0f5ea","353e49","c6dfc2","9dc89a","525d75","9dc89a","525d75","9dc89a","0b0e1f",null,null,null],[null,"0b0e1f","788797","9ba8b5","788797","788797","788797","788797","788797","9ba8b5","9ba8b5","9dc89a","9dc89a","353e49","0b0e1f","0b0e1f","0b0e1f","0b0e1f","0b0e1f","0b0e1f",null,null,null,null],[null,"0b0e1f","0b0e1f","0b0e1f","0b0e1f","0b0e1f","0b0e1f","0b0e1f","0b0e1f","0b0e1f","0b0e1f","0b0e1f","0b0e1f","0b0e1f",null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null]],"swatch":[[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,"d33f3f",null,null],["525d75","9ba8b5","525d75",null,null,"346e9a","7cabb9","346e9a",null,null,"476f5c","7bb484","476f5c",null,null,"8d3f24","c4653a","8d3f24",null,null,"a12b2b","d33f3f","a12b2b",null],["9ba8b5","c5d3d3","9ba8b5",null,null,"7cabb9","9fc9ca","7cabb9",null,null,"7bb484","c6dfc2","7bb484",null,null,"c4653a","e18c50","c4653a",null,"d33f3f","d33f3f","e48e78","d33f3f","d33f3f"],["525d75","788797","525d75",null,null,"346e9a","588da7","346e9a",null,null,"476f5c","59a16e","476f5c",null,null,"8d3f24","b5512f","8d3f24",null,null,"a12b2b","d33f3f","a12b2b",null],[null,"525d75",null,null,null,null,"295377",null,null,null,null,"476f5c",null,null,null,null,"652d18",null,null,null,null,"6e1616",null,null],[null,"343f55",null,null,null,null,"1d3854",null,null,null,null,"343f55",null,null,null,null,"3c1a0c",null,null,null,null,"6e1616",null,null],[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null]]};
+const H=24;
+for(const k in D)D[k]=D[k].map(r=>r.map(c=>c?'#'+c:null));
+const rnd=(a=1)=>Math.random()*a;
+const hex=c=>[1,3,5].map(i=>parseInt(c.slice(i,i+2),16));
+const mix=(a,b,t)=>{const A=hex(a),B=hex(b);return '#'+A.map((v,i)=>Math.round(v+(B[i]-v)*t).toString(16).padStart(2,'0')).join('')};
+const hash=k=>((k*2654435761)>>>0)/4294967296;
+function comps(fr){const seen=new Set(),out=[];for(let y=0;y<H;y++)for(let x=0;x<H;x++){if(fr[y][x]&&!seen.has(y*H+x)){const st=[[x,y]];seen.add(y*H+x);const c=[];while(st.length){const[cx,cy]=st.pop();c.push([cx,cy]);for(let dx=-1;dx<=1;dx++)for(let dy=-1;dy<=1;dy++){const nx=cx+dx,ny=cy+dy;if(nx>=0&&ny>=0&&nx<H&&ny<H&&fr[ny][nx]&&!seen.has(ny*H+nx)){seen.add(ny*H+nx);st.push([nx,ny])}}}out.push(c)}}return out}
+const CEN=[1,6,11,16,21];
+const inAnt=(x,y)=>y<=5&&x>=4&&x<=8;
+const swc=(k,x,y)=>{const sx=CEN[k]+(x-6);return(sx>=0&&sx<24)?D.swatch[y][sx]:null};
+function buildPose(A,B,o){
+  const cells=[],part=new Map();
+  const un=A.map((r,y)=>r.map((c,x)=>((c||B[y][x])&&!inAnt(x,y))?1:0));
+  comps(un).forEach(c=>{const xs=c.map(a=>a[0]);const nm=c.some(([x,y])=>x===6&&y===10)?'head':(Math.min(...xs)>=15?'arm':'body');c.forEach(([x,y])=>part.set(y*H+x,nm))});
+  for(let y=0;y<H;y++)for(let x=0;x<H;x++){if(inAnt(x,y))continue;let a=A[y][x],b=B[y][x];if(o.dropNew&&!a&&b)b=null;
+    if(a||b)cells.push({x,y,a,b,th:Math.random(),f:Math.random()<.5,diff:a!==b})}
+  return{cells,part}
+}
+const POSE={base:buildPose(D.default,D.rust,{}),bulb:buildPose(D.bulbdim,D.bulblit,{dropNew:true})};
+const PRI={sway:.5,blink:1,tired:1.5,wave1:1.8,nod:2,nod2:2.2,look:2.5,shakehead:3,jump:3.5,happy:3.6,shake:4,wave2:5,wave3:6};
+const EYE=D.default[10][6];
+
+class Mascot{
+  constructor(g){
+    this.g=g;this.rust=0;this.pose='base';this.bulb=0;this.tr=null;
+    this.ant={a:2,b:2,t:1,id:0};this.pat='steady';this.patT0=performance.now();
+    this.off={head:0,arm:0,body:0,dx:0,jump:0,eyeDx:0};this.blink=0;this.tired=0;this.shut=0;
+    this.vis=1;this.mode='';this.p=0;this.tok=0;this.cur=null;this.tm=[];this.on=true;
+    this.loop=this.loop.bind(this);requestAnimationFrame(this.loop);
+  }
+  setPose(name,ms=300){if(name===this.pose)return;if(RM()){this.pose=name;this.tr=null;return}const from=this.compose();this.pose=name;this.tr={from,t0:performance.now(),ms}}
+  setAnt(k,ms){const s=this.ant;if(RM())ms=0;s.a=s.b;s.b=k;s.t=ms?0:1;const id=++s.id;if(!ms)return;const t0=performance.now();(function f(n){if(s.id!==id)return;s.t=Math.min(1,(n-t0)/ms);if(s.t<1)requestAnimationFrame(f)})(t0)}
+  setPat(p){this.pat=p;this.patT0=performance.now()}
+  tween(prop,to,ms,done){if(RM()){this[prop]=to;done&&done();return}const from=this[prop],t0=performance.now(),me=this;(function f(n){const t=Math.min(1,(n-t0)/ms);me[prop]=from+(to-from)*t;if(t<1)requestAnimationFrame(f);else done&&done()})(t0)}
+  intensity(now){if(RM())return 1;const t=now-this.patT0;switch(this.pat){
+    case'breathe':return .45+.55*(.5+.5*Math.sin(t/2400*2*Math.PI-Math.PI/2));
+    case'double':{const c=t%1600;return(c<120||(c>=240&&c<360))?1:0}
+    case'fast':return Math.floor(t/200)%2===0?1:0;
+    case'flicker':{const h=hash(Math.floor(t/90)+7);return h>.5?1:(h>.2?.3:0)}
+    default:return 1}}
+  // 動作：一次一個，高階可打斷低階，同階或低階在忙碌時忽略
+  act(name){
+    if(RM()||!this.on)return false;
+    if(this.cur&&PRI[name]<=PRI[this.cur.name])return false;
+    this.stop();
+    const run=steps=>{this.cur={name};let t=0;steps.forEach(([d,fn])=>{t+=d;this.tm.push(setTimeout(fn,t))});this.tm.push(setTimeout(()=>{this.reset();this.cur=null},t+20))};
+    const o=this.off,bp=this.pose==='bulb';
+    const nod=[[0,()=>o.head=1],[220,()=>o.head=0]];
+    const wave=n=>{const s=[];for(let i=0;i<n;i++){s.push([i?150:0,()=>o.arm=-1]);s.push([i===n-1&&n>1?320:200,()=>o.arm=0])}return s};
+    const hn=n=>{const s=[];for(let i=0;i<n;i++){s.push([i?150:0,()=>o.head=1]);s.push([i===n-1?270:150,()=>o.head=0])}return s};
+    const seq={
+      blink:[[0,()=>this.blink=1],[260,()=>this.blink=0]],
+      nod:nod,
+      nod2:[[0,()=>o.head=1],[200,()=>o.head=0],[160,()=>o.head=1],[200,()=>o.head=0]],
+      shake:[[0,()=>o.dx=1],[60,()=>o.dx=-1],[60,()=>o.dx=1],[60,()=>o.dx=-1],[60,()=>o.dx=0]],
+      wave1:bp?nod:wave(1),wave2:bp?hn(2):wave(2),wave3:bp?hn(3):wave(3),
+      jump:[[0,()=>o.jump=-1],[210,()=>o.jump=0]],
+      happy:[[0,()=>{o.head=1}],[170,()=>{o.head=-1;o.body=-1;o.arm=-1}],[220,()=>{o.body=0;o.arm=0}],[90,()=>{o.head=1;this.shut=1}],[260,()=>{o.head=0;this.shut=0}]],
+      shakehead:[[0,()=>o.eyeDx=-1],[150,()=>o.eyeDx=0],[130,()=>o.eyeDx=-1],[250,()=>o.eyeDx=0]],
+      look:[[0,()=>o.eyeDx=-1],[280,()=>o.eyeDx=0],[170,()=>o.eyeDx=1],[280,()=>o.eyeDx=0]],
+      tired:[[0,()=>this.tired=1],[2400,()=>this.tired=0]]};
+    run(seq[name]);return true}
+  stop(){this.tm.forEach(clearTimeout);this.tm=[];this.reset()}
+  reset(){const o=this.off;o.head=o.arm=o.body=o.dx=o.jump=o.eyeDx=0;this.blink=0;this.tired=0;this.shut=0}
+  compose(){
+    const P=POSE[this.pose],m=new Map(),o=this.off;
+    if(!P.idx){P.idx=new Map();P.cells.forEach(c=>P.idx.set(c.y*H+c.x,c))}
+    const colOf=c=>{
+      if(!c.diff)return c.a;
+      if(this.pose==='bulb')return(c.a&&c.b)?mix(c.a,c.b,this.bulb):(this.bulb>.5?c.b:c.a);
+      const w=.12,th=c.th*(1-w),L=this.rust;return L<=th?c.a:(L>=th+w?c.b:((c.a&&c.b)?mix(c.a,c.b,.5):(c.f?c.b:c.a)))};
+    const hold=this.tired?1:0,headDy=hold?Math.max(o.head,1):o.head;
+    for(const c of P.cells){
+      const eye=(c.x===6||c.x===10)&&(c.y===10||c.y===11);
+      let col;if(eye){const nb=P.idx.get(c.y*H+8);col=nb?colOf(nb):colOf(c)}else col=colOf(c);
+      if(!col)continue;
+      const pt=P.part.get(c.y*H+c.x);const x=c.x+o.dx,y=c.y+o.jump+(pt==='head'?headDy:(pt&&o[pt]?o[pt]:0));
+      m.set(y*H+x,{x,y,col,k:c.y*H+c.x});
+    }
+    const rows=(this.blink||hold||this.shut)?[11]:[10,11];
+    for(const bx of [6,10])for(const r of rows){const x=bx+o.eyeDx+o.dx,y=r+headDy+o.jump;m.set(y*H+x,{x,y,col:EYE,k:r*H+bx})}
+    return m}
+  draw(now){
+    const g=this.g;g.clearRect(0,0,H,H);
+    if(this.vis===0&&this.mode==='out')return;
+    const put=(x,y,col,al)=>{g.globalAlpha=al;g.fillStyle=col;g.fillRect(x,y,1,1)};
+    let M=this.compose();
+    if(this.tr){const tp=Math.min(1,(now-this.tr.t0)/this.tr.ms),F=this.tr.from,out=new Map();
+      for(const[k,v]of M){if(F.has(k)||hash(k+3)<tp)out.set(k,v)}
+      for(const[k,v]of F){if(!M.has(k)&&hash(k+3)>=tp)out.set(k,v)}
+      M=out;if(tp>=1)this.tr=null}
+    for(const v of M.values()){
+      let col=v.col;
+      if(this.vis<1){const e=hash(v.k+11);
+        if(this.mode==='in'){const s=e*.7;if(this.p<s)continue;const u=(this.p-s)/.3;
+          if(u<.5)col=hash(v.k+5)<.5?'#ffffff':'#000000';
+          else if(u<.8){const k=(u-.5)/.3,m=hash(v.k+5)<.5?'#9aa3a0':'#3a3f44';col=k<.5?m:mix(m,col,.6)}}
+        else if(this.mode==='out'){if(this.p>e)continue}}
+      put(v.x,v.y,col,1)}
+    const s=this.ant,I=this.intensity(now),o=this.off,hy=(this.tired?Math.max(o.head,1):o.head)+o.jump;
+    for(let y=0;y<6;y++)for(let x=4;x<=8;x++){
+      const ca=swc(s.a,x,y),cb=swc(s.b,x,y);let col=null,al=1;
+      if(ca&&cb)col=mix(ca,cb,s.t);else if(cb){col=cb;al=s.t}else if(ca){col=ca;al=1-s.t}
+      if(!col)continue;
+      const off=swc(0,x,y);
+      if(off)col=mix(off,col,I);else al*=I;
+      if(this.vis<1){if(this.mode==='in'){if(this.p<.85)continue}else if(this.mode==='out'){if(this.p>hash(y*H+x+97))continue}}
+      put(x+o.dx,y+hy,col,al)}
+    g.globalAlpha=1}
+  loop(n){this.draw(n);requestAnimationFrame(this.loop)}
+  enter(){const tok=++this.tok;this.on=true;this.stop();this.cur=null;
+    if(RM()){this.mode='';this.vis=1;this.p=1;return}
+    this.mode='in';this.vis=0;this.p=0;const t0=performance.now(),me=this;(function f(n){if(me.tok!==tok)return;const t=Math.min(1,(n-t0)/500);me.p=t;me.vis=t<1?t:1;if(t<1)requestAnimationFrame(f)})(t0)}
+  leave(){const tok=++this.tok;this.on=false;this.stop();this.cur=null;
+    if(RM()){this.mode='out';this.vis=0;return}
+    this.mode='out';this.vis=.01;this.p=0;const t0=performance.now(),me=this;(function f(n){if(me.tok!==tok)return;const t=Math.min(1,(n-t0)/400);me.p=t;if(t<1)requestAnimationFrame(f);else me.vis=0})(t0)}
+}
+
+const cv=document.createElement('canvas');cv.id='rbt';cv.width=cv.height=H;document.body.appendChild(cv);
+const R=new Mascot(cv.getContext('2d'));
+R.rust=Math.max(0,Math.min(1,+MS.rust||0));
+R.on=!S.mute;if(!R.on){R.vis=0;R.mode='out'}
+
+// 位置：左邊對齊「貼上並新增」按鈕，最下面一排像素踩在「貼上並新增」按鈕的上緣（畫面底部空一排，所以是 46px）
+function place(){
+  const a=$('pn'),b=$('snd');if(!a||!b)return;
+  const ra=a.getBoundingClientRect(),rb=b.getBoundingClientRect();
+  if(!ra.width||!rb.width){cv.style.display='none';return}
+  cv.style.left=Math.round(ra.left-2)+'px';cv.style.top=Math.round(ra.top-46)+'px';
+  cv.style.display=(R.on||R.vis>0)?'block':'none'}
+addEventListener('resize',place);
+
+// ---- 訊息對應的反應：[天線燈色 0灰 1藍 2綠 3橘 4紅, 閃法, 動作[延遲ms,名稱], 燈泡] ----
+const RXT={
+ greet:{k:2,pat:'breathe',acts:[[0,'blink']]},
+ holiday:{k:2,pat:'breathe',acts:[[0,'happy']]},
+ back:{k:2,pat:'steady',acts:[[0,'wave1']]},
+ long:{k:2,pat:'steady',acts:[[0,'happy'],[1100,'wave1']]},
+ tip:{k:1,pat:'steady',bulb:'lit',acts:[]},
+ idle:{k:1,pat:'double',bulb:'fail',acts:[]},
+ tired:{k:0,pat:'steady',acts:[[0,'tired']]},
+ fast:{k:3,pat:'fast',acts:[[0,'wave2']]},
+ vfast:{k:3,pat:'fast',acts:[[0,'shake'],[500,'wave2']]},
+ startle:{k:3,pat:'double',acts:[[0,'jump']]},
+ no:{k:3,pat:'double',acts:[[0,'shakehead']]},
+ chime:{k:2,pat:'steady',acts:[[0,'happy']]},
+ nod:{k:1,pat:'steady',acts:[[0,'nod']]},
+ wait:{k:1,pat:'breathe',acts:[[0,'look']],loop:'look'},
+ warn:{k:4,pat:'fast',acts:[[0,'shake']]},
+ crit:{k:4,pat:'flicker',acts:[[0,'shake']]},
+ act:{k:3,pat:'breathe',acts:[[0,'nod']]},
+ ok:{k:2,pat:'steady',acts:[[0,'happy']]}
+};
+let own=null,active=false,drift=2,tt=[],lp=null;
+const later=(f,d)=>{tt.push(setTimeout(f,d))};
+function clearT(){tt.forEach(clearTimeout);tt=[];clearInterval(lp);lp=null}
+function apply(msg,s){
+  clearT();own=msg;active=true;R.stop();R.cur=null;
+  let bulb=s.bulb,acts=s.acts.slice(),k=s.k;
+  if(bulb&&R.rust>.3){bulb=null;acts=[[0,'nod']]}   // 生鏽了，拿不出燈泡
+  if(R.pose==='bulb'&&!bulb){R.bulb=0;R.setPose('base',300)}
+  R.setAnt(k,400);R.setPat(s.pat);
+  if(bulb){R.setPose('bulb',300);R.bulb=0;
+    if(bulb==='lit')later(()=>R.tween('bulb',1,500),450);
+    else{later(()=>R.tween('bulb',.55,80,()=>R.tween('bulb',0,120)),600);later(()=>R.tween('bulb',.55,80,()=>R.tween('bulb',0,120)),1000);later(()=>R.tween('bulb',1,500),1600)}}
+  acts.forEach(([d,n])=>later(()=>R.act(n),d+(bulb?900:80)));
+  if(s.loop)lp=setInterval(()=>R.act(s.loop),2400);
+}
+function react(msg,key,delay){
+  const s=RXT[key];if(!s||!R.on)return;
+  msg.rxk=key;
+  if(delay){setTimeout(()=>{if(R.on&&!msg.leaving)apply(msg,s)},delay)}else apply(msg,s)}
+function release(msg){
+  if(own!==msg)return;
+  clearT();own=null;active=false;
+  const st=SM.list.filter(m=>!m.leaving&&m.sticky&&m.rxk&&RXT[m.rxk]).pop();
+  if(st&&R.on){apply(st,RXT[st.rxk]);return}
+  if(!R.on)return;
+  R.setAnt(drift,1200);R.setPat('steady');
+  if(R.pose==='bulb')R.tween('bulb',0,400,()=>{if(!active)later(()=>R.setPose('base',300),50)});
+}
+// 待機：天線燈每 5～9 秒隨機慢慢換色（灰／綠／藍／橘）
+(function dr(){setTimeout(()=>{if(R.on&&!active){const o=[0,2,1,3].filter(k=>k!==drift);drift=o[Math.floor(rnd(o.length))];R.setAnt(drift,1200);R.setPat('steady')}dr()},5000+rnd(4000))})();
+R.setAnt(drift,0);
+
+// 生鏽：停手超過 2 分鐘開始，10 分鐘到底；只在機器人開著時計時
+let tk=Date.now(),saved=-1;
+setInterval(()=>{
+  const now=Date.now(),last=tk;tk=now;
+  if(R.on&&!document.hidden){const over=Math.min(now-last,now-A.act-120000);if(over>0)R.rust=Math.min(1,R.rust+over/600000)}
+  const v=Math.round(R.rust*1000)/1000;if(v!==saved){saved=v;MS.rust=v;msSave()}
+},1000);
+// 敲一個字恢復 1%
+function typed(){if(R.on)R.rust=Math.max(0,R.rust-.01)}
+// 挖礦：礦石眨眼、寶石點頭、鑽石舉手兩次、整百字舉手三次（e 開著才動）
+function mine(kind){
+  if(!R.on||!S.fx.mine)return;
+  R.act({ore:'blink',gem:'nod',diamond:'wave2',wc:'wave3'}[kind])}
+// 按鈕：登場 0.5 秒／離場 0.4 秒
+function sw(){
+  if(S.mute){clearT();own=null;active=false;R.leave();setTimeout(place,450)}
+  else{R.enter();R.setAnt(drift,0);R.setPat('steady');R.pose==='bulb'&&(R.bulb=0,R.setPose('base',0));place()}}
+
+place();setInterval(place,1000);
+return{R,cv,react,release,typed,mine,sw,place};
+})();
+function rbReact(m,k,d){if(RB)RB.react(m,k,d)}
+function rbRel(m){if(RB)RB.release(m)}
+function rbType(){if(RB)RB.typed()}
+function rbMine(k){if(RB)RB.mine(k)}
+function rbSwitch(){if(RB)RB.sw()}
+function rbPlace(){if(RB)RB.place()}
+
+// 重新開啟頁面：依離開多久出一句（重新整理不算）
+(function(){
+  const nav=(performance.getEntriesByType&&performance.getEntriesByType('navigation')[0])||{},rl=nav.type==='reload';
+  if(rl)A.qp=false;
+  if(PH||rl||!hbPrev||S.mute)return;
+  const gap=Date.now()-hbPrev,k=gap<120000?'m1':gap<8*60000?'m2':gap<MCD.longAway?'back':'long';
+  setTimeout(()=>{if(S.mute||!canSay())return;fire(k)},1800);
+})();
 setInterval(()=>{
   if(PH||document.hidden||pv||pend)return;
   const now=Date.now(),idle=now-A.act;
   if(SM.list.some(m=>!m.leaving&&(m.lv==='warn'||m.lv==='crit')))return;
-  if(now-A.msg<4*60000)return;                        // 任兩則隨機訊息至少相隔 4 分鐘
+  if(now-A.msg<MCD.gap)return;
+  if(S.mute){
+    if(A.qp&&now-A.t0>2500&&idle<20000){A.qp=false;if(now-(MS.qt||0)>=MCD.tip)fireQuiet()}
+    return;
+  }
   const h=new Date().getHours(),recent=A.recent.filter(x=>now-x<120000).length;
   // 連續使用時間（中間沒有離開超過 5 分鐘）
   if(idle<5*60000)A.run=A.run||now;
-  // 1. 回座：離開後回來，操作一下，停手 3 秒
-  if(A.away&&idle>=3000&&idle<60000&&now-A.act<60000){A.away=false;A.run=now;fire('back');return}
-  // 2. 暖身：這次開頁面累積打了 60 字，停手 3 秒；半小時內出現過就不再暖身
-  if(!A.warm&&A.tot>=60&&idle>=3000&&idle<20000){if(now-(MS.wt||0)<30*60000){A.warm=true}else{fire('warm');return}}
-  // 節日當天還沒收到：打了 20 字停手就給
-  if(MS.hd!==dayKey()&&A.tot>=20&&idle>=3000&&idle<20000&&holiday()){fire('warm');return}
-  // 3. 發呆：剛剛還在打字（2 分鐘內 20 字以上），停了 25 秒
-  if(recent>=20&&idle>=25000&&idle<40000&&now-A.idleAt>10*60000){A.idleAt=now;fire('idle');return}
-  // 4. 累了：連續使用超過 60 分鐘，停手 3 秒；深夜 23～5 點打字停手 3 秒（40 分鐘一次）
+  // 1. 回座：離開後回來，操作一下，停手 3 秒；離開 40 分鐘以上用「好久才回來」
+  if(A.away&&idle>=3000&&idle<60000&&now-A.act<60000){A.away=false;A.run=now;fire(A.awayGap>=MCD.longAway?'long':'back');return}
+  // 2. 暖身：這次開頁面累積敲打 MK.warm 下，停手 3 秒；半小時內出現過就不再暖身
+  if(!A.warm&&A.tot>=MK.warm&&idle>=3000&&idle<20000){if(now-(MS.wt||0)<30*60000){A.warm=true}else{fire('warm');return}}
+  // 節日當天還沒收到：敲打 MK.hol 下停手就給
+  if(MS.hd!==dayKey()&&A.tot>=MK.hol&&idle>=3000&&idle<20000&&holiday()){fire('warm');return}
+  // 3. 發呆：剛剛還在打字（2 分鐘內 MK.idle 下以上），停了 25 秒
+  if(recent>=MK.idle&&idle>=25000&&idle<40000&&now-A.idleAt>MCD.idle){A.idleAt=now;fire('idle');return}
+  // 4. 停手 3 秒時：深夜／累了或久寫／打很快／功能提示
   if(idle>=3000&&idle<20000){
-    if((h>=23||h<5)&&A.chars>=30&&now-A.nightAt>40*60000){A.nightAt=now;fire('night');return}
-    if(A.run&&now-A.run>60*60000&&now-A.restAt>45*60000){A.restAt=now;fire('rest');return}
-    // 5. 功能提示：累積 300 字，停手 3 秒
-    if(A.chars>=300){fire('tip');return}
+    if((h>=23||h<5)&&A.chars>=MK.night&&now-A.nightAt>MCD.night){A.nightAt=now;fire('night');return}
+    if(A.run&&now-A.run>60*60000&&now-A.restAt>MCD.rest){A.restAt=now;fire(A.runKeys>=MK.long?'wrote':'rest');return}
+    if(recent>=MK.fast&&now-A.fastAt>MCD.fast){A.fastAt=now;fire(recent>=MK.vfast?'vfast':'fast');return}
+    if(A.chars>=MK.tip){fire('tip');return}
   }
 },1000);
 if(PH){const d=document.createElement('div');d.id='phn';d.textContent='手機檢視僅提供簡易便條紙，完整功能請用電腦瀏覽器。';$('sysmsg').after(d)}
@@ -1186,8 +1534,8 @@ function applyRO(){
   $('dtb').disabled=!n||ro;
   ulRefresh();try{twPaint()}catch(e){}
 }
-function lockMsg(){say('匯入確認中，請先按「確認無誤」或「復原之前的資料」',{lv:'info',id:'lockmsg'})}
-function roHint(){if(PH)return;const t=Date.now();if(t-roMsgT<3000)return;roMsgT=t;if(pend)lockMsg();else say('唯讀中，雙擊內文可解鎖',{lv:'info'})}
+function lockMsg(){say('匯入確認中，請先按「確認無誤」或「復原之前的資料」。',{lv:'info',id:'lockmsg',rx:'no'})}
+function roHint(){if(PH)return;const t=Date.now();if(t-roMsgT<3000)return;roMsgT=t;if(pend)lockMsg();else say('唯讀中，點兩下內文可解鎖。',{lv:'info',rx:'no'})}
 $('rob').onclick=()=>{const n=byId(S.sel);if(!n)return;if(pend){lockMsg();return}n.ro=!n.ro;playSfx(n.ro?'lock':'unlock');save();render()};
 ta.addEventListener('keydown',e=>{if(!ta.readOnly||e.ctrlKey||e.metaKey||e.altKey)return;const k=e.key;if(k.length===1||k==='Backspace'||k==='Delete'||k==='Enter')roHint()});
 ['paste','cut','drop'].forEach(v=>ta.addEventListener(v,()=>{if(ta.readOnly)roHint()}));
@@ -1212,7 +1560,7 @@ function buildAppend(list,skip,jf){
 function commitImport(next){
   const snap={notes:JSON.parse(JSON.stringify(S.notes)),folders:JSON.parse(JSON.stringify(S.folders)),sort:Object.assign({},S.sort),sel:S.sel};
   const trial=Object.assign({},S,{notes:next.notes,folders:next.folders||S.folders,sort:next.sort||S.sort,sel:null,q:''});
-  try{localStorage.setItem(KEY,JSON.stringify(trial))}catch(e){playSfx('err');say('空間不足，未匯入，原有資料沒有任何變動',{lv:'warn'});return false}
+  try{localStorage.setItem(KEY,JSON.stringify(trial))}catch(e){playSfx('err');say('空間不足，未匯入，原有資料沒有任何變動。',{lv:'warn'});return false}
   S.notes=trial.notes;S.folders=trial.folders;curF=null;eyeOpen=true;S.sort=trial.sort;S.sel=null;S.q='';$('sq').value='';ms.clear();
   let persisted=false;try{localStorage.setItem(PKEY,JSON.stringify(snap));persisted=true}catch(e){}
   pend={snap,persisted};
@@ -1225,12 +1573,12 @@ function pendMsg(){
 }
 function impOk(){
   if(!pend)return;pend=null;try{localStorage.removeItem(PKEY)}catch(e){}
-  sayOff('imp');playSfx('pick');render();say('已確認，可以繼續編輯了。',{lv:'info'});
+  sayOff('imp');playSfx('pick');render();say('已確認，可以繼續編輯了。',{lv:'info',rx:'ok'});
 }
 function impUndo(){
   if(!pend)return;const sn=pend.snap,k=[S.notes,S.sort,S.sel,S.folders];
   S.notes=sn.notes;S.folders=sn.folders||[];curF=null;eyeOpen=true;S.sort=sn.sort||S.sort;S.sel=sn.sel;
-  try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){S.notes=k[0];S.sort=k[1];S.sel=k[2];S.folders=k[3];playSfx('err');say('復原失敗：儲存空間不足',{lv:'warn'});return}
+  try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){S.notes=k[0];S.sort=k[1];S.sel=k[2];S.folders=k[3];playSfx('err');say('復原失敗：儲存空間不足。',{lv:'warn'});return}
   pend=null;try{localStorage.removeItem(PKEY)}catch(e){}
   sayOff('imp');ms.clear();playSfx('restore');render();say('已復原到匯入前的資料。',{lv:'info'});
 }
@@ -1274,7 +1622,7 @@ R note 是一個簡單的網頁小工具，用來建立純文字資料，並分�
 ．每週匯出一次，或寫了重要內容就匯出。
 ．換電腦、重灌、清理瀏覽器之前，一定要先匯出。
 ．備份檔不要只放在同一台電腦裡，可以放進雲端硬碟，或寄給自己。
-．右上角的匯出按鈕，太久沒有備份就會出現小紅點，提醒你該備份了。
+．右上角的匯出按鈕，超過 7 小時沒有備份、而且這段時間內容有變動，就會出現小紅點（浮現時會閃動幾下），提醒你該備份了；按一下匯出，紅點就會消失。
 
 其他要知道的
 ．瀏覽器能存放的容量有上限（通常約 5MB），一般記事用不完；如果出現「儲存空間已滿」的提示，請先匯出備份，再刪除不需要的筆記。
@@ -1320,13 +1668,14 @@ R note 是一個簡單的網頁小工具，用來建立純文字資料，並分�
 
 
 【基本操作】
+．說明裡寫的「點」，都是按滑鼠左鍵；要按右鍵的地方會特別寫出來。
 新增筆記
 ．在左側輸入框輸入標題，按 Enter 建立新筆記，新標題排在列表最上方。
 ．輸入框左邊的 + ，直接建立一則今天的日記；同一天重複建立，標題後面會自動加上編號。
 ．輸入框右邊的剪貼簿按鈕，把剪貼簿裡的文字貼成新筆記，標題取第一行有內容的文字；剪貼簿沒有文字時不會建立。第一次使用時，瀏覽器可能會詢問是否允許讀取剪貼簿，請選擇允許。
 
 標題與圖示
-．點一下標題，右邊顯示它的內容；雙擊標題，或選取後按 F2，可以改名（Enter 確認，Esc 取消）；選取後按 Enter，游標會進入右邊的內文區。
+．點一下標題，右邊顯示它的內容；點兩下標題，或選取後按 F2，可以改名（Enter 確認，Esc 取消）；選取後按 Enter，游標會進入右邊的內文區。
 ．標題不可重複，同名時自動加上 (2)、(3)……；標題前後的空白會刪除，中間的空白會變成底線。
 ．點標題前面的圖示，可以更換圖示；選單最下面可以貼上自己複製的單一 Emoji。每則筆記一定有圖示。
 ．滑鼠停在標題上，游標右下角會顯示標題、建立與修改時間，並跟著游標移動。
@@ -1341,7 +1690,7 @@ R note 是一個簡單的網頁小工具，用來建立純文字資料，並分�
 封存與刪除
 ．把標題拖曳到下方區域就是封存，拖回上方就是還原。
 ．封存區的垃圾桶可以永久刪除該筆記（會先確認）。
-．上下兩區的分隔粗線、左右欄之間的拉條，都可以拖曳調整大小，雙擊會還原預設。
+．上下兩區的分隔粗線、左右欄之間的拉條，都可以拖曳調整大小，點兩下會還原預設。
 
 多選
 ．Ctrl＋點擊：加入或取消選取。Shift＋點擊：選取一整段。Ctrl＋A：選取整區。Esc：取消選取。
@@ -1353,10 +1702,10 @@ R note 是一個簡單的網頁小工具，用來建立純文字資料，並分�
 介面配色
 ．搜尋框最右邊的三顆按鈕，依序是「破曉」「逢魔」「月華」，一鍵切換整個介面的配色，會被記住。
 
-資料夾（1.15 測試）
+資料夾
 ．列表右上角的「資料夾＋」可以新增資料夾：資料夾像檔案一樣直排在列表最上面，圖示旁邊寫著名字，沒有放進資料夾的筆記排在它們下面；新資料夾排最上面，並直接進入、可以馬上改名。
 ．最左邊的「檔案櫃」按鈕很寬，右邊會寫現在的狀態；進入資料夾後它會變成「回到檔案櫃」，點一下就回到外面。
-．在檔案櫃裡，點一下資料夾是「選取」（右邊內文區會列出資料夾裡的筆記），再點一下已選取的資料夾（或快速雙擊）才「進入」：被打開的資料夾移到最上面，旁邊是它的名稱頁籤（點名稱改名、點色塊換顏色；名稱最多顯示約 6 個字，其餘用「…」，游標移上去看全名）。其他資料夾名字消失、變成小圖示，仍排在同一直排。頁籤下面是淡出的內頁，裡面只顯示這個資料夾的筆記。進入後「＋」變成紅色「－」，可以刪除資料夾（筆記不會消失，會回到檔案櫃；刪除後幾秒內可按「復原」）。
+．在檔案櫃裡，點一下資料夾是「選取」（右邊內文區會列出資料夾裡的筆記），再點一下已選取的資料夾（或快速點兩下）才「進入」：被打開的資料夾移到最上面，旁邊是它的名稱頁籤（點名稱改名、點色塊換顏色；名稱最多顯示約 6 個字，其餘用「…」，游標移上去看全名）。其他資料夾名字消失、變成小圖示，仍排在同一直排。頁籤下面是淡出的內頁，裡面只顯示這個資料夾的筆記。進入後「＋」變成紅色「－」，可以刪除資料夾（筆記不會消失，會回到檔案櫃；刪除後幾秒內可按「復原」）。
 ．把筆記拖到資料夾圖示上就能收進去；在資料夾裡拖曳筆記時，頁籤右邊會出現「移出資料夾」的虛線框，把筆記拖進去（或拖到「檔案櫃」按鈕上）就是移出。筆記標題上方的色塊和細線（只在眼睛關閉或搜尋時出現）是它所屬資料夾的顏色，色塊越靠右代表資料夾排得越後面。
 ．資料夾裡沒有筆記時，圖示上的色塊只畫線；有筆記才填色。游標移到檔案櫃裡的資料夾上，會顯示篇數與最近修改的幾篇名稱。散檔（沒有放進資料夾的筆記）的圖示，在資料夾圖示與名稱之間。
 ．單點資料夾時，右邊內文區會變成斜線（不能打字），直接接著資料夾名稱列出裡面的筆記名稱（順序跟著左邊的排序按鈕）；點一下檔名就會直接進入資料夾並開啟那篇筆記。選資料夾時，筆記的選取框會消失；點回筆記即解除。
@@ -1381,11 +1730,13 @@ R note 是一個簡單的網頁小工具，用來建立純文字資料，並分�
 內文與右上角按鈕
 ．內文是純文字，可用 Ctrl＋Z 復原（切換到別則筆記後，上一則的復原紀錄會消失）。
 ．內文上方靠右顯示這則筆記的「總字數」，空白與換行不計；每達到整百字會有一點小特效。
-．唯讀：按內文上方、「總字數」旁邊的鉛筆斜線按鈕，這則筆記就不能輸入（仍可選取、複製），標題旁會出現小圖示，內文底下會有淡淡的斜線。在內文雙擊就能解除。說明筆記預設是唯讀。
+．唯讀：按內文上方、「總字數」旁邊的鉛筆斜線按鈕，這則筆記就不能輸入（仍可選取、複製），標題旁會出現小圖示，內文底下會有淡淡的斜線。在內文點兩下就能解除。說明筆記預設是唯讀。
 ．音效由瀏覽器即時合成，不需要下載聲音檔；打字、按鈕、LOGO 字母、挖礦等都有對應的聲音，預設是無聲。
 ．筆記裡的網址（http:// 或 https:// 開頭），按住 Ctrl，網址會亮起來並出現手指游標，點一下就會在新分頁開啟。唯讀的筆記裡，網址會一直畫上底線，直接點就能開。「像素刻工館」這幾個字在任何筆記裡都會畫上底線，按住 Ctrl 點一下（唯讀筆記直接點）就會開啟作者的 LINE 貼圖頁。
 ．搜尋框上方的文字是系統訊息：偶爾會有問候、整點報時和功能提示；紅色的是警告，點一下可以關掉。
-．右上角按鈕依序是：音效（點一下依序切換：無聲、大聲、小聲，預設無聲）、鎖定打字範圍（兩枝鉛筆）、插入日期時間（插在游標處）、複製內文（不含標題）、匯出備份、匯入備份、使用說明（問號）。
+．不想看到日常的問候語，可以按「複製內文」右邊的機器人頭按鈕請小機器人休息（再按一次叫醒它）。休息時它會離場，不會再有問候、閒聊和整點報時，只剩下很久才出現一次的功能提示，以及你操作後的必要提示。
+．左邊「貼上並新增」上方的小機器人會陪著你：訊息出現時，頭上的天線燈會換顏色、牠也會做出對應的動作；挖礦（e 開啟時）有收穫牠也會反應。放著不理它兩分鐘會開始生鏽，十分鐘後鏽到底，每打一個字就恢復一點點。手機直式不顯示。
+．右上角按鈕依序是：音效（點一下依序切換：無聲、大聲、小聲，預設無聲）、鎖定打字範圍（兩枝鉛筆）、插入日期時間（插在游標處）、複製內文（不含標題）、機器人頭（讓小機器人休息／叫醒，開關日常問候語）、匯出備份、匯入備份、使用說明（問號）。
 ．按「使用說明」，會打開最新版的說明筆記「_讀我」；你編輯過的舊說明不會被覆蓋，只會另外新增一篇。
 
 
@@ -1481,8 +1832,8 @@ function importDialog(j,clean,newer,g2){
   const close=()=>o.remove();
   o.querySelector('#imC').onclick=close;o.addEventListener('mousedown',e=>{if(e.target===o)close()});
   o.querySelector('#imR').onclick=()=>{if(!clean.length&&!confirm('備份是空的，取代會清空現有的所有筆記，確定嗎？'))return;close();commitImport(buildReplace(j,clean,g2))};
-  o.querySelector('#imA').onclick=()=>{const sk=o.querySelector('#imS').checked;close();const r=buildAppend(clean,sk,j.folders);if(commitImport(r))say('已追加 '+r.add+' 則'+(r.sk?'，略過 '+r.sk+' 則完全相同的':''),{lv:'info'})};
-  const N=o.querySelector('#imN');if(N)N.onclick=()=>{close();const r=buildAppend(fresh,false,j.folders);if(commitImport(r))say('已追加 '+r.add+' 則標題全新的筆記',{lv:'info'})};
+  o.querySelector('#imA').onclick=()=>{const sk=o.querySelector('#imS').checked;close();const r=buildAppend(clean,sk,j.folders);if(commitImport(r))say('已追加 '+r.add+' 則'+(r.sk?'，略過 '+r.sk+' 則完全相同的':'')+'。',{lv:'info'})};
+  const N=o.querySelector('#imN');if(N)N.onclick=()=>{close();const r=buildAppend(fresh,false,j.folders);if(commitImport(r))say('已追加 '+r.add+' 則標題全新的筆記。',{lv:'info'})};
 }
 try{localStorage.setItem('R_note_seen',VERSION)}catch(e){}
 // 光色：每個主題五個光色 [名稱,H,S,L,內文區明度差]，主框色 [主框,淺色,填色] 依序綁定 R N O T E
@@ -1521,7 +1872,7 @@ function uniqF(raw,self){let name=String(raw||'').trim().replace(/\s+/g,' ').sli
 function fixSel(){const n=byId(S.sel);if(!n||n.archived||n.vault)return;const l=activeList();if(!l.includes(n))S.sel=l[0]?l[0].id:null}
 function dimBlocks(){if(!blockOn()||S.sort.k!=='custom'||S.q||!dragIds.length)return;const n0=byId(dragIds[0]);if(!n0||n0.archived||n0.vault)return;const b=blk(n0);document.querySelectorAll('#act .item').forEach(x=>{const n=byId(x.dataset.id);if(n&&blk(n)!==b)x.classList.add('dimb')})}
 function clearDrag(){document.querySelectorAll('.fvs.drop').forEach(x=>x.classList.remove('drop'));document.querySelectorAll('.dimb').forEach(x=>x.classList.remove('dimb'));document.querySelectorAll('.nodrop').forEach(x=>x.classList.remove('nodrop'));document.querySelectorAll('.fo.drop').forEach(x=>x.classList.remove('drop'));$('cabb').classList.remove('hl');$('fdz').classList.remove('show','hl');$('fdel').classList.remove('hl');$('arc').classList.remove('fdrop');fLastHint='';nbText('')}
-function fNoDrop(){const t=Date.now();if(t-fNoT<3000)return;fNoT=t;say('資料夾只能在資料夾區調整順序',{lv:'info'})}
+function fNoDrop(){const t=Date.now();if(t-fNoT<3000)return;fNoT=t;say('資料夾只能在資料夾區調整順序。',{lv:'info'})}
 function fCnt(f){return S.notes.filter(n=>n.folderId===f.id&&!n.archived&&!n.vault)}
 function fTip(f){return f.name}
 function fSvg(f,open){const c=fcol(f),em=!fCnt(f).length,fl=em?`fill="none" stroke="${c}" stroke-width="1.4" stroke-linejoin="round"`:`fill="${c}"`;const body='stroke="var(--dm)" stroke-width="1.4" stroke-linejoin="round"';
@@ -1554,7 +1905,7 @@ function copyNotes(ids){
   ms=new Set(made);mzone='a';anchor=made[0];S.sel=made[0];save();render();
   const undo=()=>{if(!made.some(id=>byId(id)))return;S.notes=S.notes.filter(m=>!made.includes(m.id));ms.clear();fixSel();sayOff('fcopy');playSfx('restore');save();render()};
   const t0=byId(made[0]).title;
-  say(made.length>1?'已建立 '+made.length+' 份副本':'已建立副本『'+(t0.length>12?t0.slice(0,12)+'…':t0)+'』',{lv:'info',id:'fcopy',hold:5000,actions:[{label:'復原',fn:undo}]});
+  say((made.length>1?'已建立 '+made.length+' 份副本':'已建立副本『'+(t0.length>12?t0.slice(0,12)+'…':t0)+'』')+'。',{lv:'info',id:'fcopy',hold:5000,actions:[{label:'復原',fn:undo}]});
 }
 function archiveNotes(ids){
   if(pend){lockMsg();return}
@@ -1665,7 +2016,7 @@ function moveNotes(ids,fid){
 }
 function newFolder(){
   if(pend){lockMsg();return}
-  if(S.folders.length>=99){say('資料夾已達上限 99 個，無法再建立新的資料夾',{lv:'warn',id:'fcap'});return}
+  if(S.folders.length>=99){say('資料夾已達上限 99 個，無法再建立新的資料夾。',{lv:'warn',id:'fcap'});return}
   structOp();
   eyeOpen=true;
   const used=new Set(S.folders.map(f=>f.color));let c=0;while(used.has(c)&&c<FPAL.length-1)c++;if(used.size>=FPAL.length)c=S.folders.length%FPAL.length;
@@ -1674,7 +2025,7 @@ function newFolder(){
   S.folders.unshift(f);sel.forEach(n=>{n.folderId=f.id});if(sel.length)S.sel=sel[0].id;
   curF=f.id;fEdit=true;ms.clear();fixSel();playSfx('new');save();render();
   if(sel.length){const undo=()=>{if(!fById(f.id))return;prev.forEach(p=>{const n=byId(p.id);if(!n)return;if(p.fid)n.folderId=p.fid;else delete n.folderId});S.folders=S.folders.filter(x=>x.id!==f.id);if(curF===f.id)curF=null;fEdit=false;fms.clear();sayOff('fwrap');playSfx('restore');save();render()};
-    say('已建立資料夾，'+sel.length+' 篇筆記已放入',{lv:'info',id:'fwrap',hold:5000,actions:[{label:'復原',fn:undo}]});return}
+    say('已建立資料夾，'+sel.length+' 篇筆記已放入。',{lv:'info',id:'fwrap',hold:5000,actions:[{label:'復原',fn:undo}]});return}
   if(!MS.ff){MS.ff=1;msSave();say('資料夾已建立。點資料夾圖示進入，把筆記拖到圖示上就能收進去。',{lv:'info',hold:7000})}
 }
 function delFolder(){if(curF)delFolders([curF])}
@@ -1687,7 +2038,7 @@ function delFolders(ids){
   if(ids.includes(curF))curF=null;fms.clear();fEdit=false;ms.clear();fixSel();playSfx('archive');save();render();
   const cnt=rec.reduce((a,r)=>a+r.ns.length,0);
   const undo=()=>{if(rec.some(r=>fById(r.f.id)))return;rec.slice().sort((a,b)=>a.idx-b.idx).forEach(r=>S.folders.splice(Math.min(r.idx,S.folders.length),0,r.f));rec.forEach(r=>r.ns.forEach(id=>{const n=byId(id);if(n)n.folderId=r.f.id}));sayOff('fdel');playSfx('restore');save();render()};
-  say('已刪除'+(rec.length>1?' '+rec.length+' 個資料夾':'資料夾『'+rec[0].f.name+'』')+(cnt?'，'+cnt+' 篇筆記已移到檔案櫃':''),{lv:'info',id:'fdel',hold:5000,actions:[{label:'復原',fn:undo}]});
+  say('已刪除'+(rec.length>1?' '+rec.length+' 個資料夾':'資料夾『'+rec[0].f.name+'』')+(cnt?'，'+cnt+' 篇筆記已移到檔案櫃':'')+'。',{lv:'info',id:'fdel',hold:5000,actions:[{label:'復原',fn:undo}]});
 }
 let fLastHint='';
 function fHint(t){if(t===fLastHint)return;fLastHint=t;say(t,{lv:'info',id:'fdraghint'})}
@@ -1795,7 +2146,7 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape'){fpk.style.display='
   $('fdel').onclick=()=>curF?delFolder():fms.size?delFolders([...fms]):0;
   $('fadd').addEventListener('mouseenter',()=>fAddUI());
   {const fa=$('fdel'),ok=()=>dragF.length&&!curF&&fms.size&&dragF.every(id=>fms.has(id));
-  fa.ondragover=e=>{if(!ok())return;e.preventDefault();if(!fa.classList.contains('hl')){fa.classList.add('hl');nbText('刪除 '+dragF.length+' 個資料夾');fHint('刪除所選的 '+dragF.length+' 個資料夾，筆記不會被刪除')}};
+  fa.ondragover=e=>{if(!ok())return;e.preventDefault();if(!fa.classList.contains('hl')){fa.classList.add('hl');nbText('刪除 '+dragF.length+' 個資料夾');fHint('刪除所選的 '+dragF.length+' 個資料夾，筆記不會被刪除。')}};
   fa.ondragleave=()=>{fa.classList.remove('hl');nbText('');fLastHint=''};
   fa.ondrop=e=>{if(!ok())return;e.preventDefault();const ids=dragF.slice();fa.classList.remove('hl');nbText('');dragF=[];clearDrag();delFolders(ids)}}
 }
@@ -1852,8 +2203,8 @@ twP.forEach((p,i)=>{
 });
 $('twb').onclick=()=>{
   L.tw.on=L.tw.on?0:1;saveL();twPaint();
-  if(L.tw.on){if(!MS.tw){MS.tw=1;msSave();say('已鎖定打字範圍：游標在範圍內時畫面不會動，寫到下緣才一行一行往上推。上下兩支鉛筆可以拖動調整。',{lv:'info',hold:8000})}else say('已鎖定打字範圍',{lv:'info'});twFollow()}
-  else say('已解除鎖定打字範圍',{lv:'info'});
+  if(L.tw.on){if(!MS.tw){MS.tw=1;msSave();say('已鎖定打字範圍：輸入文字會自動捲動至此範圍中。上下兩支鉛筆可以拖動調整鎖定的區間。',{lv:'info',hold:8000})}else say('已鎖定打字範圍。',{lv:'info'});twFollow()}
+  else say('已解除鎖定打字範圍。',{lv:'info'});
 };
 ta.addEventListener('input',()=>setTimeout(twFollow,0));
 ta.addEventListener('keyup',e=>{if(['ArrowDown','ArrowUp','PageDown','PageUp','End','Home','Enter','Backspace','Delete'].includes(e.key))twFollow()});
@@ -1861,7 +2212,7 @@ ta.addEventListener('compositionend',()=>setTimeout(twFollow,0));
 ta.addEventListener('scroll',()=>{if(twAct())twPaint()});
 new ResizeObserver(()=>twPaint()).observe(ta);
 twPaint();
-paintSnd();$('ver').textContent=VERSION;applyTh();phoneEnsure();layout();render();fxVis(false);booted=true;if(pend)setTimeout(pendMsg,1200);
+paintSnd();$('ver').textContent=VERSION;applyTh();phoneEnsure();layout();render();fxVis(false);booted=true;if(RB&&!S.mute)setTimeout(()=>{RB.R.enter();RB.place()},350);if(pend)setTimeout(pendMsg,1200);
 {const n=byId(S.sel);if(n){if(!PH)ta.focus();ta.setSelectionRange(n.caret||0,n.caret||0);reveal(n.caret||0)}}
 </script>
 </body>
