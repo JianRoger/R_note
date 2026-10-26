@@ -113,7 +113,7 @@ html[data-th=d]{--bag:#b8651f;--bgl:255,205,30}
 #pk .x{font-size:13px;gap:4px;color:var(--tx)}
 #odot,#oglow{transform-box:fill-box;transform-origin:center}
 #sysmsg{grid-column:3;grid-row:1;align-self:end;justify-self:stretch;margin-right:min(320px,40%);height:64px;overflow:visible;position:relative;pointer-events:none;font-size:14px;line-height:20px}
-#sysmsg .ln{position:absolute;left:11px;top:4px;white-space:nowrap;color:var(--al);transition:transform .22s ease-out}
+#sysmsg .ln{position:absolute;left:var(--smx,11px);top:4px;white-space:nowrap;color:var(--al);transition:transform .22s ease-out}
 #sysmsg .ln.w{color:var(--dg)}
 #sysmsg .ln span{display:inline-block;white-space:pre}
 #sysmsg .ln button{pointer-events:auto;margin-left:8px;height:18px;padding:0 9px;font-size:12px;line-height:16px;border:1px solid currentColor;border-radius:9px;background:transparent;color:inherit;cursor:pointer;vertical-align:1px}
@@ -332,7 +332,7 @@ function uniq(raw,self){
   if(!has(name))return name;
   const b=name.replace(/\(\d+\)$/,'')||name;let k=2;while(has(b+'('+k+')'))k++;return b+'('+k+')';
 }
-function layout(){const r=document.documentElement.style;r.setProperty('--sw',L.sw+'px');r.setProperty('--ah',L.ah+'%');placeWc();ulRefresh();rbPlace()}
+function layout(){const r=document.documentElement.style;r.setProperty('--sw',L.sw+'px');r.setProperty('--ah',L.ah+'%');placeWc();ulRefresh();rbPlace();smX()}
 const match=n=>!S.q||n.content.toLowerCase().includes(S.q)||n.title.toLowerCase().includes(S.q);
 function activeList(){return sortL(S.notes.filter(n=>!n.archived&&!n.vault&&match(n)&&inView(n)))}
 function sortL(a){
@@ -1001,9 +1001,15 @@ function say(text,o){
   o=o||{};const lv=o.lv||'info',host=$('sysmsg');if(!host||!text)return;if(PH&&lv!=='warn'&&lv!=='crit')return;
   if(o.id&&SM.list.some(m=>m.id===o.id&&!m.leaving))return;
   const sticky=lv==='wait'||lv==='crit'||lv==='act',warn=lv==='warn'||lv==='crit';
-  if(!sticky&&!o.actions&&SM.list.some(m=>!m.leaving&&m.text===text))return;   // 1.17：同一句話還在畫面上就不再重複
+  if(!sticky&&!o.actions){   // 1.17：同一句話還在畫面上：不重複出現，那一行跳一下、重算停留時間、機器人再反應一次
+    const ex=SM.list.find(m=>!m.leaving&&m.text===text);
+    if(ex){
+      if(!RM())ex.sp.forEach((x,i)=>x.animate([{transform:'translateY(0)'},{transform:'translateY(-5px)'},{transform:'translateY(0)'}],{duration:420,delay:i*25,easing:'ease-out'}));
+      if(ex.done&&ex.hv){ex.tm.forEach(clearTimeout);ex.tm=[setTimeout(()=>tryLeave(ex),ex.hv)]}
+      rbReact(ex,ex.rx0,o.rxd);return}
+  }
   if(sticky){const st=SM.list.filter(m=>m.sticky&&!m.leaving);if(st.length>=2){const v=st.find(m=>!m.pin)||(lv==='crit'?st[0]:null);if(!v)return;retire(v,true)}}
-  const m={id:o.id||null,text,lv,sticky,pin:!!o.pin,leaving:false,el:document.createElement('div'),tm:[],born:Date.now(),sp:[]};
+  const m={id:o.id||null,text,rx0:o.rx||{info:'nod',wait:'wait',warn:'warn',crit:'crit',act:'act'}[lv],lv,sticky,pin:!!o.pin,leaving:false,el:document.createElement('div'),tm:[],born:Date.now(),sp:[]};
   m.el.className='ln'+(warn?' w':'');if(RM())m.el.style.transition='none';
   const chars=[...String(text)];let ls=-1,le=-1;
   if(o.link){const w=[...o.link.word];for(let i=0;i+w.length<=chars.length;i++){if(chars.slice(i,i+w.length).join('')===w.join('')){ls=i;le=i+w.length;break}}}
@@ -1015,7 +1021,8 @@ function say(text,o){
     if(m.leaving)return;
     if(o.actions)o.actions.forEach(a=>{const bt=document.createElement('button');bt.textContent=a.label;bt.onclick=ev=>{ev.stopPropagation();playSfx('ui');a.fn()};m.el.appendChild(bt)});
     if(lv==='wait')waveLoop(m);
-    else if(!sticky)m.tm.push(setTimeout(()=>tryLeave(m),o.hold||((warn?9000:4200)+m.sp.length*(warn?60:50))));
+    else if(!sticky){m.hv=o.hold||((warn?9000:4200)+m.sp.length*(warn?60:50));m.tm.push(setTimeout(()=>tryLeave(m),m.hv))}
+    m.done=true;
   };
   let i=0;
   const step=()=>{if(m.leaving)return;if(i<m.sp.length){m.sp[i++].style.opacity='';m.tm.push(setTimeout(step,26))}else typed()};
@@ -1094,8 +1101,8 @@ const M2=['忘東西了嗎？我幫你顧著呢。','就知道你會回來，筆
 const P1=['你想灌水喔？','貼得好快，是從別處搬家過來嗎？','這一大段不是你打的吧？我有看到喔。'];
 const P2=['整本書都搬進來了嗎？','這個份量，先匯出備份比較安心。'];
 const P3=['這是在拼貼嗎？','貼上鍵：「我快要冒煙了。」','你是在整理資料，還是在灌水？'];
-const HUSH=['好吧，我閉嘴。','我不要走～我還想陪著你～','嗚……那我安靜待著就好。','收到，我會躲在角落，不打擾你。','真的要關嗎？……好啦，尊重你。','（默默把天線收起來）','需要我的時候，再按一下我的頭就好。'];
-const HELLO=['我回來了！有沒有想我？','耶，終於可以說話了！','謝謝你讓我回來～','就知道你捨不得我。','憋好久了，我可以講話了嗎？（其實我一直都在）','歡迎回來……不對，是我回來了（開心）。'];
+const HUSH=['我先瞇一下，有事再叫我。','（打了個呵欠）晚安～','進入省電模式……zzz','你寫你的，我睡我的。','收到，我在旁邊打盹，不吵你。','（把天線燈調暗）','需要我說話的時候，再按一下我的頭。'];
+const HELLO=['醒了醒了！有沒有想我？','咦？我睡過頭了嗎？','（伸懶腰）可以講話了嗎？','充電完畢！','謝謝你叫醒我～','其實我一直在假睡（開心）。'];
 const SHUM=['找不到『{字}』……也許它在躲你。','『{字}』不在這裡，是不是記在別的地方？','搜尋『{字}』沒有結果，它可能藏在你的心中。'];
 const SFOR=['找不到符合『{字}』的筆記。','沒有符合『{字}』的結果。','搜尋『{字}』：0 筆結果。'];
 const POOLS={idle:IDLE,rest:REST,night:NIGHT,back:BACK,long:LONGB,wrote:WROTE,fast:FAST,vfast:VFAST,m1:M1,m2:M2,p1:P1,p2:P2,p3:P3};
@@ -1174,8 +1181,9 @@ function fireQuiet(){
 }
 // 貼上：單次 500 字以上、超大 3000 字以上、5 秒內連貼 4 次
 ta.addEventListener('paste',e=>{
-  if(ta.readOnly||PH||S.mute)return;
+  if(ta.readOnly||PH)return;
   const len=((e.clipboardData&&e.clipboardData.getData('text'))||'').replace(/\s/g,'').length;if(!len)return;
+  if(S.mute){if(len>=500)rbWake('startle');return}   // 打瞌睡：大量貼上會嚇醒
   const now=Date.now();A.pastes=A.pastes.filter(t=>now-t<5000);A.pastes.push(now);
   let k=null;if(A.pastes.length>=4){k='p3';A.pastes=[]}else if(len>=3000)k='p2';else if(len>=500)k='p1';
   if(!k||now-A.pasteAt<MCD.paste)return;A.pasteAt=now;
@@ -1195,17 +1203,17 @@ let lipT=[];
 $('lipb').onclick=()=>{
   const now=Date.now();lipT=lipT.filter(t=>now-t<60000);lipT.push(now);
   S.mute=S.mute?0:1;A.qp=false;save();paintLip();rbSwitch();
-  // 1.17：訊息改成像鉛筆按鈕那樣往上堆疊，不再互相取代；機器人回來時登場完才反應
-  const rx=S.mute?'none':'back',rxd=S.mute?0:650;
-  if(lipT.length>=3){lipT=[];say('你是在跟我玩嗎？',{lv:'info',rx,rxd});return}
+  // 1.17：訊息像鉛筆按鈕那樣往上堆疊；機器人打瞌睡／醒來由 rbSwitch 處理
+  if(lipT.length>=3){lipT=[];say('你是在跟我玩嗎？',{lv:'info',rx:'none'});return}
   if(S.mute){
-    say(pickRec(HUSH),{lv:'info',rx});
-    if(!MS.lm)setTimeout(()=>{if(S.mute&&!MS.lm){MS.lm=1;msSave();say('日常問候已關閉，功能提示仍會保留。',{lv:'info',hold:6000,rx:'none'})}},1500);
-  }else say(pickRec(HELLO),{lv:'info',rx,rxd});
+    say(pickRec(HUSH),{lv:'info',rx:'none'});
+    if(!MS.lm)setTimeout(()=>{if(S.mute&&!MS.lm){MS.lm=1;msSave();say('我在打盹，不再閒聊；功能提示和警告還是會出現。',{lv:'info',hold:6000,rx:'none'})}},1500);
+  }else say(pickRec(HELLO),{lv:'info',rx:'none'});
 };
 paintLip();
 // ===== 1.17 小機器人（常駐吉祥物）=====
-// 24×24 像素、顯示 48×48；站在「貼上並新增」按鈕上方。機器人按鈕（原嘴唇）開關；手機直式不顯示。
+// 24×24 像素、顯示 48×48；站在「貼上並新增」按鈕上方。機器人按鈕（原嘴唇）切換「打瞌睡」；手機直式不顯示。
+// 打瞌睡（按鈕關）：原地低頭閉眼、頭燈慢慢隨機換色、暫停生鏽（打字仍會除鏽）；偶爾抬頭看一下，被大量貼上、紅色警告、鑽石、久別回來吵醒。
 // 生鏽：停手 2 分鐘後開始、10 分鐘生鏽到底；每打一個字恢復 1%（也重新計 2 分鐘）。生鏽超過 30% 就拿不出燈泡。
 // 訊息配合：天線燈 0.4 秒變成對應燈色＋一個動作；動作一次一個，高階打斷低階。挖礦（e 開著）也會有反應。
 var RB=(function(){
@@ -1238,7 +1246,7 @@ class Mascot{
     this.g=g;this.rust=0;this.pose='base';this.bulb=0;this.tr=null;
     this.ant={a:2,b:2,t:1,id:0};this.pat='steady';this.patT0=performance.now();
     this.off={head:0,arm:0,body:0,dx:0,jump:0,eyeDx:0};this.blink=0;this.tired=0;this.shut=0;
-    this.vis=1;this.mode='';this.p=0;this.tok=0;this.cur=null;this.tm=[];this.on=true;
+    this.vis=1;this.mode='';this.p=0;this.tok=0;this.cur=null;this.tm=[];this.on=true;this.sleep=false;this.nap=false;
     this.loop=this.loop.bind(this);requestAnimationFrame(this.loop);
   }
   setPose(name,ms=300){if(name===this.pose)return;if(RM()){this.pose=name;this.tr=null;return}const from=this.compose();this.pose=name;this.tr={from,t0:performance.now(),ms}}
@@ -1248,6 +1256,7 @@ class Mascot{
   intensity(now){if(RM())return 1;const t=now-this.patT0;switch(this.pat){
     case'breathe':return .45+.55*(.5+.5*Math.sin(t/2400*2*Math.PI-Math.PI/2));
     case'double':{const c=t%1600;return(c<120||(c>=240&&c<360))?1:0}
+    case'sleep':return .45+.3*(.5+.5*Math.sin(t/4000*2*Math.PI-Math.PI/2));
     case'fast':return Math.floor(t/200)%2===0?1:0;
     case'flicker':{const h=hash(Math.floor(t/90)+7);return h>.5?1:(h>.2?.3:0)}
     default:return 1}}
@@ -1282,7 +1291,7 @@ class Mascot{
       if(!c.diff)return c.a;
       if(this.pose==='bulb')return(c.a&&c.b)?mix(c.a,c.b,this.bulb):(this.bulb>.5?c.b:c.a);
       const w=.12,th=c.th*(1-w),L=this.rust;return L<=th?c.a:(L>=th+w?c.b:((c.a&&c.b)?mix(c.a,c.b,.5):(c.f?c.b:c.a)))};
-    const hold=this.tired?1:0,headDy=hold?Math.max(o.head,1):o.head;
+    const hold=(this.tired||this.nap)?1:0,headDy=hold?Math.max(o.head,1):o.head;
     for(const c of P.cells){
       const eye=(c.x===6||c.x===10)&&(c.y===10||c.y===11);
       let col;if(eye){const nb=P.idx.get(c.y*H+8);col=nb?colOf(nb):colOf(c)}else col=colOf(c);
@@ -1310,7 +1319,7 @@ class Mascot{
           else if(u<.8){const k=(u-.5)/.3,m=hash(v.k+5)<.5?'#9aa3a0':'#3a3f44';col=k<.5?m:mix(m,col,.6)}}
         else if(this.mode==='out'){if(this.p>e)continue}}
       put(v.x,v.y,col,1)}
-    const s=this.ant,I=this.intensity(now),o=this.off,hy=(this.tired?Math.max(o.head,1):o.head)+o.jump;
+    const s=this.ant,I=this.intensity(now),o=this.off,hy=((this.tired||this.nap)?Math.max(o.head,1):o.head)+o.jump;
     for(let y=0;y<6;y++)for(let x=4;x<=8;x++){
       const ca=swc(s.a,x,y),cb=swc(s.b,x,y);let col=null,al=1;
       if(ca&&cb)col=mix(ca,cb,s.t);else if(cb){col=cb;al=s.t}else if(ca){col=ca;al=1-s.t}
@@ -1332,15 +1341,16 @@ class Mascot{
 const cv=document.createElement('canvas');cv.id='rbt';cv.width=cv.height=H;document.body.appendChild(cv);
 const R=new Mascot(cv.getContext('2d'));
 R.rust=Math.max(0,Math.min(1,+MS.rust||0));
-R.on=!S.mute;if(!R.on){R.vis=0;R.mode='out'}
+R.sleep=!!S.mute;R.nap=R.sleep;R.vis=0;R.mode='out';if(R.sleep)R.setPat('sleep');   // 開頁時由 boot 呼叫登場
 
 // 位置：左邊對齊「貼上並新增」按鈕，最下面一排像素踩在「貼上並新增」按鈕的上緣（畫面底部空一排，所以是 46px）
 function place(){
-  const a=$('pn'),b=$('snd');if(!a||!b)return;
-  const ra=a.getBoundingClientRect(),rb=b.getBoundingClientRect();
-  if(!ra.width||!rb.width){cv.style.display='none';return}
-  cv.style.left=Math.round(ra.left+2)+'px';cv.style.top=Math.round(ra.top-46)+'px';
-  cv.style.display=(R.on||R.vis>0)?'block':'none'}
+  const a=$('pn');if(!a)return;
+  const ra=a.getBoundingClientRect();if(!ra.width){cv.style.display='none';return}
+  // 每一格取整數個裝置像素（125% 縮放時不會有的格子寬、有的窄），位置也貼齊裝置像素
+  const dpr=window.devicePixelRatio||1,cell=Math.max(1,Math.round(2*dpr)),u=cell/dpr,sn=v=>Math.round(v*dpr)/dpr;
+  cv.style.width=cv.style.height=(24*u)+'px';
+  cv.style.left=sn(ra.left+u)+'px';cv.style.top=sn(ra.top-23*u)+'px';cv.style.display='block'}
 addEventListener('resize',place);
 
 // ---- 訊息對應的反應：[天線燈色 0灰 1藍 2綠 3橘 4紅, 閃法, 動作[延遲ms,名稱], 燈泡] ----
@@ -1364,11 +1374,11 @@ const RXT={
  act:{k:3,pat:'breathe',acts:[[0,'nod']]},
  ok:{k:2,pat:'steady',acts:[[0,'happy']]}
 };
-let own=null,active=false,drift=2,tt=[],lp=null;
+let own=null,active=false,drift=2,tt=[],lp=null,wt=[],waking=false;
 const later=(f,d)=>{tt.push(setTimeout(f,d))};
 function clearT(){tt.forEach(clearTimeout);tt=[];clearInterval(lp);lp=null}
 function apply(msg,s){
-  clearT();own=msg;active=true;R.stop();R.cur=null;
+  clearT();wt.forEach(clearTimeout);wt=[];waking=false;own=msg;active=true;R.stop();R.cur=null;R.nap=false;
   let bulb=s.bulb,acts=s.acts.slice(),k=s.k;
   if(bulb&&R.rust>.3){bulb=null;acts=[[0,'nod']]}   // 生鏽了，拿不出燈泡
   if(R.pose==='bulb'&&!bulb){R.bulb=0;R.setPose('base',300)}
@@ -1377,45 +1387,63 @@ function apply(msg,s){
     if(bulb==='lit')later(()=>R.tween('bulb',1,500),450);
     else{later(()=>R.tween('bulb',.55,80,()=>R.tween('bulb',0,120)),600);later(()=>R.tween('bulb',.55,80,()=>R.tween('bulb',0,120)),1000);later(()=>R.tween('bulb',1,500),1600)}}
   acts.forEach(([d,n])=>later(()=>R.act(n),d+(bulb?900:80)));
-  if(s.loop)lp=setInterval(()=>R.act(s.loop),2400);
+  if(s.loop)lp=setInterval(()=>R.act(s.loop),4800)   // 看一次（約 0.7 秒），停 4 秒;
 }
 function react(msg,key,delay){
-  const s=RXT[key];if(!s||!R.on)return;
+  const s=RXT[key];if(!s)return;
+  if(R.sleep&&key!=='warn'&&key!=='crit')return;   // 打瞌睡：只有紅色警告叫得醒
   msg.rxk=key;
-  if(delay){setTimeout(()=>{if(R.on&&!msg.leaving)apply(msg,s)},delay)}else apply(msg,s)}
+  if(delay){setTimeout(()=>{if(!msg.leaving)apply(msg,s)},delay)}else apply(msg,s)}
 function release(msg){
   if(own!==msg)return;
   clearT();own=null;active=false;
-  const st=SM.list.filter(m=>!m.leaving&&m.sticky&&m.rxk&&RXT[m.rxk]).pop();
-  if(st&&R.on){apply(st,RXT[st.rxk]);return}
-  if(!R.on)return;
-  R.setAnt(drift,1200);R.setPat('steady');
+  const st=SM.list.filter(x=>!x.leaving&&x.sticky&&x.rxk&&RXT[x.rxk]).pop();
+  if(st&&(!R.sleep||st.rxk==='warn'||st.rxk==='crit')){apply(st,RXT[st.rxk]);return}
+  R.setAnt(drift,1200);
+  if(R.sleep){R.nap=true;R.setPat('sleep');return}
+  R.setPat('steady');
   if(R.pose==='bulb')R.tween('bulb',0,400,()=>{if(!active)later(()=>R.setPose('base',300),50)});
 }
-// 待機：天線燈每 5～9 秒隨機慢慢換色（灰／綠／藍／橘）
-(function dr(){setTimeout(()=>{if(R.on&&!active){const o=[0,2,1,3].filter(k=>k!==drift);drift=o[Math.floor(rnd(o.length))];R.setAnt(drift,1200);R.setPat('steady')}dr()},5000+rnd(4000))})();
+// 打瞌睡時被吵醒：startle＝嚇一跳（小跳＋左右看）、peek＝抬頭眨眼（一半機率左右看），然後繼續睡
+function wake(kind){
+  if(!R.sleep||active||waking||RM())return;
+  waking=true;R.stop();R.cur=null;R.nap=false;
+  const at=(f,d)=>wt.push(setTimeout(f,d));let end;
+  if(kind==='startle'){R.act('jump');at(()=>R.act('look'),350);end=1400}
+  else{at(()=>R.act('blink'),350);const lk=Math.random()<.5;if(lk)at(()=>R.act('look'),900);end=lk?1900:1300}
+  at(()=>{R.nap=true;waking=false},end);
+}
+// 待機：天線燈每 5～9 秒隨機慢慢換色（灰／綠／藍／橘）；打瞌睡時 8～14 秒、比較暗
+(function dr(){setTimeout(()=>{if(!active&&!waking){const o=[0,2,1,3].filter(k=>k!==drift);drift=o[Math.floor(rnd(o.length))];R.setAnt(drift,1200);R.setPat(R.sleep?'sleep':'steady')}dr()},R.sleep?8000+rnd(6000):5000+rnd(4000))})();
+// 打瞌睡時每 60～120 秒隨機抬頭看一下
+(function pk(){setTimeout(()=>{wake('peek');pk()},60000+rnd(60000))})();
 R.setAnt(drift,0);
 
 // 生鏽：停手超過 2 分鐘開始，10 分鐘到底；只在機器人開著時計時
 let tk=Date.now(),saved=-1;
 setInterval(()=>{
   const now=Date.now(),last=tk;tk=now;
-  if(R.on&&!document.hidden){const over=Math.min(now-last,now-A.act-120000);if(over>0)R.rust=Math.min(1,R.rust+over/600000)}
+  if(!R.sleep&&!document.hidden){const over=Math.min(now-last,now-A.act-120000);if(over>0)R.rust=Math.min(1,R.rust+over/600000)}
   const v=Math.round(R.rust*1000)/1000;if(v!==saved){saved=v;MS.rust=v;msSave()}
 },1000);
 // 敲一個字恢復 1%
-function typed(){if(R.on)R.rust=Math.max(0,R.rust-.01)}
+function typed(){R.rust=Math.max(0,R.rust-.01)}   // 打瞌睡時打字也會除鏽
 // 挖礦：礦石眨眼、寶石點頭、鑽石舉手兩次、整百字舉手三次（e 開著才動）
 function mine(kind){
-  if(!R.on||!S.fx.mine)return;
+  if(!S.fx.mine)return;
+  if(R.sleep){if(kind==='diamond')wake('peek');return}
   R.act({ore:'blink',gem:'nod',diamond:'wave2',wc:'wave3'}[kind])}
-// 按鈕：登場 0.5 秒／離場 0.4 秒
+// 按鈕：打瞌睡／醒來（機器人不離場；登場只在開頁時）
 function sw(){
-  if(S.mute){clearT();own=null;active=false;R.leave();setTimeout(place,450)}
-  else{R.enter();R.setAnt(drift,0);R.setPat('steady');R.pose==='bulb'&&(R.bulb=0,R.setPose('base',0));place()}}
+  clearT();wt.forEach(clearTimeout);wt=[];waking=false;own=null;active=false;R.stop();R.cur=null;
+  if(R.pose==='bulb'){R.bulb=0;R.setPose('base',0)}
+  R.setAnt(drift,400);
+  if(S.mute){R.sleep=true;R.nap=true;R.setPat('sleep')}
+  else{R.sleep=false;R.nap=false;R.setPat('steady');setTimeout(()=>R.act('blink'),150)}
+  place()}
 
 place();setInterval(place,1000);
-return{R,cv,react,release,typed,mine,sw,place};
+return{R,cv,react,release,typed,mine,sw,place,wake};
 })();
 function rbReact(m,k,d){if(RB)RB.react(m,k,d)}
 function rbRel(m){if(RB)RB.release(m)}
@@ -1423,12 +1451,22 @@ function rbType(){if(RB)RB.typed()}
 function rbMine(k){if(RB)RB.mine(k)}
 function rbSwitch(){if(RB)RB.sw()}
 function rbPlace(){if(RB)RB.place()}
+// 1.17：系統訊息文字的起點，對齊搜尋框裡文字的起點
+function smX(){
+  const q=$('sq'),h=$('sysmsg');if(!q||!h||PH)return;
+  const r=q.getBoundingClientRect(),hr=h.getBoundingClientRect();if(!r.width)return;
+  const cs=getComputedStyle(q);
+  h.style.setProperty('--smx',Math.round(r.left-hr.left+(parseFloat(cs.paddingLeft)||0)+(parseFloat(cs.borderLeftWidth)||0))+'px');
+}
+addEventListener('resize',smX);setInterval(smX,1000);setTimeout(smX,0);
+function rbWake(k){if(RB)RB.wake(k)}
 
 // 重新開啟頁面：依離開多久出一句（重新整理不算）
 (function(){
   const nav=(performance.getEntriesByType&&performance.getEntriesByType('navigation')[0])||{},rl=nav.type==='reload';
   if(rl)A.qp=false;
-  if(PH||rl||!hbPrev||S.mute)return;
+  if(PH||rl||!hbPrev)return;
+  if(S.mute){if(Date.now()-hbPrev>=8*60000)setTimeout(()=>rbWake('peek'),2200);return}   // 打瞌睡：久別回來抬頭看一下
   const gap=Date.now()-hbPrev,k=gap<120000?'m1':gap<8*60000?'m2':gap<MCD.longAway?'back':'long';
   setTimeout(()=>{if(S.mute||!canSay())return;fire(k)},1800);
 })();
@@ -1734,8 +1772,8 @@ R note 是一個簡單的網頁小工具，用來建立純文字資料，並分�
 ．音效由瀏覽器即時合成，不需要下載聲音檔；打字、按鈕、LOGO 字母、挖礦等都有對應的聲音，預設是無聲。
 ．筆記裡的網址（http:// 或 https:// 開頭），按住 Ctrl，網址會亮起來並出現手指游標，點一下就會在新分頁開啟。唯讀的筆記裡，網址會一直畫上底線，直接點就能開。「像素刻工館」這幾個字在任何筆記裡都會畫上底線，按住 Ctrl 點一下（唯讀筆記直接點）就會開啟作者的 LINE 貼圖頁。
 ．搜尋框上方的文字是系統訊息：偶爾會有問候、整點報時和功能提示；紅色的是警告，點一下可以關掉。
-．不想看到日常的問候語，可以按「複製內文」右邊的機器人頭按鈕請小機器人休息（再按一次叫醒它）。休息時它會離場，不會再有問候、閒聊和整點報時，只剩下很久才出現一次的功能提示，以及你操作後的必要提示。
-．左邊「貼上並新增」上方的小機器人會陪著你：訊息出現時，頭上的天線燈會換顏色、牠也會做出對應的動作；挖礦（e 開啟時）有收穫牠也會反應。放著不理它兩分鐘會開始生鏽，十分鐘後鏽到底，每打一個字就恢復一點點。手機直式不顯示。
+．不想看到日常的問候語，可以按「複製內文」右邊的機器人頭按鈕讓小機器人打盹（再按一次叫醒它）。打盹時它還站在原位、偶爾抬頭看看，不會再有問候、閒聊和整點報時，只剩下很久才出現一次的功能提示，以及你操作後的必要提示。
+．左邊「貼上並新增」上方的小機器人會陪著你：訊息出現時，頭上的天線燈會換顏色、牠也會做出對應的動作；挖礦（e 開啟時）有收穫牠也會反應。放著不理它兩分鐘會開始生鏽，十分鐘後鏽到底，每打一個字就恢復一點點（打盹時也一樣，只是不會再生鏽）。手機直式不顯示。
 ．右上角按鈕依序是：音效（點一下依序切換：無聲、大聲、小聲，預設無聲）、鎖定打字範圍（兩枝鉛筆）、插入日期時間（插在游標處）、複製內文（不含標題）、機器人頭（讓小機器人休息／叫醒，開關日常問候語）、匯出備份、匯入備份、使用說明（問號）。
 ．按「使用說明」，會打開最新版的說明筆記「_讀我」；你編輯過的舊說明不會被覆蓋，只會另外新增一篇。
 
@@ -2212,7 +2250,7 @@ ta.addEventListener('compositionend',()=>setTimeout(twFollow,0));
 ta.addEventListener('scroll',()=>{if(twAct())twPaint()});
 new ResizeObserver(()=>twPaint()).observe(ta);
 twPaint();
-paintSnd();$('ver').textContent=VERSION;applyTh();phoneEnsure();layout();render();fxVis(false);booted=true;if(RB&&!S.mute)setTimeout(()=>{RB.R.enter();RB.place()},350);if(pend)setTimeout(pendMsg,1200);
+paintSnd();$('ver').textContent=VERSION;applyTh();phoneEnsure();layout();render();fxVis(false);booted=true;if(RB)setTimeout(()=>{RB.R.enter();RB.place()},350);if(pend)setTimeout(pendMsg,1200);
 {const n=byId(S.sel);if(n){if(!PH)ta.focus();ta.setSelectionRange(n.caret||0,n.caret||0);reveal(n.caret||0)}}
 </script>
 </body>
