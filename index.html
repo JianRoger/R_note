@@ -1599,7 +1599,8 @@ R note 是放在瀏覽器裡的純文字筆記本：打開網址就能寫，不�
 新增筆記
 ．左邊輸入框打標題，按 Enter 就建立；輸入框左邊的 + 是新增今天的日記。
 ．輸入框右邊的剪貼簿按鈕，會把剪貼簿的文字貼成新筆記。
-．把文字檔（.txt、.md）直接拖進網頁，放開滑鼠就會建立筆記：檔名是標題，內容是內文，可選多個檔案匯入。
+．把文字文件直接拖進網頁，放開滑鼠就會建立筆記：檔名是標題，內容是內文，可選多個檔案匯入。新筆記的圖示是 📥，想換就點圖示。
+．備份檔也可以直接拖進網頁匯入，但要單獨拖，不能和其他文件一起拖。
 ．拖進網頁後，如果碰到虛線框、又拖出框外，會變成「取消匯入」，這時放開不會建立筆記；拖回框內就恢復。
 ．在資料夾裡拖入檔案，新筆記會放進這個資料夾。
 
@@ -2152,7 +2153,7 @@ const selSoon=()=>{if(selRaf)return;selRaf=requestAnimationFrame(()=>{selRaf=0;s
     let h,s,ctx='',ic,say1=null;
     if(mode==='lock'){ic=LOCK;h='匯入確認中，暫時不能新增筆記';s=['請先按「確認無誤」或「復原之前的資料」']}
     else if(mode==='cancel'){ic=NO;h='取消匯入';s=['放開滑鼠不會建立任何筆記','想繼續的話，把檔案拉回虛線框內'];say1='好，這次先不收，我不會建立筆記。'}
-    else{ic=DOC;h='放開滑鼠，把文字檔變成筆記';s=['檔名會變成標題，內容會變成內文','可選多個檔案匯入'];if(f)ctx='<div class="dctx">'+FLD+'會放進『'+nm.replace(/</g,'&lt;')+'』資料夾</div>';say1=f?'放開手，這些會放進『'+nm+'』資料夾！':'放開手，我來把文字檔變成筆記！'}
+    else{ic=DOC;h='放開滑鼠，把文字文件變成筆記';s=['檔名會變成標題，內容會變成內文','可選多個檔案匯入'];if(f)ctx='<div class="dctx">'+FLD+'會放進『'+nm.replace(/</g,'&lt;')+'』資料夾</div>';say1=f?'放開手，這些會放進『'+nm+'』資料夾！':'放開手，我來把文字文件變成筆記！'}
     dzb.innerHTML=(mode!=='lock'&&D.n>0?'<div class="dchip">'+D.n+' 個檔案</div>':'')+ic+'<div class="dh1">'+h+'</div>'+s.map(x=>'<div class="dsb">'+x+'</div>').join('')+ctx;
     if(D.mode!==mode){D.mode=mode;dropSay(say1)}
   }
@@ -2186,15 +2187,29 @@ const selSoon=()=>{if(selRaf)return;selRaf=requestAnimationFrame(()=>{selRaf=0;s
       if(b.indexOf(0)>=0)return null;
       try{s=new TextDecoder('utf-8',{fatal:true}).decode(b)}catch(x){try{s=new TextDecoder('big5').decode(b)}catch(y){return null}if(s.indexOf('�')>=0)return null}
     }
+    {const bad=(s.match(/[\u0000-\u0008\u000E-\u001F]/g)||[]).length;if(bad>0&&bad/s.length>.005)return null}
     return s.replace(/^﻿/,'');
   }
+  function backupDrop(j){
+    const newer=parseFloat(j.appVersion||0)>parseFloat(VERSION),g2=j.global&&j.global.coin>0,seen={},now=Date.now();
+    const clean=j.notes.filter(n=>n&&typeof n==='object').map((n,i)=>{n.id=String(n.id||('n'+now+i));while(seen[n.id])n.id+='x';seen[n.id]=1;n.title=String(n.title||'未命名'+(i+1));n.content=String(n.content||'').replace(/\r\n?/g,'\n');n.created=+n.created||now;n.modified=+n.modified||n.created;n.order=+n.order||i;if(n.icon==='⚙'||n.icon==='⚙️')n.icon=ICONS[23];if(!n.icon)n.icon=ICONS[0];n.ro=!!n.ro;return n});
+    importDialog(j,clean,newer,g2);
+  }
   window.importFiles=async function(files){
-    const MAXF=50,BIG=1000000,sk={ext:[],big:[],enc:[],full:[],json:[],more:files.slice(MAXF).map(f=>f.name)},ok=[];
+    const MAXF=50,BIG=1000000,sk={ext:[],big:[],enc:[],full:[],more:files.slice(MAXF).map(f=>f.name)},ok=[];
     let size=JSON.stringify(S.notes).length;
+    const bk=[];
+    for(const f of files){
+      if(!(/\.json$/i.test(f.name||'')||/json/.test(f.type||''))||f.size>IMPLIM)continue;
+      try{const t=await decodeText(f);if(t===null)continue;const j=JSON.parse(t);if(j&&Array.isArray(j.notes)&&j.app==='R_note')bk.push(j)}catch(x){}
+    }
+    if(bk.length){
+      if(files.length>1){playSfx('err');say('整批未匯入：其中包含備份檔，備份檔請單獨拖入。',{lv:'warn'});return}
+      backupDrop(bk[0]);return;
+    }
     for(const f of files.slice(0,MAXF)){
       const nm=f.name||'';
-      if(/\.json$/i.test(nm)){sk.json.push(nm);continue}
-      if(!(/\.(txt|md|markdown|text|log)$/i.test(nm)||/^text\//.test(f.type))){sk.ext.push(nm);continue}
+      if(/^(image|audio|video)\//.test(f.type)||/(pdf|zip|rar|7z|gzip|x-tar|msword|officedocument|ms-excel|ms-powerpoint|octet-stream)/.test(f.type)||/\.(png|jpe?g|gif|webp|bmp|ico|heic|tiff?|mp3|wav|ogg|flac|m4a|mp4|mov|avi|mkv|webm|pdf|zip|rar|7z|gz|tar|docx?|xlsx?|pptx?|exe|dll|psd|ase|aseprite)$/i.test(nm)){sk.ext.push(nm);continue}
       if(f.size>BIG){sk.big.push(nm);continue}
       let tx=null;try{tx=await decodeText(f)}catch(x){}
       if(tx===null){sk.enc.push(nm);continue}
@@ -2207,7 +2222,7 @@ const selSoon=()=>{if(selRaf)return;selRaf=requestAnimationFrame(()=>{selRaf=0;s
       const now=Date.now(),mn=Math.min(0,...S.notes.filter(n=>!n.archived).map(n=>n.order));
       ok.forEach((m,i)=>{
         const base=m.nm.replace(/\.(txt|md|markdown|text|log)$/i,'').trim().replace(/\s+/g,'_').slice(0,80)||'未命名';
-        const n={id:'n'+now+'u'+i+Math.random().toString(36).slice(2,5),title:uniq(base,null)||'未命名',content:m.tx,created:now,modified:now,archived:false,archivedAt:0,order:mn-(ok.length-i),icon:'📄'};
+        const n={id:'n'+now+'u'+i+Math.random().toString(36).slice(2,5),title:uniq(base,null)||'未命名',content:m.tx,created:now,modified:now,archived:false,archivedAt:0,order:mn-(ok.length-i),icon:'📥'};
         if(fid)n.folderId=fid;
         S.notes.push(n);ids.push(n.id);
       });
@@ -2215,7 +2230,7 @@ const selSoon=()=>{if(selRaf)return;selRaf=requestAnimationFrame(()=>{selRaf=0;s
       const undo=()=>{if(!ids.some(id=>byId(id)))return;S.notes=S.notes.filter(m=>!ids.includes(m.id));ms.clear();S.sel=(prevSel&&byId(prevSel))?prevSel:null;fixSel();sayOff('dropdone');playSfx('restore');save();render()};
       say('已建立 '+ids.length+' 篇筆記'+(fid?'，放在『'+fById(fid).name+'』資料夾':'')+'。',{lv:'info',id:'dropdone',hold:6000,rx:'ok',actions:[{label:'復原',fn:undo}]});
     }
-    const RS={ext:'不是文字檔',big:'太大（上限 1 MB）',enc:'無法讀取內容',full:'會超出儲存空間',json:'是備份檔，請改用右上角的匯入',more:'超過一次 50 個的上限'};
+    const RS={ext:'不是文字文件',big:'太大（上限 1 MB）',enc:'無法讀取內容',full:'會超出儲存空間',more:'超過一次 50 個的上限'};
     const keys=Object.keys(RS).filter(k=>sk[k].length),total=keys.reduce((a,k)=>a+sk[k].length,0);
     if(total){
       playSfx('err');
