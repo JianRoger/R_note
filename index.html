@@ -6,7 +6,7 @@
 <title>R note</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='5' fill='%231b1c20'/%3E%3Cpath d='M8 19V5h4.5a4 4 0 0 1 0 8H8M12.5 13L16 19' fill='none' stroke='%23ff8080' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
 <style>
-:root{--bg:#1b1c20;--p1:#23252a;--p2:#2b2d33;--ln:#3a3d45;--tx:#d9dbe0;--dm:#8b8f99;--ry:#ff8080;--ac:#408040;--al:#8fd18f;--abg:rgba(64,128,64,.25);--abd:#408040;--dg:#e5484d;--pv:217,219,224;--sbt:#2b2d33;--sbh:#9096a1;--cs:#000;--sr:#ff6b5f;--gc:210,210,210;--oref:none}
+:root{--bgr:27,28,32;--bg:#1b1c20;--p1:#23252a;--p2:#2b2d33;--ln:#3a3d45;--tx:#d9dbe0;--dm:#8b8f99;--ry:#ff8080;--ac:#408040;--al:#8fd18f;--abg:rgba(64,128,64,.25);--abd:#408040;--dg:#e5484d;--pv:217,219,224;--sbt:#2b2d33;--sbh:#9096a1;--cs:#000;--sr:#ff6b5f;--gc:210,210,210;--oref:none}
 html[data-th=d]{--bg:#e9ecf1;--p1:#ffffff;--p2:#f1f3f7;--ln:#c8cdd8;--tx:#23262d;--dm:#6a7180;--ac:#3b82d6;--al:#1f5fb0;--abg:rgba(59,130,214,.16);--abd:#3b82d6;--dg:#d63a3f;--pv:35,38,45;--sbt:#e4e7ee;--sbh:#9aa1b0;--cs:#fff;--sr:#d93f33;--gc:70,70,70;--oref:brightness(.82) saturate(1.2)}
 html[data-th=u]{--bg:#2a1f18;--p1:#35271e;--p2:#43322a;--ln:#5c4637;--tx:#f1e2cf;--dm:#b39d86;--ac:#c9873c;--al:#f0c58a;--abg:rgba(201,135,60,.22);--abd:#c9873c;--pv:241,226,207;--sbt:#43322a;--sbh:#b39d86;--cs:#1a110b;--gc:255,214,160}
 html[data-th=d]::-webkit-scrollbar-button:vertical:decrement{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M1 6l3-4 3 4z' fill='%23606876'/%3E%3C/svg%3E")}
@@ -106,19 +106,24 @@ button,input,textarea{font:inherit;color:inherit}
 .bagw svg{position:absolute;left:0;top:3px}
 .coin{flex:none;align-self:flex-end;margin-bottom:-3px;line-height:20px;font-size:16px;white-space:nowrap;user-select:text}
 #wc{grid-column:3;grid-row:3;justify-self:start;align-self:stretch;display:none;align-items:flex-end;white-space:nowrap;pointer-events:none;min-width:0}
-#wcl{font-size:14px;line-height:20px;margin-bottom:-3px;color:var(--dm)}
-#wcn{display:inline-block;font-size:16px;line-height:20px;margin-bottom:-3px;font-variant-numeric:tabular-nums}
+#wcb{display:grid;grid-template-columns:auto auto;align-items:end;justify-content:start;margin-bottom:-2px}
+#wcl,#wcsl{font-size:14px;line-height:17px;color:var(--dm)}
+#wcn,#wcsn{font-size:16px;line-height:17px;font-variant-numeric:tabular-nums}
+#wcsl,#wcsn{display:none;margin-bottom:4px}
+#wcb.sel #wcsl,#wcb.sel #wcsn{display:block}
+#wcsn{color:var(--al)}
+html.ph #wcsl,html.ph #wcsn{display:none!important}
 :root{--bag:#ffc94a;--bgl:184,105,46}
 html[data-th=d]{--bag:#b8651f;--bgl:255,205,30}
 #pk .x{font-size:13px;gap:4px;color:var(--tx)}
 #odot,#oglow{transform-box:fill-box;transform-origin:center}
-#sysmsg{grid-column:3;grid-row:1;align-self:end;justify-self:stretch;margin-right:min(320px,40%);height:64px;overflow:visible;position:relative;pointer-events:none;font-size:14px;line-height:20px}
+#sysmsg{grid-column:3;grid-row:1;align-self:end;justify-self:stretch;margin-right:min(320px,40%);height:64px;overflow:visible;position:relative;z-index:22;pointer-events:none;font-size:14px;line-height:20px}
 #sysmsg .ln{position:absolute;left:var(--smx,11px);top:4px;white-space:nowrap;color:var(--al);transition:transform .22s ease-out}
 #sysmsg .ln.w{color:var(--dg)}
 #sysmsg .ln span{display:inline-block;white-space:pre}
 #sysmsg .ln button{pointer-events:auto;margin-left:8px;height:18px;padding:0 9px;font-size:12px;line-height:16px;border:1px solid currentColor;border-radius:9px;background:transparent;color:inherit;cursor:pointer;vertical-align:1px}
 #sysmsg .ln button:hover{background:var(--abg)}
-#rbt{position:fixed;left:0;top:0;width:48px;height:48px;image-rendering:pixelated;pointer-events:none;z-index:3;display:none}
+#rbt{position:fixed;left:0;top:0;width:48px;height:48px;image-rendering:pixelated;pointer-events:none;z-index:22;display:none}
 #hatch{position:absolute;inset:0;border-radius:8px;pointer-events:none;display:none}
 #hatch,#twh,#hatch.fv{background:repeating-linear-gradient(135deg,rgba(var(--pv),.10) 0 1.5px,transparent 1.5px 18px)}
 #hatch.none,#hatch.fv{display:block}
@@ -257,11 +262,23 @@ html.ph #shelf{grid-column:1/-1!important;grid-row:5!important;overflow-x:auto;s
 html.ph #shelf::-webkit-scrollbar{display:none}
 html.ph #wc{grid-column:1/-1;grid-row:6;justify-self:end;align-self:center;margin-left:0!important}
 html.ph #cell{grid-column:1/-1!important;grid-row:7!important}
+
+#dz{position:fixed;inset:0;z-index:20;display:none;pointer-events:none}
+#dzs{position:absolute;inset:0;background:rgba(var(--bgr),.70);-webkit-backdrop-filter:blur(2px);backdrop-filter:blur(2px)}
+#dzb{position:absolute;left:20%;right:20%;top:26%;bottom:14%;border:4px dashed var(--ac);border-radius:28px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:10px;color:var(--ac);padding:0 24px;background:repeating-linear-gradient(135deg,rgba(var(--pv),.07) 0 1.5px,transparent 1.5px 18px),linear-gradient(var(--abg),var(--abg)),var(--p1)}
+#dzb.sol{border-style:solid}
+#dzb.g{border-color:var(--dm);color:var(--dm);background:repeating-linear-gradient(135deg,rgba(var(--pv),.07) 0 1.5px,transparent 1.5px 18px),var(--p1)}
+#dzb .dh1{font-size:26px;font-weight:600;color:var(--tx);line-height:1.3}
+#dzb .dsb{font-size:15px;color:var(--dm);line-height:1.5}
+#dzb .dctx{margin-top:6px;display:inline-flex;gap:8px;align-items:center;font-size:15px;color:var(--al);border:1px solid var(--ac);border-radius:999px;padding:3px 14px}
+#dzb .dchip{position:absolute;top:-18px;left:50%;transform:translateX(-50%);background:var(--ac);color:var(--bg);font-size:14px;font-weight:600;padding:3px 16px;border-radius:999px;line-height:1.5;white-space:nowrap}
+#dzb.g .dchip{background:var(--dm)}
+html.ph #dz{display:none!important}
 </style>
 </head>
 <body>
 <div class="app">
-  <div id="logo" style="grid-column:1;grid-row:1;align-self:end;position:relative"><span id="ver" style="position:absolute;left:228px;top:12px;font-size:12px;color:var(--dm);pointer-events:none;user-select:none"></span>
+  <div id="logo" style="grid-column:1;grid-row:1;align-self:end;position:relative;z-index:22"><span id="ver" style="position:absolute;left:228px;top:12px;font-size:12px;color:var(--dm);pointer-events:none;user-select:none"></span>
     <svg viewBox="0 0 106 36" width="240" style="display:block;fill:none;stroke:var(--tx);stroke-width:2.2px;stroke-linecap:round;stroke-linejoin:round" aria-label="R note"><rect id="rbox" x="1" y="2" width="24" height="32" rx="4" style="display:none;fill:rgba(255,128,128,.16);stroke:rgba(255,128,128,.55);stroke-width:1px;vector-effect:non-scaling-stroke"/><path d="M6 28V6h7a6 6 0 0 1 0 12H6M13 18l7 10" style="stroke:var(--ry);vector-effect:non-scaling-stroke"/><defs><linearGradient id="sg" x1="0" x2="1" y1="0" y2="0"><stop offset=".4" style="stop-color:var(--bg)" stop-opacity="0"/><stop offset="1" style="stop-color:var(--bg)" stop-opacity=".9"/></linearGradient><radialGradient id="og"><stop offset="0" stop-color="#fff" stop-opacity=".95"/><stop offset=".6" stop-color="#fff" stop-opacity=".35"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient></defs><g id="ng" style="transform-box:fill-box;transform-origin:center"><path id="nl" d="M28 28V12M28 18a6 6 0 0 1 12 0v10" style="vector-effect:non-scaling-stroke"/><path id="nu" d="M28 28V12l12 16V12" style="vector-effect:non-scaling-stroke;opacity:0"/><rect id="nshade" x="26" y="4" width="16" height="26" fill="url(#sg)" opacity="0" style="stroke:none;pointer-events:none"/></g><circle cx="54" cy="20" r="8" style="vector-effect:non-scaling-stroke"/><circle id="odot" cx="54" cy="20" r="2.6" style="display:none;fill:var(--tx);stroke:none"/><circle id="oglow" cx="54" cy="20" r="7.4" fill="url(#og)" style="display:none;stroke:none;pointer-events:none"/><path d="M71 8v16a4 4 0 0 0 4 4h2M71 14h6" style="vector-effect:non-scaling-stroke"/><path id="tl" d="M66 14h5" style="vector-effect:non-scaling-stroke"/><path id="ep" d="M84 20h16a8 8 0 1 0-2.343 5.657" style="vector-effect:non-scaling-stroke"/><rect id="rhit" x="1" y="2" width="24" height="32" fill="transparent" stroke="none" style="pointer-events:all"/><rect id="ohit" x="44" y="10" width="20" height="20" fill="transparent" stroke="none" style="pointer-events:all"/><rect id="thit" x="64" y="4" width="16" height="28" fill="transparent" stroke="none" style="pointer-events:all"/><rect id="nhit" x="26" y="4" width="16" height="28" fill="transparent" stroke="none" style="pointer-events:all"/><rect id="ehit" x="82" y="10" width="20" height="20" fill="transparent" stroke="none" style="pointer-events:all"/></svg><div id="rglass"></div>
   </div>
   <div id="sysmsg"></div>
@@ -281,7 +298,7 @@ html.ph #cell{grid-column:1/-1!important;grid-row:7!important}
   </div>
   <div class="row" id="r2" style="grid-column:3;grid-row:2"><div class="fld"><span data-ic="search"></span><input id="sq" autocomplete="off"></div><div id="sn" class="row" style="display:none;align-items:center"><span id="sc" style="font-size:13px;color:var(--dm);min-width:40px;text-align:center"></span><button class="ib" id="sp" data-tip="上一個"><span data-ic="up"></span></button><button class="ib" id="sd" data-tip="下一個"><span data-ic="dn"></span></button><button class="ib" id="sx" data-tip="清除搜尋"><span data-ic="x"></span></button></div><div class="row" id="ths"><button class="ib" data-th="d" data-tip="破曉"><span data-ic="sun"></span></button><button class="ib" data-th="u" data-tip="逢魔"><span data-ic="dusk"></span></button><button class="ib" data-th="n" data-tip="月華"><span data-ic="moon"></span></button></div><div id="phbag"></div></div>
   <div id="shelf" style="grid-column:3;grid-row:3;display:flex;align-items:center;gap:6px;min-width:0;overflow:hidden"></div>
-  <div id="wc"><button class="ib" id="rob" data-tip="設為唯讀"><span data-ic="ro"></span></button><span id="wcl">總字數：</span><span id="wcn">0</span></div>
+  <div id="wc"><button class="ib" id="rob" data-tip="設為唯讀"><span data-ic="ro"></span></button><span id="wcb"><span id="wcsl">選取數：</span><span id="wcsn"></span><span id="wcl">總字數：</span><span id="wcn">0</span></span></div>
   <div id="lst" style="grid-column:1;grid-row:4"><div id="sr"><span>搜尋結果：</span><b id="srq"></b><button id="srx" data-tip="取消搜尋"><span data-ic="x"></span></button></div><div id="fh"><button class="ib" id="cabb"></button><button class="ib" id="eyeb"></button><button class="ib pos" id="fadd"></button><button class="ib" id="fdel"></button></div><div id="top"><div id="fcol"></div><div id="fr"><div id="frows"></div><div id="ftab"></div><div id="fdz">移出資料夾</div><div id="fpg"></div><div id="act"></div></div></div><div id="dv"></div><div id="arc"></div></div>
   <div id="vs" style="grid-column:2;grid-row:4"><i></i></div>
   <div id="cell" style="grid-column:3;grid-row:4;min-height:0;position:relative"><textarea id="body" spellcheck="false" disabled></textarea><div id="hatch"><span id="hl"></span></div><div id="fview"></div><div id="ov"></div><div id="glow"></div><div id="spot"></div></div>
@@ -289,7 +306,7 @@ html.ph #cell{grid-column:1/-1!important;grid-row:7!important}
 <input type="file" id="file" accept=".json,application/json" hidden>
 <canvas id="cv"></canvas><div id="tip"></div><div id="pk"></div>
 <script>
-const VERSION='1.17';
+const VERSION='1.18';
 const PROMO_URL='https://line.me/S/shop/sticker/author/123908';
 const PH=(()=>{try{const q=new URLSearchParams(location.search).get('phone');if(q==='1')return true;if(q==='0')return false;return matchMedia('(pointer:coarse)').matches&&!matchMedia('(hover:hover)').matches&&Math.min(screen.width,innerWidth)<=820}catch(e){return false}})();
 document.documentElement.classList.toggle('ph',PH);
@@ -343,7 +360,7 @@ function sortL(a){
 }
 const archList=()=>S.notes.filter(n=>inBot(n)&&match(n)).sort((x,y)=>y.archivedAt-x.archivedAt);
 function paintSort(){document.querySelectorAll('.sb').forEach(b=>{const on=b.dataset.k==S.sort.k;b.classList.toggle('on',on);const c=b.querySelector('.c');if(c)c.innerHTML=sv(S.sort.dir=='asc'?'up':'dn',12)})}
-function meta(){shelf();wcUpdate();applyRO()}
+function meta(){shelf();wcUpdate();applyRO();selUpdate();{const n=byId(S.sel);document.title=n?n.title+' - R note':'R note'}}
 function showNote(){const n=byId(S.sel);ta.disabled=!n;ta.value=n?n.content:'';fxPrev=ta.value.length;meta()}
 function fill(box,list,arch){
   box.innerHTML='';
@@ -1551,189 +1568,113 @@ tick();setInterval(tick,5000);{const cb=$('ct').parentNode;cb.style.userSelect='
 const README=`R note 使用說明
 ════════════════════════
 
-【這是什麼】
-R note 是一個簡單的網頁小工具，用來建立純文字資料，並分門別類地記錄與存放。
-打開網址就能使用。內容只有純文字，沒有複雜的排版指令，就像排在書架上、可以隨手翻閱與書寫的各類筆記本。
-工具裡還藏了一些小祕密：游標光暈、打字碎石、挖礦寶石、換取金額……讓你寫的每一篇文章都自帶「含金量」，打字也多一點樂趣。
+【一分鐘看懂】
+R note 是放在瀏覽器裡的純文字筆記本：打開網址就能寫，不用註冊、不用安裝。
+你寫的字只存在這台電腦的這個瀏覽器裡，不會上傳，也不會自動同步到別的裝置。
 
-適合用來記錄：
-．工作待辦、臨時記事
-．各種草稿與想法
-．擬定 AI 對話文稿
-．常查找的備忘資訊，例如公司分機、網址
-．想買的東西、看過的電影
-．敲鍵盤療癒自己（？）
+它也想讓打字多一點樂趣：
+．打字時偶爾會挖到礦石和寶石，點一下就能賣掉換成金額，每篇筆記各有自己的收藏。
+．每寫滿一百字，會有一點小驚喜。
+．左邊的小機器人會陪著你，偶爾說說話。
+．左上角 R note 的每個字母都可以點點看。
+．右上角的喇叭可以打開音效，預設是無聲。
 
-使用環境
-．以 Chrome 為研發基礎，主要提供桌面版瀏覽器（Chrome、Edge）使用。
-．大量使用滑鼠拖曳、滑鼠停留提示與鍵盤快速鍵，不推薦在手機或平板上操作。
-．Firefox、Safari 沒有經過完整測試。
-．手機瀏覽器會自動進入簡易版：一張便條紙，打字也能挖礦；完整功能請使用電腦。
+適合拿來記：工作待辦、臨時記事、各種草稿、擬定 AI 對話文稿、常查的備忘（分機、網址）、想買的東西，或是敲鍵盤療癒自己（？）。
+
+使用環境：請用電腦版的 Chrome 或 Edge。手機會自動進入簡易版，只有一張便條紙，完整功能請用電腦。
 
 
-【先看這一段：你的資料存在哪裡】
-你寫的每一個字，都只存在「你現在使用的這台電腦、這個瀏覽器」裡，不會上傳到網路，作者和其他人都看不到，也不會自動同步到別的裝置。
+【請定期備份】
+筆記只存在你現在用的這台電腦、這個瀏覽器裡，就像放在抽屜裡的日記本：
+．換電腦、換瀏覽器，那邊的抽屜是空的。
+．清除瀏覽器資料、重灌電腦，筆記會一起消失，找不回來。
+．無痕視窗關掉就沒了；公用電腦別用。
+．內容是明文存放，不要記密碼或身分證字號。
+．請不要同時開兩個分頁編輯，後存的會蓋掉先存的。
 
-可以這樣想：
-．它像一本放在書桌抽屜裡的日記本。換一台電腦、換一個瀏覽器（例如從 Chrome 換成 Edge），就像走進另一間房間，那裡的抽屜是空的。
-．「清除瀏覽器資料」或「重灌電腦」，就像把整個抽屜清空，日記本一起不見，而且找不回來。
-．用「無痕視窗」開啟，就像寫在便條紙上，關掉視窗就丟掉了。
-．和別人共用同一台電腦、同一個瀏覽器帳號時，對方打開這個網址就看得到你的筆記，不建議在公用電腦使用。
-．資料是以明文存放，不建議記錄密碼、帳號、身分證字號等敏感資料。
-
-所以請養成備份的習慣，備份就像把日記影印一份，收到別的地方：
-．每週匯出一次，或寫了重要內容就匯出。
-．換電腦、重灌、清理瀏覽器之前，一定要先匯出。
-．備份檔不要只放在同一台電腦裡，可以放進雲端硬碟，或寄給自己。
-．右上角的匯出按鈕，超過 7 小時沒有備份、而且這段時間內容有變動，就會出現小紅點（浮現時會閃動幾下），提醒你該備份了；按一下匯出，紅點就會消失。
-
-其他要知道的
-．瀏覽器能存放的容量有上限（通常約 5MB），一般記事用不完；如果出現「儲存空間已滿」的提示，請先匯出備份，再刪除不需要的筆記。
-．請不要同時開兩個分頁編輯這個網址，後存檔的分頁會把先存檔的內容蓋掉。
-．圖示使用系統內建的表情符號，在不同電腦上的樣子會略有不同。
-
-
-【備份與搬家】
-匯出（備份）
-．按右上角的匯出按鈕，會下載一個檔案，檔名像 R_note_backup_20261013_1711.json，通常在瀏覽器的「下載」資料夾裡。
-．檔案裡有你所有的筆記（含封存區與暗格），內容是明文，請妥善保存。
-
-匯入（還原、搬家）
-．按右上角的匯入按鈕，選擇備份檔，會出現兩個選項：
-　1. 取代現有筆記：目前所有內容會被備份檔取代，請小心操作。
-　2. 追加為新筆記：把備份裡的筆記加進來，不動現有的。可能出現重複的標題或內容，追加的筆記會標上 ⚠，標題相同時會加上「_新匯入」，方便檢查整理。
-．想把資料搬到另一台電腦：先在舊電腦匯出，把檔案帶過去，在新電腦打開同一個網址，再按匯入。
-．匯入完成後，搜尋框上方會出現確認訊息：看過筆記沒問題就按「確認無誤」；發現不對勁，按「復原之前的資料」就會回到匯入前。確認之前，筆記暫時不能編輯，只能翻閱。
-．以前如果是把網頁檔存在硬碟上使用，資料也不會自動出現在這個網址，同樣用「舊的那邊匯出、這邊匯入」搬過來。
-
-更新
-．這個工具放在網路上，每次打開同一個網址就是最新版，不用重新下載。更新後如果畫面沒有變，請按 Ctrl＋F5 重新整理；更新成功時，LOGO 右上角的版本號會改變。
-．你的筆記不會因為更新而消失，但為免意外，請時常匯出備份。
-
-
-【把它存成自己的單機版（離線使用）】
-想在沒有網路的地方使用，或不想依賴網站，可以把這個網頁存成一個檔案，放在自己的電腦裡。
-
-步驟（Chrome、Edge）
-1. 先打開這個網址。
-2. 在頁面空白處按右鍵，選「另存新檔」（或按 Ctrl＋S）。
-3. 儲存類型選「網頁，僅 HTML」，不要選「網頁，完整」。
-4. 存到你固定放資料的資料夾，例如「文件」，檔名可以自己取，例如 R_note.html。
-5. 以後直接在這個檔案上按兩下，就會用瀏覽器打開，不需要網路。
-
-注意事項
-．單機版和網址版的資料是分開存放的，就像兩間房間，彼此看不到對方的筆記。要互通，請在一邊匯出、另一邊匯入。
-．單機版不會自動更新。想升級時，回到網址重新存一次檔案；請先在舊版匯出備份，換成新檔案後再匯入，最保險。
-．檔案請放在固定的位置，不要隨意搬動或換資料夾。搬動之後如果發現筆記像是不見了，用備份匯入就能找回來。
-．如果存下來打開是一片空白或樣子不對，通常是存成了「網頁，完整」，請重新存一次「僅 HTML」。
-．單機版開啟時，有些瀏覽器每次按「貼上並新增」都會詢問是否允許讀取剪貼簿，這是正常的。
-．清除瀏覽器資料、換瀏覽器、換電腦，單機版的資料也不會跟著走，請照樣定期備份。
+右上角的「匯出」按鈕會下載一個備份檔（.json）。建議每週匯出一次，重要內容寫完就匯出。超過 7 小時沒備份而且內容有變動，匯出按鈕會出現小紅點提醒你。備份檔請放進雲端硬碟，或寄給自己。
 
 
 【基本操作】
-．說明裡寫的「點」，都是按滑鼠左鍵；要按右鍵的地方會特別寫出來。
 新增筆記
-．在左側輸入框輸入標題，按 Enter 建立新筆記，新標題排在列表最上方。
-．輸入框左邊的 + ，直接建立一則今天的日記；同一天重複建立，標題後面會自動加上編號。
-．輸入框右邊的剪貼簿按鈕，把剪貼簿裡的文字貼成新筆記，標題取第一行有內容的文字；剪貼簿沒有文字時不會建立。第一次使用時，瀏覽器可能會詢問是否允許讀取剪貼簿，請選擇允許。
+．左邊輸入框打標題，按 Enter 就建立；輸入框左邊的 + 是新增今天的日記。
+．輸入框右邊的剪貼簿按鈕，會把剪貼簿的文字貼成新筆記。
+．把文字檔（.txt、.md）直接拖進網頁，放開滑鼠就會建立筆記：檔名是標題，內容是內文，可選多個檔案匯入。
+．拖進網頁後，如果碰到虛線框、又拖出框外，會變成「取消匯入」，這時放開不會建立筆記；拖回框內就恢復。
+．在資料夾裡拖入檔案，新筆記會放進這個資料夾。
 
-標題與圖示
-．點一下標題，右邊顯示它的內容；點兩下標題，或選取後按 F2，可以改名（Enter 確認，Esc 取消）；選取後按 Enter，游標會進入右邊的內文區。
-．標題不可重複，同名時自動加上 (2)、(3)……；標題前後的空白會刪除，中間的空白會變成底線。
-．點標題前面的圖示，可以更換圖示；選單最下面可以貼上自己複製的單一 Emoji。每則筆記一定有圖示。
-．滑鼠停在標題上，游標右下角會顯示標題、修改與建立時間，並跟著游標移動。
+標題
+．點一下標題看內容；點兩下（或按 F2）改名。標題不能重複。
+．點標題前面的圖示，可以換圖示，也能貼上你自己的 Emoji。
+．瀏覽器分頁的標題，會顯示目前這則筆記的標題。
 
-排序（左側四個按鈕）
-．手形：手動排序，用滑鼠拖曳標題調整順序。
-．時鐘：依修改時間排序。
-．abc：依名稱排序。
-．標籤：依圖示排序，順序就是圖示選單的排列。
-．連點同一個按鈕可以切換正反順序，被選取的按鈕會顯示方向箭頭。
+排序
+．左邊四個按鈕：手動排序（拖曳標題調整）、修改時間、名稱、圖示。再點一次同一顆，切換正反序。
 
 封存與刪除
-．把標題拖曳到下方區域就是封存，拖回上方就是還原。
-．封存區的垃圾桶可以永久刪除該筆記（會先確認）。
-．上下兩區的分隔粗線、左右欄之間的拉條，都可以拖曳調整大小，點兩下會還原預設。
-
-多選
-．Ctrl＋點擊：加入或取消選取。Shift＋點擊：選取一整段。Ctrl＋A：選取整區。Esc：取消選取。
-．選取後可以整批拖曳。按 Delete：在上方列表是移到封存區，在封存區是永久刪除（會先確認，並顯示數量）。
+．把標題拖到下方區域就是封存，拖回上方就還原。封存區的垃圾桶可以永久刪除（會先確認）。
+．Ctrl＋點是加選，Shift＋點是選一整段，Ctrl＋A 全選；選好後可以整批拖曳，或按 Delete。
 
 搜尋
-．在搜尋框輸入關鍵字，按 Enter，列表只會留下標題或內容符合的筆記。
+．搜尋框輸入關鍵字，按 Enter，只留下符合的筆記（封存區也搜得到）。
 
-介面配色
-．搜尋框最右邊的三顆按鈕，依序是「破曉」「逢魔」「月華」，一鍵切換整個介面的配色，會被記住。
+配色
+．搜尋框右邊的三顆按鈕，依序是「破曉」「逢魔」「月華」，點一下就換整個介面的顏色。
 
-資料夾
-．列表右上角的「資料夾＋」可以新增資料夾：資料夾像檔案一樣直排在列表最上面，圖示旁邊寫著名字，沒有放進資料夾的筆記排在它們下面；新資料夾排最上面，並直接進入、可以馬上改名。
-．最左邊的「檔案櫃」按鈕很寬，右邊會寫現在的狀態；進入資料夾後它會變成「回到檔案櫃」，點一下就回到外面。
-．在檔案櫃裡，點一下資料夾是「選取」（右邊內文區會列出資料夾裡的筆記），再點一下已選取的資料夾（或快速點兩下）才「進入」：被打開的資料夾移到最上面，旁邊是它的名稱頁籤（點名稱改名、點色塊換顏色；名稱最多顯示約 6 個字，其餘用「…」，游標移上去看全名）。其他資料夾名字消失、變成小圖示，仍排在同一直排。頁籤下面是淡出的內頁，裡面只顯示這個資料夾的筆記。進入後「＋」變成紅色「－」，可以刪除資料夾（筆記不會消失，會回到檔案櫃；刪除後幾秒內可按「復原」）。
-．把筆記拖到資料夾圖示上就能收進去；在資料夾裡拖曳筆記時，頁籤右邊會出現「移出資料夾」的虛線框，把筆記拖進去（或拖到「檔案櫃」按鈕上）就是移出。筆記標題上方的色塊和細線（只在眼睛關閉或搜尋時出現）是它所屬資料夾的顏色，色塊越靠右代表資料夾排得越後面。
-．資料夾裡沒有筆記時，圖示上的色塊只畫線；有筆記才填色。游標移到檔案櫃裡的資料夾上，會顯示篇數與最近修改的幾篇名稱。散檔（沒有放進資料夾的筆記）的圖示，在資料夾圖示與名稱之間。
-．單點資料夾時，右邊內文區會變成斜線（不能打字），直接接著資料夾名稱列出裡面的筆記名稱（順序跟著左邊的排序按鈕）；點一下檔名就會直接進入資料夾並開啟那篇筆記。選資料夾時，筆記的選取框會消失；點回筆記即解除。
-．先在清單裡選好幾篇筆記，再按右上角的「＋」，會建立新資料夾並把這些筆記放進去（可按「復原」）。
-．檔案櫃的資料夾圖示右上角會顯示裡面有幾篇筆記（0 篇不顯示，超過 99 顯示 99+）。
-．在檔案櫃裡 Ctrl／Shift＋點可以多選資料夾。右上角有三顆固定的按鈕：眼睛、「＋」（新增資料夾；選了筆記再按，會把筆記放進新資料夾）、「－」（刪除所選的資料夾，沒有選取時是灰色）。你也可以把選中的資料夾拖到「－」上，或按 Del 刪除。筆記不會被刪除，會回到檔案櫃；刪除後 5 秒內可按「復原」，這段時間內如果又做了新的資料夾或封存操作，「復原」就會消失。按 Esc 或在左欄空白處點一下可取消選取；點筆記或開始搜尋也會取消；拉分隔線、切換排序、切換主題都不會取消。退回檔案櫃時，剛才那個資料夾會維持選取狀態。
-．在筆記、資料夾、封存區或暗格的項目上按右鍵，會出現選單：筆記可以開啟、改名、設為唯讀、封存（或放入暗格）；資料夾可以進入、改名、換顏色、刪除；筆記還可以「建立副本」（只複製文字內容）；封存區和暗格裡的筆記可以取出（放回檔案櫃），封存區的還可以永久刪除；在檔案櫃的空白處按右鍵可以新增資料夾。多選時選單只提供適用於所有選取項目的動作。內文區和輸入框保留瀏覽器原本的右鍵選單（複製、貼上等）。
-．資料夾最多 99 個，滿了就不能再新增；每個資料夾放幾篇筆記則沒有限制。
-．游標不在內文區、也不在輸入框時，可以用鍵盤操作左欄：上下鍵在資料夾和筆記之間連續移動（停在資料夾上，右邊顯示它的檢視；停在筆記上，就是開啟那篇）；在資料夾上按 Enter 進入、F2 進入並改名；在筆記上按 Enter 進入內文、F2 改標題。進入資料夾後，上下鍵只在這個資料夾的筆記之間移動。
-．搜尋是全域的：搜尋時資料夾列會暫時隱藏，結果是所有的筆記；清掉搜尋字就回到原本的位置。
-．資料夾檢視裡可以把筆記從左邊拖進來，放進那個資料夾。
-．資料夾不能封存，只能刪除；要收起筆記，請選筆記再封存或放入暗格。被封存或放進暗格的筆記不再屬於任何資料夾；取出時（暗格按「↑」、或拖回清單、拖到資料夾）會放在你放的地方，按「↑」則回到檔案櫃。
-．資料夾順序只能手動拖曳調整（Ctrl／Shift＋點可多選），不受四個排序按鈕影響。
-．眼睛按鈕：關閉後所有資料夾隱藏、筆記攤平顯示，排序按鈕照常使用（進入資料夾時不能關閉）。重新整理後一定是打開的。
-．資料夾不能封存；筆記被封存後就離開資料夾，還原時回到檔案櫃。
+字數
+．內文上方靠右是「總字數」（空白與換行不計）；選取文字時，上面會多一行「選取數：」，顯示選了幾個字。
 
-鎖定打字範圍
-．音效按鈕右邊的「兩枝鉛筆」按鈕：開啟後，內文區右側會出現上下兩支鉛筆，夾住中間約 6 行的範圍（淡淡的底色）。
-．游標在範圍內時畫面不會動，回頭改錯字也不會跳；打字寫到範圍下緣，才會一行一行往上推，讓你一直在同一個高度打字。範圍以下的文字還在，隨時可以用滾輪往下看；文章開頭之前、結尾之後都是斜線的「紙的盡頭」。在範圍上緣以上打字、或用鍵盤把游標往上移出範圍，畫面會自動把游標那一行放回範圍第一行（滑鼠點擊不會）。
-．用游標拖曳上下兩支鉛筆可以調整範圍；游標碰到鉛筆，或拖動時，會出現整條虛線輔助對齊。設定會被記住，手機直式不顯示。內文不能輸入時（沒選筆記、唯讀、匯入確認中），鉛筆會暫時消失。
+唯讀
+．內文上方、「總字數」旁邊的鉛筆按鈕，可以把這則筆記鎖成唯讀；在內文點兩下就解鎖。
 
-內文與右上角按鈕
-．內文是純文字，可用 Ctrl＋Z 復原（切換到別則筆記後，上一則的復原紀錄會消失）。
-．內文上方靠右顯示這則筆記的「總字數」，空白與換行不計；每達到整百字會有一點小特效。
-．唯讀：按內文上方、「總字數」旁邊的鉛筆斜線按鈕，這則筆記就不能輸入（仍可選取、複製），標題旁會出現小圖示，內文底下會有淡淡的斜線。在內文點兩下就能解除。說明筆記預設是唯讀。
-．音效由瀏覽器即時合成，不需要下載聲音檔；打字、按鈕、LOGO 字母、挖礦等都有對應的聲音，預設是無聲。
-．筆記裡的網址（http:// 或 https:// 開頭），按住 Ctrl，網址會亮起來並出現手指游標，點一下就會在新分頁開啟。唯讀的筆記裡，網址會一直畫上底線，直接點就能開。「像素刻工館」這幾個字在任何筆記裡都會畫上底線，按住 Ctrl 點一下（唯讀筆記直接點）就會開啟作者的 LINE 貼圖頁。
-．搜尋框上方的文字是系統訊息：偶爾會有問候、整點報時和功能提示；紅色的是警告，點一下可以關掉。
-．不想看到日常的問候語，可以按「複製內文」右邊的機器人頭按鈕讓小機器人打盹（再按一次叫醒它）。打盹時它還站在原位、偶爾抬頭看看，不會再有問候、閒聊和整點報時，只剩下很久才出現一次的功能提示，以及你操作後的必要提示。
-．左邊「貼上並新增」上方的小機器人會陪著你：訊息出現時，頭上的天線燈會換顏色、牠也會做出對應的動作；挖礦（e 開啟時）有收穫牠也會反應。放著不理它兩分鐘會開始生鏽，十分鐘後鏽到底，每打一個字就恢復一點點（打盹時也一樣，只是不會再生鏽）。手機直式不顯示。
-．右上角按鈕依序是：音效（點一下依序切換：無聲、大聲、小聲，預設無聲）、鎖定打字範圍（兩枝鉛筆）、插入日期時間（插在游標處）、複製內文（不含標題）、機器人頭（讓小機器人休息／叫醒，開關日常問候語）、匯出備份、匯入備份、使用說明（問號）。
-．按「使用說明」，會打開最新版的說明筆記「_讀我」；你編輯過的舊說明不會被覆蓋，只會另外新增一篇。
+網址
+．筆記裡的網址，按住 Ctrl 會亮起來，點一下就在新分頁開啟。
+
+右鍵選單
+．在筆記上按右鍵：開啟、改名、建立副本、另存為文字檔（.txt）、複製內文、設為唯讀、封存。
+．在資料夾上按右鍵：進入、改名、換顏色、匯出為一個文字檔（.txt，把裡面所有筆記合成一份）、刪除。
 
 
-隱藏在 LOGO 裡的祕密功能
-════════════════════════
-點擊左上角 R note LOGO 裡的字母，可以開關各種隱藏功能，沒有任何提示文字。
-
-R：防窺模式
-．開啟後內文變成較淡的灰色，左側列表的標題與圖示也會慢慢變模糊，讓遠處的人不容易看清內容。
-．這個狀態下一段時間沒有敲鍵盤，除了 LOGO 以外的畫面全部模糊，並且暫時不能用滑鼠操作；按任意鍵即可恢復。
-．再點一次 R 關閉。
-
-o：光暈
-．開啟後，文字游標周圍有一圈淡淡的光，滑鼠在內文區也會帶著一圈光暈。o 裡面出現圓點代表開啟。
-
-t：打字碎石
-．開啟後，打字會噴出小碎石並依重力掉落，一次大量貼上會有落石效果。t 的左半橫槓掉落代表開啟。
-
-e：礦石展示櫃
-．不論 e、t 有沒有開，打字時都有機率挖到礦石，各則筆記分別收藏。
-．e 躺下代表把展示櫃與錢袋顯示在內文上方，礦石只用形狀與顏色區分；e 立起來時礦石仍會默默累積，只是看不到。
-．點一下礦石會把該種全部賣出，換成錢包裡的金額；賣出後數量歸零，圖示保留。
-．礦石與錢包跟著該則筆記一起存檔與備份。
-
-n：暗格
-．n 變成 N 時，下方的封存區會翻轉成暗格，底色變成最深的黑色；可以把筆記拖進去，鎖頭圖示會把筆記放回上方列表。
-．此時封存區的筆記只是暫時看不到，並沒有消失；再點一次切回 n，封存區就回來了，暗格則收起。
-．搜尋只會找得到目前看得見的區域。
-．重新開啟檔案時一定是 n 的狀態。暗格只是藏起來，並不是加密，備份檔裡仍然看得到內容。
+【資料夾】
+．右上角的「＋」新增資料夾，「－」刪除所選的資料夾（裡面的筆記不會消失，幾秒內可以復原）。
+．最左邊的「檔案櫃」按鈕：進入資料夾後，點它就回到外面。
+．點一下資料夾是選取，右邊會列出裡面的筆記；再點一下才進入。
+．把筆記拖到資料夾圖示上就能收進去；在資料夾裡，把筆記拖到「移出資料夾」的虛線框，或拖到「檔案櫃」按鈕，就能移出。
+．資料夾的順序只能手動拖曳，不受四個排序按鈕影響。
+．眼睛按鈕：關閉後，所有資料夾隱藏，筆記全部攤平顯示。
 
 
-【小提醒】
-．o、t、e 的開關狀態會被記住；R 與 n 每次開啟都是關閉。
-．如果所有筆記都被刪光，會自動重新產生這份說明和一篇今天的日記；也可以隨時按右上角的問號取得說明。
+【鎖定打字範圍】
+音效按鈕右邊的「兩枝鉛筆」按鈕，會在內文區右側出現上下兩支鉛筆，夾住中間約 6 行的範圍。游標在範圍內時，畫面不會亂跳；寫到範圍下緣，才會一行一行往上推，讓你一直在同一個高度打字。拖曳兩支鉛筆可以調整範圍大小。
+它鎖住的其實是「文字游標的活動範圍」，所以筆記設為唯讀時也能開著：用上下方向鍵一行一行往下讀，畫面會穩穩地跟著游標走。
+
+
+【右上角的按鈕】
+由左到右：音效（無聲／大聲／小聲）、鎖定打字範圍、插入日期時間、複製內文、機器人（讓小機器人休息或叫醒）、匯出備份、匯入備份、使用說明（？）。
+搜尋框上方的文字是系統訊息：有問候、整點報時和小提示；紅色的是警告，點一下就能關掉。
+說明筆記是唯讀的，按「？」會打開最新版的說明；如果舊的說明你沒編輯過，會直接更新成新版。
+
+
+【匯入與搬家】
+．按匯入，選備份檔，有兩個選項：「取代現有筆記」或「追加為新筆記」（追加的會標上 ⚠，方便檢查）。
+．取代現有筆記時，唯讀的筆記也會被取代。
+．匯入後先瀏覽，沒問題按「確認無誤」，不對勁就按「復原之前的資料」。確認之前，筆記只能看、不能改。
+．要搬到另一台電腦：舊的匯出，新的匯入。
+
+
+【更新與單機版】
+．這個工具放在網路上，每次打開網址就是最新版；畫面沒變請按 Ctrl＋F5。更新不會讓筆記消失。
+．想離線使用：在網頁空白處按右鍵「另存新檔」，格式選「網頁，僅 HTML」，存起來按兩下就能開。單機版的資料和網址版是分開的，要互通請匯出再匯入；單機版不會自動更新。
+
+
+【LOGO 裡的小機關】
+點擊左上角 R note 的字母，可以開關各種小機關：
+．R：防窺模式，內文變淡、一段時間不打字會整個畫面模糊。
+．o：游標周圍的光暈。
+．t：打字時噴出小碎石，貼上大量文字會有落石。
+．e：把礦石展示櫃和錢袋顯示在內文上方（沒顯示時仍會默默累積）。
+．n：把下方的封存區翻成「暗格」，一個藏筆記的地方（不是加密）。
+o、t、e 的狀態會被記住；R 和 n 每次重新開啟都是關閉。
 
 
 作者
@@ -1742,17 +1683,19 @@ n：暗格
 歡迎參觀作者的 LINE 貼圖小舖：【像素刻工館】
 
 祝順心如意。`;
+const hs=t=>{let a=5381,b=0;for(let i=0;i<t.length;i++){const c=t.charCodeAt(i);a=((a<<5)+a+c)|0;b=(b*31+c)|0}return a+':'+b+':'+t.length};
+const OLDH=['-1983915602:171529411:6757'];
 function diaryTitle(){const d=new Date();return `${d.getFullYear()}/${p2(d.getMonth()+1)}/${p2(d.getDate())}_週${'日一二三四五六'[d.getDay()]}`}
 const PHN='【給手機使用者】這是為電腦瀏覽器設計的筆記工具。手機上只提供簡易版：一張便條紙，打字也能挖礦。完整功能（多篇筆記、排序、封存、備份等）請改用電腦的 Chrome 或 Edge 打開。\n\n════════════════════════\n\n';
 function seedNotes(){
   const now=Date.now(),did='n'+now+'d';
   if(PH){
     const pid='n'+now+'p';
-    S.notes.push({id:'n'+now+'r',title:'_讀我',content:PHN+README,created:now,modified:now,archived:false,archivedAt:0,order:1,icon:'📜',hv:VERSION,ro:true},
+    S.notes.push({id:'n'+now+'r',title:'_讀我',content:PHN+README,created:now,modified:now,archived:false,archivedAt:0,order:1,icon:'📜',hv:VERSION,rh:hs(README),ro:true},
       {id:pid,title:'便條紙',content:'',created:now+1,modified:now+1,archived:false,archivedAt:0,order:0,icon:'📝'});
     S.sel=pid;save();return;
   }
-  S.notes.push({id:'n'+now+'r',title:'_讀我',content:README,created:now,modified:now,archived:false,archivedAt:0,order:0,icon:'📜',hv:VERSION,ro:true},
+  S.notes.push({id:'n'+now+'r',title:'_讀我',content:README,created:now,modified:now,archived:false,archivedAt:0,order:0,icon:'📜',hv:VERSION,rh:hs(README),ro:true},
     {id:did,title:diaryTitle(),content:'',created:now+1,modified:now+1,archived:false,archivedAt:0,order:-1,icon:'📕'});
   S.sel=did;save();
 }
@@ -1771,11 +1714,14 @@ if(PH){
 ensureReadme();
 function helpOpen(){
   if(pend){lockMsg();return}
-  let n=S.notes.find(m=>m.hv===VERSION&&m.icon==='📜'&&m.content===README);
-  if(n){n.archived=false;n.vault=false;n.ro=true}
-  else{n=addNote(uniq('_讀我',null),README,'📜');n.hv=VERSION;n.ro=true}
+  const cand=S.notes.filter(m=>m.icon==='📜'&&m.hv);
+  let n=cand.find(m=>m.content===README),upd=false;
+  if(!n){const o=cand.find(m=>{const x=hs(m.content);return (m.rh&&x===m.rh)||OLDH.includes(x)});if(o){o.content=README;o.modified=Date.now();o.caret=0;n=o;upd=true}}
+  if(n){n.archived=false;n.vault=false;n.ro=true;n.hv=VERSION;n.rh=hs(README)}
+  else{n=addNote(uniq('_讀我',null),README,'📜');n.hv=VERSION;n.rh=hs(README);n.ro=true}
   S.q='';$('sq').value='';S.sel=n.id;ms.clear();save();render();
   const el=document.querySelector('.item[data-id="'+n.id+'"]');if(el){el.scrollIntoView({block:'nearest'});el.focus()}
+  if(upd)say('已把「'+n.title+'」更新成最新版說明。',{lv:'info'});
 }
 $('hlp').onclick=helpOpen;
 function importDialog(j,clean,newer,g2){
@@ -1810,7 +1756,7 @@ function palOf(t,k){const T=TH5[t],[n,h,s,l,d]=T.ser[k];
   if(T.dark)return{bg:h2x(h,s,l),tx:h2x(h,Math.min(s,14),87),p1:h2x(h,s,clp(l+d)),p2:h2x(h,s,clp(l+2.1*d)),ln:h2x(h,Math.min(s+4,40),clp(l+3.7*d)),sbt:h2x(h,s,clp(l+2.1*d)),sbh:h2x(h,Math.min(s,12),62),dm:h2x(h,Math.min(s,12),58)};
   return{bg:h2x(h,s,l),tx:h2x(h,Math.min(s,20),15),p1:h2x(h,s,clp(l+2*d)),p2:h2x(h,s,clp(l+.7*d)),ln:h2x(h,s,clp(l-3.2*d)),sbt:h2x(h,s,clp(l-.45*d)),sbh:h2x(h,Math.min(s,20),66),dm:h2x(h,Math.min(s,16),47)}}
 function applyTh(){const th=S.th||'n',k=S.ser[th]||0,P=palOf(th,k),A=ACC5[th][k],r=document.documentElement;r.dataset.th=th;
-  const set=(a,b)=>r.style.setProperty(a,b);set('--bg',P.bg);set('--p1',P.p1);set('--p2',P.p2);set('--ln',P.ln);set('--tx',P.tx);set('--dm',P.dm);set('--sbt',P.sbt);set('--sbh',P.sbh);set('--pv',hrgb(P.tx).join(','));
+  const set=(a,b)=>r.style.setProperty(a,b);set('--bg',P.bg);set('--bgr',hrgb(P.bg).join(','));set('--p1',P.p1);set('--p2',P.p2);set('--ln',P.ln);set('--tx',P.tx);set('--dm',P.dm);set('--sbt',P.sbt);set('--sbh',P.sbh);set('--pv',hrgb(P.tx).join(','));
   set('--ac',A[0]);set('--al',A[1]);set('--abd',A[0]);set('--abg','rgba('+hrgb(A[0]).join(',')+','+A[2]+')');
   let ds=document.getElementById('dynarr');if(!ds){ds=document.createElement('style');ds.id='dynarr';document.head.appendChild(ds)}
   const ar=(d,fill)=>`html[data-th]::-webkit-scrollbar-button:vertical:${d==='u'?'decrement':'increment'}{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='${d==='u'?'M1 6l3-4 3 4z':'M1 2l3 4 3-4z'}' fill='%23${fill.slice(1)}'/%3E%3C/svg%3E")}`;
@@ -1897,6 +1843,8 @@ document.addEventListener('contextmenu',e=>{
       {t:'開啟',fn:()=>{pick(n.id);ta.focus()}},
       {t:'改名',fn:()=>{const d=document.querySelector('#act .item[data-id="'+n.id+'"]');if(d)rename(d,n)}},
       ...(n.icon!=='📜'?[{t:'建立副本',sub:'僅文字內容',fn:()=>copyNotes([n.id])}]:[]),
+      {t:'另存為文字檔 (.txt)',fn:()=>{saveTxt(n.title,n.content);say('已另存為文字檔，請見瀏覽器的下載。',{lv:'info'})}},
+      {t:'複製內文',fn:()=>copyTxt(n.content).then(ok=>say(ok?'已複製內文。':'複製失敗，請改用右上角的複製按鈕。',{lv:ok?'info':'warn'}))},
       {t:n.ro?'解除唯讀':'設為唯讀',fn:()=>{n.ro=!n.ro;playSfx(n.ro?'lock':'unlock');save();render()}},
       {t:vaultOn?'放入暗格':'封存',fn:()=>archiveNotes([n.id])}];
   }else if(ar){
@@ -1914,6 +1862,7 @@ document.addEventListener('contextmenu',e=>{
       if(curF!==id)items.push({t:'進入',fn:()=>{fms.clear();enterF(id)}});
       items.push({t:'改名',fn:()=>{fms.clear();if(curF!==id)enterF(id);fEdit=true;paintTab()}});
       items.push({t:'換顏色',fn:()=>openFpk(id,el)});
+      items.push({t:'匯出為一個文字檔 (.txt)',sub:'資料夾裡所有筆記，合成一份',fn:()=>exportFolder(id)});
       items.push({t:'刪除資料夾',dg:1,fn:()=>delFolders([id])})}
   }else if((t.id==='act'||t.id==='frows'||t.id==='fr')&&!curF&&!S.q){
     items=[{t:'新增資料夾',fn:()=>newFolder()}];
@@ -2119,7 +2068,7 @@ const twP=[0,1].map(i=>{const p=document.createElement('div');p.className='twp';
 $('cell').append(twH,twH2,twBand,...twD,...twP);
 let twDrag=-1;
 function twOn(){return !PH&&!!L.tw.on}
-function twAct(){if(!twOn()||fvOn())return false;const n=byId(S.sel);return !!n&&!isRO(n)}
+function twAct(){if(!twOn()||fvOn())return false;return !!byId(S.sel)}
 const TW_PT=14;
 function twGeo(){const lhv=lh(),pt=TW_PT;const maxB=Math.max(3,Math.floor((ta.clientHeight-pt)/lhv)-1);const b=Math.max(2,Math.min(L.tw.b,maxB)),a=Math.max(0,Math.min(L.tw.a,b-2));return{lhv,pt,a,b,maxB,ya:pt+a*lhv,yb:pt+b*lhv}}
 function twPaint(){
@@ -2162,7 +2111,7 @@ twP.forEach((p,i)=>{
 });
 $('twb').onclick=()=>{
   L.tw.on=L.tw.on?0:1;saveL();twPaint();
-  if(L.tw.on){if(!MS.tw){MS.tw=1;msSave();say('已鎖定打字範圍：輸入文字會自動捲動至此範圍中。上下兩支鉛筆可以拖動調整鎖定的區間。',{lv:'info',hold:8000})}else say('已鎖定打字範圍。',{lv:'info'});twFollow()}
+  if(L.tw.on){if(!MS.tw){MS.tw=1;msSave();say('已鎖定打字範圍，可拖動兩支鉛筆調整。',{lv:'info',hold:5000})}else say('已鎖定打字範圍。',{lv:'info'});twFollow()}
   else say('已解除鎖定打字範圍。',{lv:'info'});
 };
 ta.addEventListener('input',()=>setTimeout(twFollow,0));
@@ -2173,6 +2122,109 @@ new ResizeObserver(()=>twPaint()).observe(ta);
 twPaint();
 paintSnd();$('ver').textContent=VERSION;applyTh();phoneEnsure();layout();render();fxVis(false);booted=true;if(RB)setTimeout(()=>{RB.R.enter();RB.place()},350);if(pend)setTimeout(pendMsg,1200);
 {const n=byId(S.sel);if(n){if(!PH)ta.focus();ta.setSelectionRange(n.caret||0,n.caret||0);reveal(n.caret||0)}}
+
+const fname=t=>(String(t).replace(/[\\/:*?"<>|\u0000-\u001f]/g,'_').replace(/[. ]+$/,'')||'R_note').slice(0,80);
+function saveTxt(name,text){const a=document.createElement('a');a.href=URL.createObjectURL(new Blob(['\ufeff'+String(text).replace(/\r?\n/g,'\r\n')],{type:'text/plain;charset=utf-8'}));a.download=fname(name)+'.txt';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),2000)}
+async function copyTxt(t){try{await navigator.clipboard.writeText(t);return true}catch(e){const x=document.createElement('textarea');x.value=t;x.style.cssText='position:fixed;left:-9999px;top:0';document.body.appendChild(x);x.select();let ok=false;try{ok=document.execCommand('copy')}catch(y){}x.remove();return ok}}
+function exportFolder(id){const f=fById(id);if(!f)return;const l=sortL(S.notes.filter(n=>n.folderId===id&&!n.archived&&!n.vault));if(!l.length){say('這個資料夾是空的，沒有可匯出的筆記。',{lv:'info'});return}
+  saveTxt(f.name,l.map(n=>'══════ '+n.title+' ══════\n'+n.content.replace(/\n+$/,'')).join('\n\n\n'));say('已匯出『'+f.name+'』的 '+l.length+' 篇筆記，請見瀏覽器的下載。',{lv:'info'})}
+let selRaf=0;
+function selUpdate(){const b=$('wcb');if(!b)return;const n=byId(S.sel);let c=0;if(n&&!PH&&ta.selectionStart!==ta.selectionEnd)c=wcCount(ta.value.slice(ta.selectionStart,ta.selectionEnd));b.classList.toggle('sel',c>0);if(c>0)$('wcsn').textContent=c}
+const selSoon=()=>{if(selRaf)return;selRaf=requestAnimationFrame(()=>{selRaf=0;selUpdate()})};
+['select','keyup','mouseup','input','focus','blur'].forEach(v=>ta.addEventListener(v,selSoon));document.addEventListener('selectionchange',selSoon);
+
+(function(){
+  const DOC='<svg viewBox="0 0 48 48" width="60" height="60" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5h16l10 10v28H12z"/><path d="M28 5v10h10"/><path d="M24 22v13M18.5 29.5L24 35l5.5-5.5"/></svg>';
+  const LOCK='<svg viewBox="0 0 48 48" width="60" height="60" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="11" y="22" width="26" height="19" rx="4"/><path d="M16 22v-6a8 8 0 0 1 16 0v6"/></svg>';
+  const NO='<svg viewBox="0 0 48 48" width="60" height="60" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="24" cy="24" r="17"/><path d="M17 17l14 14M31 17L17 31"/></svg>';
+  const FLD='<svg viewBox="0 0 24 20" width="20" height="17"><path d="M2 4a2 2 0 0 1 2-2h5l2 2h9a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2z" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>';
+  const dz=document.createElement('div');dz.id='dz';dz.innerHTML='<div id="dzs"></div><div id="dzb"></div>';document.body.appendChild(dz);
+  const dzb=$('dzb'),D={on:false,depth:0,t:0,n:0,touched:false,inside:false,key:''};
+  const isFile=e=>{const t=e.dataTransfer&&e.dataTransfer.types;return !!t&&Array.prototype.indexOf.call(t,'Files')>=0};
+  const dzMode=()=>pend?'lock':(D.touched&&!D.inside)?'cancel':'ok';
+  const dropSay=t=>{SM.list.filter(m=>m.id==='drop'&&!m.leaving).forEach(m=>retire(m,true));if(t)say(t,{lv:'wait',id:'drop'})};
+  function dzDraw(){
+    const mode=dzMode(),f=curF&&fById(curF),key=mode+(D.inside?1:0)+D.n+(f?f.id:'');
+    if(key===D.key)return;
+    D.key=key;
+    dzb.className=(mode==='ok'?'':'g')+(D.inside&&mode!=='cancel'?' sol':'');
+    const nm=f?(f.name.length>8?f.name.slice(0,8)+'…':f.name):'';
+    let h,s,ctx='',ic,say1=null;
+    if(mode==='lock'){ic=LOCK;h='匯入確認中，暫時不能新增筆記';s=['請先按「確認無誤」或「復原之前的資料」']}
+    else if(mode==='cancel'){ic=NO;h='取消匯入';s=['放開滑鼠不會建立任何筆記','想繼續的話，把檔案拉回虛線框內'];say1='好，這次先不收，我不會建立筆記。'}
+    else{ic=DOC;h='放開滑鼠，把文字檔變成筆記';s=['檔名會變成標題，內容會變成內文','可選多個檔案匯入'];if(f)ctx='<div class="dctx">'+FLD+'會放進『'+nm.replace(/</g,'&lt;')+'』資料夾</div>';say1=f?'放開手，這些會放進『'+nm+'』資料夾！':'放開手，我來把文字檔變成筆記！'}
+    dzb.innerHTML=(mode!=='lock'&&D.n>0?'<div class="dchip">'+D.n+' 個檔案</div>':'')+ic+'<div class="dh1">'+h+'</div>'+s.map(x=>'<div class="dsb">'+x+'</div>').join('')+ctx;
+    if(D.mode!==mode){D.mode=mode;dropSay(say1)}
+  }
+  function dzShow(e){
+    D.on=true;D.touched=false;D.inside=false;D.key='';D.mode='';D.t=Date.now();
+    let n=0;try{n=[].filter.call(e.dataTransfer.items||[],i=>i.kind==='file').length}catch(x){}
+    D.n=n;dz.style.display='block';dzDraw();
+  }
+  function dzHide(){D.on=false;D.depth=0;D.key='';D.mode='';dz.style.display='none';dropSay(null)}
+  function dzMove(e){
+    const r=dzb.getBoundingClientRect(),ins=e.clientX>=r.left&&e.clientX<=r.right&&e.clientY>=r.top&&e.clientY<=r.bottom;
+    if(ins!==D.inside){D.inside=ins;if(ins)D.touched=true;dzDraw()}
+  }
+  document.addEventListener('dragenter',e=>{if(!isFile(e))return;e.preventDefault();e.stopPropagation();if(PH)return;D.depth++;if(!D.on)dzShow(e)},true);
+  document.addEventListener('dragover',e=>{if(!isFile(e))return;e.preventDefault();e.stopPropagation();try{e.dataTransfer.dropEffect='copy'}catch(x){}if(PH)return;D.t=Date.now();if(!D.on)dzShow(e);dzMove(e)},true);
+  document.addEventListener('dragleave',e=>{if(!isFile(e))return;e.stopPropagation();if(PH||!D.on)return;D.depth=Math.max(0,D.depth-1);if(D.depth===0||(!e.relatedTarget&&(e.clientX<=0||e.clientY<=0||e.clientX>=innerWidth||e.clientY>=innerHeight)))dzHide()},true);
+  document.addEventListener('drop',e=>{
+    if(!isFile(e))return;e.preventDefault();e.stopPropagation();if(PH)return;
+    const files=[].slice.call(e.dataTransfer.files||[]),cancel=D.touched&&!D.inside;dzHide();
+    if(pend){lockMsg();return}
+    if(cancel){say('已取消匯入，沒有建立筆記。',{lv:'info',rx:'nod'});return}
+    if(files.length)importFiles(files);
+  },true);
+  document.addEventListener('keydown',e=>{if(e.key==='Escape'&&D.on)dzHide()},true);
+  setInterval(()=>{if(D.on&&Date.now()-D.t>1200)dzHide()},400);
+  async function decodeText(f){
+    const b=new Uint8Array(await f.arrayBuffer());let s;
+    if(b[0]===0xFF&&b[1]===0xFE)s=new TextDecoder('utf-16le').decode(b);
+    else if(b[0]===0xFE&&b[1]===0xFF)s=new TextDecoder('utf-16be').decode(b);
+    else{
+      if(b.indexOf(0)>=0)return null;
+      try{s=new TextDecoder('utf-8',{fatal:true}).decode(b)}catch(x){try{s=new TextDecoder('big5').decode(b)}catch(y){return null}if(s.indexOf('�')>=0)return null}
+    }
+    return s.replace(/^﻿/,'');
+  }
+  window.importFiles=async function(files){
+    const MAXF=50,BIG=1000000,sk={ext:[],big:[],enc:[],full:[],json:[],more:files.slice(MAXF).map(f=>f.name)},ok=[];
+    let size=JSON.stringify(S.notes).length;
+    for(const f of files.slice(0,MAXF)){
+      const nm=f.name||'';
+      if(/\.json$/i.test(nm)){sk.json.push(nm);continue}
+      if(!(/\.(txt|md|markdown|text|log)$/i.test(nm)||/^text\//.test(f.type))){sk.ext.push(nm);continue}
+      if(f.size>BIG){sk.big.push(nm);continue}
+      let tx=null;try{tx=await decodeText(f)}catch(x){}
+      if(tx===null){sk.enc.push(nm);continue}
+      tx=tx.replace(/\r\n?/g,'\n');
+      if(size+tx.length+400>IMPLIM){sk.full.push(nm);continue}
+      size+=tx.length+400;ok.push({nm,tx});
+    }
+    const ids=[],prevSel=S.sel,fid=(curF&&fById(curF))?curF:null;
+    if(ok.length){
+      const now=Date.now(),mn=Math.min(0,...S.notes.filter(n=>!n.archived).map(n=>n.order));
+      ok.forEach((m,i)=>{
+        const base=m.nm.replace(/\.(txt|md|markdown|text|log)$/i,'').trim().replace(/\s+/g,'_').slice(0,80)||'未命名';
+        const n={id:'n'+now+'u'+i+Math.random().toString(36).slice(2,5),title:uniq(base,null)||'未命名',content:m.tx,created:now,modified:now,archived:false,archivedAt:0,order:mn-(ok.length-i),icon:'📄'};
+        if(fid)n.folderId=fid;
+        S.notes.push(n);ids.push(n.id);
+      });
+      S.sel=ids[0];S.q='';$('sq').value='';ms.clear();playSfx('new');save();render();
+      const undo=()=>{if(!ids.some(id=>byId(id)))return;S.notes=S.notes.filter(m=>!ids.includes(m.id));ms.clear();S.sel=(prevSel&&byId(prevSel))?prevSel:null;fixSel();sayOff('dropdone');playSfx('restore');save();render()};
+      say('已建立 '+ids.length+' 篇筆記'+(fid?'，放在『'+fById(fid).name+'』資料夾':'')+'。',{lv:'info',id:'dropdone',hold:6000,rx:'ok',actions:[{label:'復原',fn:undo}]});
+    }
+    const RS={ext:'不是文字檔',big:'太大（上限 1 MB）',enc:'無法讀取內容',full:'會超出儲存空間',json:'是備份檔，請改用右上角的匯入',more:'超過一次 50 個的上限'};
+    const keys=Object.keys(RS).filter(k=>sk[k].length),total=keys.reduce((a,k)=>a+sk[k].length,0);
+    if(total){
+      playSfx('err');
+      const cut=s=>s.length>12?s.slice(0,12)+'…':s;
+      const t=total===1?'『'+cut(sk[keys[0]][0])+'』'+RS[keys[0]]+'，已略過。':'略過 '+total+' 個檔案：'+keys.map(k=>sk[k].length+' 個'+RS[k]).join('、')+'。';
+      say(t,{lv:'warn'});
+    }
+  };
+})();
 </script>
 </body>
 </html>
