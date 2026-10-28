@@ -274,6 +274,7 @@ html.ph #cell{grid-column:1/-1!important;grid-row:7!important}
 #dzb .dchip{position:absolute;top:-18px;left:50%;transform:translateX(-50%);background:var(--ac);color:var(--bg);font-size:14px;font-weight:600;padding:3px 16px;border-radius:999px;line-height:1.5;white-space:nowrap}
 #dzb.g .dchip{background:var(--dm)}
 html.ph #dz{display:none!important}
+::selection{background:var(--sb,Highlight);color:var(--st,HighlightText)}
 </style>
 </head>
 <body>
@@ -306,7 +307,7 @@ html.ph #dz{display:none!important}
 <input type="file" id="file" accept=".json,application/json" hidden>
 <canvas id="cv"></canvas><div id="tip"></div><div id="pk"></div>
 <script>
-const VERSION='1.18';
+const VERSION='1.19';const APPNAME='R note';
 const PROMO_URL='https://line.me/S/shop/sticker/author/123908';
 const PH=(()=>{try{const q=new URLSearchParams(location.search).get('phone');if(q==='1')return true;if(q==='0')return false;return matchMedia('(pointer:coarse)').matches&&!matchMedia('(hover:hover)').matches&&Math.min(screen.width,innerWidth)<=820}catch(e){return false}})();
 document.documentElement.classList.toggle('ph',PH);
@@ -360,7 +361,7 @@ function sortL(a){
 }
 const archList=()=>S.notes.filter(n=>inBot(n)&&match(n)).sort((x,y)=>y.archivedAt-x.archivedAt);
 function paintSort(){document.querySelectorAll('.sb').forEach(b=>{const on=b.dataset.k==S.sort.k;b.classList.toggle('on',on);const c=b.querySelector('.c');if(c)c.innerHTML=sv(S.sort.dir=='asc'?'up':'dn',12)})}
-function meta(){shelf();wcUpdate();applyRO();selUpdate();{const n=byId(S.sel);document.title=n?n.title+' - R note':'R note'}}
+function meta(){shelf();wcUpdate();applyRO();selUpdate();{const n=byId(S.sel);document.title=n?n.title+' - '+APPNAME:APPNAME}}
 function showNote(){const n=byId(S.sel);ta.disabled=!n;ta.value=n?n.content:'';fxPrev=ta.value.length;meta()}
 function fill(box,list,arch){
   box.innerHTML='';
@@ -494,7 +495,7 @@ function bkDirty(){const t=S.lastExport||S.born;return S.notes.some(n=>(n.modifi
 function chk(){const h=Math.floor((Date.now()-(S.lastExport||S.born))/36e5),b=$('exp'),on=h>=7&&bkDirty(),was=b.classList.contains('dot');b.classList.toggle('dot',on);if(on&&!was){b.classList.remove('pls');void b.offsetWidth;b.classList.add('pls')}if(!on)b.classList.remove('pls');b.dataset.tip=on?`資料未備份長達 ${h} 小時`:'匯出備份'}
 $('exp').onclick=()=>{
   const d=new Date(),a=document.createElement('a');
-  a.href=URL.createObjectURL(new Blob([JSON.stringify({app:'R_note',version:2,appVersion:VERSION,exported:d.toISOString(),notes:S.notes,folders:S.folders,sort:S.sort},null,2)],{type:'application/json;charset=utf-8'}));
+  a.href=URL.createObjectURL(new Blob([JSON.stringify({app:'R_note',version:2,appVersion:VERSION,exported:d.toISOString(),profile:{},notes:S.notes,folders:S.folders,sort:S.sort},null,2)],{type:'application/json;charset=utf-8'}));
   a.download=`R_note_backup_${d.getFullYear()}${p2(d.getMonth()+1)}${p2(d.getDate())}_${p2(d.getHours())}${p2(d.getMinutes())}.json`;a.click();URL.revokeObjectURL(a.href);
   S.lastExport=Date.now();S.bkN=S.notes.length;S.bkF=S.folders.length;save();chk();
 };
@@ -1398,6 +1399,7 @@ if(PH){
   cv.style.pointerEvents='auto';cv.style.touchAction='manipulation';
   cv.addEventListener('click',()=>{if(R.act('jump'))setTimeout(()=>R.act('blink'),350)});
 }
+if(!PH){cv.style.pointerEvents='auto';cv.addEventListener('dblclick',e=>{e.preventDefault();if(document.hidden||pv||pend)return;sayPromo()})}
 place();setInterval(place,1000);
 return{R,cv,react,release,typed,mine,sw,place,wake};
 })();
@@ -1569,48 +1571,44 @@ const README=`R note 使用說明
 ════════════════════════
 
 【一分鐘看懂】
-R note 是放在瀏覽器裡的純文字筆記本：打開網址就能寫，不用註冊、不用安裝。
-你寫的字只存在這台電腦的這個瀏覽器裡，不會上傳，也不會自動同步到別的裝置。
+R note 是放在瀏覽器裡的純文字筆記本：打開網址就能寫，不用註冊、不用安裝、不用按存檔。
+你寫的字只存在這台電腦的這個瀏覽器裡，不會上傳，也不能自動同步到別的裝置，但所有筆記資料可以匯出/匯入備份。
 
-它也想讓打字多一點樂趣：
-．打字時偶爾會挖到礦石和寶石，點一下就能賣掉換成金額，每篇筆記各有自己的收藏。
-．每寫滿一百字，會有一點小驚喜。
-．左邊的小機器人會陪著你，偶爾說說話。
-．左上角 R note 的每個字母都可以點點看。
-．右上角的喇叭可以打開音效，預設是無聲。
+想讓打字多一點樂趣嗎？
+．打開神秘的開關（？），打字時會挖到寶石（？），每篇筆記可以計算出自己的「含金量」？
+．左上角 R note 的每個字母都可以點點看（難道就是神秘開關？）。
+．好用的「鎖定打字範圍」功能，動不動就寫出長篇大論的人一定要試試看。
+．聽說後面還埋藏著讓你專注打字的小遊戲？（謎）
 
-適合拿來記：工作待辦、臨時記事、各種草稿、擬定 AI 對話文稿、常查的備忘（分機、網址）、想買的東西，或是敲鍵盤療癒自己（？）。
+適合用途：臨時記事、工作待辦、進度日誌、各種草稿精修、擬定 AI 對話、常用備忘（分機、地址），或是敲鍵盤療癒自己（？）。
 
-使用環境：請用電腦版的 Chrome 或 Edge。手機會自動進入簡易版，只有一張便條紙，完整功能請用電腦。
+最佳使用環境：電腦版 Chrome 或 Edge。手機瀏覽會自動進入簡易版，只有一張便條紙，完整功能請用電腦。
 
 
 【請定期備份】
-筆記只存在你現在用的這台電腦、這個瀏覽器裡，就像放在抽屜裡的日記本：
+筆記只存在你現在用的這台電腦、這個瀏覽器裡，就像放在抽屜裡的記事本：
 ．換電腦、換瀏覽器，那邊的抽屜是空的。
 ．清除瀏覽器資料、重灌電腦，筆記會一起消失，找不回來。
 ．無痕視窗關掉就沒了；公用電腦別用。
-．內容是明文存放，不要記密碼或身分證字號。
+．內容是明文存放，不要記密碼或祕密內容。（暗格只是把筆記藏起來，不是加密）
 ．請不要同時開兩個分頁編輯，後存的會蓋掉先存的。
 
-右上角的「匯出」按鈕會下載一個備份檔（.json）。建議每週匯出一次，重要內容寫完就匯出。超過 7 小時沒備份而且內容有變動，匯出按鈕會出現小紅點提醒你。備份檔請放進雲端硬碟，或寄給自己。
+右上角的「匯出」按鈕會下載一個備份檔（.json）。建議每週至少匯出備份一次，重要內容寫完就匯出。超過 7 小時沒備份、而且這段時間內容有變動，匯出按鈕會出現小紅點提醒你。備份檔可放進雲端硬碟，或寄給自己。
 
 
 【基本操作】
 新增筆記
-．左邊輸入框打標題，按 Enter 就建立；輸入框左邊的 + 是新增今天的日記。
-．輸入框右邊的剪貼簿按鈕，會把剪貼簿的文字貼成新筆記。
-．把文字文件直接拖進網頁，放開滑鼠就會建立筆記：檔名是標題，內容是內文，可選多個檔案匯入。新筆記的圖示是 📥，想換就點圖示。
-．備份檔也可以直接拖進網頁匯入，但要單獨拖，不能和其他文件一起拖。
-．拖進網頁後，如果碰到虛線框、又拖出框外，會變成「取消匯入」，這時放開不會建立筆記；拖回框內就恢復。
+．左上角輸入框打標題，按 Enter 就建立；輸入框左邊的 + 是新增今天的日記。
+．輸入框右邊（小機器人站的位置）是剪貼簿按鈕，一鍵把剪貼簿的文字貼成新筆記。
+．把文字文件直接拖進網頁，放開滑鼠就會建立筆記：檔名是標題，內容是內文，可選多個檔案匯入。建立後會直接打開（一次拖多個檔案，就打開第一份）。
 ．在資料夾裡拖入檔案，新筆記會放進這個資料夾。
 
 標題
-．點一下標題看內容；點兩下（或按 F2）改名。標題不能重複。
-．點標題前面的圖示，可以換圖示，也能貼上你自己的 Emoji。
-．瀏覽器分頁的標題，會顯示目前這則筆記的標題。
+．點一下標題看內容；點兩下（或按 F2）改名。
+．點標題前面的圖示，可以換圖示，也能自訂 Emoji。
 
 排序
-．左邊四個按鈕：手動排序（拖曳標題調整）、修改時間、名稱、圖示。再點一次同一顆，切換正反序。
+．標題輸入框下面的四個按鈕：手動排序（拖曳標題調整）、修改時間、名稱、圖示。再點一次切換正反序。
 
 封存與刪除
 ．把標題拖到下方區域就是封存，拖回上方就還原。封存區的垃圾桶可以永久刪除（會先確認）。
@@ -1619,41 +1617,38 @@ R note 是放在瀏覽器裡的純文字筆記本：打開網址就能寫，不�
 搜尋
 ．搜尋框輸入關鍵字，按 Enter，只留下符合的筆記（封存區也搜得到）。
 
-配色
-．搜尋框右邊的三顆按鈕，依序是「破曉」「逢魔」「月華」，點一下就換整個介面的顏色。
-
-字數
-．內文上方靠右是「總字數」（空白與換行不計）；選取文字時，上面會多一行「選取數：」，顯示選了幾個字。
+主題配色
+．搜尋框右邊的三顆天色按鈕，可依個人喜好切換適合的色調。
 
 唯讀
-．內文上方、「總字數」旁邊的鉛筆按鈕，可以把這則筆記鎖成唯讀；在內文點兩下就解鎖。
+．內文上方、「總字數」旁邊的鉛筆按鈕，可以把這則筆記鎖成唯讀；在內文點兩下可解鎖唯讀狀態。
 
 網址
 ．筆記裡的網址，按住 Ctrl 會亮起來，點一下就在新分頁開啟。
 
 右鍵選單
-．在筆記上按右鍵：開啟、改名、建立副本、另存為文字檔（.txt）、複製內文、設為唯讀、封存。
-．在資料夾上按右鍵：進入、改名、換顏色、匯出為一個文字檔（.txt，把裡面所有筆記合成一份）、刪除。
+．在筆記或資料夾上按右鍵，查看更多可執行的功能。
+．資料夾右鍵選單，可將該資料夾所有筆記合併匯出為一個文字檔（.txt），依照當下排序方式合併。
 
 
 【資料夾】
-．右上角的「＋」新增資料夾，「－」刪除所選的資料夾（裡面的筆記不會消失，幾秒內可以復原）。
+．右上角的「＋」新增資料夾，「－」刪除所選的資料夾（裡面的筆記不會消失），刪除行為在幾秒內可搶救復原。
 ．最左邊的「檔案櫃」按鈕：進入資料夾後，點它就回到外面。
-．點一下資料夾是選取，右邊會列出裡面的筆記；再點一下才進入。
+．點一下資料夾是選取，右邊會列出裡面的筆記，可以直接點開；再點一下才進入資料夾。
 ．把筆記拖到資料夾圖示上就能收進去；在資料夾裡，把筆記拖到「移出資料夾」的虛線框，或拖到「檔案櫃」按鈕，就能移出。
 ．資料夾的順序只能手動拖曳，不受四個排序按鈕影響。
 ．眼睛按鈕：關閉後，所有資料夾隱藏，筆記全部攤平顯示。
 
 
 【鎖定打字範圍】
-音效按鈕右邊的「兩枝鉛筆」按鈕，會在內文區右側出現上下兩支鉛筆，夾住中間約 6 行的範圍。游標在範圍內時，畫面不會亂跳；寫到範圍下緣，才會一行一行往上推，讓你一直在同一個高度打字。拖曳兩支鉛筆可以調整範圍大小。
-它鎖住的其實是「文字游標的活動範圍」，所以筆記設為唯讀時也能開著：用上下方向鍵一行一行往下讀，畫面會穩穩地跟著游標走。
+音效按鈕右邊的「兩支鉛筆」按鈕，會在內文區右側出現上下兩支鉛筆，並畫出兩條線，夾出一個範圍。兩支鉛筆可以用滑鼠拖曳，調整範圍的大小。
+超過這個範圍打字，會自動捲動到這個區域中，讓打字者維持在一個舒服的視線高度上，不用再操作頁面捲動。
+因為文字游標一直被帶在這個範圍中，用上下方向鍵閱讀文章時，畫面也會穩穩地跟著走。
+從文章任何一處開始打字，游標都會被帶回這個區域，很有打字機的手感與樂趣。
 
 
 【右上角的按鈕】
 由左到右：音效（無聲／大聲／小聲）、鎖定打字範圍、插入日期時間、複製內文、機器人（讓小機器人休息或叫醒）、匯出備份、匯入備份、使用說明（？）。
-搜尋框上方的文字是系統訊息：有問候、整點報時和小提示；紅色的是警告，點一下就能關掉。
-說明筆記是唯讀的，按「？」會打開最新版的說明；如果舊的說明你沒編輯過，會直接更新成新版。
 
 
 【匯入與搬家】
@@ -1664,28 +1659,28 @@ R note 是放在瀏覽器裡的純文字筆記本：打開網址就能寫，不�
 
 
 【更新與單機版】
-．這個工具放在網路上，每次打開網址就是最新版；畫面沒變請按 Ctrl＋F5。更新不會讓筆記消失。
-．想離線使用：在網頁空白處按右鍵「另存新檔」，格式選「網頁，僅 HTML」，存起來按兩下就能開。單機版的資料和網址版是分開的，要互通請匯出再匯入；單機版不會自動更新。
+．這個工具放在網路上，每次打開網址就是最新版；確認或刷新版本請按 Ctrl＋F5。更新不會讓筆記消失。
+．想離線使用：在網頁空白處按右鍵「另存新檔」，格式選「網頁，僅 HTML」，存起來按兩下就能開。單機版的資料和網址版是分開的，要互通請匯出再匯入；單機版不會自動更新，好處是離線電腦也可以使用。
 
 
 【LOGO 裡的小機關】
 點擊左上角 R note 的字母，可以開關各種小機關：
 ．R：防窺模式，內文變淡、一段時間不打字會整個畫面模糊。
-．o：游標周圍的光暈。
-．t：打字時噴出小碎石，貼上大量文字會有落石。
-．e：把礦石展示櫃和錢袋顯示在內文上方（沒顯示時仍會默默累積）。
+．o：開啟游標周圍的光暈。
+．t：內文打字的小碎石效果。
+．e：顯示礦石展示櫃和錢袋（沒顯示時仍會默默累積）。
 ．n：把下方的封存區翻成「暗格」，一個藏筆記的地方（不是加密）。
-o、t、e 的狀態會被記住；R 和 n 每次重新開啟都是關閉。
+o、t、e 的開關會被記住；R 和 n 每次重新開啟都是關閉。
 
 
 作者
 ════════════════════════
-本工具由 Roger Jian 構思、Claude 討論編寫而成。
+本工具由 Roger Jian 構思、與 Claude AI 討論研發。
 歡迎參觀作者的 LINE 貼圖小舖：【像素刻工館】
 
 祝順心如意。`;
 const hs=t=>{let a=5381,b=0;for(let i=0;i<t.length;i++){const c=t.charCodeAt(i);a=((a<<5)+a+c)|0;b=(b*31+c)|0}return a+':'+b+':'+t.length};
-const OLDH=['-1983915602:171529411:6757'];
+const OLDH=['-1983915602:171529411:6757','561492873:771823936:2645'];
 function diaryTitle(){const d=new Date();return `${d.getFullYear()}/${p2(d.getMonth()+1)}/${p2(d.getDate())}_週${'日一二三四五六'[d.getDay()]}`}
 const PHN='【給手機使用者】這是為電腦瀏覽器設計的筆記工具。手機上只提供簡易版：一張便條紙，打字也能挖礦。完整功能（多篇筆記、排序、封存、備份等）請改用電腦的 Chrome 或 Edge 打開。\n\n════════════════════════\n\n';
 function seedNotes(){
@@ -1759,6 +1754,12 @@ function palOf(t,k){const T=TH5[t],[n,h,s,l,d]=T.ser[k];
 function applyTh(){const th=S.th||'n',k=S.ser[th]||0,P=palOf(th,k),A=ACC5[th][k],r=document.documentElement;r.dataset.th=th;
   const set=(a,b)=>r.style.setProperty(a,b);set('--bg',P.bg);set('--bgr',hrgb(P.bg).join(','));set('--p1',P.p1);set('--p2',P.p2);set('--ln',P.ln);set('--tx',P.tx);set('--dm',P.dm);set('--sbt',P.sbt);set('--sbh',P.sbh);set('--pv',hrgb(P.tx).join(','));
   set('--ac',A[0]);set('--al',A[1]);set('--abd',A[0]);set('--abg','rgba('+hrgb(A[0]).join(',')+','+A[2]+')');
+  {const dk=th!=='d',lin=c=>{c/=255;return c<=.04045?c/12.92:Math.pow((c+.055)/1.055,2.4)},lm=h=>{const[a,b,c]=hrgb(h).map(lin);return .2126*a+.7152*b+.0722*c},cr=(a,b)=>{const x=lm(a),y=lm(b);return(Math.max(x,y)+.05)/(Math.min(x,y)+.05)},
+    mix=(f,a,b)=>{const u=hrgb(f),w=hrgb(b);return'#'+u.map((v,i)=>Math.round(v*a+w[i]*(1-a)).toString(16).padStart(2,'0')).join('')},
+    fixT=sb=>{let st=P.tx,t=0;while(cr(st,sb)<4.5&&t<1){t+=.05;st=mix(dk?'#ffffff':'#000000',t,P.tx)}return st};
+    let pick1=null;for(let al=.2;al<=.901;al+=.05){const sb=mix(A[0],al,P.p1);if(cr(sb,P.p1)<1.5)continue;const st=fixT(sb);if(!pick1)pick1={sb,st};if(cr(st,sb)>=4.5){pick1={sb,st};break}}
+    if(!pick1){const sb=mix(A[0],.9,P.p1);pick1={sb,st:fixT(sb)}}
+    set('--sb',pick1.sb);set('--st',pick1.st)}
   let ds=document.getElementById('dynarr');if(!ds){ds=document.createElement('style');ds.id='dynarr';document.head.appendChild(ds)}
   const ar=(d,fill)=>`html[data-th]::-webkit-scrollbar-button:vertical:${d==='u'?'decrement':'increment'}{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='${d==='u'?'M1 6l3-4 3 4z':'M1 2l3 4 3-4z'}' fill='%23${fill.slice(1)}'/%3E%3C/svg%3E")}`;
   ds.textContent=ar('u',P.dm)+'\n'+ar('d',P.dm);
@@ -2226,8 +2227,8 @@ const selSoon=()=>{if(selRaf)return;selRaf=requestAnimationFrame(()=>{selRaf=0;s
         if(fid)n.folderId=fid;
         S.notes.push(n);ids.push(n.id);
       });
-      S.sel=ids[0];S.q='';$('sq').value='';ms.clear();playSfx('new');save();render();
-      const undo=()=>{if(!ids.some(id=>byId(id)))return;S.notes=S.notes.filter(m=>!ids.includes(m.id));ms.clear();S.sel=(prevSel&&byId(prevSel))?prevSel:null;fixSel();sayOff('dropdone');playSfx('restore');save();render()};
+      S.q='';$('sq').value='';ms.clear();playSfx('new');save();render();pick(ids[0]);{const el=document.querySelector('.item[data-id="'+ids[0]+'"]');if(el)el.scrollIntoView({block:'nearest'})}if(!PH){ta.focus();ta.setSelectionRange(0,0);ta.scrollTop=0}
+      const undo=()=>{if(!ids.some(id=>byId(id)))return;S.notes=S.notes.filter(m=>!ids.includes(m.id));ms.clear();S.sel=(prevSel&&byId(prevSel))?prevSel:null;fixSel();sayOff('dropdone');playSfx('restore');save();render();showNote()};
       say('已建立 '+ids.length+' 篇筆記'+(fid?'，放在『'+fById(fid).name+'』資料夾':'')+'。',{lv:'info',id:'dropdone',hold:6000,rx:'ok',actions:[{label:'復原',fn:undo}]});
     }
     const RS={ext:'不是文字文件',big:'太大（上限 1 MB）',enc:'無法讀取內容',full:'會超出儲存空間',more:'超過一次 50 個的上限'};
