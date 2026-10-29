@@ -137,6 +137,42 @@ html[data-th=d]{--bag:#b8651f;--bgl:255,205,30}
 #wc #rob{pointer-events:auto;flex:none;margin-right:8px}
 #ul{position:absolute;display:none;box-sizing:border-box;color:transparent;white-space:pre-wrap;overflow-wrap:break-word;overflow:hidden;tab-size:4;pointer-events:none;z-index:2;border-radius:7px}
 #ul .lk{pointer-events:auto;cursor:pointer;text-decoration:underline;text-decoration-color:var(--al);text-decoration-thickness:1.5px;text-underline-offset:3px}
+#wc #mdb{pointer-events:auto;flex:none;margin-right:8px}
+#mdv{display:none;position:absolute;inset:0;overflow:auto;background:var(--p1);border:1px solid var(--ln);border-radius:8px;padding:14px 16px;outline:none;font:18px/1.7 "Microsoft JhengHei","微軟正黑體","PingFang TC","Noto Sans TC",sans-serif;color:var(--tx);overflow-wrap:break-word}
+html.mdm #mdv{display:block}
+html.mdm #body,html.mdm #ov,html.mdm #ul,html.mdm #glow,html.mdm #spot{visibility:hidden}
+#hatch.md{display:block;background:repeating-linear-gradient(135deg,rgba(var(--pv),.05) 0 1.5px,transparent 1.5px 36px)}
+#hatch.md span{right:20px;top:10px}
+.app.pvm #mdv{filter:blur(5px)}.app.bl #mdv{filter:none}
+#mdv>*:first-child{margin-top:0}#mdv>*:last-child{margin-bottom:0}
+#mdv p{margin:0 0 .6em}
+#mdv h1,#mdv h2,#mdv h3,#mdv h4,#mdv h5,#mdv h6{margin:1em 0 .4em;line-height:1.35;font-weight:700}
+#mdv h1{font-size:1.7em;padding-bottom:.2em;border-bottom:1px solid var(--ln)}
+#mdv h2{font-size:1.4em;padding-bottom:.15em;border-bottom:1px solid var(--ln)}
+#mdv h3{font-size:1.2em}#mdv h4{font-size:1.05em}#mdv h5{font-size:.95em;color:var(--dm)}#mdv h6{font-size:.9em;color:var(--dm)}
+#mdv strong{font-weight:700}#mdv em{font-style:italic}#mdv del{opacity:.6}
+#mdv a{color:var(--al);text-decoration:underline;text-underline-offset:3px;cursor:pointer}
+#mdv a.nolink{text-decoration:none;color:inherit;cursor:default}
+#mdv code{font:.88em/1.4 ui-monospace,Consolas,"Courier New",monospace;background:var(--p2);border:1px solid var(--ln);border-radius:4px;padding:.05em .35em}
+#mdv pre{margin:.2em 0 .8em;background:var(--p2);border:1px solid var(--ln);border-radius:6px;padding:10px 12px;overflow:auto}
+#mdv pre code{display:block;background:none;border:0;padding:0;font-size:.85em;line-height:1.55;white-space:pre}
+#mdv blockquote{margin:.2em 0 .8em;padding:.1em 0 .1em 14px;border-left:3px solid var(--ac);color:var(--dm)}
+#mdv blockquote p{margin:.3em 0}
+#mdv hr{border:0;border-top:1px solid var(--ln);margin:1em 0}
+#mdv ul,#mdv ol{margin:.2em 0 .7em;padding-left:1.5em}#mdv li{margin:.1em 0}#mdv li>ul,#mdv li>ol{margin:.1em 0}
+#mdv li.task{list-style:none;margin-left:-1.3em}
+#mdv .cb{display:inline-block;width:.85em;height:.85em;margin-right:.45em;border:1.5px solid var(--dm);border-radius:3px;vertical-align:-.08em;position:relative}
+#mdv .cb[data-ln]{cursor:pointer}#mdv .cb[data-ln]:hover{border-color:var(--ac)}
+#mdv.lock .cb{cursor:default;opacity:.7}
+#mdv .cb.on{background:var(--ac);border-color:var(--ac)}
+#mdv .cb.on::after{content:"";position:absolute;left:.22em;top:.02em;width:.25em;height:.5em;border:solid #fff;border-width:0 2px 2px 0;transform:rotate(45deg)}
+#mdv li.done>span:last-child{opacity:.55;text-decoration:line-through}
+#mdv .tw{overflow:auto;margin:.2em 0 .8em}
+#mdv table{border-collapse:collapse;font-size:.92em}
+#mdv th,#mdv td{border:1px solid var(--ln);padding:.3em .7em;text-align:left;white-space:nowrap}
+#mdv th{background:var(--p2)}
+#mdv td.r,#mdv th.r{text-align:right}#mdv td.c,#mdv th.c{text-align:center}
+#mdv .img{color:var(--dm);font-size:.9em}
 #body::placeholder{color:var(--dm);opacity:.7}
 #phbag{display:none}
 .ib.sm{height:26px;min-width:26px;border-radius:6px}
@@ -315,15 +351,15 @@ html.ph #dz{display:none!important}
   </div>
   <div class="row" id="r2" style="grid-column:3;grid-row:2"><div class="fld"><span data-ic="search"></span><input id="sq" autocomplete="off"></div><div id="sn" class="row" style="display:none;align-items:center"><span id="sc" style="font-size:13px;color:var(--dm);min-width:40px;text-align:center"></span><button class="ib" id="sp" data-tip="上一個"><span data-ic="up"></span></button><button class="ib" id="sd" data-tip="下一個"><span data-ic="dn"></span></button><button class="ib" id="sx" data-tip="清除搜尋"><span data-ic="x"></span></button></div><div class="row" id="ths"><button class="ib" data-th="d" data-tip="破曉"><span data-ic="sun"></span></button><button class="ib" data-th="u" data-tip="逢魔"><span data-ic="dusk"></span></button><button class="ib" data-th="n" data-tip="月華"><span data-ic="moon"></span></button></div><div id="phbag"></div></div>
   <div id="shelf" style="grid-column:3;grid-row:3;display:flex;align-items:center;gap:6px;min-width:0;overflow:hidden"></div>
-  <div id="wc"><button class="ib" id="rob" data-tip="設為唯讀"><span data-ic="ro"></span></button><span id="wcb"><span id="wcsl">選取數：</span><span id="wcsn"></span><span id="wcl">總字數：</span><span id="wcn">0</span></span></div>
+  <div id="wc"><button class="ib" id="mdb"></button><button class="ib" id="rob" data-tip="設為唯讀"><span data-ic="ro"></span></button><span id="wcb"><span id="wcsl">選取數：</span><span id="wcsn"></span><span id="wcl">總字數：</span><span id="wcn">0</span></span></div>
   <div id="lst" style="grid-column:1;grid-row:4"><div id="sr"><span>搜尋結果：</span><b id="srq"></b><button id="srx" data-tip="取消搜尋"><span data-ic="x"></span></button></div><div id="fh"><button class="ib" id="cabb"></button><button class="ib" id="cabk"></button><button class="ib" id="eyeb"></button><button class="ib pos" id="fadd"></button><button class="ib" id="fdel"></button></div><div id="top"><div id="fcol"></div><div id="fr"><div id="frows"></div><div id="ftab"></div><div id="fdz">移出資料夾</div><div id="fpg"></div><div id="act"></div></div></div><div id="dv"></div><div id="arc"></div></div>
   <div id="vs" style="grid-column:2;grid-row:4"><i></i></div>
-  <div id="cell" style="grid-column:3;grid-row:4;min-height:0;position:relative"><textarea id="body" spellcheck="false" disabled></textarea><div id="hatch"><span id="hl"></span></div><div id="fview"></div><div id="ov"></div><div id="glow"></div><div id="spot"></div></div>
+  <div id="cell" style="grid-column:3;grid-row:4;min-height:0;position:relative"><textarea id="body" spellcheck="false" disabled></textarea><div id="mdv" tabindex="0"></div><div id="hatch"><span id="hl"></span></div><div id="fview"></div><div id="ov"></div><div id="glow"></div><div id="spot"></div></div>
 </div>
 <input type="file" id="file" accept=".json,application/json" hidden>
 <canvas id="cv"></canvas><div id="tip"></div><div id="pk"></div>
 <script>
-const VERSION='1.23';const APPNAME='R note';
+const VERSION='1.24';const APPNAME='R note';
 const PROMO_URL='https://line.me/S/shop/sticker/author/123908';
 const PH=(()=>{try{const q=new URLSearchParams(location.search).get('phone');if(q==='1')return true;if(q==='0')return false;return matchMedia('(pointer:coarse)').matches&&!matchMedia('(hover:hover)').matches&&Math.min(screen.width,innerWidth)<=820}catch(e){return false}})();
 document.documentElement.classList.toggle('ph',PH);
@@ -399,7 +435,7 @@ function fill(box,list,arch){
   });
 }
 function itemTip(n){return (n.folderId&&fById(n.folderId)?fById(n.folderId).name+'\\'+n.title:n.title)+'\n修改 '+fmt(n.modified)+'\n建立 '+fmt(n.created)+(n.ro?'\n唯讀':'')}
-function render(){renderF();if(!S.notes.length&&!pend){seedNotes();if(booted&&!PH)say('筆記已清空，已重新準備說明和今天的日記。',{lv:'info'})}for(const id of [...ms]){const n=byId(id);if(!n||(mzone=='r'?!inBot(n):(n.archived||n.vault)))ms.delete(id)}paintSort();$('arc').style.background=vaultOn?'var(--bg)':'';fill($('act'),activeList(),false);fill($('arc'),archList(),true);if(document.activeElement!==ta)showNote();else meta();refreshNav();tutCheck()}
+function render(){renderF();mdPaint();if(!S.notes.length&&!pend){seedNotes();if(booted&&!PH)say('筆記已清空，已重新準備說明和今天的日記。',{lv:'info'})}for(const id of [...ms]){const n=byId(id);if(!n||(mzone=='r'?!inBot(n):(n.archived||n.vault)))ms.delete(id)}paintSort();$('arc').style.background=vaultOn?'var(--bg)':'';fill($('act'),activeList(),false);fill($('arc'),archList(),true);if(document.activeElement!==ta)showNote();else meta();refreshNav();tutCheck()}
 function pick(id){
   S.sel=id;save();clearFms();
   document.querySelectorAll('.item.sel').forEach(e=>e.classList.remove('sel'));
@@ -920,7 +956,7 @@ let wcPrev=0,wcId=null;
 function placeWc(){
   const w=$('wc');if(w.style.display!=='flex')return;
   if(PH){w.style.marginLeft='0px';return}
-  const b=document.querySelectorAll('#ths .ib')[1],s=$('shelf').getBoundingClientRect(),lw=$('wcl').offsetWidth,nw=$('wcn').offsetWidth,pw=($('rob').offsetWidth||34)+8;
+  const b=document.querySelectorAll('#ths .ib')[1],s=$('shelf').getBoundingClientRect(),lw=$('wcl').offsetWidth,nw=$('wcn').offsetWidth,pw=($('rob').offsetWidth||34)+8+($('mdb').offsetWidth||34)+8;
   let x=b.getBoundingClientRect().left-s.left-lw-pw;
   x=Math.min(x,s.width-lw-nw-pw);
   w.style.marginLeft=Math.max(0,x)+'px';
@@ -1527,15 +1563,88 @@ ul.addEventListener('wheel',e=>{ta.scrollTop+=e.deltaY},{passive:true});
 addEventListener('resize',ulRefresh);ta.addEventListener('input',()=>ulRefresh());
 ta.addEventListener('scroll',()=>{if(ov.style.display==='block')ov.scrollTop=ta.scrollTop;if(ul.style.display==='block')ul.scrollTop=ta.scrollTop});
 let roMsgT=0,roKey='';
+const mdEsc=s=>s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+const mdSafe=u=>/^(https?:\/\/|mailto:)/i.test(u.trim())?u.trim():null;
+function mdInline(t){
+  const keep=[];const hold=h=>{keep.push(h);return '\u0000'+(keep.length-1)+'\u0000'};
+  t=t.replace(/`([^`\n]+)`/g,(m,c)=>hold('<code>'+mdEsc(c)+'</code>'));
+  t=t.replace(/\\([\\`*_~\[\]()#>!|-])/g,(m,c)=>hold(mdEsc(c)));
+  t=t.replace(/!\[([^\]\n]*)\]\(((?:[^()\s]|\([^()\s]*\))+)[^)]*\)/g,(m,a)=>hold('<span class="img">🖼 '+mdEsc(a||'圖片')+'</span>'));
+  t=t.replace(/\[([^\]\n]+)\]\(((?:[^()\s]|\([^()\s]*\))+)(?:\s+"[^"]*")?\)/g,(m,a,u)=>{const s=mdSafe(u);return hold(s?'<a href="'+mdEsc(s)+'" target="_blank" rel="noopener noreferrer">'+mdEsc(a)+'</a>':'<a class="nolink">'+mdEsc(a)+'</a>')});
+  t=t.replace(/(^|[\s(（])(https?:\/\/[^\s<>()（）]+[^\s<>()（）.,;:!?，。；：！？、])/g,(m,p,u)=>p+hold('<a href="'+mdEsc(u)+'" target="_blank" rel="noopener noreferrer">'+mdEsc(u)+'</a>'));
+  t=mdEsc(t);
+  t=t.replace(/\*\*([^*\n]+?)\*\*/g,'<strong>$1</strong>').replace(/__([^_\n]+?)__/g,'<strong>$1</strong>');
+  t=t.replace(/~~([^~\n]+?)~~/g,'<del>$1</del>');
+  t=t.replace(/(^|[^*\w])\*([^*\n]+?)\*(?!\*)/g,'$1<em>$2</em>').replace(/(^|[^_\w])_([^_\n]+?)_(?![_\w])/g,'$1<em>$2</em>');
+  return t.replace(/\u0000(\d+)\u0000/g,(m,i)=>keep[+i]);
+}
+function mdToHtml(src,lb){if(lb===undefined)lb=0;
+  const L=src.replace(/\r\n?/g,'\n').split('\n');let i=0,out=[];
+  const ind=s=>s.match(/^ */)[0].length;
+  const listRe=/^(\s*)([-*+]|\d+[.)])\s+(.*)$/;
+  function list(start,base){ // returns [html,next]
+    const first=L[start].match(listRe),ord=/\d/.test(first[2]),tag=ord?'ol':'ul';let h='<'+tag+'>',k=start;
+    while(k<L.length){
+      const m=L[k].match(listRe);if(!m||ind(L[k])<base)break;
+      if(ind(L[k])>base){const [sub,nx]=list(k,ind(L[k]));h=h.replace(/<\/li>$/,sub+'</li>');k=nx;continue}
+      if((/\d/.test(m[2]))!==ord)break;
+      const tk=m[3].match(/^\[( |x|X)\]\s+(.*)$/);
+      if(tk){const on=tk[1]!==' ';h+='<li class="task'+(on?' done':'')+'"><span class="cb'+(on?' on':'')+'"'+(lb>=0?' data-ln="'+(lb+k)+'"':'')+'></span><span>'+mdInline(tk[2])+'</span></li>'}
+      else h+='<li>'+mdInline(m[3])+'</li>';
+      k++}
+    return [h+'</'+tag+'>',k]}
+  while(i<L.length){
+    const l=L[i];
+    if(/^\s*$/.test(l)){i++;continue}
+    let m;
+    if((m=l.match(/^(\s*)(```|~~~)\s*(\S*)\s*$/))){const f=m[2];let k=i+1,buf=[];while(k<L.length&&!L[k].trim().startsWith(f)){buf.push(L[k]);k++}out.push('<pre><code>'+mdEsc(buf.join('\n'))+'</code></pre>');i=k+1;continue}
+    if((m=l.match(/^(#{1,6})\s+(.*?)\s*#*\s*$/))){out.push('<h'+m[1].length+'>'+mdInline(m[2])+'</h'+m[1].length+'>');i++;continue}
+    if(/^\s*([-*_])(\s*\1){2,}\s*$/.test(l)){out.push('<hr>');i++;continue}
+    if(/^\s*>/.test(l)){let buf=[];while(i<L.length&&/^\s*>/.test(L[i])){buf.push(L[i].replace(/^\s*>\s?/,''));i++}out.push('<blockquote>'+mdToHtml(buf.join('\n'),-1)+'</blockquote>');continue}
+    if(listRe.test(l)){const [h,nx]=list(i,ind(l));out.push(h);i=nx;continue}
+    if(l.includes('|')&&i+1<L.length&&/^\s*\|?\s*:?-+:?\s*(\|\s*:?-+:?\s*)*\|?\s*$/.test(L[i+1])){
+      const cells=r=>r.trim().replace(/^\|/,'').replace(/\|$/,'').split('|').map(x=>x.trim());
+      const al=cells(L[i+1]).map(c=>c.startsWith(':')&&c.endsWith(':')?'c':c.endsWith(':')?'r':'');
+      let h='<div class="tw"><table><thead><tr>'+cells(l).map((c,j)=>'<th'+(al[j]?' class="'+al[j]+'"':'')+'>'+mdInline(c)+'</th>').join('')+'</tr></thead><tbody>';
+      let k=i+2;while(k<L.length&&L[k].includes('|')&&!/^\s*$/.test(L[k])){h+='<tr>'+cells(L[k]).map((c,j)=>'<td'+(al[j]?' class="'+al[j]+'"':'')+'>'+mdInline(c)+'</td>').join('')+'</tr>';k++}
+      out.push(h+'</tbody></table></div>');i=k;continue}
+    let buf=[];while(i<L.length&&!/^\s*$/.test(L[i])&&!/^(\s*)(```|~~~)/.test(L[i])&&!/^#{1,6}\s/.test(L[i])&&!/^\s*>/.test(L[i])&&!listRe.test(L[i])&&!/^\s*([-*_])(\s*\1){2,}\s*$/.test(L[i])){buf.push(mdInline(L[i]));i++}
+    out.push('<p>'+buf.join('<br>')+'</p>')}
+  return out.join('\n')}
+
+const MDI='<svg viewBox="0 0 28 20" width="24" height="18"><rect x="1" y="2" width="26" height="16" rx="3" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M5 14V6l3 4 3-4v8M19 6v7m-2.6-2.4L19 13.3l2.6-2.7" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+let mdKey='';
+function mdOn(){const n=byId(S.sel);return !!(n&&n.mv&&!S.q&&!fvOn())}
+function mdPaint(){
+  const n=byId(S.sel),on=mdOn(),v=$('mdv'),b=$('mdb');
+  if(!b.innerHTML)b.innerHTML=MDI;
+  b.disabled=!n||!!pend||fvOn()||!!S.q;b.classList.toggle('on',!!(n&&n.mv));
+  b.dataset.tip=S.q?'搜尋中不能預覽 Markdown':n&&n.mv?'回到文字':'Markdown 預覽（只能看，待辦的勾選可以點）';
+  document.documentElement.classList.toggle('mdm',on);
+  if(!on){mdKey='';return}
+  v.classList.toggle('lock',isRO(n));
+  const k=n.id+'|'+n.modified+'|'+n.content.length;
+  if(k!==mdKey){const st=mdKey.split('|')[0]===n.id?v.scrollTop:0;mdKey=k;v.innerHTML=mdToHtml(n.content);v.scrollTop=st}
+}
+$('mdb').onclick=()=>{const n=byId(S.sel);if(!n)return;if(pend){lockMsg();return}n.mv=n.mv?0:1;if(!n.mv)delete n.mv;mdKey='';playSfx('tick');if(n.mv){ta.blur();if(!MS.md){MS.md=1;msSave();say('Markdown 預覽：只能看不能改，待辦的勾選可以直接點。再按一次回到文字。',{lv:'info',hold:7000})}}save();applyRO();if(!n.mv)ta.focus()};
+$('mdv').addEventListener('dblclick',()=>{const n=byId(S.sel);if(!n||!n.ro)return;if(pend){lockMsg();return}n.ro=false;playSfx('unlock');save();render()});
+$('mdv').addEventListener('click',e=>{
+  const c=e.target.closest('.cb');if(!c||!c.dataset.ln)return;
+  const n=byId(S.sel);if(!n)return;
+  if(isRO(n)){roHint();return}
+  const L2=n.content.split('\n'),i=+c.dataset.ln,m=L2[i]&&L2[i].match(/^(\s*(?:[-*+]|\d+[.)])\s+\[)( |x|X)(\].*)$/);if(!m)return;
+  L2[i]=m[1]+(m[2]===' '?'x':' ')+m[3];n.content=L2.join('\n');n.modified=Date.now();ta.value=n.content;fxPrev=ta.value.length;playSfx('tick');save();meta();
+});
+
 function applyRO(){
   const fv=fvOn(),n=byId(S.sel),ro=(!!n&&isRO(n))||fv,h=$('hatch');
   if(ta.readOnly!==ro)ta.readOnly=ro;
-  const cls=fv?'fv':!n?'none':ro?'ro':'',txt=fv?'':!n?(PH?'點上面的便條紙開始寫':'選一則筆記，或在左邊輸入標題新增'):(pend?'匯入確認中（唯讀）':'唯讀');
+  const md=mdOn(),cls=fv?'fv':!n?'none':ro?'ro':md?'md':'',txt=fv?'':!n?(PH?'點上面的便條紙開始寫':'選一則筆記，或在左邊輸入標題新增'):(md?(ro?'Markdown 預覽．唯讀':'Markdown 預覽'):pend?'匯入確認中（唯讀）':'唯讀');
   if(h.className!==cls)h.className=cls;
   if($('hl').textContent!==txt)$('hl').textContent=txt;
   const b=$('rob'),lk=!!(n&&n.ro);b.disabled=!n||!!pend||fv;b.classList.toggle('on',lk);b.dataset.tip=lk?'解除唯讀':'設為唯讀';
   $('dtb').disabled=!n||ro;
-  ulRefresh();try{twPaint()}catch(e){}
+  mdPaint();ulRefresh();try{twPaint()}catch(e){}
 }
 function lockMsg(){say('匯入確認中，請先按「確認無誤」或「復原之前的資料」。',{lv:'info',id:'lockmsg',rx:'no'})}
 function roHint(){if(PH)return;const t=Date.now();if(t-roMsgT<3000)return;roMsgT=t;if(pend)lockMsg();else say('唯讀中，點兩下內文可解鎖。',{lv:'info',rx:'no'})}
@@ -1641,6 +1750,7 @@ R note 是放在瀏覽器裡的純文字筆記本：打開網址就能寫，不�
 
 唯讀
 ．內文上方、「總字數」旁邊的鉛筆按鈕，可以把這則筆記鎖成唯讀；在內文點兩下可解鎖唯讀狀態。
+．鉛筆左邊的「M↓」按鈕：把這則筆記排成 Markdown 預覽（標題、清單、表格、程式碼等），只能看不能改，只有待辦的勾選可以直接點；再按一次回到文字。搜尋時不會顯示預覽。
 
 網址
 ．筆記裡的網址，按住 Ctrl 會亮起來，點一下就在新分頁開啟。
@@ -1702,7 +1812,7 @@ o、t、e 的開關會被記住；R 和 n 每次重新開啟都是關閉。
 
 祝順心如意。`;
 const hs=t=>{let a=5381,b=0;for(let i=0;i<t.length;i++){const c=t.charCodeAt(i);a=((a<<5)+a+c)|0;b=(b*31+c)|0}return a+':'+b+':'+t.length};
-const OLDH=['-1983915602:171529411:6757','561492873:771823936:2645','-1652934029:957503828:2482','-38752457:-718458112:2588'];
+const OLDH=['-1983915602:171529411:6757','561492873:771823936:2645','-1652934029:957503828:2482','-38752457:-718458112:2588','652580955:1757969548:2647'];
 function diaryTitle(){const d=new Date();return `${d.getFullYear()}/${p2(d.getMonth()+1)}/${p2(d.getDate())}_週${'日一二三四五六'[d.getDay()]}`}
 const PHN='【給手機使用者】這是為電腦瀏覽器設計的筆記工具。手機上只提供簡易版：一張便條紙，打字也能挖礦。完整功能（多篇筆記、排序、封存、備份等）請改用電腦的 Chrome 或 Edge 打開。\n\n════════════════════════\n\n';
 function seedNotes(){
@@ -2124,7 +2234,7 @@ document.addEventListener('keydown',e=>{
   if(PH||pend||e.ctrlKey||e.metaKey||e.altKey||e.shiftKey||e.isComposing)return;
   const k=e.key;if(k!=='ArrowUp'&&k!=='ArrowDown'&&k!=='Enter'&&k!=='F2')return;
   const a=document.activeElement,tg=a&&a.tagName;if(tg==='INPUT'||tg==='TEXTAREA'||tg==='SELECT'||(a&&a.isContentEditable))return;
-  if(a&&a.closest&&a.closest('#arc,#pk,#fpk,.ib'))return;
+  if(a&&a.closest&&a.closest('#arc,#pk,#fpk,.ib,#mdv'))return;
   const root=!curF&&!S.q&&eyeOpen&&S.folders.length>0,list=[];
   if(root)S.folders.forEach(f=>list.push({t:'f',id:f.id}));
   activeList().forEach(n=>list.push({t:'n',id:n.id}));
@@ -2178,7 +2288,7 @@ const twP=[0,1].map(i=>{const p=document.createElement('div');p.className='twp';
 $('cell').append(twH,twH2,twBand,...twD,...twP);
 let twDrag=-1;
 function twOn(){return !PH&&!!L.tw.on}
-function twAct(){if(!twOn()||fvOn())return false;return !!byId(S.sel)}
+function twAct(){if(!twOn()||fvOn()||mdOn())return false;return !!byId(S.sel)}
 const TW_PT=14;
 function twGeo(){const lhv=lh(),pt=TW_PT;const maxB=Math.max(3,Math.floor((ta.clientHeight-pt)/lhv)-1);const b=Math.max(2,Math.min(L.tw.b,maxB)),a=Math.max(0,Math.min(L.tw.a,b-2));return{lhv,pt,a,b,maxB,ya:pt+a*lhv,yb:pt+b*lhv}}
 function twPaint(){
