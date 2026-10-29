@@ -37,7 +37,7 @@ button,input,textarea{font:inherit;color:inherit}
 #lst{display:flex;flex-direction:column;min-height:0;overflow:hidden;background:var(--p1);border:1px solid var(--ln);border-radius:8px}
 #top{flex:0 1 var(--ah,60%);display:flex;min-height:96px;overflow:hidden}
 #act{flex:1 1 auto;min-width:0;overflow:auto;padding:6px}
-#arc{flex:1 0 104px;overflow:auto;padding:6px;min-height:104px}
+#arc{flex:1 0 70px;overflow:auto;padding:6px;min-height:70px}
 #dv{flex:none;height:6px;background:var(--ln);cursor:ns-resize}
 #dv:hover{background:var(--ac)}
 #vs{cursor:ew-resize;display:flex;justify-content:center}
@@ -195,10 +195,15 @@ html.fvm #lst .item.sel{background:none;border-color:transparent}
 .fvh{display:flex;align-items:center;gap:8px;height:30px;font-size:14px;color:var(--tx)}
 .fvh .fvsw{flex:none;width:14px;height:14px;border-radius:4px}
 .fvh i{font-style:normal;color:var(--dm);font-size:12px}
-.fvr{display:flex;align-items:center;gap:8px;height:34px;padding:0 8px;margin-bottom:3px;border-radius:6px;border:1px solid transparent;cursor:pointer;user-select:none}
+.fvl{display:grid;grid-template-columns:auto minmax(0,max-content) auto auto 1fr;column-gap:10px}
+.fvr{grid-column:1/-1;display:grid;grid-template-columns:subgrid;align-items:center;height:34px;padding:0 8px;margin-bottom:3px;border-radius:6px;border:1px solid transparent;cursor:pointer;user-select:none}
+.fvr .t{max-width:22em}
+.fvc{text-align:right;font-variant-numeric:tabular-nums;color:var(--dm);font-size:12px;white-space:nowrap}
+.fvs{container-type:inline-size}
+@container (max-width:420px){.fvl{grid-template-columns:auto minmax(0,1fr) auto}.fvr{grid-template-areas:"ic t t" ". c tm";grid-template-rows:auto auto;height:auto;min-height:34px;padding:4px 8px;row-gap:0}.fvr .ic{grid-area:ic}.fvr .t{grid-area:t;max-width:none}.fvr .fvc{grid-area:c;text-align:left}.fvr .fvt{grid-area:tm;margin-left:0;text-align:right}}
 .fvr:hover{border-color:var(--ln);background:var(--abg)}
 .fvr .ic{cursor:inherit}
-.fvr .t{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.fvr .t{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .fve{color:var(--dm);font-size:13px;padding:6px 8px}
 #cm{position:fixed;display:none;z-index:70;min-width:150px;background:var(--p2);border:1px solid var(--ac);border-radius:8px;padding:4px;box-shadow:0 4px 14px rgba(0,0,0,.3);font-size:13px;color:var(--tx)}
 #cm button{display:block;width:100%;text-align:left;padding:6px 12px;background:none;border:none;color:inherit;border-radius:5px;cursor:pointer;font:inherit;white-space:nowrap}
@@ -206,7 +211,7 @@ html.fvm #lst .item.sel{background:none;border-color:transparent}
 #cm button.dg{color:var(--dg)}
 #cm button small{display:block;font-size:11px;color:var(--dm);margin-top:1px}
 html.ph #cm{display:none!important}
-.fvt{flex:none;color:var(--dm);font-size:12px;margin-left:10px}
+.fvt{color:var(--dm);font-size:12px;white-space:nowrap}
 .fvs{border-radius:8px;transition:background .15s}
 .fvs.drop{background:var(--abg);outline:2px dashed var(--ac);outline-offset:2px}
 .del .va{display:none}.del:hover .vl{display:none}.del:hover .va{display:inline-flex}.del .vl{display:inline-flex}
@@ -318,7 +323,7 @@ html.ph #dz{display:none!important}
 <input type="file" id="file" accept=".json,application/json" hidden>
 <canvas id="cv"></canvas><div id="tip"></div><div id="pk"></div>
 <script>
-const VERSION='1.22';const APPNAME='R note';
+const VERSION='1.23';const APPNAME='R note';
 const PROMO_URL='https://line.me/S/shop/sticker/author/123908';
 const PH=(()=>{try{const q=new URLSearchParams(location.search).get('phone');if(q==='1')return true;if(q==='0')return false;return matchMedia('(pointer:coarse)').matches&&!matchMedia('(hover:hover)').matches&&Math.min(screen.width,innerWidth)<=820}catch(e){return false}})();
 document.documentElement.classList.toggle('ph',PH);
@@ -430,7 +435,8 @@ $('pn').onclick=async()=>{
   o=o.replace(/_+$/,'')||'貼上';
   if(addNote(uniq(o,null),tx.replace(/\r\n?/g,'\n'),'📋'))slabTop();
 };
-ta.oninput=()=>{const n=byId(S.sel);if(!n)return;n.content=ta.value;n.modified=Date.now();save();meta()};
+let arcWarn=null;
+ta.oninput=()=>{const n=byId(S.sel);if(!n)return;if(n.archived||n.vault){if(arcWarn!==n.id){arcWarn=n.id;say('溫馨提醒：你現在正在編輯「'+(n.vault?'暗格':'封存')+'」裡面的文章。',{lv:'info',id:'arcwarn',hold:6000})}}else arcWarn=null;n.content=ta.value;n.modified=Date.now();save();meta()};
 $('sq').onkeydown=e=>{if(e.key=='Enter'&&!e.isComposing){S.q=e.target.value.trim().toLowerCase();sIdx=0;fms.clear();fmulti=false;playSfx('search');render();searchMsg()}};
 $('sq').oninput=e=>{if(!e.target.value.trim()&&S.q){S.q='';render()}else if(S.q)fitSq()};
 document.querySelectorAll('.sb').forEach(b=>b.onclick=()=>{
@@ -1896,6 +1902,9 @@ document.addEventListener('keydown',e=>{
   if(e.key==='ArrowDown'||e.key==='ArrowUp'){e.preventDefault();const bs=[...cm.querySelectorAll('button')],i=bs.indexOf(document.activeElement);bs[(i+(e.key==='ArrowDown'?1:-1)+bs.length)%bs.length].focus()}
 },true);
 window.addEventListener('resize',cmClose);window.addEventListener('blur',cmClose);document.addEventListener('scroll',cmClose,true);
+const fvCC=new Map();
+function fvChars(n){const o=fvCC.get(n.id);if(o&&o.m===n.modified)return o.c;const c=wcCount(n.content);fvCC.set(n.id,{m:n.modified,c});return c}
+function fvNum(c){return c>=10000?(Math.round(c/1000)/10)+' 萬字':c.toLocaleString('en-US')+' 字'}
 function fvRender(){
   const v=$('fview'),on=fvOn();
   document.documentElement.classList.toggle('fvm',on);
@@ -1908,13 +1917,13 @@ function fvRender(){
       const h=document.createElement('div');h.className='fvh';
       const sw=document.createElement('span');sw.className='fvsw';sw.style.background=fcol(f);h.appendChild(sw);
       const nm=document.createElement('span');nm.textContent=f.name;h.appendChild(nm);
-      const ct=document.createElement('i');ct.textContent=l.length?l.length+' 篇筆記':'';h.appendChild(ct);sec.appendChild(h);
+      const ct=document.createElement('i');ct.textContent=l.length?l.length+' 篇筆記．共 '+fvNum(l.reduce((a,n)=>a+fvChars(n),0)):'';h.appendChild(ct);sec.appendChild(h);
       const box=document.createElement('div');box.className='fvl';
       if(!l.length){const e=document.createElement('div');e.className='fve';e.textContent='空資料夾';box.appendChild(e)}
       l.forEach(n=>{
-        const r=document.createElement('div');r.className='fvr';r.dataset.tip=n.title+'\n點一下開啟';
+        const r=document.createElement('div');r.className='fvr';r.dataset.tip=n.title+'\n建立：'+fmt(n.created)+'\n修改：'+fmt(n.modified)+'\n點一下開啟';
         const ic=document.createElement('span');ic.className='ic'+(n.icon?'':' e');ic.textContent=n.icon||'';r.appendChild(ic);
-        const t=document.createElement('span');t.className='t';t.textContent=n.title;r.appendChild(t);const tm=document.createElement('span');tm.className='fvt';tm.dataset.t=n.modified;tm.textContent=fAgo(n.modified);r.appendChild(tm);
+        const t=document.createElement('span');t.className='t';t.textContent=n.title;r.appendChild(t);const cc=document.createElement('span');cc.className='fvc';cc.textContent=fvNum(fvChars(n));r.appendChild(cc);const tm=document.createElement('span');tm.className='fvt';tm.dataset.t=n.modified;tm.textContent=fAgo(n.modified);r.appendChild(tm);
         r.draggable=true;r.ondragstart=e=>{if(PH||pend){e.preventDefault();if(pend)lockMsg();return}drag=n.id;dragIds=[n.id];fvDrag=f.id;e.dataTransfer.setData('text/plain',n.id);e.dataTransfer.effectAllowed='move';setTimeout(()=>r.classList.add('dragging'),0)};r.ondragend=()=>{drag=null;dragIds=[];clearDrag();r.classList.remove('dragging')};
         r.onclick=()=>{if(pend){lockMsg();return}fms.clear();curF=f.id;fEdit=false;ms.clear();S.sel=n.id;playSfx('tick');save();render()};
         box.appendChild(r)});
@@ -2023,7 +2032,7 @@ function colRender(sc){
     CE[f.id]=el;frag.appendChild(el)});
   CG={pitch,tops,vis,k,n};
   rows.replaceChildren(frag);rows.style.height=fh+'px';act.style.minHeight=am+'px';
-  if(sc&&k>=0&&!colNoSc){const t=tops[k]-2;if(RM())fr.scrollTop=t;else fr.scrollTo({top:t,behavior:'smooth'})}
+  if(sc&&k>=0&&!colNoSc){const t=Math.max(0,tops[k]-2-(k>0?Math.min(pitch-1,26):0));if(RM())fr.scrollTop=t;else fr.scrollTo({top:t,behavior:'smooth'})}
 }
 function colGoal(y,hit){
   if(!CG)return;const R=36;
