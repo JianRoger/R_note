@@ -325,6 +325,13 @@ html.ph #cell{grid-column:1/-1!important;grid-row:7!important}
 #dzb .dchip{position:absolute;top:-18px;left:50%;transform:translateX(-50%);background:var(--ac);color:var(--bg);font-size:14px;font-weight:600;padding:3px 16px;border-radius:999px;line-height:1.5;white-space:nowrap}
 #dzb.g .dchip{background:var(--dm)}
 html.ph #dz{display:none!important}
+#stl{position:fixed;inset:0;z-index:60;display:none}
+#stl.on{display:block}
+#stls{position:absolute;inset:0;background:rgba(var(--bgr),.78);-webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px)}
+#stlb{position:absolute;left:50%;top:42%;transform:translate(-50%,-50%);width:min(440px,calc(100% - 32px));box-sizing:border-box;border:2px solid var(--ac);border-radius:18px;background:var(--p1);padding:26px 24px 22px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:10px}
+#stlb .h1{font-size:21px;font-weight:600;color:var(--tx);line-height:1.4}
+#stlb .sb{font-size:14px;color:var(--dm);line-height:1.6}
+#stlb .ib{height:38px;padding:0 22px;margin-top:6px;font-size:15px;color:var(--tx);border-color:var(--ac)}
 ::selection{background:var(--sb,Highlight);color:var(--st,HighlightText)}
 
 html.cbm #body,html.cbm #ov,html.cbm #glow,html.cbm #spot,html.cbm #ul,html.cbm #mdv{visibility:hidden}
@@ -371,6 +378,10 @@ html.ph #xpl{display:none!important}
 #xpb.pulse{animation:xpp .9s ease-in-out 3}
 @keyframes xpp{50%{opacity:.35}}
 html.ph #xpb{display:none!important}
+#xph{display:none;position:absolute;left:0;width:var(--xw,100%);top:-17px;height:16px;pointer-events:auto}
+#wcb.xb #xph{display:block}
+#xph.nohit{pointer-events:none}
+html.ph #xph{display:none!important}
 </style>
 </head>
 <body>
@@ -395,7 +406,7 @@ html.ph #xpb{display:none!important}
   </div>
   <div class="row" id="r2" style="grid-column:3;grid-row:2"><div class="fld"><span data-ic="search"></span><input id="sq" autocomplete="off"></div><div id="sn" class="row" style="display:none;align-items:center"><span id="sc" style="font-size:13px;color:var(--dm);min-width:40px;text-align:center"></span><button class="ib" id="sp" data-tip="上一個"><span data-ic="up"></span></button><button class="ib" id="sd" data-tip="下一個"><span data-ic="dn"></span></button><button class="ib" id="sx" data-tip="清除搜尋"><span data-ic="x"></span></button></div><div class="row" id="ths"><button class="ib" data-th="d" data-tip="亮色系"><span data-ic="sun"></span></button><button class="ib" data-th="u" data-tip="灰色系"><span data-ic="dusk"></span></button><button class="ib" data-th="n" data-tip="暗色系"><span data-ic="moon"></span></button></div><div id="phbag"></div></div>
   <div id="shelf" style="grid-column:3;grid-row:3;display:flex;align-items:center;gap:6px;min-width:0;overflow:hidden"></div>
-  <div id="wc"><button class="ib" id="mdb"></button><button class="ib" id="rob" data-tip="設為唯讀"><span data-ic="ro"></span></button><span id="wcb"><span id="wcsl">選取數：</span><span id="wcsn"></span><span id="wcl">總字數：</span><span id="wcn">0</span><span id="xpl">EXP</span><span id="xpb"><i></i></span></span></div>
+  <div id="wc"><button class="ib" id="mdb"></button><button class="ib" id="rob" data-tip="設為唯讀"><span data-ic="ro"></span></button><span id="wcb"><span id="wcsl">選取數：</span><span id="wcsn"></span><span id="wcl">總字數：</span><span id="wcn">0</span><span id="xpl">EXP</span><span id="xpb"><i></i></span><span id="xph"></span></span></div>
   <div id="lst" style="grid-column:1;grid-row:4"><div id="sr"><span>搜尋結果：</span><b id="srq"></b><button id="srx" data-tip="取消搜尋"><span data-ic="x"></span></button></div><div id="fh"><button class="ib" id="cabb"></button><button class="ib" id="cabk"></button><button class="ib" id="eyeb"></button><button class="ib pos" id="fadd"></button><button class="ib" id="fdel"></button></div><div id="top"><div id="fcol"></div><div id="fr"><div id="frows"></div><div id="ftab"></div><div id="fdz">移出資料夾</div><div id="fpg"></div><div id="act"></div></div></div><div id="dv"></div><div id="arc"></div></div>
   <div id="vs" style="grid-column:2;grid-row:4"><i></i></div>
   <div id="cell" style="grid-column:3;grid-row:4;min-height:0;position:relative"><textarea id="body" spellcheck="false" disabled></textarea><div id="mdv" tabindex="0"></div><div id="hatch"><span id="hl"></span></div><div id="fview"></div><div id="cabv"><div id="cabl"></div><div id="cabp"></div></div><div id="ov"></div><div id="glow"></div><div id="spot"></div></div>
@@ -404,7 +415,7 @@ html.ph #xpb{display:none!important}
 <canvas id="cv"></canvas><div id="tip"></div><div id="pk"></div>
 <script>
 let gmOn=false,gmCoin=0;const gmK={};
-const VERSION='1.28';const APPNAME='R note';
+const VERSION='1.30';const APPNAME='R note';
 const PROMO_URL='https://line.me/S/shop/sticker/author/123908';
 const PH=(()=>{try{const q=new URLSearchParams(location.search).get('phone');if(q==='1')return true;if(q==='0')return false;return matchMedia('(pointer:coarse)').matches&&!matchMedia('(hover:hover)').matches&&Math.min(screen.width,innerWidth)<=820}catch(e){return false}})();
 document.documentElement.classList.toggle('ph',PH);
@@ -433,7 +444,7 @@ const isRO=n=>!!(pend||(n&&n.ro));
 let ms=new Set(),anchor=null,mzone='a',dragIds=[];
 let fxPrev=0,fxHint=null,comp=false,vaultOn=false,GC='210,210,210',HEAD='#fff';
 const inBot=n=>vaultOn?!!n.vault:(!!n.archived&&!n.vault);
-let st;const save=()=>{clearTimeout(st);st=setTimeout(()=>{try{localStorage.setItem(KEY,JSON.stringify(S));if(SM.list.length)sayOff('store')}catch(e){if(!save.w||Date.now()-save.w>15000){save.w=Date.now();toast('儲存空間已滿或無法寫入，請先匯出備份。',5000)}}},200)};
+let st,stale=false;const save=()=>{if(stale)return;clearTimeout(st);st=setTimeout(()=>{if(stale)return;try{localStorage.setItem(KEY,JSON.stringify(S));if(SM.list.length)sayOff('store')}catch(e){if(!save.w||Date.now()-save.w>15000){save.w=Date.now();toast('儲存空間已滿或無法寫入，請先匯出備份。',5000)}}},200)};
 const saveL=()=>{try{localStorage.setItem(LK,JSON.stringify(L))}catch(e){}};
 const byId=id=>S.notes.find(n=>n.id===id);
 const p2=x=>String(x).padStart(2,'0');
@@ -519,7 +530,7 @@ $('pn').onclick=async()=>{
 };
 let arcWarn=null;
 ta.oninput=()=>{const n=byId(S.sel);if(!n)return;if(n.archived||n.vault){if(arcWarn!==n.id){arcWarn=n.id;say('溫馨提醒：你現在正在編輯「'+(n.vault?'暗格':'封存')+'」裡面的文章。',{lv:'info',id:'arcwarn',hold:6000})}}else arcWarn=null;n.content=ta.value;n.modified=Date.now();save();meta()};
-$('sq').onkeydown=e=>{if(e.key=='Enter'&&!e.isComposing){S.q=e.target.value.trim().toLowerCase();sIdx=0;fms.clear();fmulti=false;playSfx('search');render();searchMsg()}};
+$('sq').onkeydown=e=>{if(e.key=='Enter'&&!e.isComposing){S.q=e.target.value.trim().toLowerCase();if(S.q)cabV=false;sIdx=0;fms.clear();fmulti=false;playSfx('search');render();searchMsg()}};
 $('sq').oninput=e=>{if(!e.target.value.trim()&&S.q){S.q='';render()}else if(S.q)fitSq()};
 document.querySelectorAll('.sb').forEach(b=>b.onclick=()=>{
   const k=b.dataset.k;
@@ -596,7 +607,7 @@ function bkDirty(){const t=S.lastExport||S.born;return S.notes.some(n=>(n.modifi
 function chk(){const h=Math.floor((Date.now()-(S.lastExport||S.born))/36e5),b=$('exp'),on=h>=7&&bkDirty(),was=b.classList.contains('dot');b.classList.toggle('dot',on);if(on&&!was){b.classList.remove('pls');void b.offsetWidth;b.classList.add('pls')}if(!on)b.classList.remove('pls');b.dataset.tip=on?`資料未備份長達 ${h} 小時`:'匯出備份'}
 $('exp').onclick=()=>{
   const d=new Date(),a=document.createElement('a');
-  a.href=URL.createObjectURL(new Blob([JSON.stringify({app:'R_note',version:2,appVersion:VERSION,exported:d.toISOString(),profile:{},notes:S.notes,folders:S.folders,sort:S.sort},null,2)],{type:'application/json;charset=utf-8'}));
+  a.href=URL.createObjectURL(new Blob([JSON.stringify({app:'R_note',version:2,appVersion:VERSION,exported:d.toISOString(),profile:{xp:+S.xp||0,pick:+S.pick||0},notes:S.notes,folders:S.folders,sort:S.sort},null,2)],{type:'application/json;charset=utf-8'}));
   a.download=`R_note_backup_${d.getFullYear()}${p2(d.getMonth()+1)}${p2(d.getDate())}_${p2(d.getHours())}${p2(d.getMinutes())}.json`;a.click();URL.revokeObjectURL(a.href);
   S.lastExport=Date.now();S.bkN=S.notes.length;S.bkF=S.folders.length;save();chk();
 };
@@ -663,11 +674,22 @@ function fitCv(){cv.style.width=innerWidth+'px';cv.style.height=innerHeight+'px'
 fitCv();addEventListener('resize',fitCv);
 const rnd=(a,b)=>a+Math.random()*(b-a),pickW=(a,b,w)=>Math.min(b,a+Math.floor((b-a+1)*Math.pow(Math.random(),w))),cnt=()=>pickW(2,4,1.5);
 const lh=()=>parseFloat(getComputedStyle(ta).lineHeight)||30;
+/* 量游標位置（1.29 改寫）：鏡像 div 常駐，分成「前面段落」與「目前段落」兩塊。
+   在同一段落裡打字時，前面段落的內容不變，瀏覽器可以沿用它的排版，不必整篇重排。 */
+let CM=null,CMp=null,CMt=null,CMc='',CMx=null;
 function carets(idx){
-  const c=getComputedStyle(ta),m=document.createElement('div'),sp=[];let pI=0;
-  m.style.cssText=`position:absolute;visibility:hidden;left:-9999px;top:0;white-space:pre-wrap;overflow-wrap:break-word;box-sizing:border-box;tab-size:4;width:${ta.clientWidth}px;font-size:${c.fontSize};font-family:${c.fontFamily};line-height:${c.lineHeight};letter-spacing:${c.letterSpacing};padding:${c.padding}`;
-  idx.forEach(i=>{m.appendChild(document.createTextNode(ta.value.slice(pI,i)));const e=document.createElement('span');e.textContent='​';m.appendChild(e);sp.push(e);pI=i});
-  document.body.appendChild(m);const out=sp.map(e=>({x:e.offsetLeft-ta.scrollLeft,y:e.offsetTop-ta.scrollTop}));document.body.removeChild(m);return out;
+  if(!idx.length)return[];
+  const c=getComputedStyle(ta);
+  const css=`position:absolute;visibility:hidden;left:-9999px;top:0;white-space:pre-wrap;overflow-wrap:break-word;box-sizing:border-box;tab-size:4;width:${ta.clientWidth}px;font-size:${c.fontSize};font-family:${c.fontFamily};line-height:${c.lineHeight};letter-spacing:${c.letterSpacing};padding:${c.padding};pointer-events:none;contain:layout paint style`;
+  if(!CM||!CM.isConnected){CM=document.createElement('div');CM.setAttribute('aria-hidden','true');CMp=document.createElement('div');CMt=document.createElement('div');CM.append(CMp,CMt);document.body.appendChild(CM);CMc='';CMx=null}
+  if(css!==CMc){CM.style.cssText=css;CMc=css}
+  const v=ta.value,a=Math.min(...idx),p=a>0?v.lastIndexOf('\n',a-1):-1;
+  // 前面段落：到上一個換行為止；最後一行是空行時補零寬字元，讓它也佔一行高
+  const pre=p<0?null:(p===0||v[p-1]==='\n')?v.slice(0,p)+'\u200b':v.slice(0,p);
+  if(pre!==CMx){CMp.textContent=pre||'';CMp.style.display=p<0?'none':'block';CMx=pre}
+  CMt.textContent='';const sp=[];let pI=p+1;
+  idx.forEach(i=>{CMt.appendChild(document.createTextNode(v.slice(pI,i)));const e=document.createElement('span');e.textContent='\u200b';CMt.appendChild(e);sp.push(e);pI=i});
+  return sp.map(e=>({x:e.offsetLeft-ta.scrollLeft,y:e.offsetTop-ta.scrollTop}));
 }
 const pos=c=>{const r=ta.getBoundingClientRect();return{x:r.left+ta.clientLeft+c.x,y:r.top+ta.clientTop+c.y}};
 function spawn(x,y,n,mode,force,pal){
@@ -763,6 +785,7 @@ function shelf(){
   if(PH){pb.innerHTML=bag}else{if(ids.length)h+='<span class="sep"></span>';h+=bag}
   el.innerHTML=h;
   if(!RM())el.querySelectorAll('.ore').forEach(b=>{const p=prev[b.dataset.i];if(p===undefined)return;const dx=p-b.getBoundingClientRect().left;if(Math.abs(dx)>1)b.animate([{transform:`translateX(${dx}px)`},{transform:'none'}],{duration:150,easing:'ease-out'})});
+  {const k=ids.length+':'+String(cn).length;if(k!==shelf.k){shelf.k=k;if(L.xb&&!PH)xpWidth()}}  // 礦石列變寬時，重新檢查提示熱區
 }
 $('shelf').onclick=e=>{const b=e.target.closest('.ore');if(b)sell(+b.dataset.i)};
 function sell(i){if(pend){lockMsg();return}
@@ -1725,7 +1748,9 @@ ta.addEventListener('dblclick',()=>{
   n.ro=false;ta.setSelectionRange(ta.selectionEnd,ta.selectionEnd);playSfx('unlock');save();render();
 });
 const IMPLIM=4500000;
-function buildReplace(j,clean,g2){const notes=clean.slice();if(g2&&notes[0])notes[0].coin=(notes[0].coin||0)+j.global.coin;const fs=(Array.isArray(j.folders)?j.folders:[]).filter(f=>f&&f.id&&f.name).map(f=>({id:String(f.id),name:String(f.name),color:+f.color||0,created:+f.created||0}));notes.forEach(n=>{if(n.folderId&&!fs.some(f=>f.id===n.folderId))delete n.folderId});return{notes,folders:fs,sort:(j.sort&&j.sort.k)?j.sort:S.sort}}
+function buildReplace(j,clean,g2){const notes=clean.slice();if(g2&&notes[0])notes[0].coin=(notes[0].coin||0)+j.global.coin;const fs=(Array.isArray(j.folders)?j.folders:[]).filter(f=>f&&f.id&&f.name).map(f=>({id:String(f.id),name:String(f.name),color:+f.color||0,created:+f.created||0}));notes.forEach(n=>{if(n.folderId&&!fs.some(f=>f.id===n.folderId))delete n.folderId});return{notes,folders:fs,sort:(j.sort&&j.sort.k)?j.sort:S.sort,prof:profIn(j.profile)}}
+/* 備份裡的十字鎬經驗值與等級（1.30）：只有「取代整份資料」會用；舊備份沒有這兩個值就保留現有的。 */
+function profIn(p){if(!p||typeof p!=='object')return null;const x=+p.xp,k=+p.pick;if(!(x>=0)||!isFinite(x))return null;return{xp:Math.floor(x),pick:Math.max(0,Math.min(PICK.max,Math.floor(k>=0?k:0)))}}
 function buildAppend(list,skip,jf){
   const now=Date.now(),cur=S.notes,base=Math.min(0,...cur.map(n=>n.order||0))-list.length,out=cur.slice(),ex=new Set(cur.map(m=>m.title));let add=0,sk=0;const fout=S.folders.slice(),fmap={};
   list.forEach((n,i)=>{
@@ -1737,14 +1762,14 @@ function buildAppend(list,skip,jf){
   return{notes:out,folders:fout,sort:S.sort,add,sk};
 }
 function commitImport(next){gmReset();
-  const snap={notes:JSON.parse(JSON.stringify(S.notes)),folders:JSON.parse(JSON.stringify(S.folders)),sort:Object.assign({},S.sort),sel:S.sel};
-  const trial=Object.assign({},S,{notes:next.notes,folders:next.folders||S.folders,sort:next.sort||S.sort,sel:null,q:''});
+  const snap={notes:JSON.parse(JSON.stringify(S.notes)),folders:JSON.parse(JSON.stringify(S.folders)),sort:Object.assign({},S.sort),sel:S.sel,xp:+S.xp||0,pick:+S.pick||0};
+  const trial=Object.assign({},S,{notes:next.notes,folders:next.folders||S.folders,sort:next.sort||S.sort,sel:null,q:''},next.prof?{xp:next.prof.xp,pick:next.prof.pick}:{});
   try{localStorage.setItem(KEY,JSON.stringify(trial))}catch(e){playSfx('err');say('空間不足，未匯入，原有資料沒有任何變動。',{lv:'warn'});return false}
-  S.notes=trial.notes;S.folders=trial.folders;curF=null;eyeOpen=true;S.sort=trial.sort;S.sel=null;S.q='';$('sq').value='';ms.clear();
+  S.notes=trial.notes;S.folders=trial.folders;curF=null;eyeOpen=true;S.sort=trial.sort;S.sel=null;S.q='';$('sq').value='';ms.clear();S.xp=trial.xp;S.pick=trial.pick;
   let persisted=false;try{localStorage.setItem(PKEY,JSON.stringify(snap));persisted=true}catch(e){}
   pend={snap,persisted};
   if(!S.notes.length)seedNotes();else{const f=activeList()[0];S.sel=f?f.id:null}
-  save();render();pendMsg();return true;
+  save();render();xpPaint();pendMsg();return true;
 }
 function pendMsg(){
   if(!pend)return;
@@ -1755,11 +1780,11 @@ function impOk(){
   sayOff('imp');playSfx('pick');render();say('已確認，可以繼續編輯了。',{lv:'info',rx:'ok'});
 }
 function impUndo(){
-  if(!pend)return;const sn=pend.snap,k=[S.notes,S.sort,S.sel,S.folders];
-  S.notes=sn.notes;S.folders=sn.folders||[];curF=null;eyeOpen=true;S.sort=sn.sort||S.sort;S.sel=sn.sel;
-  try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){S.notes=k[0];S.sort=k[1];S.sel=k[2];S.folders=k[3];playSfx('err');say('復原失敗：儲存空間不足。',{lv:'warn'});return}
+  if(!pend)return;const sn=pend.snap,k=[S.notes,S.sort,S.sel,S.folders,S.xp,S.pick];
+  S.notes=sn.notes;S.folders=sn.folders||[];curF=null;eyeOpen=true;S.sort=sn.sort||S.sort;S.sel=sn.sel;if(sn.xp!==undefined){S.xp=sn.xp;S.pick=sn.pick}
+  try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){S.notes=k[0];S.sort=k[1];S.sel=k[2];S.folders=k[3];S.xp=k[4];S.pick=k[5];playSfx('err');say('復原失敗：儲存空間不足。',{lv:'warn'});return}
   pend=null;try{localStorage.removeItem(PKEY)}catch(e){}
-  sayOff('imp');ms.clear();playSfx('restore');render();say('已復原到匯入前的資料。',{lv:'info'});
+  sayOff('imp');ms.clear();playSfx('restore');render();xpPaint();say('已復原到匯入前的資料。',{lv:'info'});
 }
 function tick(){const d=new Date();chime(d);$('cd').textContent=`${d.getFullYear()}/${p2(d.getMonth()+1)}/${p2(d.getDate())} 週${'日一二三四五六'[d.getDay()]}`;$('ct').textContent=S.h12?`${d.getHours()<12?'AM':'PM'} ${p2(d.getHours()%12||12)}:${p2(d.getMinutes())}`:`${p2(d.getHours())}:${p2(d.getMinutes())}`}
 tick();setInterval(tick,5000);{const cb=$('ct').parentNode;cb.style.userSelect='none';cb.onclick=()=>{S.h12=!S.h12;save();tick();playSfx('clock')}}chk();setInterval(chk,60000);
@@ -1772,6 +1797,7 @@ R note 是放在瀏覽器裡的純文字筆記本：打開網址就能寫，不�
 
 想讓打字多一點樂趣嗎？
 ．打開神秘的開關（？），打字時會挖到寶石（？），每篇筆記可以計算出自己的「含金量」？
+．檔案櫃裡好像還藏著什麼？（謎）
 ．左上角 R note 的每個字母都可以點點看（難道就是神秘開關？）。
 ．好用的「鎖定打字範圍」功能，動不動就寫出長篇大論的人一定要試試看。
 ．聽說後面還埋藏著讓你專注打字的小遊戲？（謎）
@@ -1787,7 +1813,7 @@ R note 是放在瀏覽器裡的純文字筆記本：打開網址就能寫，不�
 ．清除瀏覽器資料、重灌電腦，筆記會一起消失，找不回來。
 ．無痕視窗關掉就沒了；公用電腦別用。
 ．內容是明文存放，不要記密碼或祕密內容。（暗格只是把筆記藏起來，不是加密）
-．請不要同時開兩個分頁編輯，後存的會蓋掉先存的。
+．建議只開一個分頁編輯。同時開兩個分頁時，一邊寫了字，另一邊會先暫停，按「重新載入」就能看到最新內容，不會互相覆蓋。
 
 右上角的「匯出」按鈕會下載一個備份檔（.json）。建議每週至少匯出備份一次，重要內容寫完就匯出。超過 7 小時沒備份、而且這段時間內容有變動，匯出按鈕會出現小紅點提醒你。備份檔可放進雲端硬碟，或寄給自己。
 
@@ -1830,7 +1856,7 @@ R note 是放在瀏覽器裡的純文字筆記本：打開網址就能寫，不�
 
 【資料夾】
 ．右上角的「＋」新增資料夾，「－」刪除所選的資料夾（裡面的筆記不會消失），刪除行為在幾秒內可搶救復原。
-．最左邊的「檔案櫃」按鈕：進入資料夾後，點它就回到外面。
+．最左邊的「檔案櫃」按鈕：點一下打開檔案櫃總覽，列出所有資料夾和筆記，點任何一篇都能直接開啟；再點一下（或按 Esc）回到筆記。進入資料夾後，點它就回到外面。
 ．點一下資料夾是選取，右邊會列出裡面的筆記，可以直接點開；再點一下才進入資料夾。
 ．把筆記拖到資料夾圖示上就能收進去；在資料夾裡，把筆記拖到「移出資料夾」的虛線框，或拖到「檔案櫃」按鈕，就能移出。
 ．資料夾的順序只能手動拖曳，不受四個排序按鈕影響。
@@ -2321,19 +2347,23 @@ function cabRender(){
 function cabPaintPanel(){
   const p=$('cabp');if(!p||!cabOn())return;const f=xpInfo();
   const av=f.avail>1?'可升 '+f.avail+' 級':f.avail===1?'可以升級了':'';
-  p.innerHTML='<div class="pkb">'+pkSvg(f.lv,96)+'</div><div class="pkr"><div class="lv">Lv.'+f.lv+'</div><div class="xbar'+(f.full&&!f.max?' full':'')+'"><i style="width:'+(f.frac*100).toFixed(1)+'%"></i></div><button class="ib up'+(f.full&&!f.max?' go':'')+'">'+(f.max?'已是最高等級':'升級')+'</button><div class="av">'+av+'</div><label class="chk"><input type="checkbox"'+(L.xb?' checked':'')+'><span>在介面上顯示經驗條</span></label></div>';
+  p.innerHTML='<div class="pkb">'+pkSvg(f.lv,96)+'</div><div class="pkr"><div class="lv">Lv.'+f.lv+'</div><div class="xbar'+(f.full&&!f.max?' full':'')+'" data-tip="'+xpWord(f)+'"><i style="width:'+(f.frac*100).toFixed(1)+'%"></i></div><button class="ib up'+(f.full&&!f.max?' go':'')+'">'+(f.max?'已是最高等級':'升級')+'</button><div class="av">'+av+'</div><label class="chk"><input type="checkbox"'+(L.xb?' checked':'')+'><span>在介面上顯示經驗條</span></label></div>';
   const b=p.querySelector('.up');b.disabled=!(f.full&&!f.max);
   b.onclick=()=>{if(pend){lockMsg();return}if(pickUp()){cabPaintPanel();const k=p.querySelector('.pkb');if(k&&!RM())k.classList.add('bump')}};
   p.querySelector('input').onchange=e=>{L.xb=e.target.checked?1:0;saveL();xpPaint();playSfx('tick')};
 }
 let xpWasFull=false,xpRemPend=false;
-function xpWidth(){const wb=$('wcb'),m=document.querySelector('#ths [data-th=n]'),b=$('xpb');if(!wb||!m||!b)return;const w=Math.round(m.getBoundingClientRect().right-wb.getBoundingClientRect().left);if(w>20)b.style.setProperty('--xw',w+'px')}
+/* 經驗條的模糊提示（1.30）：只說大概，不給數字 */
+function xpWord(f,ui){if(f.max)return '十字鎬已是最高等級';if(f.full)return ui?'可以升級了！到檔案櫃升級十字鎬':'可以升級了！';return '採礦經驗：'+(f.frac<.5?'還早':f.frac<.8?'過半了':'快滿了')}
+function xpWidth(){const wb=$('wcb'),m=document.querySelector('#ths [data-th=n]'),b=$('xpb');if(!wb||!m||!b)return;const w=Math.round(m.getBoundingClientRect().right-wb.getBoundingClientRect().left);if(w>20)wb.style.setProperty('--xw',w+'px');
+  // 視窗太窄、礦石列擠到這裡時，提示熱區讓開，不擋礦石
+  const h=$('xph');if(h){const L0=wb.getBoundingClientRect().left;let r=0;for(const c of $('shelf').children){const q=c.getBoundingClientRect();if(q.width&&q.right>r)r=q.right}h.classList.toggle('nohit',r>L0-4)}}  // --xw 設在外框上，經驗條與提示熱區都吃得到
 window.addEventListener('resize',xpWidth);
-function xpPaint(){
-  if(PH)return;xpWidth();
+function xpPaint(lite){
+  if(PH)return;if(!lite)xpWidth();
   const f=xpInfo(),b=$('xpb'),wb=$('wcb');if(!b||!wb)return;
   wb.classList.toggle('xb',!!L.xb);
-  b.style.setProperty('--xf',(f.frac*100).toFixed(1)+'%');
+  b.style.setProperty('--xf',(f.frac*100).toFixed(1)+'%');{const h=$('xph');if(h)h.dataset.tip=xpWord(f,1)}
   const full=f.full&&!f.max;
   b.classList.toggle('full',full);
   if(full&&!xpWasFull){b.classList.remove('pulse');void b.offsetWidth;b.classList.add('pulse');const t=Date.now();if(!MS.xf||t-MS.xf>3*864e5)xpRemPend=true}
@@ -2342,7 +2372,7 @@ function xpPaint(){
   $('cabb').classList.toggle('dot',full);
   if(cabOn())cabPaintPanel();
 }
-xpHook=xpPaint;
+xpHook=()=>xpPaint(1);  // 挖到礦時只更新比例，不重新量版面
 function xpRemind(){if(!xpRemPend||!booted||cabOn()||!canSay()||Date.now()-A.act<3000)return;xpRemPend=false;MS.xf=Date.now();msSave();say('你的採礦經驗值已滿，記得升級十字鎬。',{lv:'info',hold:9000,rx:'nod',actions:[{label:'去升級',fn:()=>{if(!cabOn())cabToggle()}}]})}
 setInterval(xpRemind,10000);
 try{new ResizeObserver(()=>{if(cabOn())cabSize()}).observe($('cell'))}catch(e){}
@@ -2574,6 +2604,16 @@ const selSoon=()=>{if(selRaf)return;selRaf=requestAnimationFrame(()=>{selRaf=0;s
       say(t,{lv:'warn'});
     }
   };
+})();
+</script>
+<div id="stl"><div id="stls"></div><div id="stlb"><div class="h1">另一個分頁改了你的筆記</div><div class="sb">同一份筆記開在兩個分頁時，為了不互相覆蓋，<br>這個分頁先暫停，重新載入就會看到最新內容。</div><button class="ib" id="stlr">重新載入</button></div></div>
+<script>
+/* 多分頁防護（1.29）：別的分頁寫入筆記資料時，這個分頁停止存檔並鎖住，避免用舊資料蓋掉新資料。 */
+(function(){
+  const lock=()=>{if(stale)return;stale=true;clearTimeout(st);try{ta.blur();ta.readOnly=true}catch(e){}
+    const o=document.getElementById('stl');o.classList.add('on');document.getElementById('stlr').onclick=()=>location.reload()};
+  addEventListener('storage',e=>{if(e.key===KEY||e.key===null)lock()});
+  window.staleLock=lock;
 })();
 </script>
 </body>
