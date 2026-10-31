@@ -341,7 +341,7 @@ html.ph #cabv{display:none!important}
 #cabp{flex:none;width:var(--cpw,320px);box-sizing:border-box;background:var(--p1);border:1px solid var(--ln);border-radius:8px;padding:18px 16px 14px;display:flex;flex-direction:column;align-items:center;overflow:auto;color:var(--tx)}
 .cbh{display:flex;align-items:baseline;gap:10px;height:30px;font-size:14px;margin-bottom:6px}
 .cbh b{font-weight:600;font-size:15px}.cbh i{font-style:normal;color:var(--dm);font-size:12px}
-.pkb{flex:none;width:min(138px,100%);aspect-ratio:1;display:flex;align-items:center;justify-content:center;border:1px solid var(--ln);border-radius:16px;background:var(--p2)}
+.pkb{flex:none;width:min(92px,100%);aspect-ratio:1;display:flex;align-items:center;justify-content:center;border:1px solid var(--ln);border-radius:16px;background:var(--p2)}
 .pkb svg{width:74%;height:74%}
 .pkb.bump{animation:pkbump .5s ease-out}
 @keyframes pkbump{0%{transform:scale(1)}35%{transform:scale(1.1)}100%{transform:scale(1)}}
@@ -362,6 +362,19 @@ html.ph #cabv{display:none!important}
 #cabv.nar #cabp .lv{margin-top:0;text-align:left;font-size:18px}
 #cabv.nar #cabp .av{text-align:left;margin-top:2px}
 #cabv.nar #cabp .chk{display:none}
+#cabp .abr{display:flex;align-items:center;gap:6px;margin-top:12px;font-size:12px;color:var(--dm);width:100%}
+#cabp .abr span{flex:none}
+#cabp .abr .ai{display:inline-flex;width:13px;margin:0 3px 0 4px}
+#cabp .abr select{flex:1;min-width:0;height:28px;border:1px solid var(--ln);border-radius:8px;background:var(--p2);color:var(--tx);font:inherit;font-size:12px;padding:0 6px}
+#cabv.nar #cabp .abr{margin-top:8px}
+#abb .abd{position:absolute;top:3px;right:3px;width:8px;height:8px;border-radius:50%;background:#8a8f98;pointer-events:none}
+#abb[data-s=ok] .abd{background:#3fb27f}
+#abb[data-s=paused] .abd,#abb[data-s=guard] .abd{background:#e0a526;animation:abbl 1.4s ease-in-out infinite}
+#abb[data-s=fail] .abd,#abb[data-s=conflict] .abd{background:#e5534b;animation:abbl 1s ease-in-out infinite}
+#abb.fl .abd{animation:abfl .7s ease-out}
+@keyframes abbl{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.25;transform:scale(.7)}}
+@keyframes abfl{0%{box-shadow:0 0 0 0 rgba(63,178,127,.8)}100%{box-shadow:0 0 0 7px rgba(63,178,127,0)}}
+@media (prefers-reduced-motion:reduce){#abb .abd{animation:none!important}}
 #cabv.nar #cabl{flex:1;min-height:0}
 #cabb{position:relative;min-width:38px;overflow:hidden}
 #cabb.open{border-color:var(--abd)}
@@ -404,7 +417,7 @@ html.ph #xph{display:none!important}
   </div>
   <div id="tr" style="grid-column:3;grid-row:1;align-self:start;display:flex;flex-direction:column;align-items:flex-end;gap:6px">
     <div style="text-align:right;line-height:1.25"><div id="cd" style="font-size:12px;color:var(--dm)"></div><div id="ct" style="font-size:20px;font-weight:600"></div></div>
-    <div class="row"><button class="ib" id="snd" data-tip="音效：無聲"><span data-ic="vol0"></span></button><button class="ib" id="twb" data-tip="鎖定打字範圍"><span data-ic="tw"></span></button><button class="ib" id="dtb" data-tip="插入日期時間"><span data-ic="cal"></span></button><button class="ib" id="cpb" data-tip="複製內文"><span data-ic="copy" id="cpi"></span></button><button class="ib" id="lipb" data-tip="關閉日常訊息"></button><span class="sep"></span><button class="ib" id="exp" data-tip="匯出備份"><span data-ic="out"></span></button><button class="ib" id="imp" data-tip="匯入備份"><span data-ic="inn"></span></button><span class="sep"></span><button class="ib" id="hlp" data-tip="使用說明"><span data-ic="help"></span></button></div>
+    <div class="row"><button class="ib" id="snd" data-tip="音效：無聲"><span data-ic="vol0"></span></button><button class="ib" id="twb" data-tip="鎖定打字範圍"><span data-ic="tw"></span></button><button class="ib" id="dtb" data-tip="插入日期時間"><span data-ic="cal"></span></button><button class="ib" id="cpb" data-tip="複製內文"><span data-ic="copy" id="cpi"></span></button><button class="ib" id="lipb" data-tip="關閉日常訊息"></button><span class="sep"></span><button class="ib" id="exp" data-tip="匯出備份"><span data-ic="out"></span></button><button class="ib" id="imp" data-tip="匯入備份"><span data-ic="inn"></span></button><button class="ib" id="abb" data-tip="" style="display:none"><span data-ic="auto"></span><i class="abd"></i></button><span class="sep"></span><button class="ib" id="hlp" data-tip="使用說明"><span data-ic="help"></span></button></div>
   </div>
   <div class="row" id="r2" style="grid-column:3;grid-row:2"><div class="fld"><span data-ic="search"></span><input id="sq" autocomplete="off"></div><div id="sn" class="row" style="display:none;align-items:center"><span id="sc" style="font-size:13px;color:var(--dm);min-width:40px;text-align:center"></span><button class="ib" id="sp" data-tip="上一個"><span data-ic="up"></span></button><button class="ib" id="sd" data-tip="下一個"><span data-ic="dn"></span></button><button class="ib" id="sx" data-tip="清除搜尋"><span data-ic="x"></span></button></div><div class="row" id="ths"><button class="ib" data-th="d" data-tip="亮色系"><span data-ic="sun"></span></button><button class="ib" data-th="u" data-tip="灰色系"><span data-ic="dusk"></span></button><button class="ib" data-th="n" data-tip="暗色系"><span data-ic="moon"></span></button></div><div id="phbag"></div></div>
   <div id="shelf" style="grid-column:3;grid-row:3;display:flex;align-items:center;gap:6px;min-width:0;overflow:hidden"></div>
@@ -417,13 +430,13 @@ html.ph #xph{display:none!important}
 <canvas id="cv"></canvas><div id="tip"></div><div id="pk"></div>
 <script>
 let gmOn=false,gmCoin=0;
-const VERSION='1.31';const APPNAME='R note';
+const VERSION='1.34';const APPNAME='R note';
 const PROMO_URL='https://line.me/S/shop/sticker/author/123908';
 const PH=(()=>{try{const q=new URLSearchParams(location.search).get('phone');if(q==='1')return true;if(q==='0')return false;return matchMedia('(pointer:coarse)').matches&&!matchMedia('(hover:hover)').matches&&Math.min(screen.width,innerWidth)<=820}catch(e){return false}})();
 document.documentElement.classList.toggle('ph',PH);
 const IS_TW=(()=>{try{return (navigator.languages||[navigator.language]).some(l=>/^zh-(TW|Hant)/i.test(l))||Intl.DateTimeFormat().resolvedOptions().timeZone==='Asia/Taipei'}catch(e){return false}})();
 const KEY='R_note',LK='R_note_layout',ICONS=['📝','⬜','✅','📌','💡','⭐','📕','🔥','❤️','🔒','⚠️','🚧','📋','🛒','🍽️','🎬','🎮','🎁','🔔','💼','📆','🎨','🎵','🛠️','㊙️','🔗','📚','⏰','🏝️','®️'];
-const P={plus:'<path d="M12 5v14M5 12h14"/>',search:'<circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5L21 21"/>',clock:'<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',hand:'<path d="M8 13V6a1.5 1.5 0 0 1 3 0v5M11 11V4.5a1.5 1.5 0 0 1 3 0V11M14 11V6a1.5 1.5 0 0 1 3 0v8a6 6 0 0 1-6 6h-1a6 6 0 0 1-5-2.7L3.5 13.5a1.5 1.5 0 0 1 2.5-1.6L8 14"/>',abc:'<path d="M3 17l4-10 4 10M4.7 13h4.6M15 8h6M15 12h6M15 16h6"/>',tag:'<path d="M4 4h7l9 9-7 7-9-9zM8 8h.01"/>',up:'<path d="M7 15l5-7 5 7z"/>',dn:'<path d="M7 9l5 7 5-7z"/>',cpp:'<path d="M9 4h6v3H9zM7 5H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-1M12 11v6M9 14h6"/>',out:'<path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8zM14 3v5h5M12 18v-6M9.5 14.5L12 12l2.5 2.5"/>',inn:'<path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8zM14 3v5h5M12 12v6M9.5 15.5L12 18l2.5-2.5"/>',cal:'<path d="M4 6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zM4 10h16M8 3v3M16 3v3M12 13v3l2 1"/>',copy:'<path d="M9 9h10a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1V10a1 1 0 0 1 1-1zM5 15H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v1"/>',trash:'<path d="M4 7h16M10 11v6M14 11v6M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2l1-12M9 7V4h6v3"/>',R:'<path d="M7 20V4h5a4.5 4.5 0 0 1 0 9H7M12 13l5 7"/>',x:'<path d="M6 6l12 12M18 6L6 18"/>',ok:'<path d="M5 12l5 5 9-10"/>',lock:'<rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/>'};
+const P={plus:'<path d="M12 5v14M5 12h14"/>',search:'<circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5L21 21"/>',clock:'<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',hand:'<path d="M8 13V6a1.5 1.5 0 0 1 3 0v5M11 11V4.5a1.5 1.5 0 0 1 3 0V11M14 11V6a1.5 1.5 0 0 1 3 0v8a6 6 0 0 1-6 6h-1a6 6 0 0 1-5-2.7L3.5 13.5a1.5 1.5 0 0 1 2.5-1.6L8 14"/>',abc:'<path d="M3 17l4-10 4 10M4.7 13h4.6M15 8h6M15 12h6M15 16h6"/>',tag:'<path d="M4 4h7l9 9-7 7-9-9zM8 8h.01"/>',up:'<path d="M7 15l5-7 5 7z"/>',dn:'<path d="M7 9l5 7 5-7z"/>',cpp:'<path d="M9 4h6v3H9zM7 5H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-1M12 11v6M9 14h6"/>',auto:'<path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8zM14 3v5h5M9.6 18.2L12 11.8l2.4 6.4M10.4 16.3h3.2"/>',out:'<path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8zM14 3v5h5M12 18v-6M9.5 14.5L12 12l2.5 2.5"/>',inn:'<path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8zM14 3v5h5M12 12v6M9.5 15.5L12 18l2.5-2.5"/>',cal:'<path d="M4 6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zM4 10h16M8 3v3M16 3v3M12 13v3l2 1"/>',copy:'<path d="M9 9h10a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1V10a1 1 0 0 1 1-1zM5 15H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v1"/>',trash:'<path d="M4 7h16M10 11v6M14 11v6M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2l1-12M9 7V4h6v3"/>',R:'<path d="M7 20V4h5a4.5 4.5 0 0 1 0 9H7M12 13l5 7"/>',x:'<path d="M6 6l12 12M18 6L6 18"/>',ok:'<path d="M5 12l5 5 9-10"/>',lock:'<rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/>'};
 P.sun='<path d="M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8zM12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>';P.dusk='<path d="M5 16a7 7 0 0 1 14 0M3 19h18M12 5v2M5.6 8.6l1.4 1.4M18.4 8.6L17 10M2 16h2M20 16h2"/>';P.moon='<path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/>';
 P.rbo='<path d="M3.5 21.2V13.7Q3.5 9.2 8 9.2H16Q20.5 9.2 20.5 13.7V21.2Z"/><path d="M8 9.2V6.6"/><path d="M8.8 13.8v3M15.2 13.8v3"/><circle cx="8" cy="4.9" r="1.7" fill="#4fd17a" stroke="none"/>';P.rbx='<path d="M3.5 21.2V13.7Q3.5 9.2 8 9.2H16Q20.5 9.2 20.5 13.7V21.2Z"/><path d="M8 9.2V6.6"/><path d="M7.2 15.7h3M13.8 15.7h3"/><circle cx="8" cy="4.9" r="1.7" fill="#8a93a6" stroke="none"/><path d="M17.6 1.6h3l-3 3.2h3" stroke-width="1.4"/>';P.lips='<path d="M3 12C5 9.2 8 8.4 10.6 9.4C11.4 9.7 12 10.3 12 10.3C12 10.3 12.6 9.7 13.4 9.4C16 8.4 19 9.2 21 12C19 15.4 15.5 17.4 12 17.4C8.5 17.4 5 15.4 3 12Z"/><path d="M3 12C7 13.6 17 13.6 21 12"/>';P.lipx=P.lips+'<path d="M4.5 4.5L19.5 19.5"/>';
 P.help='<circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.6 2.2c-.7.4-1.1 1-1.1 1.8M12 17h.01"/>';
@@ -436,6 +449,9 @@ document.querySelectorAll('[data-ic]').forEach(e=>e.innerHTML=sv(e.dataset.ic,+e
 let S={notes:[],sort:{k:'custom',dir:'asc'},sel:null,q:'',born:Date.now(),lastExport:0},L={sw:314,ah:60,cl:0};
 let HAD=false;  // 這台瀏覽器以前用過（有舊資料）
 try{const s=JSON.parse(localStorage.getItem(KEY)||localStorage.getItem('plain-notes-v1'));if(s&&Array.isArray(s.notes)){Object.assign(S,s);HAD=true}}catch(e){}
+/* 自動備份的小設定（1.32）：放在自己的 key，寫入它不會觸發筆記存檔 */
+const ABK='R_note_ab';let ABM={};try{ABM=JSON.parse(localStorage.getItem(ABK)||'{}')||{}}catch(e){}
+const abMetaSave=()=>{try{localStorage.setItem(ABK,JSON.stringify(ABM))}catch(e){}};
 try{const l=JSON.parse(localStorage.getItem(LK)||localStorage.getItem('plain-notes-layout-v1'));if(l)Object.assign(L,l)}catch(e){}
 if(L.sw===276&&!L.w314){L.sw=314;L.w314=1}L.cl=L.cl?1:0;
 /* 1.31：光色重新排序。舊使用者存的是「第幾個系列」，用顏色名字對回新的位置；新使用者直接用新順序。 */
@@ -453,7 +469,7 @@ const isRO=n=>!!(pend||(n&&n.ro));
 let ms=new Set(),anchor=null,mzone='a',dragIds=[];
 let fxPrev=0,fxHint=null,comp=false,vaultOn=false,GC='210,210,210',HEAD='#fff';
 const inBot=n=>vaultOn?!!n.vault:(!!n.archived&&!n.vault);
-let st,stale=false;const save=()=>{if(stale)return;clearTimeout(st);st=setTimeout(()=>{if(stale)return;try{localStorage.setItem(KEY,JSON.stringify(S));if(SM.list.length)sayOff('store')}catch(e){if(!save.w||Date.now()-save.w>15000){save.w=Date.now();toast('儲存空間已滿或無法寫入，請先匯出備份。',5000)}}},200)};
+let st,stale=false;const save=()=>{if(stale)return;clearTimeout(st);st=setTimeout(()=>{if(stale)return;try{localStorage.setItem(KEY,JSON.stringify(S));if(SM.list.length)sayOff('store');if(window.abKick)abKick()}catch(e){if(!save.w||Date.now()-save.w>15000){save.w=Date.now();toast('儲存空間已滿或無法寫入，請先匯出備份。',5000)}}},200)};
 const saveL=()=>{try{localStorage.setItem(LK,JSON.stringify(L))}catch(e){}};
 const byId=id=>S.notes.find(n=>n.id===id);
 const p2=x=>String(x).padStart(2,'0');
@@ -612,11 +628,12 @@ function bar(el,mv){el.onmousedown=e=>{e.preventDefault();const m=ev=>mv(ev),u=(
 bar($('vs'),e=>{L.sw=Math.max(180,Math.min(innerWidth-380,e.clientX-12-4));layout()});
 bar($('dv'),e=>{const r=$('lst').getBoundingClientRect();L.ah=Math.max(10,Math.min(90,(e.clientY-$('top').getBoundingClientRect().top)/r.height*100));layout()});
 $('vs').ondblclick=()=>{L.sw=314;layout();saveL()};$('dv').ondblclick=()=>{L.ah=60;layout();saveL()};
-function bkDirty(){const t=S.lastExport||S.born;return S.notes.some(n=>(n.modified||0)>t||(n.created||0)>t)||S.notes.length!==(S.bkN===undefined?S.notes.length:S.bkN)||S.folders.length!==(S.bkF===undefined?S.folders.length:S.bkF)}
-function chk(){const h=Math.floor((Date.now()-(S.lastExport||S.born))/36e5),b=$('exp'),on=h>=7&&bkDirty(),was=b.classList.contains('dot');b.classList.toggle('dot',on);if(on&&!was){b.classList.remove('pls');void b.offsetWidth;b.classList.add('pls')}if(!on)b.classList.remove('pls');b.dataset.tip=on?`資料未備份長達 ${h} 小時`:'匯出備份'}
+function bkDirty(){const t=Math.max(S.lastExport||0,ABM.last||0)||S.born;return S.notes.some(n=>(n.modified||0)>t||(n.created||0)>t)||S.notes.length!==(S.bkN===undefined?S.notes.length:S.bkN)||S.folders.length!==(S.bkF===undefined?S.folders.length:S.bkF)}
+function chk(){const h=Math.floor((Date.now()-(Math.max(S.lastExport||0,ABM.last||0)||S.born))/36e5),b=$('exp'),on=h>=7&&bkDirty(),was=b.classList.contains('dot');b.classList.toggle('dot',on);if(on&&!was){b.classList.remove('pls');void b.offsetWidth;b.classList.add('pls')}if(!on)b.classList.remove('pls');b.dataset.tip=on?`資料未備份長達 ${h} 小時`:'匯出備份'}
+function buildExport(d){return{app:'R_note',version:2,appVersion:VERSION,exported:d.toISOString(),profile:{xp:+S.xp||0,pick:+S.pick||0},notes:S.notes,folders:S.folders,sort:S.sort}}
 $('exp').onclick=()=>{
   const d=new Date(),a=document.createElement('a');
-  a.href=URL.createObjectURL(new Blob([JSON.stringify({app:'R_note',version:2,appVersion:VERSION,exported:d.toISOString(),profile:{xp:+S.xp||0,pick:+S.pick||0},notes:S.notes,folders:S.folders,sort:S.sort},null,2)],{type:'application/json;charset=utf-8'}));
+  a.href=URL.createObjectURL(new Blob([JSON.stringify(buildExport(d),null,2)],{type:'application/json;charset=utf-8'}));
   a.download=`R_note_backup_${d.getFullYear()}${p2(d.getMonth()+1)}${p2(d.getDate())}_${p2(d.getHours())}${p2(d.getMinutes())}.json`;a.click();URL.revokeObjectURL(a.href);
   S.lastExport=Date.now();S.bkN=S.notes.length;S.bkF=S.folders.length;save();chk();
 };
@@ -887,7 +904,7 @@ document.addEventListener('mousemove',e=>{
   if(PH)return;
   mx=e.clientX;my=e.clientY;
   const t=e.target.closest?e.target.closest('[data-tip]'):null;
-  if(t!==tcur){hideTip();tcur=t;if(t)tt=setTimeout(()=>{if(!tcur||!tcur.isConnected)return;if(tcur.classList.contains('item')&&tcur.dataset.id){const nn=byId(tcur.dataset.id);if(nn)tcur.dataset.tip=itemTip(nn)}tip.textContent=tcur.dataset.tip;tip.style.display='block';placeTip()},200)}
+  if(t!==tcur){hideTip();tcur=t;if(t)tt=setTimeout(()=>{if(!tcur||!tcur.isConnected)return;if(tcur.id==='abb')tcur.dataset.tip=abTip();if(tcur.classList.contains('item')&&tcur.dataset.id){const nn=byId(tcur.dataset.id);if(nn)tcur.dataset.tip=itemTip(nn)}tip.textContent=tcur.dataset.tip;tip.style.display='block';placeTip()},200)}
   else if(tip.style.display==='block'){if(tcur&&!tcur.isConnected){hideTip();tcur=null}else placeTip()}
 });
 document.addEventListener('mousedown',hideTip);
@@ -1790,13 +1807,15 @@ function pendMsg(){
 function impOk(){
   if(!pend)return;pend=null;try{localStorage.removeItem(PKEY)}catch(e){}
   sayOff('imp');playSfx('pick');render();say('已確認，可以繼續編輯了。',{lv:'info',rx:'ok'});
+  if(AB.later){AB.later=0;setTimeout(()=>say('想開始自動備份的話，再點一次右上角的「自動備份」按鈕，選同一個檔案。',{lv:'info',hold:9000}),2500)}
+  if(AB.st==='conflict'&&AB.impEx){ABM.last=Math.max(ABM.last||0,AB.impEx);abMetaSave();abEnable()}   // 已經匯入過那份備份，就不再算「比這台新」
 }
 function impUndo(){
   if(!pend)return;const sn=pend.snap,k=[S.notes,S.sort,S.sel,S.folders,S.xp,S.pick];
   S.notes=sn.notes;S.folders=sn.folders||[];curF=null;eyeOpen=true;S.sort=sn.sort||S.sort;S.sel=sn.sel;if(sn.xp!==undefined){S.xp=sn.xp;S.pick=sn.pick}
   try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){S.notes=k[0];S.sort=k[1];S.sel=k[2];S.folders=k[3];S.xp=k[4];S.pick=k[5];playSfx('err');say('復原失敗：儲存空間不足。',{lv:'warn'});return}
   pend=null;try{localStorage.removeItem(PKEY)}catch(e){}
-  sayOff('imp');ms.clear();playSfx('restore');render();xpPaint();say('已復原到匯入前的資料。',{lv:'info'});
+  AB.later=0;sayOff('imp');ms.clear();playSfx('restore');render();xpPaint();say('已復原到匯入前的資料。',{lv:'info'});
 }
 function tick(){const d=new Date();chime(d);$('cd').textContent=`${d.getFullYear()}/${p2(d.getMonth()+1)}/${p2(d.getDate())} 週${'日一二三四五六'[d.getDay()]}`;$('ct').textContent=S.h12?`${d.getHours()<12?'AM':'PM'} ${p2(d.getHours()%12||12)}:${p2(d.getMinutes())}`:`${p2(d.getHours())}:${p2(d.getMinutes())}`}
 tick();setInterval(tick,5000);{const cb=$('ct').parentNode;cb.style.userSelect='none';cb.onclick=()=>{S.h12=!S.h12;save();tick();playSfx('clock')}}chk();setInterval(chk,60000);
@@ -1829,6 +1848,13 @@ R note 是放在瀏覽器裡的純文字筆記本：打開網址就能寫，不�
 
 右上角的「匯出」按鈕會下載一個備份檔（.json）。建議每週至少匯出備份一次，重要內容寫完就匯出。超過 7 小時沒備份、而且這段時間內容有變動，匯出按鈕會出現小紅點提醒你。備份檔可放進雲端硬碟，或寄給自己。
 
+在電腦版 Chrome 或 Edge，還能用「自動備份」：匯入按鈕右邊的「自動備份」按鈕（圖示是白紙加一個 A）。先指定一個檔案，之後有變動，就會自動把整份資料存進那個檔案。
+．按鈕右上角的小點是狀態：灰＝未啟用、綠＝運作中、黃色閃爍＝暫停了（點一下，選「繼續」）、紅色閃爍＝失敗或需要處理（點一下看原因）。
+．預設每 5 分鐘最多備份一次，可以在檔案櫃右邊的資訊板改成即時、15 分鐘或 1 小時。備份檔會比你手上的資料慢一點，所以手滑亂刪的話，備份檔裡還是舊的樣子，可以用「匯入」救回來。
+．指定檔案時，如果裡面已經有別的資料，會先問你要不要先匯入；筆記突然變很少時，會先暫停，問你要不要照樣備份。
+．想放棄就點按鈕選「停止自動備份」，已存好的備份檔不會被刪除。
+．自動備份只有一份最新的、不會保留舊版本，所以仍建議偶爾手動匯出。
+
 
 【基本操作】
 新增筆記
@@ -1852,7 +1878,8 @@ R note 是放在瀏覽器裡的純文字筆記本：打開網址就能寫，不�
 ．搜尋框輸入關鍵字，按 Enter，只留下符合的筆記（封存區也搜得到）。
 
 主題配色
-．搜尋框右邊的三顆天色按鈕，可依個人喜好切換適合的色調。
+．搜尋框右邊的三顆按鈕（亮色系、灰色系、暗色系），可依個人喜好切換適合的色調。
+．同一顆按鈕連續點，會換成同色系的下一組（每個色系有 6 組），按鈕右上角會閃一下目前是第幾組。
 
 唯讀
 ．內文上方、「總字數」旁邊的鉛筆按鈕，可以把這則筆記鎖成唯讀；在內文點兩下可解鎖唯讀狀態。
@@ -1886,14 +1913,16 @@ R note 是放在瀏覽器裡的純文字筆記本：打開網址就能寫，不�
 
 
 【右上角的按鈕】
-由左到右：音效（無聲／大聲／小聲）、鎖定打字範圍、插入日期時間、複製內文、機器人（關閉後僅提示系統必要訊息）、匯出備份、匯入備份、使用說明（？）。
+由左到右：音效（無聲／大聲／小聲）、鎖定打字範圍、插入日期時間、複製內文、機器人（關閉後僅提示系統必要訊息）、匯出備份、匯入備份、自動備份（A，僅 Chrome／Edge 電腦版）、使用說明（？）。
 
 
 【匯入與搬家】
 ．按匯入，選備份檔，有兩個選項：「取代現有筆記」或「追加為新筆記」（追加的會標上 ⚠，方便檢查）。
 ．取代現有筆記時，唯讀的筆記也會被取代。
 ．匯入後先瀏覽，沒問題按「確認無誤」，不對勁就按「復原之前的資料」。確認之前，筆記只能看、不能改。
-．要搬到另一台電腦：舊的匯出，新的匯入。
+．匯入視窗會告訴你備份存於什麼時間，以及按「取代」之後，現有的幾篇筆記會消失。
+．自動備份的檔案就是備份檔，也可以匯入；手動匯出的檔案也能被指定成自動備份的檔案（會被新內容蓋掉）。
+．要搬到另一台電腦：舊的匯出，新的匯入。到新電腦請先匯入，再指定自動備份，免得空的資料蓋掉備份檔。
 
 
 【更新與單機版】
@@ -1959,17 +1988,22 @@ function helpOpen(){
 }
 $('hlp').onclick=helpOpen;
 function importDialog(j,clean,newer,g2){
+  AB.impEx=Date.parse(j.exported)||0;
   const sNow=JSON.stringify(S.notes).length,sImp=JSON.stringify(clean).length,tt=new Set(S.notes.map(n=>n.title));
   const fresh=clean.filter(n=>!tt.has(n.title)),same=clean.length-fresh.length,sFresh=JSON.stringify(fresh).length,mb=x=>(x/1048576).toFixed(1);
   const okR=sImp<IMPLIM,okA=sNow+sImp<IMPLIM,okN=sNow+sFresh<IMPLIM,warn=[];
   if(!clean.length)warn.push('備份是空的，「取代」會清空現有的所有筆記。');
+  const ex=Date.parse(j.exported)||0,mod=Math.max(0,...S.notes.map(n=>n.modified||0)),ct=new Set(clean.map(n=>n.title)),lost=S.notes.filter(n=>!n.hv&&!ct.has(n.title)).length;
+  if(ex&&mod&&ex<mod)warn.push('這份備份比你這台最後修改的時間舊。');
+  if(lost>0&&clean.length)warn.push('按「取代」之後，你現有的 '+S.notes.filter(n=>!n.hv).length+' 篇筆記中，有 '+lost+' 篇不在備份裡，會消失。');
+  const exInfo=ex?'<div style="color:var(--dm);font-size:13px;margin-bottom:4px">備份存於 '+abTime(ex)+(mod?'；你這台最後修改：'+abTime(mod):'')+'</div>':'';
   if(!okR)warn.push('備份檔太大，超出瀏覽器可儲存的範圍，無法匯入。');
   else if(!okA)warn.push('合併後會超出瀏覽器可儲存的範圍，無法「追加」全部。');
   else if(sNow+sImp>IMPLIM*.8)warn.push('合併後接近瀏覽器儲存上限，建議先整理或刪除不需要的筆記。');
   const o=document.createElement('div');
   o.style.cssText='position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:90;display:flex;align-items:center;justify-content:center;padding:16px';
   const b='padding:8px 14px;border-radius:8px;border:1px solid var(--ln);background:var(--p2);color:var(--tx);cursor:pointer;font:inherit',bd=ok=>ok?b:b+';opacity:.4;cursor:default';
-  o.innerHTML=`<div style="background:var(--p1);color:var(--tx);border:1px solid var(--ln);border-radius:12px;padding:18px 20px;width:min(460px,100%);font-size:14px;line-height:1.7"><div style="font-size:16px;font-weight:600;margin-bottom:6px">匯入方式</div><div style="color:var(--dm);margin-bottom:4px">備份內容：${clean.length} 則筆記　版本 ${j.appVersion||'舊版'}${newer?'（比目前新，部分資料可能無法顯示）':''}</div><div style="color:var(--dm);font-size:13px;margin-bottom:8px">標題與目前相同：${same} 則；全新：${fresh.length} 則。目前資料約 ${mb(sNow)} MB，備份約 ${mb(sImp)} MB（瀏覽器上限約 5 MB）。</div>${warn.length?`<div style="color:var(--dg);font-size:13px;margin-bottom:8px">${warn.join('<br>')}</div>`:''}<div style="margin:10px 0 4px"><button id="imR" ${okR?'':'disabled'} style="${bd(okR)}">取代現有筆記</button></div><div style="color:var(--dm);font-size:13px">目前所有內容會被備份檔取代。匯入後，你還有一次機會確認或復原。</div><div style="margin:14px 0 4px"><button id="imA" ${okA?'':'disabled'} style="${bd(okA)}">追加為新筆記</button></div><div style="color:var(--dm);font-size:13px">可能出現重複的標題或內容。追加的筆記會標上 ⚠，標題相同時會加上「_新匯入」，方便檢查整理；封存區與暗格的筆記維持原位。</div><label style="display:flex;align-items:center;gap:6px;margin:8px 0 8px;font-size:13px"><input type="checkbox" id="imS" checked> 略過標題與內容都完全相同的筆記</label>${same&&fresh.length?`<div style="margin:6px 0 10px"><button id="imN" ${okN?'':'disabled'} style="${bd(okN)}">只追加標題全新的筆記（${fresh.length} 則）</button></div>`:''}<div style="text-align:right"><button id="imC" style="${b}">取消</button></div></div>`;
+  o.innerHTML=`<div style="background:var(--p1);color:var(--tx);border:1px solid var(--ln);border-radius:12px;padding:18px 20px;width:min(460px,100%);font-size:14px;line-height:1.7"><div style="font-size:16px;font-weight:600;margin-bottom:6px">匯入方式</div><div style="color:var(--dm);margin-bottom:4px">備份內容：${clean.length} 則筆記　版本 ${j.appVersion||'舊版'}${newer?'（比目前新，部分資料可能無法顯示）':''}</div>${exInfo}<div style="color:var(--dm);font-size:13px;margin-bottom:8px">標題與目前相同：${same} 則；全新：${fresh.length} 則。目前資料約 ${mb(sNow)} MB，備份約 ${mb(sImp)} MB（瀏覽器上限約 5 MB）。</div>${warn.length?`<div style="color:var(--dg);font-size:13px;margin-bottom:8px">${warn.join('<br>')}</div>`:''}<div style="margin:10px 0 4px"><button id="imR" ${okR?'':'disabled'} style="${bd(okR)}">取代現有筆記</button></div><div style="color:var(--dm);font-size:13px">目前所有內容會被備份檔取代。匯入後，你還有一次機會確認或復原。</div><div style="margin:14px 0 4px"><button id="imA" ${okA?'':'disabled'} style="${bd(okA)}">追加為新筆記</button></div><div style="color:var(--dm);font-size:13px">可能出現重複的標題或內容。追加的筆記會標上 ⚠，標題相同時會加上「_新匯入」，方便檢查整理；封存區與暗格的筆記維持原位。</div><label style="display:flex;align-items:center;gap:6px;margin:8px 0 8px;font-size:13px"><input type="checkbox" id="imS" checked> 略過標題與內容都完全相同的筆記</label>${same&&fresh.length?`<div style="margin:6px 0 10px"><button id="imN" ${okN?'':'disabled'} style="${bd(okN)}">只追加標題全新的筆記（${fresh.length} 則）</button></div>`:''}<div style="text-align:right"><button id="imC" style="${b}">取消</button></div></div>`;
   document.body.appendChild(o);
   const close=()=>o.remove();
   o.querySelector('#imC').onclick=close;o.addEventListener('mousedown',e=>{if(e.target===o)close()});
@@ -2362,23 +2396,141 @@ function cabRender(){
 function cabPaintPanel(){
   const p=$('cabp');if(!p||!cabOn())return;const f=xpInfo();
   const av=f.avail>1?'可升 '+f.avail+' 級':f.avail===1?'可以升級了':'';
-  p.innerHTML='<div class="pkb">'+pkSvg(f.lv,96)+'</div><div class="pkr"><div class="lv">Lv.'+f.lv+'</div><div class="xbar'+(f.full&&!f.max?' full':'')+'" data-tip="'+xpWord(f)+'"><i style="width:'+(f.frac*100).toFixed(1)+'%"></i></div><button class="ib up'+(f.full&&!f.max?' go':'')+'">'+(f.max?'已是最高等級':'升級')+'</button><div class="av">'+av+'</div><label class="chk"><input type="checkbox"'+(L.xb?' checked':'')+'><span>在介面上顯示經驗條</span></label></div>';
+  p.innerHTML='<div class="pkb">'+pkSvg(f.lv,96)+'</div><div class="pkr"><div class="lv">Lv.'+f.lv+'</div><div class="xbar'+(f.full&&!f.max?' full':'')+'" '+(xpWord(f)?' data-tip="'+xpWord(f)+'"':'')+'><i style="width:'+(f.frac*100).toFixed(1)+'%"></i></div><button class="ib up'+(f.full&&!f.max?' go':'')+'">'+(f.max?'已是最高等級':'升級')+'</button><div class="av">'+av+'</div><label class="chk"><input type="checkbox"'+(L.xb?' checked':'')+'><span>在介面上顯示經驗條</span></label>'+'</div>';
   const b=p.querySelector('.up');b.disabled=!(f.full&&!f.max);
   b.onclick=()=>{if(pend){lockMsg();return}if(pickUp()){cabPaintPanel();const k=p.querySelector('.pkb');if(k&&!RM())k.classList.add('bump')}};
   p.querySelector('input').onchange=e=>{L.xb=e.target.checked?1:0;saveL();xpPaint();playSfx('tick')};
+  if(AB.sup){const r=document.createElement('div'),iv=ABM.iv===undefined?300:ABM.iv;r.className='abr';
+    r.innerHTML='<span class="ai">'+sv('auto',14)+'</span><span>自動備份間隔</span><select>'+[[0,'即時（停手約 4 秒）'],[300,'5 分鐘'],[900,'15 分鐘'],[3600,'1 小時']].map(o=>'<option value="'+o[0]+'"'+(o[0]===iv?' selected':'')+'>'+o[1]+'</option>').join('')+'</select>';
+    r.dataset.tip='每隔這麼久最多備份一次（有變動才寫）。\n間隔越長，備份檔越慢跟上；剛手滑亂改時，備份檔裡還是舊的樣子。';
+    p.querySelector('.pkr').appendChild(r);
+    r.querySelector('select').onchange=e=>{ABM.iv=+e.target.value;abMetaSave();abKick();playSfx('tick')}}
 }
 /* 1.31：第一次使用的人，機器人輕輕問一句要不要挑色調。舊使用者不會看到；開始打字就自動淡出；沒選過最多再問一次。 */
 const thBusy=()=>SM.list.some(m=>(m.id==='thm'||m.id==='ths')&&!m.leaving);  // 選色調的提示還在時，新手教學先等一下
 function thAsk(){
   if(PH||S.thSeen||(S.thAsk||0)>=2||pend||!canSay())return;
   S.thAsk=(S.thAsk||0)+1;save();
-  const pick=t=>()=>{S.th=t;S.thSeen=1;save();applyTh();sayOff('thm');setTimeout(()=>say('想換別的樣子？點右上角同一顆，還有 6 種。',{lv:'info',id:'ths',hold:7000,rx:'nod'}),800)};  // 選完，這句才出現（指的是右上角真正的光色按鈕）
+  const pick=t=>()=>{S.th=t;S.thSeen=1;save();applyTh();sayOff('thm');setTimeout(()=>say('想換別的顏色？右上角光色按鈕連續點同一顆試試看。',{lv:'info',id:'ths',hold:7000,rx:'nod'}),800)};  // 選完，這句才出現（指的是右上角真正的光色按鈕）
   say('先挑個看得舒服的色調吧。',{lv:'info',id:'thm',hold:30000,rx:'nod',actions:[{label:'亮色系',fn:pick('d')},{label:'灰色系',fn:pick('u')},{label:'暗色系',fn:pick('n')}]});
 }
 ta.addEventListener('input',()=>{if(!S.thSeen)sayOff('thm')});
+/* ===== 自動備份（1.32 原型） =====
+   筆記照舊存在瀏覽器；另外把整份資料自動鏡像寫到使用者指定的一個檔案（Chrome／Edge 才有）。
+   狀態只有：none 未啟用、ok 運作中、paused 暫停中（要點一下授權）、fail 失敗、conflict 備份檔比這台新。
+   只有真的寫成功才算 ok；任何時候都不會偷偷彈瀏覽器視窗，授權詢問一定由使用者點按鈕觸發。 */
+const AB={st:'none',h:null,busy:false,again:false,t:0,fails:0,sup:!PH&&typeof window.showSaveFilePicker==='function',said:{}};
+const ABS=window.R_AB_STORE||{
+  open(){return new Promise((res,rej)=>{const r=indexedDB.open('R_note_fs',1);r.onupgradeneeded=()=>r.result.createObjectStore('h');r.onsuccess=()=>res(r.result);r.onerror=()=>rej(r.error)})},
+  async save(h){const db=await this.open();return new Promise((res,rej)=>{const tx=db.transaction('h','readwrite');tx.objectStore('h').put(h,'backup');tx.oncomplete=()=>res();tx.onerror=()=>rej(tx.error)})},
+  async load(){const db=await this.open();return new Promise((res,rej)=>{const q=db.transaction('h').objectStore('h').get('backup');q.onsuccess=()=>res(q.result||null);q.onerror=()=>rej(q.error)})},
+  async clear(){const db=await this.open();return new Promise((res,rej)=>{const tx=db.transaction('h','readwrite');tx.objectStore('h').delete('backup');tx.oncomplete=()=>res();tx.onerror=()=>rej(tx.error)})}
+};
+function abSet(st){AB.st=st;abPaintBtn();chk()}
+function abSayOnce(k,fn){if(AB.said[k])return;AB.said[k]=1;fn()}
+const abTime=t=>{const d=new Date(t),n=new Date(),hm=p2(d.getHours())+':'+p2(d.getMinutes());return d.toDateString()===n.toDateString()?hm:(d.getMonth()+1)+'/'+d.getDate()+' '+hm};
+const abAgo=t=>{if(!t)return '尚未備份';const d=Math.max(0,Math.floor((Date.now()-t)/1000));if(d<10)return '剛剛';if(d<60)return d+' 秒前';if(d<3600)return Math.floor(d/60)+' 分鐘前';if(d<86400)return Math.floor(d/3600)+' 小時前';return abTime(t)};
+function abTip(){return({none:'自動備份：未啟用\n點一下，指定備份位置',
+  ok:'自動備份：運作中・上次 '+abAgo(ABM.last)+'\n點一下可停止',
+  paused:'自動備份：暫停中\n點一下，選擇繼續或停止',
+  fail:'自動備份：失敗\n筆記仍安全存在瀏覽器裡\n點一下，選擇重新指定或停止',
+  conflict:'自動備份：已暫停\n備份檔比這台電腦新（可能在別台更新過）\n點一下，選擇重新指定或停止',
+  guard:'自動備份：先暫停\n筆記突然變少了\n點一下，選擇照樣備份或停止'})[AB.st]||''}
+function abPaintBtn(){
+  const b=$('abb');if(!b)return;
+  b.style.display=AB.sup?'':'none';b.dataset.s=AB.st;
+  b.classList.toggle('on',AB.st==='ok'||AB.st==='paused'||AB.st==='guard');
+  b.dataset.tip=abTip();
+  if(typeof tcur!=='undefined'&&tcur===b&&tip.style.display==='block')tip.textContent=b.dataset.tip}
+function abClick(){
+  if(AB.st==='ok'){say('自動備份運作中，上次備份：'+abAgo(ABM.last)+'。',{lv:'info',id:'abi',hold:8000,actions:[{label:'現在備份',fn:abNow},{label:'停止自動備份',fn:abStop}]})}
+  else if(AB.st==='none')abPick();
+  else if(AB.st==='guard')say('筆記突然變少了，自動備份先暫停。要照樣備份嗎？',{lv:'info',id:'abi',hold:15000,actions:[{label:'照樣備份',fn:abForce},{label:'停止自動備份',fn:abStop}]});
+  else if(AB.st==='paused')say('自動備份暫停中，要繼續嗎？',{lv:'info',id:'abi',hold:12000,actions:[{label:'繼續',fn:abResume},{label:'停止自動備份',fn:abStop}]});
+  else say(AB.st==='conflict'?'備份檔比這台電腦新，為了不蓋掉它，已暫停。':'自動備份失敗了，筆記仍安全存在瀏覽器裡。',{lv:'info',id:'abi',hold:12000,actions:[{label:'重新指定檔案',fn:abPick},{label:'停止自動備份',fn:abStop}]})}
+function abKick(){   // 每隔 n 分鐘最多寫一次；間隔內的變動先等著（也就是備份檔比手上資料慢一點，給你後悔的空間）
+  if(AB.st!=='ok')return;clearTimeout(AB.t);
+  const iv=(ABM.iv===undefined?300:ABM.iv)*1000;AB.t=setTimeout(abWrite,Math.max(4000,(ABM.last||0)+iv-Date.now()))}
+async function abNow(){sayOff('abi');if(AB.st!=='ok')return;clearTimeout(AB.t);const t0=ABM.last||0;await abWrite();if(AB.st==='ok'&&(ABM.last||0)>t0)say('已備份。',{lv:'info',hold:3000})}
+async function abForce(){sayOff('abg');sayOff('abi');AB.force=1;abSet('ok');await abWrite();AB.force=0}
+async function abWrite(){
+  if(AB.st!=='ok'||!AB.h||stale)return;
+  if(AB.busy){AB.again=true;return}
+  {const nN=S.notes.length,pn=ABM.n||0;   // 筆記突然變很少：先不寫，免得把手滑的狀態存進去
+   if(!AB.force&&pn>0&&(nN===0||(pn>=4&&nN<=pn*.5))){abSet('guard');abSayOnce('guard',()=>say('筆記突然少了很多（'+pn+' 則變成 '+nN+' 則），自動備份先暫停，避免把這個狀態存進去。',{lv:'warn',id:'abg',hold:25000,actions:[{label:'照樣備份',fn:abForce},{label:'停止自動備份',fn:abStop}]}));return}}
+  AB.busy=true;
+  try{
+    const d=new Date(),txt=JSON.stringify(buildExport(d),null,2),w=await AB.h.createWritable();
+    await w.write(txt);await w.close();
+    ABM.last=d.getTime();ABM.n=S.notes.length;abMetaSave();AB.fails=0;AB.said.fail=0;AB.said.guard=0;
+    abPaintBtn();const b=$('abb');if(b){b.classList.remove('fl');void b.offsetWidth;b.classList.add('fl')}chk();
+  }catch(e){
+    const n=e&&e.name;
+    if(n==='NotAllowedError'||n==='SecurityError'){abSet('paused');abSayOnce('pause',()=>canSay()&&say('自動備份暫停了，要繼續嗎？',{lv:'info',id:'abp',hold:20000,actions:[{label:'繼續',fn:abResume},{label:'停止自動備份',fn:abStop}]}))}
+    else{AB.fails++;if(AB.fails<3){clearTimeout(AB.t);AB.t=setTimeout(abWrite,30000)}else{abSet('fail');if(!AB.said.fail){AB.said.fail=1;say('自動備份失敗了，筆記還是安全存在瀏覽器裡。請點右上角的「自動備份」按鈕重新指定備份檔案。',{lv:'warn'})}}}
+  }
+  AB.busy=false;if(AB.again){AB.again=false;abKick()}
+}
+async function abVerify(){  // 開頁時：備份檔如果被別處更新過，就不要蓋掉它
+  try{const f=await AB.h.getFile(),txt=await f.text();if(!txt.trim())return true;let j=null;try{j=JSON.parse(txt)}catch(e){}
+    if(j&&j.app==='R_note'&&j.exported&&ABM.last&&Date.parse(j.exported)>ABM.last+1500)return false}catch(e){}
+  return true}
+async function abEnable(){
+  const ok=await abVerify();
+  if(!ok){abSet('conflict');abSayOnce('conf',()=>say('自動備份的檔案比這台電腦新（可能在別台電腦更新過），為了不蓋掉它，已暫停。請先用「匯入」確認內容，再點右上角的「自動備份」按鈕重新指定。',{lv:'warn'}));return}
+  abSet('ok');if(!ABM.last||bkDirty())abKick()}
+async function abInit(){
+  abPaintBtn();$('abb').onclick=abClick;setInterval(abPaintBtn,20000);
+  if(!AB.sup||!ABM.on)return;
+  let h=null;try{h=await ABS.load()}catch(e){}
+  if(!h){abSet('fail');abSayOnce('lost',()=>say('自動備份的設定不見了，要重新指定嗎？',{lv:'info',id:'abl',hold:20000,actions:[{label:'重新指定',fn:abPick},{label:'不用了',fn:abStop}]}));return}
+  AB.h=h;let perm='prompt';try{perm=await h.queryPermission({mode:'readwrite'})}catch(e){}
+  if(perm==='granted')abEnable();
+  else{abSet('paused');setTimeout(()=>abSayOnce('pause',()=>canSay()&&say('自動備份暫停中，要繼續嗎？',{lv:'info',id:'abp',hold:20000,actions:[{label:'繼續',fn:abResume},{label:'停止自動備份',fn:abStop}]})),2500)}
+}
+const abSig=a=>a.length+':'+a.reduce((x,n)=>x+String((n&&n.title)||'').length+String((n&&n.content)||'').length,0);
+async function abPick(){
+  let h;
+  try{h=await window.showSaveFilePicker({suggestedName:'R_note_自動備份.json',types:[{description:'R note 備份',accept:{'application/json':['.json']}}]})}
+  catch(e){if(e&&e.name==='AbortError'){say('沒關係，之後想用再按。',{lv:'info'});return}abSet('fail');return}
+  let j=null;try{const f=await h.getFile(),txt=await f.text();if(txt.trim())j=JSON.parse(txt)}catch(e){}   // 先看看檔案裡有沒有別的資料，免得一指定就蓋掉
+  if(j&&j.app==='R_note'&&Array.isArray(j.notes)&&j.notes.length&&abSig(j.notes)!==abSig(S.notes)){abAskFile(j,h);return}
+  abStart(h)
+}
+function abAskFile(j,h){
+  const ex=Date.parse(j.exported)||0,mod=Math.max(0,...S.notes.map(n=>n.modified||0)),o=document.createElement('div');
+  o.style.cssText='position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:90;display:flex;align-items:center;justify-content:center;padding:16px';
+  const b='padding:8px 14px;border-radius:8px;border:1px solid var(--ln);background:var(--p2);color:var(--tx);cursor:pointer;font:inherit';
+  o.innerHTML='<div style="background:var(--p1);color:var(--tx);border:1px solid var(--ln);border-radius:12px;padding:18px 20px;width:min(460px,100%);font-size:14px;line-height:1.7"><div style="font-size:16px;font-weight:600;margin-bottom:6px">這個檔案裡已經有資料</div>'
+   +'<div style="color:var(--dm);margin-bottom:6px">檔案裡有 '+j.notes.length+' 則筆記'+(ex?'，存於 '+abTime(ex):'')+'；這台目前有 '+S.notes.length+' 則'+(mod?'，最後修改於 '+abTime(mod):'')+'。</div>'
+   +(ex&&mod&&ex>mod?'<div style="color:var(--dg);font-size:13px;margin-bottom:6px">檔案比這台的資料新。</div>':'')
+   +'<div style="font-size:13px;margin-bottom:10px">直接指定的話，這個檔案會被這台的內容蓋掉。</div>'
+   +'<div style="display:flex;gap:8px;flex-wrap:wrap"><button id="abI" style="'+b+'">先匯入這份</button><button id="abO" style="'+b+'">用這台覆蓋它</button><button id="abC" style="'+b+'">取消</button></div></div>';
+  document.body.appendChild(o);const close=()=>o.remove();
+  o.querySelector('#abC').onclick=close;o.addEventListener('mousedown',e=>{if(e.target===o)close()});
+  o.querySelector('#abO').onclick=()=>{close();abStart(h)};
+  o.querySelector('#abI').onclick=()=>{close();AB.later=1;importJson(j)}
+}
+async function abStart(h){
+  AB.h=h;AB.fails=0;AB.said={};try{await ABS.save(h)}catch(e){}
+  ABM.on=1;ABM.last=0;ABM.n=0;ABM.name=h.name||'';abMetaSave();   // 使用者自己選的檔案：視為同意覆蓋，從頭開始
+  abSet('ok');await abWrite();
+  if(AB.st==='ok')say('自動備份已啟用，之後有變動會自動存到「'+(h.name||'備份檔')+'」。',{lv:'info',hold:6000});
+}
+async function abResume(){
+  if(!AB.h){abPick();return}
+  let perm='denied';try{perm=await AB.h.requestPermission({mode:'readwrite'})}catch(e){}
+  sayOff('abp');
+  if(perm==='granted'){AB.fails=0;AB.said.pause=0;await abEnable();if(AB.st==='ok')say('自動備份已恢復。',{lv:'info'})}
+  else say('沒有授權，自動備份維持暫停。想繼續時，點右上角的「自動備份」按鈕。',{lv:'info'})
+}
+async function abStop(){
+  sayOff('abi');sayOff('abp');sayOff('abl');clearTimeout(AB.t);AB.h=null;ABM.on=0;abMetaSave();try{await ABS.clear()}catch(e){}
+  abSet('none');say('已停止自動備份，已存好的備份檔不會被刪除。',{lv:'info'})
+}
 let xpWasFull=false,xpRemPend=false;
 /* 經驗條的模糊提示（1.30）：只說大概，不給數字 */
-function xpWord(f,ui){if(f.max)return '十字鎬已是最高等級';if(f.full)return ui?'可以升級了！到檔案櫃升級十字鎬':'可以升級了！';return '採礦經驗：'+(f.frac<.5?'還早':f.frac<.8?'過半了':'快滿了')}
+function xpWord(f,ui){if(f.max)return '十字鎬已是最高等級';if(f.full)return ui?'可以升級了！到檔案櫃升級十字鎬':'可以升級了！';return ''}
 function xpWidth(){const wb=$('wcb'),m=document.querySelector('#ths [data-th=n]'),b=$('xpb');if(!wb||!m||!b)return;const w=Math.round(m.getBoundingClientRect().right-wb.getBoundingClientRect().left);if(w>20)wb.style.setProperty('--xw',w+'px');
   // 視窗太窄、礦石列擠到這裡時，提示熱區讓開，不擋礦石
   const h=$('xph');if(h){const L0=wb.getBoundingClientRect().left;let r=0;for(const c of $('shelf').children){const q=c.getBoundingClientRect();if(q.width&&q.right>r)r=q.right}h.classList.toggle('nohit',r>L0-4)}}  // --xw 設在外框上，經驗條與提示熱區都吃得到
@@ -2387,7 +2539,7 @@ function xpPaint(lite){
   if(PH)return;if(!lite)xpWidth();
   const f=xpInfo(),b=$('xpb'),wb=$('wcb');if(!b||!wb)return;
   wb.classList.toggle('xb',!!L.xb);
-  b.style.setProperty('--xf',(f.frac*100).toFixed(1)+'%');{const h=$('xph');if(h)h.dataset.tip=xpWord(f,1)}
+  b.style.setProperty('--xf',(f.frac*100).toFixed(1)+'%');{const h=$('xph');if(h){const w=xpWord(f,1);if(w)h.dataset.tip=w;else h.removeAttribute('data-tip')}}
   const full=f.full&&!f.max;
   b.classList.toggle('full',full);
   if(full&&!xpWasFull){b.classList.remove('pulse');void b.offsetWidth;b.classList.add('pulse');const t=Date.now();if(!MS.xf||t-MS.xf>3*864e5)xpRemPend=true}
@@ -2515,7 +2667,7 @@ ta.addEventListener('compositionend',()=>setTimeout(twFollow,0));
 ta.addEventListener('scroll',()=>{if(twAct())twPaint()});
 new ResizeObserver(()=>twPaint()).observe(ta);
 twPaint();
-paintSnd();$('ver').textContent=VERSION;applyTh();phoneEnsure();layout();render();fxVis(false);booted=true;if(RB)setTimeout(()=>{RB.R.enter();RB.place()},350);if(pend)setTimeout(pendMsg,1200);setTimeout(thAsk,1500);
+paintSnd();$('ver').textContent=VERSION;applyTh();phoneEnsure();layout();render();fxVis(false);booted=true;if(RB)setTimeout(()=>{RB.R.enter();RB.place()},350);if(pend)setTimeout(pendMsg,1200);setTimeout(thAsk,1500);abInit();
 {const n=byId(S.sel);if(n){if(!PH)ta.focus();ta.setSelectionRange(n.caret||0,n.caret||0);reveal(n.caret||0)}}
 
 const fname=t=>(String(t).replace(/[\\/:*?"<>|\u0000-\u001f]/g,'_').replace(/[. ]+$/,'')||'R_note').slice(0,80);
