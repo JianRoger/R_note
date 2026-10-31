@@ -382,6 +382,8 @@ html.ph #xpb{display:none!important}
 #wcb.xb #xph{display:block}
 #xph.nohit{pointer-events:none}
 html.ph #xph{display:none!important}
+#ths .ib[data-n]::after{content:attr(data-n);position:absolute;top:1px;right:4px;font-size:10px;font-weight:700;line-height:12px;color:var(--tx);pointer-events:none;animation:thn 1.6s ease-out forwards}
+@keyframes thn{0%{opacity:0;transform:scale(.6)}12%{opacity:1;transform:scale(1.2)}26%{transform:scale(1)}72%{opacity:1}100%{opacity:0}}
 </style>
 </head>
 <body>
@@ -414,8 +416,8 @@ html.ph #xph{display:none!important}
 <input type="file" id="file" accept=".json,application/json" hidden>
 <canvas id="cv"></canvas><div id="tip"></div><div id="pk"></div>
 <script>
-let gmOn=false,gmCoin=0;const gmK={};
-const VERSION='1.30';const APPNAME='R note';
+let gmOn=false,gmCoin=0;
+const VERSION='1.31';const APPNAME='R note';
 const PROMO_URL='https://line.me/S/shop/sticker/author/123908';
 const PH=(()=>{try{const q=new URLSearchParams(location.search).get('phone');if(q==='1')return true;if(q==='0')return false;return matchMedia('(pointer:coarse)').matches&&!matchMedia('(hover:hover)').matches&&Math.min(screen.width,innerWidth)<=820}catch(e){return false}})();
 document.documentElement.classList.toggle('ph',PH);
@@ -432,10 +434,17 @@ const sv=(n,s=20)=>`<svg viewBox="0 0 24 24" width="${s}" height="${s}" fill="${
 const $=id=>document.getElementById(id),ta=$('body');
 document.querySelectorAll('[data-ic]').forEach(e=>e.innerHTML=sv(e.dataset.ic,+e.dataset.s||20));
 let S={notes:[],sort:{k:'custom',dir:'asc'},sel:null,q:'',born:Date.now(),lastExport:0},L={sw:314,ah:60,cl:0};
-try{const s=JSON.parse(localStorage.getItem(KEY)||localStorage.getItem('plain-notes-v1'));if(s&&Array.isArray(s.notes))Object.assign(S,s)}catch(e){}
+let HAD=false;  // 這台瀏覽器以前用過（有舊資料）
+try{const s=JSON.parse(localStorage.getItem(KEY)||localStorage.getItem('plain-notes-v1'));if(s&&Array.isArray(s.notes)){Object.assign(S,s);HAD=true}}catch(e){}
 try{const l=JSON.parse(localStorage.getItem(LK)||localStorage.getItem('plain-notes-layout-v1'));if(l)Object.assign(L,l)}catch(e){}
 if(L.sw===276&&!L.w314){L.sw=314;L.w314=1}L.cl=L.cl?1:0;
-S.q='';S.ser=Object.assign({n:0,u:0,d:0},S.ser);['n','u','d'].forEach(t=>{const v=+S.ser[t];S.ser[t]=v>=0&&v<5?Math.floor(v):0});if(!S.born)S.born=Date.now();S.sfx=[0,1,2].includes(S.sfx)?S.sfx:0;S.mute=S.mute?1:0;S.fx=Object.assign({glow:false,chips:false,mine:false},S.fx);S.xp=Math.max(0,+S.xp||0);S.pick=Math.max(0,Math.min(10,Math.floor(+S.pick||0)));if(PH){S.fx.chips=true;S.fx.mine=true;S.sfx=2}
+/* 1.31：光色重新排序。舊使用者存的是「第幾個系列」，用顏色名字對回新的位置；新使用者直接用新順序。 */
+const OLDORD={"d":["露草","朽葉","苔色","桜鼠","藤紫","杏色"],"u":["暮灰","深煙","沉煙","焦糖","苔綠","靛灰"],"n":["藍墨","落栗","鉄御","鴬茶","煤竹","利休"]},NEWORD={"d":["露草","藤紫","苔色","朽葉","杏色","桜鼠"],"u":["靛灰","苔綠","沉煙","焦糖","暮灰","深煙"],"n":["藍墨","鉄御","利休","鴬茶","煤竹","落栗"]};
+const OLDUSER=HAD&&!S.ordv;  // 1.31 以前就在用的人（只有第一次升級會是 true）
+if(OLDUSER){S.ser=Object.assign({n:0,u:0,d:0},S.ser);['d','u','n'].forEach(t=>{const o=Math.floor(+S.ser[t]);if(o>=0&&o<5){const i=NEWORD[t].indexOf(OLDORD[t][o]);if(i>=0)S.ser[t]=i}})}
+S.ordv=1;if(OLDUSER&&S.thSeen===undefined)S.thSeen=1;  // 舊使用者不會被問「選色調」
+if(!HAD&&!S.th){try{S.th=matchMedia('(prefers-color-scheme: light)').matches?'d':'n'}catch(e){}}  // 新使用者：預設跟著電腦的淺色／深色設定
+S.q='';S.ser=Object.assign({n:0,u:0,d:0},S.ser);['n','u','d'].forEach(t=>{const v=+S.ser[t];S.ser[t]=v>=0&&v<6?Math.floor(v):0});if(!S.born)S.born=Date.now();S.sfx=[0,1,2].includes(S.sfx)?S.sfx:0;S.mute=S.mute?1:0;S.fx=Object.assign({glow:false,chips:false,mine:false},S.fx);S.xp=Math.max(0,+S.xp||0);S.pick=Math.max(0,Math.min(10,Math.floor(+S.pick||0)));if(PH){S.fx.chips=true;S.fx.mine=true;S.sfx=2}
 S.notes.forEach(n=>{n.content=String(n.content||'').replace(/\r\n?/g,'\n');if(n.icon==='⚙'||n.icon==='⚙️')n.icon=ICONS[23];if(!n.icon)n.icon=ICONS[0]});
 S.folders=(Array.isArray(S.folders)?S.folders:[]).filter(f=>f&&f.id&&f.name).map(f=>({id:String(f.id),name:String(f.name),color:+f.color||0,created:+f.created||0}));S.notes.forEach(n=>{delete n.pf;if((n.vault||n.archived)&&n.folderId)delete n.folderId;if(n.folderId&&!S.folders.some(f=>f.id===n.folderId))delete n.folderId});
 let pend=null,booted=false;const PKEY='R_note_prev';
@@ -774,6 +783,8 @@ function oreSvg(i,z){const st=i>4,[p,f,r]=st?['M5 9l5-6 7 2 4 6-3 8-7 2-5-5z','M
 const bagSvg=z=>`<svg viewBox="0 0 24 24" width="${z}" height="${z}" fill="none" stroke-linecap="round" stroke-linejoin="round" style="color:var(--bag)"><path d="M12 8c-4 0-7.5 3-7.5 7 0 3.2 3 5.5 7.5 5.5s7.5-2.3 7.5-5.5c0-4-3.5-7-7.5-7z" fill="currentColor" fill-opacity=".22" stroke="currentColor" stroke-width="1.7"/><g transform="rotate(12 12 7.6)"><path d="M9 7.6c1.2.8 4.8.8 6 0" stroke="currentColor" stroke-width="1.7"/><path d="M12 6.8c-1-2-3-2.4-3.6-1.4M12 6.8c1-2 3-2.4 3.6-1.4" stroke="currentColor" stroke-width="1.5"/></g><path d="M13.9 12.6c-.4-.7-1.1-1-1.9-1-1.1 0-1.9.55-1.9 1.4s.8 1.3 1.9 1.6 1.9.7 1.9 1.6-.8 1.5-1.9 1.5c-1 0-1.7-.4-2-1.1M12 10.8V18.2" stroke="currentColor" stroke-width="1"/></svg>`;
 const hx=a=>Math.round(a*255).toString(16).padStart(2,'0');
 const GMORE={0:99,1:99,2:99,3:99,4:99,5:99,6:99,7:99,8:99,9:99};
+/* 金幣縮寫：不到 1 萬照原樣；1 萬起寫成 12K；100 萬起寫成 1.2M；一律捨去，有零頭就加「＋」 */
+function fmtCoin(n){n=Math.floor(+n||0);if(n<10000)return String(n);if(n<1e6)return Math.floor(n/1000)+'K'+(n%1000?'+':'');const t=Math.floor(n/1e5);return (t%10?(t/10).toFixed(1):t/10)+'M'+(n%1e5?'+':'')}
 function shelf(){
   const el=$('shelf'),pb=$('phbag'),n=byId(S.sel);
   const prev={};el.querySelectorAll('.ore').forEach(b=>prev[b.dataset.i]=b.getBoundingClientRect().left);
@@ -781,7 +792,7 @@ function shelf(){
   const o=gmOn?GMORE:(n.ore||{}),ids=Object.keys(o).map(Number).filter(i=>!PH||o[i]>0).sort((a,b)=>(o[a]>0?0:1)-(o[b]>0?0:1)||a-b);let h='';
   ids.forEach(i=>{const c=o[i],g=Math.min(1,Math.log(c+1)/Math.log(201));
     h+=`<button class="ib ore" data-i="${i}" data-tip="${i?'賣出可得 '+c*PR[i]:'?'}" style="${c>0?`background:radial-gradient(circle,${OC[i]}${hx(Math.min(1,(.16+g*.5)*OGG))} 0%,${OC[i]}${hx(Math.min(1,(.06+g*.18)*OGG))} ${25+g*30}%,transparent ${45+g*45}%),var(--p2)`:'opacity:.6'}">${oreSvg(i,24)}<b>${c}</b></button>`});
-  const cn=gmOn?gmCoin:n.coin,bag=`<span class="bagw">${bagSvg(34)}</span>`+(cn>0?`<span class="coin">${cn}</span>`:'');
+  const cn=gmOn?gmCoin:n.coin,bag=`<span class="bagw">${bagSvg(34)}</span>`+(cn>0?`<span class="coin" data-tip="共 ${cn.toLocaleString('en-US')} 金幣">${fmtCoin(cn)}</span>`:'');
   if(PH){pb.innerHTML=bag}else{if(ids.length)h+='<span class="sep"></span>';h+=bag}
   el.innerHTML=h;
   if(!RM())el.querySelectorAll('.ore').forEach(b=>{const p=prev[b.dataset.i];if(p===undefined)return;const dx=p-b.getBoundingClientRect().left;if(Math.abs(dx)>1)b.animate([{transform:`translateX(${dx}px)`},{transform:'none'}],{duration:150,easing:'ease-out'})});
@@ -1018,7 +1029,8 @@ function build(id){const P=PK[id],T=(f,d,o)=>baseTone(P,f,d,o),N=(d,o)=>baseNois
   return sfx}
 
 const LET5='RNOTEG',SFXS={};
-function curPack(){const t=S.th||'n';return LET5[curSer(t)]||'R'}
+/* 1.31：音色先鎖在一號（R），不再跟著光色系列換；之後做成獨立的「打字音色」再開放。 */
+function curPack(){return 'R'}
 function playSfx(name,arg){if(!S.sfx)return;try{if(!actx())return;const id=curPack(),sx=SFXS[id]||(SFXS[id]=build(id)),f=sx[name];if(f)f(arg)}catch(e){}}
 let lastKey=0;
 document.addEventListener('keydown',e=>{
@@ -1162,7 +1174,7 @@ let tutA=false,tutDone=false,tutF={t:0,e:0};
 const tutCond=()=>S.notes.some(n=>n.icon==='📜')&&S.notes.every(n=>n.icon==='📜'||!String(n.content).trim());
 function tutCheck(){
   if(PH||tutDone||tutA)return;
-  if(tutCond()){tutA=true;tutF={t:0,e:0};setTimeout(()=>{if(tutA&&!tutDone)say('↖請試著點看看 Rnote 字母；右邊可以打開音效→',{lv:'wait',id:'tut',pin:true})},2200)}
+  if(tutCond()){tutA=true;tutF={t:0,e:0};const go=()=>{if(!tutA||tutDone)return;if(typeof thBusy==='function'&&thBusy()){setTimeout(go,800);return}say('↖請試著點看看 Rnote 字母；右邊可以打開音效→',{lv:'wait',id:'tut',pin:true})};setTimeout(go,2200)}
 }
 function tutClick(k){if(!tutA)return;tutF[k]=1;if(tutF.t&&tutF.e){tutDone=true;tutA=false;sayOff('tut')}}
 function lunarMD(d){
@@ -1966,11 +1978,11 @@ function importDialog(j,clean,newer,g2){
   const N=o.querySelector('#imN');if(N)N.onclick=()=>{close();const r=buildAppend(fresh,false,j.folders);if(commitImport(r))say('已追加 '+r.add+' 則標題全新的筆記。',{lv:'info'})};
 }
 try{localStorage.setItem('R_note_seen',VERSION)}catch(e){}
-const THS={"d":[["露草","#f4f5f5","#233f58","#ffffff","#fbfbfb","#d7d8d9","#f0f1f1","#a6a9ab","#4c6b81","#4a9ecf","#4f93ba",0.23,"#a3cee7","#233f58"],["朽葉","#f5f5f4","#44382c","#ffffff","#fbfbfb","#d9d9d7","#f1f1f0","#abaaa6","#746a59","#a88b71","#895725",0.32,"#dcd1c6","#44382c"],["苔色","#f0f0ef","#2c4224","#ffffff","#fafbfa","#bfc1bc","#e9eae8","#a8aca5","#617850","#709461","#548443",0.34,"#c6d4c0","#2c4224"],["桜鼠","#f8f7f7","#482e34","#ffffff","#fffefe","#d8d6d6","#f3f3f3","#aaa7a7","#745d63","#c3a2a8","#cc6178",0.23,"#dbc7cb","#482e34"],["藤紫","#f7f7f8","#3b284d","#ffffff","#ffffff","#c2c0c4","#f0eff0","#a8a6ab","#71657c","#9a84b3","#996fbe",0.31,"#cdc2d9","#3b284d"],["杏色","#fafaf9","#583622","#ffffff","#ffffff","#dcd9d6","#f6f5f5","#afa8a1","#916d57","#ecd4c5","#c47940",0.48,"#ecd4c5","#583622"]],"u":[["暮灰","#c4b5b8","#382428","#cec2c4","#d9d0d2","#ebe4e5","#d9d0d2","#a99397","#5c4247","#884e5a","#864653",0.28,"#a17880","#ffffff"],["深煙","#b49ca1","#29191d","#bda8ac","#c7b5b9","#d7c5c9","#c7b5b9","#aa9298","#4e363d","#6f3945","#4c383d",0.21,"#a18087","#29191d"],["沉煙","#b4a493","#33251a","#c0b3a5","#cec4b9","#e4dcd4","#cec4b9","#aa9e92","#5f4b37","#75593e","#614d38",0.29,"#8b735c","#ffffff"],["焦糖","#a78e76","#2e2115","#b19b86","#bca997","#cfbdad","#bca997","#aa9e92","#4d3d2f","#68482c","#ebdbd1",0.29,"#82654c","#f2ebe3"],["苔綠","#abb5ac","#223424","#b7bfb8","#c5cbc5","#d7ded7","#c5cbc5","#98a499","#3f5141","#517055","#3a5940",0.29,"#768c79","#ffffff"],["靛灰","#8d9fb0","#172b3b","#9faebc","#b3bfca","#ced7e0","#b3bfca","#929faa","#324c62","#365c7c","#ceddee",0.31,"#587690","#f8fafc"]],"n":[["藍墨","#222c3a","#eff0f0","#293445","#303e51","#374b67","#303e51","#929caa","#acb3bc","#55799b","#5d8ab1",0.23,"#47637f","#eff0f0"],["落栗","#4b2f25","#f5f5f4","#5b392d","#6b4335","#88513d","#6b4335","#aa9992","#cdb6b0","#bf8d78","#d28b65",0.32,"#8a6050","#f5f5f4"],["鉄御","#293d47","#c8dce4","#2f4753","#37525f","#3d6275","#37525f","#92a2aa","#96b3c3","#6c9cb2","#6ca4cb",0.2,"#4d7182","#e7f0f3"],["鴬茶","#493f2d","#f6f5f4","#544833","#60533b","#756342","#60533b","#aaa292","#d0c8ba","#bdb093","#d9ae6d",0.18,"#7e7259","#fbfafa"],["煤竹","#342823","#eeedec","#3c2e28","#44352d","#533e33","#44352d","#aa9a92","#c3b3ab","#c0a991","#c99e78",0.14,"#5e4e43","#eeedec"],["利休","#404a42","#eff0ef","#454f46","#4a554c","#4e6151","#4a554c","#97a59a","#b5c5b8","#a9b7aa","#86c193",0.2,"#646f65","#eff0ef"]]};
+const THS={"d":[["露草","#f4f5f5","#233f58","#ffffff","#fbfbfb","#d7d8d9","#f0f1f1","#a6a9ab","#4c6b81","#4a9ecf","#4f93ba",0.23,"#a3cee7","#233f58"],["藤紫","#f7f7f8","#3b284d","#ffffff","#ffffff","#c2c0c4","#f0eff0","#a8a6ab","#71657c","#9a84b3","#996fbe",0.31,"#cdc2d9","#3b284d"],["苔色","#f0f0ef","#2c4224","#ffffff","#fafbfa","#bfc1bc","#e9eae8","#a8aca5","#617850","#709461","#548443",0.34,"#c6d4c0","#2c4224"],["朽葉","#f5f5f4","#44382c","#ffffff","#fbfbfb","#d9d9d7","#f1f1f0","#abaaa6","#746a59","#a88b71","#895725",0.32,"#dcd1c6","#44382c"],["杏色","#fafaf9","#583622","#ffffff","#ffffff","#dcd9d6","#f6f5f5","#afa8a1","#916d57","#ecd4c5","#c47940",0.48,"#ecd4c5","#583622"],["桜鼠","#f8f7f7","#482e34","#ffffff","#fffefe","#d8d6d6","#f3f3f3","#aaa7a7","#745d63","#c3a2a8","#cc6178",0.23,"#dbc7cb","#482e34"]],"u":[["靛灰","#8d9fb0","#172b3b","#9faebc","#b3bfca","#ced7e0","#b3bfca","#929faa","#324c62","#365c7c","#ceddee",0.31,"#587690","#f8fafc"],["苔綠","#abb5ac","#223424","#b7bfb8","#c5cbc5","#d7ded7","#c5cbc5","#98a499","#3f5141","#517055","#3a5940",0.29,"#768c79","#ffffff"],["沉煙","#b4a493","#33251a","#c0b3a5","#cec4b9","#e4dcd4","#cec4b9","#aa9e92","#5f4b37","#75593e","#614d38",0.29,"#8b735c","#ffffff"],["焦糖","#a78e76","#2e2115","#b19b86","#bca997","#cfbdad","#bca997","#aa9e92","#4d3d2f","#68482c","#ebdbd1",0.29,"#82654c","#f2ebe3"],["暮灰","#c4b5b8","#382428","#cec2c4","#d9d0d2","#ebe4e5","#d9d0d2","#a99397","#5c4247","#884e5a","#864653",0.28,"#a17880","#ffffff"],["深煙","#b49ca1","#29191d","#bda8ac","#c7b5b9","#d7c5c9","#c7b5b9","#aa9298","#4e363d","#6f3945","#4c383d",0.21,"#a18087","#29191d"]],"n":[["藍墨","#222c3a","#eff0f0","#293445","#303e51","#374b67","#303e51","#929caa","#acb3bc","#55799b","#5d8ab1",0.23,"#47637f","#eff0f0"],["鉄御","#293d47","#c8dce4","#2f4753","#37525f","#3d6275","#37525f","#92a2aa","#96b3c3","#6c9cb2","#6ca4cb",0.2,"#4d7182","#e7f0f3"],["利休","#404a42","#eff0ef","#454f46","#4a554c","#4e6151","#4a554c","#97a59a","#b5c5b8","#a9b7aa","#86c193",0.2,"#646f65","#eff0ef"],["鴬茶","#493f2d","#f6f5f4","#544833","#60533b","#756342","#60533b","#aaa292","#d0c8ba","#bdb093","#d9ae6d",0.18,"#7e7259","#fbfafa"],["煤竹","#342823","#eeedec","#3c2e28","#44352d","#533e33","#44352d","#aa9a92","#c3b3ab","#c0a991","#c99e78",0.14,"#5e4e43","#eeedec"],["落栗","#4b2f25","#f5f5f4","#5b392d","#6b4335","#88513d","#6b4335","#aa9992","#cdb6b0","#bf8d78","#d28b65",0.32,"#8a6050","#f5f5f4"]]};
 const THF={"d":{"bag":"#e19214","glow":"#ffcd1e","fb":0.82,"fs":1.2,"gg":1},"u":{"bag":"#ffc94a","glow":"#bb652b","fb":0.6,"fs":1.55,"gg":0.9},"n":{"bag":"#ffc94a","glow":"#b8692e","fb":1.05,"fs":1.05,"gg":1}};
 const THN={d:'亮色系',u:'灰色系',n:'暗色系'},DG0={d:'#d63a3f',u:'#e5484d',n:'#e5484d'},SR0={d:'#d93f33',u:'#ff6b5f',n:'#ff6b5f'},RYH=0;
 let OGG=1;
-function curSer(t){return gmOn&&gmK[t]===5?5:(S.ser[t]||0)}
+function curSer(t){return S.ser[t]||0}
 function redFix(base,bgs){const lin=c=>{c/=255;return c<=.04045?c/12.92:Math.pow((c+.055)/1.055,2.4)},lm=h=>{const[a,b,c]=hrgb(h).map(lin);return .2126*a+.7152*b+.0722*c},cr=(a,b)=>{const x=lm(a),y=lm(b);return(Math.max(x,y)+.05)/(Math.min(x,y)+.05)};
   const ok=x=>Math.min(...bgs.map(b=>cr(x,b)))>=3.5;if(ok(base))return base;
   const dark=bgs.reduce((a,b)=>a+lm(b),0)/bgs.length>.18;
@@ -1988,9 +2000,12 @@ function applyTh(){const th=S.th||'n',k=curSer(th),q=THS[th][k],F=THF[th],r=docu
   HEAD=th=='d'?'#23262d':th=='u'?tx:'#fff';
   if(th=='u'){const mx=(a,b,t)=>'#'+hrgb(a).map((v,i)=>Math.round(v+(hrgb(b)[i]-v)*t).toString(16).padStart(2,'0')).join('');PAL=[dm,mx(dm,tx,.35),mx(dm,tx,.65),mx(dm,'#ffffff',.25)];WSC=[tx,mx(tx,dm,.4),dm,mx(tx,'#000000',.15)];set('--gc','70,70,70')}else{PAL=PAL0;WSC=WSC0;r.style.removeProperty('--gc')}
   GC=getComputedStyle(r).getPropertyValue('--gc').trim()||'210,210,210';
-  document.querySelectorAll('#ths .ib').forEach(b=>{const t=b.dataset.th;b.classList.toggle('on',t==th);b.dataset.tip=THN[t]});
+  document.querySelectorAll('#ths .ib').forEach(b=>{const t=b.dataset.th;b.classList.toggle('on',t==th);b.dataset.tip=THN[t]+'\n'+(curSer(t)+1)+'/'+THS[t].length});
   if(booted)shelf()}
-document.querySelectorAll('#ths .ib').forEach(b=>b.onclick=()=>{const t=b.dataset.th;if((S.th||'n')===t){const c=(curSer(t)+1)%(gmOn?6:5);if(c===5)gmK[t]=5;else{gmK[t]=null;S.ser[t]=c}}else S.th=t;save();applyTh()});
+/* 點光色按鈕：同一顆再點＝換下一個系列（共 6 個）；點完在按鈕右上角閃一下編號 1～6，之後淡出，方便大家說「暗色5」 */
+function thFlash(b,t){b.removeAttribute('data-n');void b.offsetWidth;b.dataset.n=curSer(t)+1;clearTimeout(b._tn);b._tn=setTimeout(()=>b.removeAttribute('data-n'),1600);
+  if(typeof tcur!=='undefined'&&tcur===b&&tip.style.display==='block')tip.textContent=b.dataset.tip}
+document.querySelectorAll('#ths .ib').forEach(b=>b.onclick=()=>{const t=b.dataset.th;if((S.th||'n')===t)S.ser[t]=(curSer(t)+1)%THS[t].length;else S.th=t;S.thSeen=1;sayOff('thm');save();applyTh();thFlash(b,t)});
 const h2x=(h,s,l)=>{h=((h%360)+360)%360;s=Math.max(0,Math.min(100,s))/100;l=Math.max(0,Math.min(100,l))/100;const f=n=>{const k=(n+h/30)%12,a=s*Math.min(l,1-l);return Math.round(255*(l-a*Math.max(-1,Math.min(k-3,9-k,1))))};return'#'+[f(0),f(8),f(4)].map(v=>v.toString(16).padStart(2,'0')).join('')};
 const hrgb=h=>[1,3,5].map(i=>parseInt(h.substr(i,2),16));
 const FPAL=['#e5484d','#f08a24','#e8c21a','#46b45a','#1fa99a','#3b8eea','#6e5ce6','#c04fd1','#ec5f9a','#8a9199'];
@@ -2352,6 +2367,15 @@ function cabPaintPanel(){
   b.onclick=()=>{if(pend){lockMsg();return}if(pickUp()){cabPaintPanel();const k=p.querySelector('.pkb');if(k&&!RM())k.classList.add('bump')}};
   p.querySelector('input').onchange=e=>{L.xb=e.target.checked?1:0;saveL();xpPaint();playSfx('tick')};
 }
+/* 1.31：第一次使用的人，機器人輕輕問一句要不要挑色調。舊使用者不會看到；開始打字就自動淡出；沒選過最多再問一次。 */
+const thBusy=()=>SM.list.some(m=>(m.id==='thm'||m.id==='ths')&&!m.leaving);  // 選色調的提示還在時，新手教學先等一下
+function thAsk(){
+  if(PH||S.thSeen||(S.thAsk||0)>=2||pend||!canSay())return;
+  S.thAsk=(S.thAsk||0)+1;save();
+  const pick=t=>()=>{S.th=t;S.thSeen=1;save();applyTh();sayOff('thm');setTimeout(()=>say('想換別的樣子？點右上角同一顆，還有 6 種。',{lv:'info',id:'ths',hold:7000,rx:'nod'}),800)};  // 選完，這句才出現（指的是右上角真正的光色按鈕）
+  say('先挑個看得舒服的色調吧。',{lv:'info',id:'thm',hold:30000,rx:'nod',actions:[{label:'亮色系',fn:pick('d')},{label:'灰色系',fn:pick('u')},{label:'暗色系',fn:pick('n')}]});
+}
+ta.addEventListener('input',()=>{if(!S.thSeen)sayOff('thm')});
 let xpWasFull=false,xpRemPend=false;
 /* 經驗條的模糊提示（1.30）：只說大概，不給數字 */
 function xpWord(f,ui){if(f.max)return '十字鎬已是最高等級';if(f.full)return ui?'可以升級了！到檔案櫃升級十字鎬':'可以升級了！';return '採礦經驗：'+(f.frac<.5?'還早':f.frac<.8?'過半了':'快滿了')}
@@ -2491,7 +2515,7 @@ ta.addEventListener('compositionend',()=>setTimeout(twFollow,0));
 ta.addEventListener('scroll',()=>{if(twAct())twPaint()});
 new ResizeObserver(()=>twPaint()).observe(ta);
 twPaint();
-paintSnd();$('ver').textContent=VERSION;applyTh();phoneEnsure();layout();render();fxVis(false);booted=true;if(RB)setTimeout(()=>{RB.R.enter();RB.place()},350);if(pend)setTimeout(pendMsg,1200);
+paintSnd();$('ver').textContent=VERSION;applyTh();phoneEnsure();layout();render();fxVis(false);booted=true;if(RB)setTimeout(()=>{RB.R.enter();RB.place()},350);if(pend)setTimeout(pendMsg,1200);setTimeout(thAsk,1500);
 {const n=byId(S.sel);if(n){if(!PH)ta.focus();ta.setSelectionRange(n.caret||0,n.caret||0);reveal(n.caret||0)}}
 
 const fname=t=>(String(t).replace(/[\\/:*?"<>|\u0000-\u001f]/g,'_').replace(/[. ]+$/,'')||'R_note').slice(0,80);
