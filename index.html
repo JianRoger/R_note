@@ -445,6 +445,18 @@ html.ph #tom{display:none!important}
 .hwr .hx{opacity:0;color:var(--dm);padding:0 4px;border-radius:4px;cursor:pointer;font-size:13px}
 .hwr:hover .hx{opacity:1}.hwr .hx:hover{color:var(--dg)}
 html.ph #ttl{display:none}
+#cabp .pkb{position:relative;flex-direction:column;justify-content:flex-start;padding-top:6px}
+#cabp .pkb svg{width:66%;height:66%}
+#cabp .plv{position:absolute;left:0;right:0;bottom:6px;text-align:center;font-size:14px;font-weight:700;letter-spacing:.3px;color:var(--tx)}
+#cabp .xrow{width:100%;display:flex;align-items:center;gap:10px;margin-top:12px}
+#cabp .xrow .xbar{flex:1;margin-top:0}
+#cabp .xrow .up{width:auto;flex:none;margin-top:0;height:30px;padding:0 14px}
+#cabp .av{height:auto;min-height:0;margin-top:4px}
+#cabp .av:empty{display:none}
+#cabp .chk{margin-top:6px}
+#cabp .abslot{width:100%}
+#cabv.nar #cabp .abslot .cdv{display:none}
+#cabv.nar .xrow{margin-top:0}
 </style>
 </head>
 <body>
@@ -2468,14 +2480,14 @@ function cabRender(){
 function cabPaintPanel(){
   const p=$('cabp');if(!p||!cabOn())return;const f=xpInfo();
   const av=f.avail>1?'可升 '+f.avail+' 級':f.avail===1?'可以升級了':'';
-  p.innerHTML='<div class="pkb">'+pkSvg(f.lv,96)+'</div><div class="pkr"><div class="lv">Lv.'+f.lv+'</div><div class="xbar'+(f.full&&!f.max?' full':'')+'" '+(xpWord(f)?' data-tip="'+xpWord(f)+'"':'')+'><i style="width:'+(f.frac*100).toFixed(1)+'%"></i></div><button class="ib up'+(f.full&&!f.max?' go':'')+'">'+(f.max?'已是最高等級':'升級')+'</button><div class="av">'+av+'</div><label class="chk"><input type="checkbox"'+(L.xb?' checked':'')+'><span>在介面上顯示經驗條</span></label><div class="cdv"></div>'+tPanel()+'<div class="cdv"></div><button class="ib hsb" data-tip="歷史紀錄">'+sv('clock',16)+'<span>歷史紀錄</span></button><div class="cdv"></div>'+'</div>';
+  p.innerHTML='<div class="pkb">'+pkSvg(f.lv,96)+'<span class="plv">Lv.'+f.lv+'</span></div><div class="pkr"><div class="xrow"><div class="xbar'+(f.full&&!f.max?' full':'')+'" '+(xpWord(f)?' data-tip="'+xpWord(f)+'"':'')+'><i style="width:'+(f.frac*100).toFixed(1)+'%"></i></div><button class="ib up'+(f.full&&!f.max?' go':'')+'">'+(f.max?'最高等級':'升級')+'</button></div><div class="av">'+av+'</div><label class="chk"><input type="checkbox" class="xbk"'+(L.xb?' checked':'')+'><span>在介面上顯示經驗條</span></label><div class="cdv"></div>'+tPanel()+'<div class="cdv"></div><div class="abslot"></div><button class="ib hsb">'+sv('clock',16)+'<span>開啟全筆記歷史紀錄</span></button></div>';
   p.querySelector('.hsb').onclick=()=>hOpen(null);tPanelBind(p);
   const b=p.querySelector('.up');b.disabled=!(f.full&&!f.max);
   b.onclick=()=>{if(pend){lockMsg();return}if(pickUp()){cabPaintPanel();const k=p.querySelector('.pkb');if(k&&!RM())k.classList.add('bump')}};
-  p.querySelector('input').onchange=e=>{L.xb=e.target.checked?1:0;saveL();xpPaint();playSfx('tick')};
+  p.querySelector('.xbk').onchange=e=>{L.xb=e.target.checked?1:0;saveL();xpPaint();playSfx('tick')};
   if(AB.sup){const r=document.createElement('div'),iv=ABM.iv===undefined?300:ABM.iv;r.className='abr';
     r.innerHTML='<span class="ai">'+sv('auto',22)+'</span><span>自動備份間隔</span><select>'+[[0,'即時（停手約 4 秒）'],[300,'5 分鐘'],[900,'15 分鐘'],[3600,'1 小時']].map(o=>'<option value="'+o[0]+'"'+(o[0]===iv?' selected':'')+'>'+o[1]+'</option>').join('')+'</select>';
-    p.querySelector('.pkr').appendChild(r);
+    const sl=p.querySelector('.abslot');sl.appendChild(r);const dv=document.createElement('div');dv.className='cdv';sl.appendChild(dv);
     r.querySelector('select').onchange=e=>{ABM.iv=+e.target.value;abMetaSave();abKick();playSfx('tick')}}
 }
 /* 1.31：第一次使用的人，機器人輕輕問一句要不要挑色調。舊使用者不會看到；開始打字就自動淡出；沒選過最多再問一次。 */
