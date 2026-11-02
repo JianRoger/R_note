@@ -437,11 +437,12 @@ html.ph #tks{display:none!important}
 #sysmsg.wr .ln{white-space:normal}
 #sysmsg.wr .ln span{white-space:pre-wrap}
 #sysmsg.ovl .ln{background:var(--p1);border:1px solid var(--ln);border-radius:8px;padding:2px 8px;box-shadow:0 2px 8px rgba(0,0,0,.25)}
-#cabp .capr{width:100%;display:flex;align-items:center;gap:8px;font-size:12px;color:var(--dm);margin-bottom:12px}
-#cabp .capr .xbar{flex:1;margin-top:0;height:6px}
-#cabp .capr b{font-weight:500;width:34px;text-align:right;color:var(--tx)}
-#cabp .capr .hi i{background:var(--sr)}
-#cabv.nar #cabp .capr{width:auto;min-width:170px;margin:8px 0 0}
+#cabl .capr{flex:0 1 230px;min-width:130px;display:flex;align-items:center;gap:8px;font-size:12px;color:var(--dm)}
+#cabl .cbw{margin-bottom:8px}#cabl .cbt{display:flex;align-items:center;gap:14px;height:30px}#cabl .cbt>b{font-weight:600;font-size:15px}#cabl .cbw>i{display:block;font-style:normal;color:var(--dm);font-size:12px}
+#cabl .capr .xbar{border-radius:5px;background:var(--p2);border:1px solid var(--ln);overflow:hidden}#cabl .capr .xbar i{display:block;height:100%;background:var(--al)}
+#cabl .capr .xbar{flex:1;margin-top:0;height:6px}
+#cabl .capr b{font-weight:500;width:34px;text-align:right;color:var(--tx)}
+#cabl .capr .hi i{background:var(--sr)}
 #cabp .cdv{width:100%;height:1px;background:var(--ln);margin:14px 0}
 #cabp .tsec{width:100%}
 #cabp .tsh{font-size:12px;color:var(--dm)}
@@ -449,6 +450,7 @@ html.ph #tks{display:none!important}
 #cabp .tsr{display:flex;align-items:center;gap:6px;margin-top:6px;font-size:12px;color:var(--dm)}
 #cabp .tsr .k{width:56px;flex:none;display:flex;align-items:center;gap:4px;cursor:pointer;user-select:none}
 #cabp .tsr select{flex:1;min-width:0;height:28px;border:1px solid var(--ln);border-radius:8px;background:var(--p2);color:var(--tx);font:inherit;font-size:12px;padding:0 6px}
+#cabp .tsr1 .k{width:auto}#cabp .tsr1 select{flex:1 1 0;text-overflow:ellipsis}
 #cabp .tsr select:disabled{opacity:.45}
 #cabp .tck{display:flex;gap:6px;align-items:center;margin-top:8px;font-size:12px;color:var(--dm);cursor:pointer;user-select:none}
 #cabp .trd{width:100%;margin-top:8px;font-size:12px}
@@ -470,6 +472,7 @@ html.ph #ttl{display:none}
 #cabp .abslot{width:100%}
 #cabv.nar #cabp .abslot .cdv{display:none}
 #cabv.nar .xrow{margin-top:0}
+.fld input::placeholder{color:var(--dm);opacity:.4}
 </style>
 </head>
 <body>
@@ -489,7 +492,7 @@ html.ph #ttl{display:none}
     <button class="ib sb" data-k="tag" data-tip="依圖示排序"><span data-ic="tag"></span><span class="c" data-ic="dn" data-s="12"></span></button>
   </div>
   <div id="tr" style="grid-column:3;grid-row:1;align-self:start;display:flex;flex-direction:column;align-items:flex-end;gap:6px">
-    <div style="text-align:right;line-height:1.25"><div style="display:flex;justify-content:flex-end;align-items:baseline;gap:8px"><span id="ttl" style="font-size:13px;color:var(--tx);white-space:nowrap"></span><div id="cd" style="font-size:12px;color:var(--dm)"></div></div><div id="ct" style="font-size:20px;font-weight:600"></div></div>
+    <div style="text-align:right;line-height:1.25"><div style="display:flex;justify-content:flex-end;align-items:baseline;gap:8px;height:16px;line-height:16px"><span id="ttl" style="font-size:13px;color:var(--tx);white-space:nowrap"></span><div id="cd" style="font-size:12px;color:var(--dm)"></div></div><div id="ct" style="font-size:20px;font-weight:600"></div></div>
     <div class="row"><button class="ib" id="snd" data-tip="音效：無聲"><span data-ic="vol0"></span></button><button class="ib" id="twb" data-tip="鎖定打字範圍"><span data-ic="tw"></span></button><button class="ib" id="dtb" data-tip="插入日期時間"><span data-ic="cal"></span></button><button class="ib" id="cpb" data-tip="複製內文"><span data-ic="copy" id="cpi"></span></button><button class="ib" id="lipb" data-tip="關閉日常訊息"></button><span class="sep"></span><button class="ib" id="exp" data-tip="匯出備份"><span data-ic="out"></span></button><button class="ib" id="imp" data-tip="匯入備份"><span data-ic="inn"></span></button><button class="ib" id="abb" data-tip="" style="display:none"><span data-ic="auto"></span><i class="abd"></i></button><span class="sep"></span><button class="ib" id="hlp" data-tip="使用說明"><span data-ic="help"></span></button></div>
   </div>
   <div class="row" id="r2" style="grid-column:3;grid-row:2"><div class="fld"><span data-ic="search"></span><input id="sq" autocomplete="off"><div id="tks"></div></div><div id="sn" class="row" style="display:none;align-items:center"><span id="sc" style="font-size:13px;color:var(--dm);min-width:40px;text-align:center"></span><button class="ib" id="sp" data-tip="上一個"><span data-ic="up"></span></button><button class="ib" id="sd" data-tip="下一個"><span data-ic="dn"></span></button><button class="ib" id="sx" data-tip="清除搜尋"><span data-ic="x"></span></button></div><div class="row" id="ths"><button class="ib" id="tsb"></button><span class="sep" id="tsep"></span><button class="ib" data-th="d" data-tip="亮色系"><span data-ic="sun"></span></button><button class="ib" data-th="u" data-tip="灰色系"><span data-ic="dusk"></span></button><button class="ib" data-th="n" data-tip="暗色系"><span data-ic="moon"></span></button></div><div id="phbag"></div></div>
@@ -502,8 +505,8 @@ html.ph #ttl{display:none}
 <input type="file" id="file" accept=".json,application/json" hidden>
 <canvas id="cv"></canvas><div id="tip"></div><div id="pk"></div>
 <script>
-const TKMAX=9;const TKS={s:26};let gmOn=false,gmCoin=0,gmTom=0,gmTk=0,tomPend=0;
-const VERSION='1.42';const APPNAME='R note';
+const TKMAX=9,TKLIVE=false;const TKS={s:26};let gmOn=false,gmCoin=0,gmTom=0,gmTk=0,tomPend=0;
+const VERSION='1.44';const APPNAME='R note';
 const PROMO_URL='https://line.me/S/shop/sticker/author/123908';
 const PH=(()=>{try{const q=new URLSearchParams(location.search).get('phone');if(q==='1')return true;if(q==='0')return false;return matchMedia('(pointer:coarse)').matches&&!matchMedia('(hover:hover)').matches&&Math.min(screen.width,innerWidth)<=820}catch(e){return false}})();
 document.documentElement.classList.toggle('ph',PH);
@@ -892,7 +895,7 @@ function shelf(){
 $('shelf').onclick=e=>{const b=e.target.closest('.ore');if(b)sell(+b.dataset.i)};
 const TKI=z=>`<svg viewBox="0 0 24 24" width="${z}" height="${z}" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8c-4 0-7.5 3-7.5 7 0 3.2 3 5.5 7.5 5.5s7.5-2.3 7.5-5.5c0-4-3.5-7-7.5-7z" class="tk-b" stroke-width="1.7"/><g transform="rotate(12 12 7.6)" class="tk-l"><path d="M9 7.6c1.2.8 4.8.8 6 0" stroke-width="1.7"/><path d="M12 6.8c-1-2-3-2.4-3.6-1.4M12 6.8c1-2 3-2.4 3.6-1.4" stroke-width="1.5"/></g><circle cx="12" cy="14.6" r="3.9" class="tk-d" stroke-width="1"/><path d="M12 14.6V12M12 14.6l2 1.3" class="tk-d" stroke-width="1.2"/></svg>`;
 const TOMI='<svg viewBox="0 0 24 24" width="22" height="22"><path d="M12 7.2c-4.6 0-8 3-8 7 0 3.7 3.4 6.3 8 6.3s8-2.6 8-6.3c0-4-3.4-7-8-7z" fill="#e5484d" stroke="#a8282d" stroke-width="1.2"/><path d="M12 7.6l-3.4-1.9 1.9 2.6-3 .3 3.4 1.2L12 8.6l1.1 1.2 3.4-1.2-3-.3 1.9-2.6z" fill="#46b45a" stroke="#2c7a3a" stroke-width=".8" stroke-linejoin="round"/><path d="M12 7V4.2" stroke="#2c7a3a" stroke-width="1.4" stroke-linecap="round"/><path d="M7.8 12.2c.6-1 1.6-1.6 2.6-1.8" stroke="#fff" stroke-opacity=".55" stroke-width="1.2" stroke-linecap="round" fill="none"/></svg>';
-function tomPaint(bump){const t=$('tks'),inp=$('sq');if(!t)return;const cur=Math.min(TKMAX,gmOn?gmTom:(S.tom||0)),n=Math.max(0,cur-tomPend),on=n>0&&!PH&&!S.q;t.style.display=on?'flex':'none';
+function tomPaint(bump){const t=$('tks'),inp=$('sq');if(!t)return;const cur=Math.min(TKMAX,gmOn?gmTom:(S.tom||0)),n=Math.max(0,cur-tomPend),on=n>0&&!PH&&!S.q&&(TKLIVE||gmOn);t.style.display=on?'flex':'none';
   if(!on){t.innerHTML='';inp.style.paddingRight='';return}
   const z=TKS.s;t.style.setProperty('--s',z+'px');t.dataset.tip=(cur>=TKMAX?'番茄鐘已滿 ':'番茄鐘 ')+cur+' / '+TKMAX;
   t.innerHTML='<span class="c f">'+TKI(z)+'</span><b'+(n>=TKMAX?' class="mx"':'')+'>'+n+'</b>';
@@ -905,9 +908,12 @@ let capAt=0;
 function capCheck(){try{const now=Date.now();if(now-capAt<30000)return;capAt=now;const c=capInfo(),lv=c.p>=95?95:c.p>=80?80:0;
   if(lv>(MS.cap||0)){MS.cap=lv;msSave();say('資料量已用 '+c.p+'%，建議匯出備份，也可以整理舊筆記。',{lv:lv>=95?'warn':'info',hold:8000,rx:lv>=95?'warn':'nod'})}
   else if(c.p<70&&MS.cap){MS.cap=0;msSave()}}catch(e){}}
-function tomSearch(){if(pend||PH)return;tCnt('pk');if(gmOn){tomGain(2);return}
+function tomUse(k){k=Math.max(0,Math.floor(+k||0));if(!k)return;if(gmOn)gmTom=Math.max(0,gmTom-k);else{S.tom=Math.max(0,(S.tom||0)-k);if(S.tom===0)S.tz=1;save()}tomPaint(true)}
+const tzHint=()=>!PH&&!!S.tz&&S.tmd!==dayKey();
+setTimeout(function(){if(PH)return;const a=$('nt'),b=$('sq');a.placeholder='輸入筆記標題';b.placeholder=tzHint()?'像素刻工館':'輸入搜尋關鍵字';[a,b].forEach(i=>i.addEventListener('focus',()=>{i.placeholder=''},{once:true}))},0);
+function tomSearch(){if(pend||PH)return;tCnt('pk');if(gmOn){tomGain(2);return}if(!TKLIVE)return;
   const d=dayKey();if(S.tmd===d)return;const room=TKMAX-(S.tom||0);if(room<=0)return;S.tmd=d;tomGain(Math.min(2,room))}
-function tomGain(k){if(pend||PH)return;if(gmOn)gmTom=Math.min(TKMAX,gmTom+k);else S.tom=Math.min(TKMAX,(S.tom||0)+k);save();tomPaint(true);playSfx('coin',k);
+function tomGain(k){if(pend||PH)return;if(gmOn)gmTom=Math.min(TKMAX,gmTom+k);else{S.tom=Math.min(TKMAX,(S.tom||0)+k);S.tz=0}save();tomPaint(true);playSfx('coin',k);
   if(!MS.tom){MS.tom=1;msSave();setTimeout(()=>say('獲得隱藏獎勵：番茄鐘 ×'+k+'！先收著，之後會用到。',{lv:'info',id:'tomg',hold:8000,rx:'ok'}),400)}}
 const tkNext=h=>h<1?1000:5000*h;
 const tkDue=c=>c>=5000?1+Math.floor(c/5000):c>=1000?1:0;
@@ -924,14 +930,15 @@ function tkFly(k,el){
   const an=f.animate([{transform:'scale(1)',offset:0},{transform:'scale(1.35)',offset:.45},{transform:'translate(0,0) scale(1)',offset:.5},{transform:'translate('+(tx-(r.left+17))+'px,'+(cy-(r.top+17+3*sc))+'px) scale('+sc+')',offset:1}],{duration:1100,easing:'ease-in-out',fill:'forwards'});
   an.onfinish=done;setTimeout(done,1600)}
 function tkClaim(n,el){
+  if(!gmOn&&!TKLIVE)return;
   const c=gmOn?gmCoin:(+n.coin||0),have=gmOn?gmTk:(+n.tk||0),k=tkDue(c)-have;if(k<=0)return;
   const room=TKMAX-(gmOn?gmTom:(S.tom||0));if(room<=0)return;const g=Math.min(k,room);
-  if(gmOn){gmTk+=g;gmTom+=g}else{n.tk=have+g;S.tom=(S.tom||0)+g;save()}
+  if(gmOn){gmTk+=g;gmTom+=g}else{n.tk=have+g;S.tom=(S.tom||0)+g;S.tz=0;save()}
   if(gmOn){shelf();el=document.querySelector('.bagw')}tkFly(g,el);
   if(!gmOn&&!MS.tkb){MS.tkb=1;msSave();setTimeout(()=>say('錢袋裝滿了，孵出番茄鐘！',{lv:'info',id:'tkb',hold:6000,rx:'ok'}),1200)}}
-function tkBack(quiet){let room=TKMAX-(S.tom||0),g=0,ch=false;
+function tkBack(quiet){if(!TKLIVE)return;let room=TKMAX-(S.tom||0),g=0,ch=false;
   S.notes.forEach(n=>{const have=+n.tk||0,k=Math.min(tkDue(+n.coin||0)-have,room);if(n.tk===undefined||k>0){n.tk=have+Math.max(0,k);ch=true}if(k>0){room-=k;g+=k}});
-  if(g>0)S.tom=(S.tom||0)+g;
+  if(g>0){S.tom=(S.tom||0)+g;S.tz=0}
   if(ch){save();tomPaint()}
   if(g>0&&!quiet)setTimeout(()=>say('舊筆記的錢袋，補給你 '+g+' 顆番茄鐘。',{lv:'info',hold:7000,rx:'ok'}),800)}
 function sell(i){if(pend){lockMsg();return}
@@ -2525,7 +2532,7 @@ function cabRender(){
   cabSize();
   const L1=$('cabl'),st=L1.scrollTop;L1.innerHTML='';
   const act=S.notes.filter(n=>!n.archived&&!n.vault);let tw=0;act.forEach(n=>{tw+=fvChars(n)});
-  const h=document.createElement('div');h.className='cbh';h.innerHTML='<b>檔案櫃</b><i></i>';
+  const h=document.createElement('div');const cp=capInfo();h.className='cbw';h.innerHTML='<div class="cbt"><b>檔案櫃</b><div class="capr" data-tip="'+cp.t+'"><span>資料量</span><div class="xbar'+(cp.p>=80?' hi':'')+'"><i style="width:'+cp.p+'%"></i></div><b>'+cp.p+'%</b></div></div><i></i>';
   h.lastChild.textContent=S.folders.length+' 個資料夾．'+act.length+' 篇筆記'+(act.length?'．共 '+fvNum(tw):'');L1.appendChild(h);
   S.folders.forEach(f=>L1.appendChild(fvSec(f,sortL(act.filter(n=>n.folderId===f.id)))));
   L1.appendChild(fvSec(null,sortL(act.filter(n=>!(n.folderId&&fById(n.folderId))))));
@@ -2535,7 +2542,7 @@ function cabRender(){
 function cabPaintPanel(){
   const p=$('cabp');if(!p||!cabOn())return;const f=xpInfo();
   const av=f.avail>1?'可升 '+f.avail+' 級':f.avail===1?'可以升級了':'';
-  p.innerHTML='<div class="pkb">'+pkSvg(f.lv,96)+'<span class="plv">Lv.'+f.lv+'</span></div><div class="pkr"><div class="xrow"><div class="xbar'+(f.full&&!f.max?' full':'')+'" '+(xpWord(f)?' data-tip="'+xpWord(f)+'"':'')+'><i style="width:'+(f.frac*100).toFixed(1)+'%"></i></div><button class="ib up'+(f.full&&!f.max?' go':'')+'">'+(f.max?'最高等級':'升級')+'</button></div><div class="av">'+av+'</div><label class="chk"><input type="checkbox" class="xbk"'+(L.xb?' checked':'')+'><span>在介面上顯示經驗條</span></label><div class="cdv"></div>'+tPanel()+'<div class="cdv"></div>'+(c=>'<div class="capr" data-tip="'+c.t+'"><span>資料量</span><div class="xbar'+(c.p>=80?' hi':'')+'"><i style="width:'+c.p+'%"></i></div><b>'+c.p+'%</b></div>')(capInfo())+'<div class="abslot"></div><button class="ib hsb">'+sv('clock',16)+'<span>開啟全筆記歷史紀錄</span></button></div>';
+  p.innerHTML='<div class="pkb">'+pkSvg(f.lv,96)+'<span class="plv">Lv.'+f.lv+'</span></div><div class="pkr"><div class="xrow"><div class="xbar'+(f.full&&!f.max?' full':'')+'" '+(xpWord(f)?' data-tip="'+xpWord(f)+'"':'')+'><i style="width:'+(f.frac*100).toFixed(1)+'%"></i></div><button class="ib up'+(f.full&&!f.max?' go':'')+'">'+(f.max?'最高等級':'升級')+'</button></div><div class="av">'+av+'</div><label class="chk"><input type="checkbox" class="xbk"'+(L.xb?' checked':'')+'><span>在介面上顯示經驗條</span></label><div class="cdv"></div>'+tPanel()+'<div class="cdv"></div><div class="abslot"></div><button class="ib hsb">'+sv('clock',16)+'<span>開啟全筆記歷史紀錄</span></button></div>';
   p.querySelector('.hsb').onclick=()=>hOpen(null);tPanelBind(p);
   const b=p.querySelector('.up');b.disabled=!(f.full&&!f.max);
   b.onclick=()=>{if(pend){lockMsg();return}if(pickUp()){cabPaintPanel();const k=p.querySelector('.pkb');if(k&&!RM())k.classList.add('bump')}};
@@ -2942,8 +2949,7 @@ ta.addEventListener('keydown',e=>{if(e.repeat||PH||ta.readOnly)return;const k=e.
 function tSel(){return gmOn?TT.gm:S.tt}
 function tPanel(){if(!S.tt)return '';const t=tSel(),op=(L,k,cur)=>{const own=[],no=[];L.forEach((x,i)=>{if(tHas(k,i))own.push('<option value="'+i+'"'+(i===cur?' selected':'')+'>'+x+(!gmOn&&S.tt.nw.includes(k+i)?'　NEW':'')+'</option>');else no.push('<option disabled>？？？</option>')});return own.join('')+no.join('')};
   return '<div class="tsec"><div class="tsh">稱號</div><div class="tcur">《'+tName()+'》</div>'
-   +'<div class="tsr"><label class="k"><input type="checkbox" class="tup"'+(t.up?' checked':'')+'>前綴</label><select class="tsp"'+(t.up?'':' disabled')+'>'+op(TP,'p',t.sp)+'</select></div>'
-   +'<div class="tsr"><span class="k" style="padding-left:21px">後綴</span><select class="tsn">'+op(TN,'n',t.sn)+'</select></div>'
+   +'<div class="tsr tsr1"><label class="k"><input type="checkbox" class="tup"'+(t.up?' checked':'')+'>前綴</label><select class="tsp"'+(t.up?'':' disabled')+'>'+op(TP,'p',t.sp)+'</select><select class="tsn">'+op(TN,'n',t.sn)+'</select></div>'
    +'<label class="tck"><input type="checkbox" class="tsw"'+(S.tt.show?' checked':'')+'>顯示在介面上</label>'
    +'<label class="tck"><input type="checkbox" class="tau"'+(S.tt.auto?' checked':'')+'>自動套用最新取得的稱號</label>'
    +'<button class="ib trd">🎲 隨機</button></div>'}
