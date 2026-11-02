@@ -109,6 +109,12 @@ html.ph #plg{display:none!important}
 .app.bl #lst{filter:blur(7px);transition:none}
 .bagw{position:relative;flex:none;width:34px;height:34px;background:radial-gradient(circle 15px at 50% 64%,rgba(var(--bgl),.75) 0%,rgba(var(--bgl),.38) 50%,transparent 100%)}
 .bagw svg{position:absolute;left:0;top:3px}
+.bagw.rdy{cursor:pointer}
+.bagw.rdy>svg{animation:bgo 2.6s ease-in-out infinite}
+.bagw .bgt{position:absolute;inset:0;pointer-events:none;opacity:0;animation:bgt 2.6s ease-in-out infinite}
+@keyframes bgo{0%,100%{opacity:1}50%{opacity:0}}
+@keyframes bgt{0%,100%{opacity:0}50%{opacity:1}}
+@media (prefers-reduced-motion:reduce){.bagw.rdy>svg{animation:none}.bagw .bgt{animation:none;opacity:.6}}
 .coin{flex:none;align-self:flex-end;margin-bottom:-3px;line-height:20px;font-size:16px;white-space:nowrap;user-select:text}
 #wc{grid-column:3;grid-row:3;justify-self:start;align-self:stretch;display:none;align-items:flex-end;white-space:nowrap;pointer-events:none;min-width:0}
 #wcb{display:grid;grid-template-columns:auto auto;align-items:end;justify-content:start;margin-bottom:-2px}
@@ -356,6 +362,7 @@ html.ph #cabv{display:none!important}
 .pkb.bump{animation:pkbump .5s ease-out}
 @keyframes pkbump{0%{transform:scale(1)}35%{transform:scale(1.1)}100%{transform:scale(1)}}
 .pkr{width:100%;display:flex;flex-direction:column;align-items:stretch}
+@property --pa{syntax:'<angle>';inherits:false;initial-value:0deg}
 #cabp .lv{text-align:center;font-size:22px;font-weight:700;letter-spacing:.5px;margin-top:10px}
 #cabp .xbar{height:8px;border-radius:5px;background:var(--p2);border:1px solid var(--ln);overflow:hidden;margin-top:8px}
 #cabp .xbar i{display:block;height:100%;background:var(--al)}
@@ -468,9 +475,29 @@ html.ph #tks{display:none!important}
 .hwr .hx{opacity:0;color:var(--dm);padding:0 4px;border-radius:4px;cursor:pointer;font-size:13px}
 .hwr:hover .hx{opacity:1}.hwr .hx:hover{color:var(--dg)}
 html.ph #ttl{display:none}
-#cabp .pkb{position:relative;flex-direction:column;justify-content:flex-start;padding-top:6px}
-#cabp .pkb svg{width:66%;height:66%}
-#cabp .plv{position:absolute;left:0;right:0;bottom:6px;text-align:center;font-size:14px;font-weight:700;letter-spacing:.3px;color:var(--tx)}
+#cabp .pkt{width:100%;display:flex;gap:14px;align-items:stretch}
+#cabp .pkb{position:relative;flex:none;width:92px;flex-direction:column;justify-content:flex-start;padding:6px 0 0;font:inherit;color:inherit;cursor:default}
+#cabp .pkb svg{width:54%;height:54%}
+#cabp .plv{position:absolute;left:0;right:0;bottom:15px;text-align:center;font-size:14px;line-height:18px;font-weight:700;letter-spacing:.3px;color:var(--tx)}
+#cabp .pxb{position:absolute;left:12px;right:12px;bottom:8px;height:5px;border-radius:3px;background:var(--p1);border:1px solid var(--ln);overflow:hidden}
+#cabp .pxb i{display:block;height:100%;background:var(--al)}
+#cabp .pkb.go{cursor:pointer;border-color:transparent;animation:pkglow 2s ease-in-out infinite}
+#cabp .pkb.go:hover{transform:scale(1.04)}
+#cabp .pkb.go .pxb i{box-shadow:0 0 6px var(--al)}
+#cabp .pkb.go::before{content:"";position:absolute;inset:-1px;border-radius:16px;padding:2px;pointer-events:none;background:conic-gradient(from var(--pa),transparent 0 50%,var(--al) 82%,#fff 100%);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;animation:pkspin 2.2s linear infinite}
+@keyframes pkspin{to{--pa:360deg}}
+@keyframes pkglow{0%,100%{box-shadow:0 0 0 0 transparent}50%{box-shadow:0 0 12px var(--abd)}}
+@media (prefers-reduced-motion:reduce){#cabp .pkb.go,#cabp .pkb.go::before{animation:none}}
+#cabp .pkt .pkr{flex:1;min-width:0;justify-content:center;gap:3px}
+#cabp .pkh{font-size:15px;font-weight:700}
+#cabp .pkn{font-size:12px;line-height:1.5;color:var(--dm)}
+#cabp .pkr .av{text-align:left;margin-top:0}
+#cabp .pkr .chk{margin-top:6px}
+#cabv.nar #cabp .pkt{width:auto;flex:1;min-width:230px}
+#cabv.nar #cabp .pkt .pkb{width:64px;border-radius:12px}
+#cabv.nar #cabp .pkb.go::before{border-radius:12px}
+#cabv.nar #cabp .plv{bottom:12px;font-size:12px;line-height:15px}
+#cabv.nar #cabp .pxb{left:8px;right:8px;bottom:6px}
 #cabp .xrow{width:100%;display:flex;align-items:center;gap:10px;margin-top:12px}
 #cabp .xrow .xbar{flex:1;margin-top:0}
 #cabp .xrow .up{width:auto;flex:none;margin-top:0;height:30px;padding:0 14px}
@@ -513,8 +540,8 @@ html.ph #ttl{display:none}
 <input type="file" id="file" accept=".json,application/json" hidden>
 <canvas id="cv"></canvas><div id="tip"></div><div id="pk"></div>
 <script>
-const TKMAX=9,TKLIVE=false;const TKS={s:26};let gmOn=false,gmCoin=0,gmTom=0,gmTk=0,tomPend=0;
-const VERSION='1.45';const APPNAME='R note';
+const TKMAX=9,TKLIVE=false;const TKS={s:26};let gmOn=false,gmCoin=0,gmTom=0,gmTk=0,tomPend=0,tomHold=0;
+const VERSION='1.46';const APPNAME='R note';
 const PROMO_URL='https://line.me/S/shop/sticker/author/123908';
 const PH=(()=>{try{const q=new URLSearchParams(location.search).get('phone');if(q==='1')return true;if(q==='0')return false;return matchMedia('(pointer:coarse)').matches&&!matchMedia('(hover:hover)').matches&&Math.min(screen.width,innerWidth)<=820}catch(e){return false}})();
 document.documentElement.classList.toggle('ph',PH);
@@ -887,23 +914,24 @@ const hx=a=>Math.round(a*255).toString(16).padStart(2,'0');
 const GMORE={0:99,1:99,2:99,3:99,4:99,5:99,6:99,7:99,8:99,9:99};
 /* 金幣縮寫：不到 1 萬照原樣；1 萬起寫成 12K；100 萬起寫成 1.2M；一律捨去，有零頭就加「＋」 */
 function fmtCoin(n){n=Math.floor(+n||0);if(n<1e6)return String(n);const t=Math.floor(n/1e4)/100;return t.toFixed(2).replace(/\.?0+$/,'')+'M'+(n%1e4?'+':'')}
+const bagRdy=n=>!!n&&!PH&&(gmOn||TKLIVE)&&tkDue(gmOn?gmCoin:(+n.coin||0))-(gmOn?gmTk:(+n.tk||0))>0&&TKMAX-(gmOn?gmTom:(S.tom||0))>0;  // 錢袋可兌換：夠格而且番茄鐘還有空位
 function shelf(){
-  const el=$('shelf'),pb=$('phbag'),n=byId(S.sel);
+  const el=$('shelf'),pb=$('phbag'),n=byId(S.sel);shelf.r=bagRdy(n);
   const prev={};el.querySelectorAll('.ore').forEach(b=>prev[b.dataset.i]=b.getBoundingClientRect().left);
   if(!S.fx.mine||!n){el.innerHTML='';pb.innerHTML='';return}
   const o=gmOn?GMORE:(n.ore||{}),ids=Object.keys(o).map(Number).filter(i=>!PH||o[i]>0).sort((a,b)=>(o[a]>0?0:1)-(o[b]>0?0:1)||a-b);let h='';
   ids.forEach(i=>{const c=o[i],g=Math.min(1,Math.log(c+1)/Math.log(201));
     h+=`<button class="ib ore" data-i="${i}" data-tip="${i?'賣出可得 '+c*PR[i]:'?'}" style="${c>0?`background:radial-gradient(circle,${OC[i]}${hx(Math.min(1,(.16+g*.5)*OGG))} 0%,${OC[i]}${hx(Math.min(1,(.06+g*.18)*OGG))} ${25+g*30}%,transparent ${45+g*45}%),var(--p2)`:'opacity:.6'}">${oreSvg(i,24)}<b>${c}</b></button>`});
-  const cn=gmOn?gmCoin:n.coin,bag=`<span class="bagw">${bagSvg(34)}</span>`+(cn>0?`<span class="coin" data-tip="共 ${cn.toLocaleString('en-US')} 金幣${gmOn?'．下一顆 '+tkNext(gmTk):''}">${fmtCoin(cn)}</span>`:'');
+  const cn=gmOn?gmCoin:n.coin,rdy=bagRdy(n),bag=`<span class="bagw${rdy?' rdy':''}"${rdy?' data-tip="點擊兌換番茄鐘"':''}>${bagSvg(34)}${rdy?'<span class="bgt">'+TKI(34)+'</span>':''}</span>`+(cn>0?`<span class="coin" data-tip="共 ${cn.toLocaleString('en-US')} 金幣${gmOn?'．下一顆 '+tkNext(gmTk):''}">${fmtCoin(cn)}</span>`:'');
   if(PH){pb.innerHTML=bag}else{h='<span class="orew">'+h+'</span>';if(ids.length)h+='<span class="sep"></span>';h+=bag}
   el.innerHTML=h;
   if(!RM())el.querySelectorAll('.ore').forEach(b=>{const p=prev[b.dataset.i];if(p===undefined)return;const dx=p-b.getBoundingClientRect().left;if(Math.abs(dx)>1)b.animate([{transform:`translateX(${dx}px)`},{transform:'none'}],{duration:150,easing:'ease-out'})});
   {const k=ids.length+':'+String(cn).length;if(k!==shelf.k){shelf.k=k;if(L.xb&&!PH)xpWidth()}}  // 礦石列變寬時，重新檢查提示熱區
 }
-$('shelf').onclick=e=>{const b=e.target.closest('.ore');if(b)sell(+b.dataset.i)};
+$('shelf').onclick=e=>{if(e.target.closest('.bagw.rdy')){const n=byId(S.sel);if(n&&!pend){tkClaim(n,document.querySelector('.bagw'));shelf()}return}const b=e.target.closest('.ore');if(b)sell(+b.dataset.i)};
 const TKI=z=>`<svg viewBox="0 0 24 24" width="${z}" height="${z}" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8c-4 0-7.5 3-7.5 7 0 3.2 3 5.5 7.5 5.5s7.5-2.3 7.5-5.5c0-4-3.5-7-7.5-7z" class="tk-b" stroke-width="1.7"/><g transform="rotate(12 12 7.6)" class="tk-l"><path d="M9 7.6c1.2.8 4.8.8 6 0" stroke-width="1.7"/><path d="M12 6.8c-1-2-3-2.4-3.6-1.4M12 6.8c1-2 3-2.4 3.6-1.4" stroke-width="1.5"/></g><circle cx="12" cy="14.6" r="3.9" class="tk-d" stroke-width="1"/><path d="M12 14.6V12M12 14.6l2 1.3" class="tk-d" stroke-width="1.2"/></svg>`;
 const TOMI='<svg viewBox="0 0 24 24" width="22" height="22"><path d="M12 7.2c-4.6 0-8 3-8 7 0 3.7 3.4 6.3 8 6.3s8-2.6 8-6.3c0-4-3.4-7-8-7z" fill="#e5484d" stroke="#a8282d" stroke-width="1.2"/><path d="M12 7.6l-3.4-1.9 1.9 2.6-3 .3 3.4 1.2L12 8.6l1.1 1.2 3.4-1.2-3-.3 1.9-2.6z" fill="#46b45a" stroke="#2c7a3a" stroke-width=".8" stroke-linejoin="round"/><path d="M12 7V4.2" stroke="#2c7a3a" stroke-width="1.4" stroke-linecap="round"/><path d="M7.8 12.2c.6-1 1.6-1.6 2.6-1.8" stroke="#fff" stroke-opacity=".55" stroke-width="1.2" stroke-linecap="round" fill="none"/></svg>';
-function tomPaint(bump){const t=$('tks'),inp=$('sq');if(!t)return;const cur=Math.min(TKMAX,gmOn?gmTom:(S.tom||0)),n=Math.max(0,cur-tomPend),on=n>0&&!PH&&!S.q&&(TKLIVE||gmOn);t.style.display=on?'flex':'none';
+function tomPaint(bump){const t=$('tks'),inp=$('sq');if(!t)return;{const bn=byId(S.sel);if(bn&&bagRdy(bn)!==shelf.r)shelf()}const cur=Math.min(TKMAX,gmOn?gmTom:(S.tom||0)),n=Math.max(0,cur-tomPend),on=n>0&&!PH&&(!S.q||Date.now()<tomHold)&&(TKLIVE||gmOn);t.style.display=on?'flex':'none';
   if(!on){t.innerHTML='';inp.style.paddingRight='';return}
   const z=TKS.s;t.style.setProperty('--s',z+'px');t.dataset.tip=(cur>=TKMAX?'番茄鐘已滿 ':'番茄鐘 ')+cur+' / '+TKMAX;
   t.innerHTML='<span class="c f">'+TKI(z)+'</span><b'+(n>=TKMAX?' class="mx"':'')+'>'+n+'</b>';
@@ -919,16 +947,30 @@ function capCheck(){try{const now=Date.now();if(now-capAt<30000)return;capAt=now
 function tomUse(k){k=Math.max(0,Math.floor(+k||0));if(!k)return;if(gmOn)gmTom=Math.max(0,gmTom-k);else{S.tom=Math.max(0,(S.tom||0)-k);if(S.tom===0)S.tz=1;save()}tomPaint(true)}
 const tzHint=()=>!PH&&!!S.tz&&S.tmd!==dayKey();
 setTimeout(function(){if(PH)return;const a=$('nt'),b=$('sq');a.placeholder='輸入筆記標題';b.placeholder=tzHint()?'像素刻工館':'輸入搜尋關鍵字';[a,b].forEach(i=>i.addEventListener('focus',()=>{i.placeholder=''},{once:true}))},0);
-function tomSearch(){if(pend||PH)return;tCnt('pk');if(gmOn){tomGain(2);return}if(!TKLIVE)return;
-  const d=dayKey();if(S.tmd===d)return;const room=TKMAX-(S.tom||0);if(room<=0)return;S.tmd=d;tomGain(Math.min(2,room))}
+function tomGift(k){
+  if(gmOn)gmTom=Math.min(TKMAX,gmTom+k);else{S.tom=Math.min(TKMAX,(S.tom||0)+k);S.tz=0;save()}
+  tkFly(k,null,true);
+  if(!MS.tom){MS.tom=1;msSave();setTimeout(()=>say('獲得隱藏獎勵：番茄鐘 ×'+k+'！先收著，之後會用到。',{lv:'info',id:'tomg',hold:8000,rx:'ok'}),400)}}
+function tomSearch(){if(pend||PH)return;tCnt('pk');
+  if(!gmOn){if(!TKLIVE)return;if(S.tmd===dayKey())return}  // 一般版：今天領過就是一般搜尋
+  if(TKMAX-(gmOn?gmTom:(S.tom||0))<2){say('你的番茄鐘滿了，我沒辦法再送你更多。',{lv:'info',id:'tomfull',hold:6000,rx:'nod'});return}  // 不超出、不浪費：缺額不到 2 顆就整筆不給
+  if(!gmOn)S.tmd=dayKey();tomGift(2)}
 function tomGain(k){if(pend||PH)return;if(gmOn)gmTom=Math.min(TKMAX,gmTom+k);else{S.tom=Math.min(TKMAX,(S.tom||0)+k);S.tz=0}save();tomPaint(true);playSfx('coin',k);
   if(!MS.tom){MS.tom=1;msSave();setTimeout(()=>say('獲得隱藏獎勵：番茄鐘 ×'+k+'！先收著，之後會用到。',{lv:'info',id:'tomg',hold:8000,rx:'ok'}),400)}}
 const tkNext=h=>h<1?1000:5000*h;
 const tkDue=c=>c>=5000?1+Math.floor(c/5000):c>=1000?1:0;
-function tkFly(k,el){
+function tkFly(k,el,gift){
   const f0=$('sq').parentElement.getBoundingClientRect(),z=TKS.s,sc=z/34,ic=document.querySelector('#tks .f'),tx=ic?ic.getBoundingClientRect().left+z/2:f0.right-6-14-z/2,cy=f0.top+(34-z)/2-.03*z+z/2;
-  const done=()=>{if(done.d)return;done.d=1;f&&f.remove();tomPend=Math.max(0,tomPend-k);tomPaint(true)};
+  const done=()=>{if(done.d)return;done.d=1;f&&f.remove();tomPend=Math.max(0,tomPend-k);if(gift){tomHold=Date.now()+2800;setTimeout(()=>tomPaint(),2900);playSfx('coin',k)}tomPaint(true)};
   let f=null;tomPend+=k;tomPaint();
+  if(gift){  // 彩蛋禮物：從機器人（睡著或看不到時從放大鏡）拋一道弧線，飛進番茄鐘的位置
+    if(RM()){done();return}
+    const rb=$('rbt'),rr=rb&&!S.mute&&getComputedStyle(rb).display!=='none'?rb.getBoundingClientRect():null,ok=rr&&rr.width>0;
+    const sx=ok?rr.left+rr.width/2:f0.left+16,sy=ok?rr.top+rr.height/2:f0.top+17,W=34+(k-1)*18;
+    f=document.createElement('div');f.style.cssText='position:fixed;z-index:80;pointer-events:none;width:'+W+'px;height:34px;left:'+(sx-W/2)+'px;top:'+(sy-17)+'px';
+    let hh='';for(let i=0;i<k;i++)hh+='<span class="tkw" style="position:absolute;top:0;left:'+i*18+'px">'+TKI(34)+'</span>';f.innerHTML=hh;document.body.appendChild(f);
+    const dx=tx-sx,dy=cy-sy,kf=[];for(let i=0;i<=12;i++){const t=i/12;kf.push({transform:'translate('+dx*t+'px,'+(dy*t-280*t*(1-t))+'px) scale('+(1+(sc-1)*t)+')',offset:t})}
+    f.animate(kf,{duration:850,easing:'linear',fill:'forwards'}).onfinish=done;setTimeout(done,1500);return}
   if(RM()||!el||!el.isConnected){done();return}
   const r=el.getBoundingClientRect();f=document.createElement('div');
   f.style.cssText='position:fixed;z-index:80;pointer-events:none;width:34px;height:34px;left:'+r.left+'px;top:'+r.top+'px';
@@ -953,7 +995,7 @@ function sell(i){if(pend){lockMsg();return}
   const n=byId(S.sel);if(!n)return;if(!gmOn&&(!n.ore||!n.ore[i]))return;
   const c=gmOn?99:n.ore[i];let t=0;if(i==0){for(let k=0;k<c;k++)t+=150+Math.floor(Math.random()*151)}else t=c*PR[i];
   if(gmOn)gmCoin+=t;else{n.coin=(n.coin||0)+t;n.ore[i]=0;save()}playSfx('coin',c);shelf();
-  const w=document.querySelector('.bagw')||$('shelf'),r=w.getBoundingClientRect();tkClaim(n,document.querySelector('.bagw'));
+  const w=document.querySelector('.bagw')||$('shelf'),r=w.getBoundingClientRect();
   if(!RM())for(let k=0;k<10;k++)ps.push({x:(r.left+8)/2,y:(r.top+14)/2,vx:(Math.random()-.5)*2,vy:-(.5+Math.random()*1.5),g:.1,s:2,c:'#ffd23f',l:30});
   if(!raf)raf=requestAnimationFrame(loop);
 }
@@ -1881,6 +1923,7 @@ const MDI='<svg viewBox="0 0 28 20" width="24" height="18"><rect x="1" y="2" wid
 let mdKey='';
 function mdOn(){const n=byId(S.sel);return !!(n&&n.mv&&!PH&&!S.q&&!fvOn()&&!cabOn())}
 function mdPaint(){
+  setTimeout(()=>{try{selUpdate()}catch(e){}},0);
   const n=byId(S.sel),on=mdOn(),v=$('mdv'),b=$('mdb');
   if(!b.innerHTML)b.innerHTML=MDI;
   b.disabled=!n||!!pend||fvOn()||cabOn()||!!S.q;b.classList.toggle('on',!!(n&&n.mv));
@@ -1966,124 +2009,88 @@ function tick(){const d=new Date();chime(d);$('cd').textContent=`${d.getFullYear
 tick();setInterval(tick,5000);{const cb=$('ct').parentNode;cb.style.userSelect='none';cb.onclick=()=>{S.h12=!S.h12;save();tick();playSfx('clock')}}chk();setInterval(chk,60000);
 const README=`R note 使用說明
 ════════════════════════
+R note 是放在瀏覽器裡的純文字筆記本，打開網址就能寫。
 
-【一分鐘看懂】
-R note 是放在瀏覽器裡的純文字筆記本：打開網址就能寫，不用註冊、不用安裝、不用按存檔。
-你寫的字只存在這台電腦的這個瀏覽器裡，不會上傳，也不能自動同步到別的裝置，但所有筆記資料可以匯出/匯入備份。
+【你的筆記很安全】
+．你寫的字會立刻存在自己的瀏覽器裡，不經過任何伺服器，只有你看得到。
+．超過 7 小時沒備份，匯出按鈕會亮小紅點提醒你；有備份檔，就算瀏覽器資料被清掉，也能匯入還原。
+．支援「自動備份」（電腦版 Chrome／Edge）：有變動就自動存進你指定的檔案。
+．備份檔放進雲端硬碟或寄給自己，多一份保障。
+．7 天歷史紀錄，每篇筆記保留 10 個舊版本，誤刪、改壞都能找回。
+做法請看後面的【備份與搬家】。
+
+
+【三十秒上手】
+．打開網址就能寫：不用註冊與安裝、不用按存檔。
+．左上角輸入標題，按 Enter 新增筆記；＋ 是新增今天的日記；旁邊的剪貼簿按鈕，一鍵把剪貼簿的文字貼成新筆記。
+．最佳環境：電腦版 Chrome 或 Edge；也可以另存成單機版，離線也能用。手機瀏覽僅提供簡易版，只有一張便條紙。
 
 想讓打字多一點樂趣嗎？
-．打開神秘的開關（？），打字時會挖到寶石（？），每篇筆記都有自己的錢袋？
-．檔案櫃裡好像還藏著什麼？（謎）
-．左上角 R note 的每個字母都可以點點看（難道就是神秘開關？）。
+．打開神秘的開關（？），打字時會挖到寶石（？），還能計算筆記的含金量？
+．左上角的標題 R note，每個字母都可以點點看（難道就是神秘開關？）。
 ．好用的「鎖定打字範圍」功能，動不動就寫出長篇大論的人一定要試試看。
 ．聽說後面還埋藏著讓你專注打字的小遊戲？（謎）
 
-適合用途：臨時記事、工作待辦、進度日誌、各種草稿精修、擬定 AI 對話、常用備忘（分機、地址），或是敲鍵盤療癒自己（？）。
-
-最佳使用環境：電腦版 Chrome 或 Edge。手機瀏覽會自動進入簡易版，只有一張便條紙，完整功能請用電腦。
-
-
-【請定期備份】
-筆記只存在你現在用的這台電腦、這個瀏覽器裡，就像放在抽屜裡的記事本：
-．換電腦、換瀏覽器，那邊的抽屜是空的。
-．清除瀏覽器資料、重灌電腦，筆記會一起消失，找不回來。
-．無痕視窗關掉就沒了；公用電腦別用。
-．內容是明文存放，不要記密碼或祕密內容。（暗格只是把筆記藏起來，不是加密）
-．建議只開一個分頁編輯。同時開兩個分頁時，一邊寫了字，另一邊會先暫停，按「重新載入」就能看到最新內容，不會互相覆蓋。
-
-右上角的「匯出」按鈕會下載一個備份檔（.json）。建議每週至少匯出備份一次，重要內容寫完就匯出。超過 7 小時沒備份、而且這段時間內容有變動，匯出按鈕會出現小紅點提醒你。備份檔可放進雲端硬碟，或寄給自己。
-
-在電腦版 Chrome 或 Edge，還能用「自動備份」：匯入按鈕右邊的「自動備份」按鈕（圖示是白紙加一個 A）。先指定一個檔案，之後有變動，就會自動把整份資料存進那個檔案。
-．按鈕右上角的小點是狀態：灰＝未啟用、綠＝運作中、黃色閃爍＝等你同意延續（點一下，選「延續」）、紅色閃爍＝失敗或需要處理（點一下看原因）。
-．為什麼重開網頁後按鈕會變黃：這是瀏覽器的安全規定，網頁每次重新打開，都要再取得你同意，才能繼續寫入那個檔案。不是 R note 把它暫停，機器人問你要不要延續時，點「延續」、再同意一次就好。
-．預設每 5 分鐘最多備份一次，可以在檔案櫃右邊的資訊板改成即時、15 分鐘或 1 小時。備份檔會比你手上的資料慢一點，所以手滑亂刪的話，備份檔裡還是舊的樣子，可以用「匯入」救回來。
-．指定檔案時，如果裡面已經有別的資料，會先問你要不要先匯入；筆記突然變很少時，會先暫停，問你要不要照樣備份。
-．想放棄就點按鈕選「停止自動備份」，已存好的備份檔不會被刪除。
-．自動備份只有一份最新的、不會保留舊版本，所以仍建議偶爾手動匯出。
-．歷史紀錄救手滑，自動備份救瀏覽器被清空：清除瀏覽器資料、用無痕視窗、換電腦，或超過 7 天，歷史紀錄就救不回了。
-
 
 【基本操作】
-新增筆記
-．左上角輸入框打標題，按 Enter 就建立；輸入框左邊的 + 是新增今天的日記。
-．輸入框右邊（小機器人站的位置）是剪貼簿按鈕，一鍵把剪貼簿的文字貼成新筆記。
-．把文字文件直接拖進網頁，放開滑鼠就會建立筆記：檔名是標題，內容是內文，可選多個檔案匯入。建立後會直接打開（一次拖多個檔案，就打開第一份）。
-．在資料夾裡拖入檔案，新筆記會放進這個資料夾。
+新增與整理
+．把文字文件拖進網頁，就會建立成筆記（檔名是標題），可以一次拖多個檔案。
+．點一下標題看內容，點兩下（或按 F2）改名；點標題前面的圖示可以換圖示。
+．標題輸入框下面的四個按鈕：手動排序（拖曳調整）、修改時間、名稱、圖示；再點一次切換正反序。
+．把標題拖到下方區域是封存，拖回上方就還原；封存區的垃圾桶可以永久刪除。
+．Ctrl＋點是加選，Shift＋點是選一整段，Ctrl＋A 全選，選好後可以整批拖曳或按 Delete。
 
-標題
-．點一下標題看內容；點兩下（或按 F2）改名。
-．點標題前面的圖示，可以換圖示，也能自訂 Emoji。
-
-排序
-．標題輸入框下面的四個按鈕：手動排序（拖曳標題調整）、修改時間、名稱、圖示。再點一次切換正反序。
-
-封存與刪除
-．把標題拖到下方區域就是封存，拖回上方就還原。封存區的垃圾桶可以永久刪除（會先確認）。
-．永久刪除後，7 天內還能從歷史紀錄救回。
-．Ctrl＋點是加選，Shift＋點是選一整段，Ctrl＋A 全選；選好後可以整批拖曳，或按 Delete。
-
-歷史紀錄
-．筆記會自動保留最近 7 天、每篇最多 10 個舊版本，不用設定。在筆記上按右鍵選「歷史紀錄」，或到檔案櫃資訊板按「歷史紀錄」，就能看到所有舊版本與刪掉的筆記。
-．「另存成新筆記」會把舊版存成一篇新的（標題加上「_舊版」），原筆記不動；「換回這一版」會先把目前內容存一版再換回；刪掉的筆記按「救回」。
-．歷史紀錄只存在這台電腦的這個瀏覽器，不會放進匯出備份，換電腦就帶不走。想清掉，可以在歷史紀錄視窗裡刪除單筆或清空。
-
-搜尋
+搜尋與網址
 ．搜尋框輸入關鍵字，按 Enter，只留下符合的筆記（封存區也搜得到）。
+．筆記裡的網址，按住 Ctrl 點一下，就在新分頁開啟。
 
-主題配色
-．搜尋框右邊的三顆按鈕（亮色系、灰色系、暗色系），可依個人喜好切換適合的色調。
-．同一顆按鈕連續點，會換成同色系的下一組（每個色系有 6 組），按鈕右上角會閃一下目前是第幾組。
-．三顆按鈕左邊的音符按鈕：切換打字音色（共 6 種），每按一下會試聽；要先打開音效，打字時才聽得到。
+外觀與聲音
+．搜尋框右邊，從左到右是：音效開關、打字音色、亮色系／灰色系／暗色系三顆主題按鈕。同一顆主題按鈕連續點，會換成同色系的下一組。
 
-唯讀
-．內文上方、「總字數」旁邊的鉛筆按鈕，可以把這則筆記鎖成唯讀；在內文點兩下可解鎖唯讀狀態。
+唯讀與 Markdown 預覽
+．內文上方「總字數」旁邊的鉛筆按鈕，把筆記鎖成唯讀；在內文點兩下可解鎖。
+．鉛筆左邊的「M↓」按鈕，把筆記排成 Markdown 預覽（標題、清單、表格、程式碼等），只能看不能改，待辦的勾選可以直接點；再按一次回到文字。
 
-Markdown 預覽
-．鉛筆左邊的「M↓」按鈕：把這則筆記排成 Markdown 預覽（標題、清單、表格、程式碼等），只能看不能改，只有待辦的勾選可以直接點；再按一次回到文字。搜尋時不會顯示預覽。
-
-網址
-．筆記裡的網址，按住 Ctrl 會亮起來，點一下就在新分頁開啟。
-
-右鍵選單
-．在筆記或資料夾上按右鍵，查看更多可執行的功能。
-．資料夾右鍵選單，可將該資料夾所有筆記合併匯出為一個文字檔（.txt），依照當下排序方式合併。
+歷史紀錄與右鍵選單
+．在筆記上按右鍵選「歷史紀錄」，可以看到舊版本與刪掉的筆記，並救回來。
+．在筆記或資料夾上按右鍵，還有更多功能；資料夾的右鍵選單可以把裡面所有筆記合併匯出為一個文字檔（.txt）。
 
 
 【資料夾】
-．資料夾列右邊的「＋」新增資料夾，「－」刪除所選的資料夾（裡面的筆記不會消失），刪除後幾秒內可以按「復原」救回。
-．最左邊的「檔案櫃」按鈕：點一下打開檔案櫃總覽，列出所有資料夾和筆記，點任何一篇都能直接開啟；再點一下（或按 Esc）回到筆記。進入資料夾後，點它就回到外面。
-．點一下資料夾是選取，右邊會列出裡面的筆記，可以直接點開；再點一下才進入資料夾。
-．把筆記拖到資料夾圖示上就能收進去；在資料夾裡，把筆記拖到「移出資料夾」的虛線框，或拖到「檔案櫃」按鈕，就能移出。
-．資料夾的順序只能手動拖曳，不受四個排序按鈕影響。
-．眼睛按鈕：關閉後，所有資料夾隱藏，筆記全部攤平顯示。
-．點一下資料夾後，右邊列出的筆記可以直接拖：拖到「檔案櫃」按鈕或左邊的筆記區就移出資料夾，拖到另一個資料夾就換過去。
-．收納按鈕（眼睛左邊那顆資料夾加箭頭）：資料夾縮成左邊一排小標籤，筆記往上排；再按一次展開。
-．收納時，滑鼠碰到標籤會抽出來；點一下選取並轉正，再點進入；把筆記拖到標籤上就能收進去。要調整資料夾順序，請先展開。
+．資料夾列右邊的「＋」新增資料夾，「－」刪除所選的資料夾（裡面的筆記不會消失），刪除後幾秒內可以按「復原」。
+．最左邊的「檔案櫃」按鈕：點一下打開總覽，列出所有資料夾和筆記，點任何一篇都能直接開啟；再點一下（或按 Esc）回到筆記。
+．點一下資料夾是選取，右邊會列出裡面的筆記；再點一下才進入資料夾。
+．把筆記拖到資料夾圖示上就能收進去；拖到「檔案櫃」按鈕或「移出資料夾」的虛線框，就能移出。
+．眼睛按鈕：隱藏所有資料夾，筆記全部攤平顯示。
+．收納按鈕（眼睛左邊那顆）：資料夾縮成左邊一排小標籤，再按一次展開。
 
 
 【鎖定打字範圍】
-音效按鈕右邊的「兩支鉛筆」按鈕，會在內文區右側出現上下兩支鉛筆，並畫出兩條線，夾出一個範圍。兩支鉛筆可以用滑鼠拖曳，調整範圍的大小。
-超過這個範圍打字，會自動捲動到這個區域中，讓打字者維持在一個舒服的視線高度上，不用再操作頁面捲動。
-因為文字游標一直被帶在這個範圍中，用上下方向鍵閱讀文章時，畫面也會穩穩地跟著走。
-從文章任何一處開始打字，游標都會被帶回這個區域，很有打字機的手感與樂趣。
+右上角最左邊的「兩支鉛筆」按鈕，會在內文區右側出現上下兩支鉛筆，夾出一個範圍，可以用滑鼠拖曳調整。
+打字超過這個範圍時，畫面會自動捲動，讓你一直維持在舒服的視線高度，不用再自己捲動頁面。用方向鍵閱讀文章時，畫面也會穩穩地跟著走，很有打字機的手感。
 
 
 【右上角的按鈕】
-由左到右：音效（無聲／大聲／小聲）、鎖定打字範圍、插入日期時間、複製內文、機器人（關閉後僅提示系統必要訊息）、匯出備份、匯入備份、自動備份（白紙加 A，僅電腦版 Chrome／Edge）、使用說明（？）。
+由左到右：鎖定打字範圍、插入日期時間、複製內文、機器人（關閉後僅提示系統必要訊息）、匯出備份、匯入備份、自動備份（白紙加 A，僅電腦版 Chrome／Edge）、使用說明（？）。
 
 
-【匯入與搬家】
-．按匯入，選備份檔，有兩個選項：「取代現有筆記」或「追加為新筆記」（追加的會標上 ⚠，方便檢查）。
-．取代現有筆記時，唯讀的筆記也會被取代。
-．匯入後先瀏覽，沒問題按「確認無誤」，不對勁就按「復原之前的資料」。確認之前，筆記只能看、不能改。
-．匯入視窗會告訴你備份存於什麼時間，以及按「取代」之後，現有的幾篇筆記會消失。
-．自動備份的檔案就是備份檔，也可以匯入；手動匯出的檔案也能被指定成自動備份的檔案（會被新內容蓋掉）。
-．要搬到另一台電腦：舊的匯出，新的匯入。到新電腦請先匯入，再指定自動備份，免得空的資料蓋掉備份檔。
+【備份與搬家】
+．匯出：下載一個備份檔（.json），建議定期匯出，重要內容寫完就匯出。
+．匯入：選備份檔，可以「取代現有筆記」或「追加為新筆記」；匯入後先瀏覽，沒問題按「確認無誤」，不對勁就按「復原之前的資料」。
+．自動備份：按「A」按鈕指定一個檔案，之後有變動就自動存進去；再點按鈕可以看狀態或停止。它只保留最新一份，所以仍建議偶爾手動匯出。
+．換電腦：舊的匯出，新的匯入。到新電腦請先匯入，再設定自動備份。
+
+
+【小提醒】
+．清除瀏覽器資料、重灌電腦之前，先確認備份檔是新的。
+．無痕視窗關掉就沒了，公用電腦也不建議使用。
+．內容是明文存放，不建議記密碼或祕密內容。（暗格只是把筆記藏起來，不是加密）
+．建議只開一個分頁編輯；同時開兩個時，一邊會先暫停，按「重新載入」就能看到最新內容。
 
 
 【更新與單機版】
-．這個工具放在網路上，每次打開網址就是最新版；確認或刷新版本請按 Ctrl＋F5。更新不會讓筆記消失。
-．想離線使用：在網頁空白處按右鍵「另存新檔」，格式選「網頁，僅 HTML」，存起來按兩下就能開。單機版的資料和網址版是分開的，要互通請匯出再匯入；單機版不會自動更新，好處是離線電腦也可以使用。
+．這個工具放在網路上，每次打開網址就是最新版；想確認請按 Ctrl＋F5，更新不會讓筆記消失。
+．單機版：在網頁空白處按右鍵「另存新檔」，格式選「網頁，僅 HTML」，存起來按兩下就能開，離線也能用。單機版的資料和網址版是分開的，要互通請匯出再匯入。
 
 
 【LOGO 裡的小機關】
@@ -2103,7 +2110,7 @@ o、t、e 的開關會被記住；R 和 n 每次重新開啟都是關閉。
 
 祝順心如意。`;
 const hs=t=>{let a=5381,b=0;for(let i=0;i<t.length;i++){const c=t.charCodeAt(i);a=((a<<5)+a+c)|0;b=(b*31+c)|0}return a+':'+b+':'+t.length};
-const OLDH=['-1983915602:171529411:6757','561492873:771823936:2645','-1652934029:957503828:2482','-38752457:-718458112:2588','652580955:1757969548:2647','-1716669469:1205189334:2735'];
+const OLDH=['-2106340733:-1114159256:3876','-1983915602:171529411:6757','561492873:771823936:2645','-1652934029:957503828:2482','-38752457:-718458112:2588','652580955:1757969548:2647','-1716669469:1205189334:2735'];
 function diaryTitle(){const d=new Date();return `${d.getFullYear()}/${p2(d.getMonth()+1)}/${p2(d.getDate())}_週${'日一二三四五六'[d.getDay()]}`}
 const PHN='【給手機使用者】這是為電腦瀏覽器設計的筆記工具。手機上只提供簡易版：一張便條紙，打字也能挖礦。完整功能（多篇筆記、排序、封存、備份等）請改用電腦的 Chrome 或 Edge 打開。\n\n════════════════════════\n\n';
 function seedNotes(){
@@ -2550,10 +2557,10 @@ function cabRender(){
 function cabPaintPanel(){
   const p=$('cabp');if(!p||!cabOn())return;const f=xpInfo();
   const av=f.avail>1?'可升 '+f.avail+' 級':f.avail===1?'可以升級了':'';
-  p.innerHTML='<div class="pkb">'+pkSvg(f.lv,96)+'<span class="plv">Lv.'+f.lv+'</span></div><div class="pkr"><div class="xrow"><div class="xbar'+(f.full&&!f.max?' full':'')+'" '+(xpWord(f)?' data-tip="'+xpWord(f)+'"':'')+'><i style="width:'+(f.frac*100).toFixed(1)+'%"></i></div><button class="ib up'+(f.full&&!f.max?' go':'')+'">'+(f.max?'最高等級':'升級')+'</button></div><div class="av">'+av+'</div><label class="chk"><input type="checkbox" class="xbk"'+(L.xb?' checked':'')+'><span>在介面上顯示經驗條</span></label><div class="cdv"></div>'+tPanel()+'<div class="cdv"></div><div class="abslot"></div><button class="ib hsb">'+sv('clock',16)+'<span>開啟全筆記歷史紀錄</span></button></div>';
+  const can=f.full&&!f.max,tip=f.max?'已是最高等級':can?'點擊升級':'採礦等級 Lv.'+f.lv;
+  p.innerHTML='<div class="pkt"><button class="pkb'+(can?' go':'')+'" data-tip="'+tip+'">'+pkSvg(f.lv,96)+'<span class="plv">Lv.'+f.lv+'</span><span class="pxb"><i style="width:'+(f.frac*100).toFixed(1)+'%"></i></span></button><div class="pkr"><b class="pkh">採礦等級</b><span class="pkn">提升採礦的能力</span><div class="av">'+av+'</div><label class="chk"><input type="checkbox" class="xbk"'+(L.xb?' checked':'')+'><span>顯示經驗條</span></label></div></div><div class="cdv"></div>'+tPanel()+'<div class="cdv"></div><div class="abslot"></div><button class="ib hsb">'+sv('clock',16)+'<span>開啟全筆記歷史紀錄</span></button>';
   p.querySelector('.hsb').onclick=()=>hOpen(null);tPanelBind(p);
-  const b=p.querySelector('.up');b.disabled=!(f.full&&!f.max);
-  b.onclick=()=>{if(pend){lockMsg();return}if(pickUp()){cabPaintPanel();const k=p.querySelector('.pkb');if(k&&!RM())k.classList.add('bump')}};
+  p.querySelector('.pkb').onclick=()=>{if(!can)return;if(pend){lockMsg();return}if(pickUp()){cabPaintPanel();const k=p.querySelector('.pkb');if(k&&!RM())k.classList.add('bump')}};
   p.querySelector('.xbk').onchange=e=>{L.xb=e.target.checked?1:0;saveL();xpPaint();playSfx('tick')};
   if(AB.sup){const r=document.createElement('div'),iv=ABM.iv===undefined?300:ABM.iv;r.className='abr';
     r.innerHTML='<span class="ai">'+sv('auto',22)+'</span><span>自動備份間隔</span><select>'+[[0,'即時（停手約 4 秒）'],[300,'5 分鐘'],[900,'15 分鐘'],[3600,'1 小時']].map(o=>'<option value="'+o[0]+'"'+(o[0]===iv?' selected':'')+'>'+o[1]+'</option>').join('')+'</select>';
@@ -2981,7 +2988,11 @@ async function copyTxt(t){try{await navigator.clipboard.writeText(t);return true
 function exportFolder(id){const f=fById(id);if(!f)return;const l=sortL(S.notes.filter(n=>n.folderId===id&&!n.archived&&!n.vault));if(!l.length){say('這個資料夾是空的，沒有可匯出的筆記。',{lv:'info'});return}tCnt('fx');
   saveTxt(f.name,l.map(n=>'══════ '+n.title+' ══════\n'+n.content.replace(/\n+$/,'')).join('\n\n\n'));say('已匯出『'+f.name+'』的 '+l.length+' 篇筆記，請見瀏覽器的下載。',{lv:'info'})}
 let selRaf=0;
-function selUpdate(){const b=$('wcb');if(!b)return;const n=byId(S.sel);let c=0;if(n&&!PH&&ta.selectionStart!==ta.selectionEnd)c=wcCount(ta.value.slice(ta.selectionStart,ta.selectionEnd));b.classList.toggle('sel',c>0);if(c>0)$('wcsn').textContent=c}
+function selUpdate(){const b=$('wcb');if(!b)return;const n=byId(S.sel);let c=0;
+  if(n&&!PH){
+    if(mdOn()){const g=getSelection(),v=$('mdv');if(g&&!g.isCollapsed&&v.contains(g.anchorNode)&&v.contains(g.focusNode))c=wcCount(g.toString())}  // Markdown 預覽中，算預覽區裡選到的字
+    else if(ta.selectionStart!==ta.selectionEnd)c=wcCount(ta.value.slice(ta.selectionStart,ta.selectionEnd))}
+  b.classList.toggle('sel',c>0);if(c>0)$('wcsn').textContent=c}
 const selSoon=()=>{if(selRaf)return;selRaf=requestAnimationFrame(()=>{selRaf=0;selUpdate()})};
 ['select','keyup','mouseup','input','focus','blur'].forEach(v=>ta.addEventListener(v,selSoon));document.addEventListener('selectionchange',selSoon);
 
