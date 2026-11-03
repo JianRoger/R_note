@@ -546,6 +546,7 @@ html{--ks:1.4}#cabv{overflow:hidden}
 #setp .dp{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:6px;margin:6px 0 10px}
 #setp .dp button{text-align:left;padding:6px 9px;border:1px solid var(--ln);background:var(--p1);color:var(--tx);border-radius:8px;cursor:pointer;font:inherit;font-size:13px;line-height:1.3}#setp .dp button.on{border-color:var(--ac);box-shadow:0 0 0 1px var(--ac)}
 #setp .fx{display:grid;grid-template-columns:auto 1fr;gap:6px 8px;align-items:center;margin-bottom:8px}#setp .fx input[type=text]{width:100%}#setp .fx label.cb{grid-column:2;font-size:12px;color:var(--dm)}
+#setp .dfnav{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:8px}#setp .dfnav b{font-size:14px;flex:1;text-align:center}#setp #dff{width:100%;box-sizing:border-box;font-family:ui-monospace,Consolas,monospace;font-size:13px;margin-bottom:2px}#setp .dfh{margin-top:10px;font-size:12px;color:var(--dm)}#setp .dfh summary{cursor:pointer}#setp .dfh table{border-collapse:collapse;margin:6px 0}#setp .dfh td{padding:2px 10px 2px 0;vertical-align:top}#setp .dfh code{font-family:ui-monospace,Consolas,monospace;background:var(--p2);border-radius:4px;padding:0 4px}
 #setp .pv{white-space:pre-wrap;border:1px dashed var(--ln);border-radius:8px;padding:8px 10px;background:var(--p1);min-height:44px;font-family:ui-monospace,Consolas,monospace;font-size:13px}
 #setp .dz{border:2px solid var(--dg);border-radius:10px;padding:10px 12px;background:color-mix(in srgb,var(--dg) 6%,var(--p1))}#setp .dz h3{margin:0 0 2px;color:var(--dg);font-size:14px}#setp .dz p{margin:0 0 8px;color:var(--dm);font-size:12px}
 #setp .dz .go{background:var(--p1);border:1px solid var(--dg);color:var(--dg);height:34px;padding:0 14px;border-radius:8px;cursor:pointer;font:inherit;font-weight:600}#setp .dz .go:hover{background:var(--dg);color:#fff}
@@ -607,7 +608,7 @@ html{--ks:1.4}#cabv{overflow:hidden}
 <div id="clw"></div><canvas id="cv"></canvas><div id="tip"></div><div id="pk"></div>
 <script>
 const TKMAX=9,TKLIVE=false;const TKS={s:26};let gmOn=false,gmCoin=0,gmTom=0,gmTk=0,tomPend=0,tomHold=0;
-const VERSION='1.49';const APPNAME='R note';
+const VERSION='1.50';const APPNAME='R note';
 const PROMO_URL='https://line.me/S/shop/sticker/author/123908';
 const PH=(()=>{try{const q=new URLSearchParams(location.search).get('phone');if(q==='1')return true;if(q==='0')return false;return matchMedia('(pointer:coarse)').matches&&!matchMedia('(hover:hover)').matches&&Math.min(screen.width,innerWidth)<=820}catch(e){return false}})();
 document.documentElement.classList.toggle('ph',PH);
@@ -632,7 +633,7 @@ const abMetaSave=()=>{try{localStorage.setItem(ABK,JSON.stringify(ABM))}catch(e)
 try{const l=JSON.parse(localStorage.getItem(LK)||localStorage.getItem('plain-notes-layout-v1'));if(l)Object.assign(L,l)}catch(e){}
 if(L.sw===276&&!L.w314){L.sw=314;L.w314=1}L.cl=L.cl?1:0;
 /* 1.31：光色重新排序。舊使用者存的是「第幾個系列」，用顏色名字對回新的位置；新使用者直接用新順序。 */
-const OLDORD={"d":["露草","朽葉","苔色","桜鼠","藤紫","杏色"],"u":["暮灰","深煙","沉煙","焦糖","苔綠","靛灰"],"n":["藍墨","落栗","鉄御","鴬茶","煤竹","利休"]},NEWORD={"d":["露草","藤紫","苔色","朽葉","杏色","桜鼠"],"u":["靛灰","苔綠","沉煙","焦糖","暮灰","深煙"],"n":["藍墨","鉄御","利休","鴬茶","煤竹","落栗"]};
+const OLDORD={"d":["露草","朽葉","苔色","朧月","藤紫","杏色"],"u":["暮灰","深煙","沉煙","焦糖","苔綠","靛灰"],"n":["藍墨","落栗","鐵御","鶯茶","煤竹","山居"]},NEWORD={"d":["露草","藤紫","苔色","朽葉","杏色","朧月"],"u":["靛灰","苔綠","沉煙","焦糖","暮灰","深煙"],"n":["藍墨","鐵御","山居","鶯茶","煤竹","落栗"]};
 const OLDUSER=HAD&&!S.ordv;  // 1.31 以前就在用的人（只有第一次升級會是 true）
 if(OLDUSER){S.ser=Object.assign({n:0,u:0,d:0},S.ser);['d','u','n'].forEach(t=>{const o=Math.floor(+S.ser[t]);if(o>=0&&o<5){const i=NEWORD[t].indexOf(OLDORD[t][o]);if(i>=0)S.ser[t]=i}})}
 S.ordv=1;if(OLDUSER&&S.thSeen===undefined)S.thSeen=1;  // 舊使用者不會被問「選色調」
@@ -865,7 +866,7 @@ $('lst').addEventListener('keydown',e=>{
 let sIdx=0;
 const occ=n=>{const r=[];if(!n||!S.q)return r;const c=n.content.toLowerCase();let i=c.indexOf(S.q);while(i>=0){r.push(i);i=c.indexOf(S.q,i+S.q.length)}return r};
 function goTo(i){const n=byId(S.sel),o=occ(n);if(!o.length)return;sIdx=(i+o.length)%o.length;ta.blur();ta.setSelectionRange(o[sIdx],o[sIdx]+S.q.length);ta.focus();reveal(o[sIdx]);refreshNav()}
-function refreshNav(){$('sn').style.display=S.q?'flex':'none';$('sq').classList.toggle('act',!!S.q);$('sr').style.display=S.q?'flex':'none';$('srq').textContent=S.q;fitSq();tomPaint();if(!S.q)return;const t=occ(byId(S.sel)).length;if(sIdx>=t)sIdx=0;$('sc').textContent=(t?sIdx+1:0)+'/'+t;$('sp').disabled=$('sd').disabled=!t}
+function refreshNav(){$('sn').style.display=S.q?'flex':'none';$('fh').style.display=S.q?'none':'';$('sq').classList.toggle('act',!!S.q);$('sr').style.display=S.q?'flex':'none';$('srq').textContent=S.q;fitSq();tomPaint();if(!S.q)return;const t=occ(byId(S.sel)).length;if(sIdx>=t)sIdx=0;$('sc').textContent=(t?sIdx+1:0)+'/'+t;$('sp').disabled=$('sd').disabled=!t}
 $('sp').onclick=()=>goTo(sIdx-1);$('sd').onclick=()=>goTo(sIdx+1);
 $('srx').onclick=()=>{S.q='';$('sq').value='';render()};
 $('sx').onclick=()=>{S.q='';$('sq').value='';render()};
@@ -1308,7 +1309,8 @@ document.addEventListener('keydown',e=>{
 const SNDT=['音效：無聲','音效：小聲','音效：大聲'];
 const NOTE='<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5.5l10-2V16"/><circle cx="6.5" cy="18" r="2.5"/><circle cx="16.5" cy="16" r="2.5"/></svg>';
 function paintPlug(){const p=$('plgp');if(!p)return;const k=(S.tpk|0)%6,yl=k>2?22.7:11.3,yr=[8.5,17,25.5][k%3],d='M-4 '+yl+'C8 '+yl+' 13 '+yr+' 25 '+yr;p.setAttribute('d',d);p.style.d="path('"+d+"')";$('plga').setAttribute('cy',yl);$('plgb').setAttribute('cy',yr);$('plg').classList.toggle('off',!S.sfx)}
-function paintTs(){const b=$('tsb');if(!b)return;paintPlug();if(!b.innerHTML)b.innerHTML=NOTE;b.dataset.tip='打字音色 '+(S.tpk+1)+'/6 '+(['薄瓷','檜木','磚塊','霓虹','蘆笛','琉璃'][S.tpk]||'')+(S.sfx?'':'\n音效關閉中');if(typeof tcur!=='undefined'&&tcur===b&&tip.style.display==='block')tip.textContent=b.dataset.tip}
+const TIMB=['薄瓷','檜木','磚塊','霓虹','蘆笛','琉璃'];
+function paintTs(){const b=$('tsb');if(!b)return;paintPlug();if(!b.innerHTML)b.innerHTML=NOTE;b.dataset.tip='打字音色 '+(S.tpk+1)+'/6 '+(TIMB[S.tpk]||'')+(S.sfx?'':'\n音效關閉中')+'\n右鍵可直接選';if(typeof tcur!=='undefined'&&tcur===b&&tip.style.display==='block')tip.textContent=b.dataset.tip}
 function tsPreview(){try{if(!actx())return;const g=MG.gain.value;if(!S.sfx)MG.gain.value=VOL[1];const id=curPack(),sx=SFXS[id]||(SFXS[id]=build(id));[0,90,180,300].forEach((d,k)=>setTimeout(()=>{try{k<3?sx.key():sx.commit()}catch(e){}},d));if(!S.sfx)setTimeout(()=>{MG.gain.value=VOL[S.sfx]||0},900)}catch(e){}}
 $('tsb').onclick=()=>{S.tpk=(S.tpk+1)%6;save();paintTs();if(!S.sfx&&!PH)say('音效現在關著，打字時聽不到這個音色。',{lv:'info',id:'tsmute',hold:7000,rx:'nod',actions:[{label:'打開音效',fn:()=>{sayOff('tsmute');S.sfx=1;save();paintSnd();playSfx('vol')}}]});const b=$('tsb');b.removeAttribute('data-n');void b.offsetWidth;b.dataset.n=S.tpk+1;clearTimeout(b._tn);b._tn=setTimeout(()=>b.removeAttribute('data-n'),1600);tsPreview()};
 function paintSnd(){paintTs();const b=$('snd');b.innerHTML=sv('vol'+S.sfx);b.dataset.tip=SNDT[S.sfx];b.classList.toggle('on',S.sfx>0)}
@@ -2121,7 +2123,7 @@ R note 是放在瀏覽器裡的純文字筆記本，打開網址就能寫。
 
 歷史紀錄與右鍵選單
 ．在筆記上按右鍵選「歷史紀錄」（或在檔案櫃按「全筆記歷史紀錄」），可以看到舊版本與刪掉的筆記，並救回來。
-．在筆記或資料夾上按右鍵，還有更多功能；資料夾的右鍵選單可以把裡面所有筆記合併匯出為一個文字檔（.txt）。
+．在筆記或資料夾上按右鍵，還有更多功能；筆記與資料夾都能另存為文字檔（.txt 或 .md）。光色按鈕和打字音色按鈕上按右鍵，可以直接選想要的那一個。
 
 
 【資料夾】
@@ -2179,7 +2181,7 @@ o、t、e 的開關會被記住；R 和 n 每次重新開啟都是關閉。
 
 祝順心如意。`;
 const hs=t=>{let a=5381,b=0;for(let i=0;i<t.length;i++){const c=t.charCodeAt(i);a=((a<<5)+a+c)|0;b=(b*31+c)|0}return a+':'+b+':'+t.length};
-const OLDH=['259163584:-342899575:2615','122576712:509132133:2551','156150843:-758912478:2459','-2106340733:-1114159256:3876','-1983915602:171529411:6757','561492873:771823936:2645','-1652934029:957503828:2482','-38752457:-718458112:2588','652580955:1757969548:2647','-1716669469:1205189334:2735'];
+const OLDH=['1717136960:1119175561:2617','259163584:-342899575:2615','122576712:509132133:2551','156150843:-758912478:2459','-2106340733:-1114159256:3876','-1983915602:171529411:6757','561492873:771823936:2645','-1652934029:957503828:2482','-38752457:-718458112:2588','652580955:1757969548:2647','-1716669469:1205189334:2735'];
 function diaryTitle(){const d=new Date();return `${d.getFullYear()}/${p2(d.getMonth()+1)}/${p2(d.getDate())}_週${'日一二三四五六'[d.getDay()]}`}
 const PHN='【給手機使用者】這是為電腦瀏覽器設計的筆記工具。手機上只提供簡易版：一張便條紙，打字也能挖礦。完整功能（多篇筆記、排序、封存、備份等）請改用電腦的 Chrome 或 Edge 打開。\n\n════════════════════════\n\n';
 function seedNotes(){
@@ -2248,7 +2250,7 @@ function importDialog(j,clean,newer,g2){
   const N=o.querySelector('#imN');if(N)N.onclick=()=>{close();const r=buildAppend(fresh,false,j.folders);if(commitImport(r))say('已追加 '+r.add+' 則標題全新的筆記。',{lv:'info'})};
 }
 try{localStorage.setItem('R_note_seen',VERSION)}catch(e){}
-const THS={"d":[["露草","#f4f5f5","#233f58","#ffffff","#fbfbfb","#d7d8d9","#f0f1f1","#a6a9ab","#4c6b81","#4a9ecf","#4f93ba",0.23,"#a3cee7","#233f58"],["藤紫","#f7f7f8","#3b284d","#ffffff","#ffffff","#c2c0c4","#f0eff0","#a8a6ab","#71657c","#9a84b3","#996fbe",0.31,"#cdc2d9","#3b284d"],["苔色","#f0f0ef","#2c4224","#ffffff","#fafbfa","#bfc1bc","#e9eae8","#a8aca5","#617850","#709461","#548443",0.34,"#c6d4c0","#2c4224"],["朽葉","#f5f5f4","#44382c","#ffffff","#fbfbfb","#d9d9d7","#f1f1f0","#abaaa6","#746a59","#a88b71","#895725",0.32,"#dcd1c6","#44382c"],["杏色","#fafaf9","#583622","#ffffff","#ffffff","#dcd9d6","#f6f5f5","#afa8a1","#916d57","#ecd4c5","#c47940",0.48,"#ecd4c5","#583622"],["桜鼠","#f8f7f7","#482e34","#ffffff","#fffefe","#d8d6d6","#f3f3f3","#aaa7a7","#745d63","#c3a2a8","#cc6178",0.23,"#dbc7cb","#482e34"]],"u":[["靛灰","#8d9fb0","#172b3b","#9faebc","#b3bfca","#ced7e0","#b3bfca","#929faa","#324c62","#365c7c","#ceddee",0.31,"#587690","#f8fafc"],["苔綠","#abb5ac","#223424","#b7bfb8","#c5cbc5","#d7ded7","#c5cbc5","#98a499","#3f5141","#517055","#3a5940",0.29,"#768c79","#ffffff"],["沉煙","#b4a493","#33251a","#c0b3a5","#cec4b9","#e4dcd4","#cec4b9","#aa9e92","#5f4b37","#75593e","#614d38",0.29,"#8b735c","#ffffff"],["焦糖","#a78e76","#2e2115","#b19b86","#bca997","#cfbdad","#bca997","#aa9e92","#4d3d2f","#68482c","#ebdbd1",0.29,"#82654c","#f2ebe3"],["暮灰","#c4b5b8","#382428","#cec2c4","#d9d0d2","#ebe4e5","#d9d0d2","#a99397","#5c4247","#884e5a","#864653",0.28,"#a17880","#ffffff"],["深煙","#b49ca1","#29191d","#bda8ac","#c7b5b9","#d7c5c9","#c7b5b9","#aa9298","#4e363d","#6f3945","#4c383d",0.21,"#a18087","#29191d"]],"n":[["藍墨","#222c3a","#eff0f0","#293445","#303e51","#374b67","#303e51","#929caa","#acb3bc","#55799b","#5d8ab1",0.23,"#47637f","#eff0f0"],["鉄御","#293d47","#c8dce4","#2f4753","#37525f","#3d6275","#37525f","#92a2aa","#96b3c3","#6c9cb2","#6ca4cb",0.2,"#4d7182","#e7f0f3"],["利休","#404a42","#eff0ef","#454f46","#4a554c","#4e6151","#4a554c","#97a59a","#b5c5b8","#a9b7aa","#86c193",0.2,"#646f65","#eff0ef"],["鴬茶","#493f2d","#f6f5f4","#544833","#60533b","#756342","#60533b","#aaa292","#d0c8ba","#bdb093","#d9ae6d",0.18,"#7e7259","#fbfafa"],["煤竹","#342823","#eeedec","#3c2e28","#44352d","#533e33","#44352d","#aa9a92","#c3b3ab","#c0a991","#c99e78",0.14,"#5e4e43","#eeedec"],["落栗","#4b2f25","#f5f5f4","#5b392d","#6b4335","#88513d","#6b4335","#aa9992","#cdb6b0","#bf8d78","#d28b65",0.32,"#8a6050","#f5f5f4"]]};
+const THS={"d":[["露草","#f4f5f5","#233f58","#ffffff","#fbfbfb","#d7d8d9","#f0f1f1","#a6a9ab","#4c6b81","#4a9ecf","#4f93ba",0.23,"#a3cee7","#233f58"],["藤紫","#f7f7f8","#3b284d","#ffffff","#ffffff","#c2c0c4","#f0eff0","#a8a6ab","#71657c","#9a84b3","#996fbe",0.31,"#cdc2d9","#3b284d"],["苔色","#f0f0ef","#2c4224","#ffffff","#fafbfa","#bfc1bc","#e9eae8","#a8aca5","#617850","#709461","#548443",0.34,"#c6d4c0","#2c4224"],["朽葉","#f5f5f4","#44382c","#ffffff","#fbfbfb","#d9d9d7","#f1f1f0","#abaaa6","#746a59","#a88b71","#895725",0.32,"#dcd1c6","#44382c"],["杏色","#fafaf9","#583622","#ffffff","#ffffff","#dcd9d6","#f6f5f5","#afa8a1","#916d57","#ecd4c5","#c47940",0.48,"#ecd4c5","#583622"],["朧月","#f8f7f7","#482e34","#ffffff","#fffefe","#d8d6d6","#f3f3f3","#aaa7a7","#745d63","#c3a2a8","#cc6178",0.23,"#dbc7cb","#482e34"]],"u":[["靛灰","#8d9fb0","#172b3b","#9faebc","#b3bfca","#ced7e0","#b3bfca","#929faa","#324c62","#365c7c","#ceddee",0.31,"#587690","#f8fafc"],["苔綠","#abb5ac","#223424","#b7bfb8","#c5cbc5","#d7ded7","#c5cbc5","#98a499","#3f5141","#517055","#3a5940",0.29,"#768c79","#ffffff"],["沉煙","#b4a493","#33251a","#c0b3a5","#cec4b9","#e4dcd4","#cec4b9","#aa9e92","#5f4b37","#75593e","#614d38",0.29,"#8b735c","#ffffff"],["焦糖","#a78e76","#2e2115","#b19b86","#bca997","#cfbdad","#bca997","#aa9e92","#4d3d2f","#68482c","#ebdbd1",0.29,"#82654c","#f2ebe3"],["暮灰","#c4b5b8","#382428","#cec2c4","#d9d0d2","#ebe4e5","#d9d0d2","#a99397","#5c4247","#884e5a","#864653",0.28,"#a17880","#ffffff"],["深煙","#b49ca1","#29191d","#bda8ac","#c7b5b9","#d7c5c9","#c7b5b9","#aa9298","#4e363d","#6f3945","#4c383d",0.21,"#a18087","#29191d"]],"n":[["藍墨","#222c3a","#eff0f0","#293445","#303e51","#374b67","#303e51","#929caa","#acb3bc","#55799b","#5d8ab1",0.23,"#47637f","#eff0f0"],["鐵御","#293d47","#c8dce4","#2f4753","#37525f","#3d6275","#37525f","#92a2aa","#96b3c3","#6c9cb2","#6ca4cb",0.2,"#4d7182","#e7f0f3"],["山居","#404a42","#eff0ef","#454f46","#4a554c","#4e6151","#4a554c","#97a59a","#b5c5b8","#a9b7aa","#86c193",0.2,"#646f65","#eff0ef"],["鶯茶","#493f2d","#f6f5f4","#544833","#60533b","#756342","#60533b","#aaa292","#d0c8ba","#bdb093","#d9ae6d",0.18,"#7e7259","#fbfafa"],["煤竹","#342823","#eeedec","#3c2e28","#44352d","#533e33","#44352d","#aa9a92","#c3b3ab","#c0a991","#c99e78",0.14,"#5e4e43","#eeedec"],["落栗","#4b2f25","#f5f5f4","#5b392d","#6b4335","#88513d","#6b4335","#aa9992","#cdb6b0","#bf8d78","#d28b65",0.32,"#8a6050","#f5f5f4"]]};
 const THF={"d":{"bag":"#e19214","glow":"#ffcd1e","fb":0.82,"fs":1.2,"gg":1},"u":{"bag":"#ffc94a","glow":"#bb652b","fb":0.6,"fs":1.55,"gg":0.9},"n":{"bag":"#ffc94a","glow":"#b8692e","fb":1.05,"fs":1.05,"gg":1}};
 const THN={d:'亮色系',u:'灰色系',n:'暗色系'},DG0={d:'#d63a3f',u:'#e5484d',n:'#e5484d'},SR0={d:'#d93f33',u:'#ff6b5f',n:'#ff6b5f'},RYH=0;
 let OGG=1;
@@ -2270,7 +2272,7 @@ function applyTh(){const th=S.th||'n',k=curSer(th),q=THS[th][k],F=THF[th],r=docu
   HEAD=th=='d'?'#23262d':th=='u'?tx:'#fff';
   if(th=='u'){const mx=(a,b,t)=>'#'+hrgb(a).map((v,i)=>Math.round(v+(hrgb(b)[i]-v)*t).toString(16).padStart(2,'0')).join('');PAL=[dm,mx(dm,tx,.35),mx(dm,tx,.65),mx(dm,'#ffffff',.25)];WSC=[tx,mx(tx,dm,.4),dm,mx(tx,'#000000',.15)];set('--gc','70,70,70')}else{PAL=PAL0;WSC=WSC0;r.style.removeProperty('--gc')}
   GC=getComputedStyle(r).getPropertyValue('--gc').trim()||'210,210,210';
-  document.querySelectorAll('#ths .ib[data-th]').forEach(b=>{const t=b.dataset.th;b.classList.toggle('on',t==th);b.dataset.tip=THN[t]+'\n'+(curSer(t)+1)+'/'+THS[t].length});
+  document.querySelectorAll('#ths .ib[data-th]').forEach(b=>{const t=b.dataset.th;b.classList.toggle('on',t==th);b.dataset.tip=THN[t]+'・'+THS[t][curSer(t)][0]+'\n'+(curSer(t)+1)+'/'+THS[t].length+'\n右鍵可直接選'});
   if(booted)shelf()}
 /* 點光色按鈕：同一顆再點＝換下一個系列（共 6 個）；點完在按鈕右上角閃一下編號 1～6，之後淡出，方便大家說「暗色5」 */
 function thFlash(b,t){b.removeAttribute('data-n');void b.offsetWidth;b.dataset.n=curSer(t)+1;clearTimeout(b._tn);b._tn=setTimeout(()=>b.removeAttribute('data-n'),1600);
@@ -2335,7 +2337,7 @@ const cm=document.createElement('div');cm.id='cm';document.body.appendChild(cm);
 function cmClose(){cm.style.display='none';cm.innerHTML=''}
 function cmOpen(x,y,items){
   hideTip();cm.innerHTML='';
-  items.forEach(it=>{const b=document.createElement('button');b.textContent=it.t;if(it.sub){const m=document.createElement('small');m.textContent=it.sub;b.appendChild(m)}if(it.dg)b.className='dg';b.onclick=ev=>{ev.stopPropagation();cmClose();it.fn()};cm.appendChild(b)});
+  items.forEach(it=>{const b=document.createElement('button');b.textContent=it.t+(it.on?'  ✓':'');if(it.c){const d=document.createElement('i');d.style.cssText='display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:8px;vertical-align:-1px;background:'+it.c+';box-shadow:0 0 0 1px rgba(128,128,128,.5)';b.prepend(d)}if(it.sub){const m=document.createElement('small');m.textContent=it.sub;b.appendChild(m)}if(it.dg)b.className='dg';b.onclick=ev=>{ev.stopPropagation();cmClose();it.fn()};cm.appendChild(b)});
   cm.style.display='block';
   cm.style.left=Math.max(4,Math.min(x,innerWidth-cm.offsetWidth-6))+'px';cm.style.top=Math.max(4,Math.min(y,innerHeight-cm.offsetHeight-6))+'px';
 }
@@ -2344,6 +2346,10 @@ document.addEventListener('contextmenu',e=>{
   const t=e.target;if(!t||!t.closest)return;
   if(t.closest('textarea,input,#cm,#fview'))return;
   let items=null;
+  {const tb=t.closest('#ths .ib[data-th]'),sb=t.closest('#tsb');
+   if(tb){const th=tb.dataset.th;items=THS[th].map((q,i)=>({t:(i+1)+' '+q[0],c:q[9],on:(S.th||'n')===th&&curSer(th)===i,fn:()=>{tTheme();S.th=th;S.ser[th]=i;S.thSeen=1;sayOff('thm');save();applyTh();thFlash(tb,th);playSfx('theme',th)}}))}
+   else if(sb){items=TIMB.map((n,i)=>({t:(i+1)+' '+n,on:(S.tpk|0)===i,fn:()=>{S.tpk=i;save();paintTs();sb.removeAttribute('data-n');void sb.offsetWidth;sb.dataset.n=i+1;clearTimeout(sb._tn);sb._tn=setTimeout(()=>sb.removeAttribute('data-n'),1600);tsPreview()}}))}
+   if(items){e.preventDefault();cmOpen(e.clientX,e.clientY,items);return}}
   const it=t.closest('#act .item'),ar=t.closest('#arc .item'),fo=t.closest('.fo'),tab=t.closest('#ftab');let ftid=null;if(!it&&!fo&&colOn()&&t.closest('#fr')){const ci=colPoint(e,true);if(ci>=0)ftid=S.folders[ci].id}
   if(it){
     const n=byId(it.dataset.id);if(!n)return;
@@ -2354,7 +2360,7 @@ document.addEventListener('contextmenu',e=>{
       {t:'開啟',fn:()=>{pick(n.id);ta.focus()}},
       {t:'改名',fn:()=>{const d=document.querySelector('#act .item[data-id="'+n.id+'"]');if(d)rename(d,n)}},
       ...(n.icon!=='📜'?[{t:'建立副本',sub:'僅文字內容',fn:()=>copyNotes([n.id])}]:[]),
-      {t:'另存為文字檔 (.txt)',fn:()=>{saveTxt(n.title,n.content);say('已另存為文字檔，請見瀏覽器的下載。',{lv:'info'})}},
+      {t:'另存為文字檔…',fn:()=>{saveTxt(n.title,n.content).then(r=>{if(r)say(r==='pick'?'已另存為檔案。':'已另存為文字檔，請見瀏覽器的下載。',{lv:'info'})})}},
       {t:'複製內文',fn:()=>copyTxt(n.content).then(ok=>say(ok?'已複製內文。':'複製失敗，請改用右上角的複製按鈕。',{lv:ok?'info':'warn'}))},
       ...(PH?[]:[{t:'歷史紀錄',fn:()=>hOpen(n.id)}]),
       {t:n.ro?'解除唯讀':'設為唯讀',fn:()=>{n.ro=!n.ro;playSfx(n.ro?'lock':'unlock');save();render()}},
@@ -2374,7 +2380,7 @@ document.addEventListener('contextmenu',e=>{
       if(curF!==id)items.push({t:'進入',fn:()=>{fms.clear();enterF(id)}});
       items.push({t:'改名',fn:()=>{fms.clear();if(curF!==id)enterF(id);fEdit=true;paintTab()}});
       items.push({t:'換顏色',fn:()=>openFpk(id,el)});
-      items.push({t:'匯出為一個文字檔 (.txt)',sub:'資料夾裡所有筆記，合成一份',fn:()=>exportFolder(id)});
+      items.push({t:'匯出為一個文字檔…',sub:'資料夾裡所有筆記，合成一份（.txt 或 .md）',fn:()=>exportFolder(id)});
       if(!curF)items.push({t:L.cl?'展開資料夾':'收納資料夾',fn:colToggle});
       items.push({t:'刪除資料夾',dg:1,fn:()=>delFolders([id])})}
   }else if((t.id==='act'||t.id==='frows'||t.id==='fr')&&!curF&&!S.q){
@@ -2618,7 +2624,10 @@ function cabRender(){
   if(chg&&!on&&window.setpClose)setpClose(true);
   document.documentElement.classList.toggle('cbm',on);
   if(chg)cabAnim(on);
-  v.style.display=on?'flex':'none';
+  clearTimeout(cabRender.t);
+  if(on){v.getAnimations().forEach(a=>{if(a.id==='cabout')a.cancel()});v.style.pointerEvents='';v.style.display='flex'}
+  else if(chg&&!RM()){v.style.pointerEvents='none';v.animate([{opacity:1,transform:'none'},{opacity:0,transform:'translateY(-12px)'}],{id:'cabout',duration:180,easing:'cubic-bezier(.4,0,1,1)',fill:'forwards'});cabRender.t=setTimeout(()=>{v.style.display='none';v.style.pointerEvents='';v.getAnimations().forEach(a=>a.cancel())},190)}
+  else v.style.display='none';
   $('cabb').classList.toggle('open',on);
   if(!on)return;
   cabSize();ctPlace();
@@ -2644,7 +2653,7 @@ function pkBurst(k,lv){
   W.style.cssText='position:fixed;left:0;top:0;width:0;height:0;z-index:95;pointer-events:none';document.body.appendChild(W);
   const mk=(css)=>{const e=document.createElement('div');e.style.cssText='position:absolute;left:'+cx+'px;top:'+cy+'px;'+css;W.appendChild(e);return e};
   const ring=mk('width:'+r.width+'px;height:'+r.width+'px;margin:-'+r.width/2+'px 0 0 -'+r.width/2+'px;border-radius:50%;border:3px solid #fff;box-shadow:0 0 12px var(--al)');
-  ring.animate([{transform:'scale(.6)',opacity:.95},{transform:'scale(2.1)',opacity:0}],{duration:650,easing:'ease-out'});
+  ring.animate([{transform:'scale(.6)',opacity:.95},{transform:'scale(2.1)',opacity:0}],{duration:650,easing:'ease-out',fill:'forwards'});  // fill：播完停在透明，不然會彈回原樣卡在圖示上
   const STAR='<svg viewBox="-1 -1 2 2" width="100%" height="100%"><path d="M0-1C.1-.22.22-.1 1 0 .22.1.1.22 0 1-.1.22-.22.1-1 0-.22-.1-.1-.22 0-1Z" fill="currentColor"/></svg>';
   const n=Math.min(16,12+Math.floor(lv/3)),big=Math.min(1.5,1+lv*.05),parts=[];
   for(let i=0;i<n;i++){
@@ -2652,11 +2661,9 @@ function pkBurst(k,lv){
     const e=mk('width:'+sz+'px;height:'+sz+'px;margin:-'+sz/2+'px 0 0 -'+sz/2+'px;color:'+(i%3===0?'#fff':i%3===1?'#ffe9a0':'var(--al)')+';'+(star?'':'border-radius:50%;background:currentColor;box-shadow:0 0 8px currentColor'));
     if(star){e.innerHTML=STAR;e.style.filter='drop-shadow(0 0 4px currentColor)'}
     const dx=Math.cos(a)*d,dy=Math.sin(a)*d;
-    parts.push(e.animate([{transform:'translate(0,0) scale(.3)',opacity:1},{transform:'translate('+dx+'px,'+dy+'px) scale(1)',opacity:1,offset:.4},{transform:'translate('+dx*1.15+'px,'+(dy-30)+'px) scale(.4) rotate('+(star?90:0)+'deg)',opacity:0}],{duration:1100+Math.random()*300,easing:'cubic-bezier(.2,.7,.3,1)'}).finished);
+    parts.push(e.animate([{transform:'translate(0,0) scale(.3)',opacity:1},{transform:'translate('+dx+'px,'+dy+'px) scale(1)',opacity:1,offset:.4},{transform:'translate('+dx*1.15+'px,'+(dy-30)+'px) scale(.4) rotate('+(star?90:0)+'deg)',opacity:0}],{duration:1100+Math.random()*300,easing:'cubic-bezier(.2,.7,.3,1)',fill:'forwards'}).finished);
   }
-  if(f.max){for(let i=0;i<14;i++){const sz=9+Math.random()*9,x=(Math.random()-.5)*200,e=mk('width:'+sz+'px;height:'+sz+'px;margin:-'+(sz/2+70)+'px 0 0 '+(x-sz/2)+'px;color:#ffd24a');e.innerHTML=STAR;e.style.filter='drop-shadow(0 0 4px #ffb400)';
-      parts.push(e.animate([{transform:'translateY(0) rotate(0)',opacity:0},{opacity:1,offset:.2},{transform:'translateY('+(150+Math.random()*60)+'px) rotate(180deg)',opacity:0}],{duration:1500+Math.random()*700,delay:Math.random()*500,easing:'ease-in',fill:'backwards'}).finished)}
-    if(!L.pkm){L.pkm=1;saveL();setTimeout(()=>say('採礦等級已經到頂了！恭喜你，大礦工。',{lv:'info',hold:6000}),700)}}
+  if(f.max&&!L.pkm){L.pkm=1;saveL();setTimeout(()=>say('恭喜！十字鎬升到最高等級 Lv.'+f.lv+' 了。',{lv:'info',hold:6000}),700)}
   Promise.allSettled(parts).then(()=>W.remove());setTimeout(()=>W.remove(),2600);
 }
 function cabPaintPanel(){
@@ -3089,10 +3096,18 @@ tkBack(!!pend);tInit();paintSnd();$('ver').textContent=VERSION;applyTh();phoneEn
 {const n=byId(S.sel);if(n){if(!PH)ta.focus();ta.setSelectionRange(n.caret||0,n.caret||0);reveal(n.caret||0)}}
 
 const fname=t=>(String(t).replace(/[\\/:*?"<>|\u0000-\u001f]/g,'_').replace(/[. ]+$/,'')||'R_note').slice(0,80);
-function saveTxt(name,text){const a=document.createElement('a');a.href=URL.createObjectURL(new Blob(['\ufeff'+String(text).replace(/\r?\n/g,'\r\n')],{type:'text/plain;charset=utf-8'}));a.download=fname(name)+'.txt';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),2000)}
+async function saveTxt(name,text){  // 回傳 'pick'（存檔視窗存好）、'dl'（直接下載）、false（取消）
+  const base=fname(name),t=String(text);
+  if(typeof window.showSaveFilePicker==='function'&&!PH){
+    try{const h=await window.showSaveFilePicker({suggestedName:base,types:[{description:'文字檔 (.txt)',accept:{'text/plain':['.txt']}},{description:'Markdown (.md)',accept:{'text/markdown':['.md']}}]});
+      const md=/\.md$/i.test(h.name),w=await h.createWritable();  // .txt 帶標記讓記事本不亂碼；.md 用一般換行、不帶標記
+      await w.write(new Blob([md?t.replace(/\r\n?/g,'\n'):'\ufeff'+t.replace(/\r?\n/g,'\r\n')],{type:md?'text/markdown;charset=utf-8':'text/plain;charset=utf-8'}));await w.close();return 'pick'}
+    catch(e){if(e&&e.name==='AbortError')return false}
+  }
+  const a=document.createElement('a');a.href=URL.createObjectURL(new Blob(['\ufeff'+t.replace(/\r?\n/g,'\r\n')],{type:'text/plain;charset=utf-8'}));a.download=base+'.txt';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),2000);return 'dl'}
 async function copyTxt(t){try{await navigator.clipboard.writeText(t);return true}catch(e){const x=document.createElement('textarea');x.value=t;x.style.cssText='position:fixed;left:-9999px;top:0';document.body.appendChild(x);x.select();let ok=false;try{ok=document.execCommand('copy')}catch(y){}x.remove();return ok}}
 function exportFolder(id){const f=fById(id);if(!f)return;const l=sortL(S.notes.filter(n=>n.folderId===id&&!n.archived&&!n.vault));if(!l.length){say('這個資料夾是空的，沒有可匯出的筆記。',{lv:'info'});return}tCnt('fx');
-  saveTxt(f.name,l.map(n=>'══════ '+n.title+' ══════\n'+n.content.replace(/\n+$/,'')).join('\n\n\n'));say('已匯出『'+f.name+'』的 '+l.length+' 篇筆記，請見瀏覽器的下載。',{lv:'info'})}
+  saveTxt(f.name,l.map(n=>'══════ '+n.title+' ══════\n'+n.content.replace(/\n+$/,'')).join('\n\n\n')).then(r=>{if(r)say('已匯出『'+f.name+'』的 '+l.length+' 篇筆記'+(r==='pick'?'。':'，請見瀏覽器的下載。'),{lv:'info'})})}
 let selRaf=0;
 function selUpdate(){const b=$('wcb');if(!b)return;const n=byId(S.sel);let c=0;
   if(n&&!PH){
@@ -3215,7 +3230,7 @@ const selSoon=()=>{if(selRaf)return;selRaf=requestAnimationFrame(()=>{selRaf=0;s
 })();
 
 /* ===== 1.47：置頂功能表與檔案櫃動態（數值是 Roger 在預覽頁調好的） ===== */
-const CK={k:1.9,kd:.3,rs:35,ro:1.65,ks:1.4};
+const CK={k:1.7,kd:.3,rs:35,ro:1.65,ks:1.4};
 P.gear='<circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/>';
 $('ctH').innerHTML=sv('clock',18)+'<span class="lb">全筆記歷史紀錄</span>';
 $('ctS').innerHTML=sv('gear',18)+'<span class="lb">更多設定</span>';
@@ -3226,18 +3241,21 @@ function ctPlace(){const g=$('ctS'),b=$('ctb'),p=$('cabp'),v=$('cabv');if(!g||!b
 window.addEventListener('resize',()=>ctPlace());
 function cabCap(){const e=$('ctb').querySelector('.capr');if(!e)return;const cp=capInfo();e.dataset.tip=cp.t;e.querySelector('.xbar').classList.toggle('hi',cp.p>=80);e.querySelector('.xbar i').style.width=cp.p+'%';e.querySelector('b').textContent=cp.p+'%'}
 function cabAnim(on){
+  const kk=on?CK.k:.4;  // 開櫃用調好的速度，關櫃快速收回
+
   const html=document.documentElement,sh=$('shelf'),kids=[...sh.querySelectorAll('.ore,.sep,.bagw,.coin')];clearTimeout(cabAnim.t);clearTimeout(cabAnim.t2);cabAnim.busy=false;
   kids.forEach(e=>e.getAnimations().forEach(a=>a.cancel()));
   if(RM()){html.classList.toggle('cbq',on);return}
-  cabAnim.busy=true;cabAnim.t2=setTimeout(()=>{cabAnim.busy=false;shelf()},((500+kids.length*22)*CK.k)+80);
+  cabAnim.busy=true;cabAnim.t2=setTimeout(()=>{cabAnim.busy=false;shelf()},((500+kids.length*22)*kk)+80);
   const x0=sh.getBoundingClientRect().left,dxOf=e=>x0-e.getBoundingClientRect().left+4;
   if(on){
-    kids.forEach((e,i)=>e.animate([{transform:'none',opacity:1},{transform:'translateX('+dxOf(e)+'px) scale(.15)',opacity:0}],{duration:500*CK.k,delay:i*22*CK.k,easing:'cubic-bezier(.5,0,.2,1)',fill:'forwards'}));
-    cabAnim.t=setTimeout(()=>{html.classList.add('cbq');kids.forEach(e=>e.getAnimations().forEach(a=>a.cancel()))},(500+kids.length*22)*CK.k+60);
-    [...$('ctb').querySelectorAll('.tl')].forEach((e,i)=>e.animate([{opacity:0,transform:'translateX(-16px)'},{opacity:1,transform:'none'}],{duration:450*CK.k,delay:(380+kids.length*22+i*70)*CK.k,easing:'cubic-bezier(.2,.9,.3,1.2)',fill:'backwards'}));
+    kids.forEach((e,i)=>e.animate([{transform:'none',opacity:1},{transform:'translateX('+dxOf(e)+'px) scale(.15)',opacity:0}],{duration:500*kk,delay:i*22*kk,easing:'cubic-bezier(.5,0,.2,1)',fill:'forwards'}));
+    cabAnim.t=setTimeout(()=>{html.classList.add('cbq');kids.forEach(e=>e.getAnimations().forEach(a=>a.cancel()))},(500+kids.length*22)*kk+60);
+    [...$('ctb').querySelectorAll('.tl:not(#ctS)')].forEach((e,i)=>e.animate([{opacity:0,transform:'translateX(-16px)'},{opacity:1,transform:'none'}],{duration:450*kk,delay:(380+kids.length*22+i*70)*kk,easing:'cubic-bezier(.2,.9,.3,1.2)',fill:'backwards'}));
+    const g=$('ctS');if(g)g.animate([{opacity:0,transform:'translateX(40px)'},{opacity:1,transform:'none'}],{duration:CK.kd*1400,delay:CK.kd*400+100,easing:'cubic-bezier(.2,.9,.3,1)',fill:'backwards'});  // 更多設定跟著十字鎬面板出現
   }else{
     html.classList.remove('cbq');const n=kids.length;
-    kids.forEach((e,i)=>e.animate([{transform:'translateX('+dxOf(e)+'px) scale(.15)',opacity:0},{transform:'none',opacity:1}],{duration:500*CK.k,delay:(n-1-i)*22*CK.k,easing:'cubic-bezier(.5,0,.2,1)',fill:'backwards'}));
+    kids.forEach((e,i)=>e.animate([{transform:'translateX('+dxOf(e)+'px) scale(.15)',opacity:0},{transform:'none',opacity:1}],{duration:500*kk,delay:(n-1-i)*22*kk,easing:'cubic-bezier(.5,0,.2,1)',fill:'backwards'}));
   }
 }
 function cabEnter(){
@@ -3248,16 +3266,26 @@ function cabEnter(){
 }
 
 /* ===== 1.47 更多設定 ===== */
-const WD7='日一二三四五六';
-const DFP=[d=>`${dfY(d)}/${p2(d.getMonth()+1)}/${p2(d.getDate())}`,d=>`${dfY(d)}-${p2(d.getMonth()+1)}-${p2(d.getDate())} 週${WD7[d.getDay()]}`,d=>`${p2(d.getMonth()+1)}/${p2(d.getDate())}`,d=>`${dfY(d,1)}${d.getMonth()+1}月${d.getDate()}日`,d=>`${dfY(d,1)}${d.getMonth()+1}月${d.getDate()}日 週${WD7[d.getDay()]}`,d=>`${d.getFullYear()}_${p2(d.getMonth()+1)}${p2(d.getDate())}_${p2(d.getHours())}${p2(d.getMinutes())}`];
-const DFT=[d=>`${p2(d.getHours())}:${p2(d.getMinutes())}`,d=>`${p2(d.getHours())}:${p2(d.getMinutes())}:${p2(d.getSeconds())}`,d=>`${d.getHours()<12?'上午':'下午'} ${d.getHours()%12||12}:${p2(d.getMinutes())}`,d=>`${d.getHours()<12?'AM':'PM'} ${d.getHours()%12||12}:${p2(d.getMinutes())}`];
-const dfc=()=>Object.assign({p:5,e:'w',tm:0,tf:0,pre:'',prel:0,suf:'',sufl:0},S.df||{});
-function dfY(d,w){const c=dfc(),y=d.getFullYear();
-  if(c.e==='m'){const n=y-1911;return w?'民國'+n+'年':String(n)}
-  if(c.e==='r'){const n=y-2018;return w?'令和'+(n===1?'元':n)+'年':'R'+n}
-  return w?y+'年':String(y)}
-function dfText(d,c){c=c||dfc();let t=DFP[c.p](d);if(c.p!==5&&c.tm)t+=' '+DFT[c.tf](d);
-  return (c.pre?c.pre+(c.prel?'\n':''):'')+t+(c.suf?(c.sufl?'\n':'')+c.suf:'')}
+const WD7='日一二三四五六',DFDEF='YYYY_MMDD_HHmm';
+/* 日期時間格式字串：YYYY YY R W M MM D DD ddd dd H HH h hh mm ss a A，[文字] 原樣印出，\n 換行 */
+const DFTPL=['YYYY_MMDD_HHmm','YYYY/MM/DD','YYYY-MM-DD ddd','YYYY-MM-DD HH:mm','YYYY/MM/DD a h:mm','MM/DD','YYYY年M月D日','YYYY年M月D日 ddd','民國R年M月D日','令和W年M月D日','──── YYYY/MM/DD HH:mm ────'];
+const DFNAME=['經典（預設）','斜線日期','日期加星期','日期加時間','日期加上午下午','月日','中文日期','中文日期加星期','民國','令和','分隔線'];
+function dfFmt(d,f){const p2=n=>String(n).padStart(2,'0'),h=d.getHours(),y=d.getFullYear();
+  return f.replace(/\[([^\]]*)\]|YYYY|YY|MM|M|DD|D|ddd|dd|HH|H|hh|h|mm|ss|A|a|R|W|\\n/g,(m,lit)=>{
+    if(lit!==undefined)return lit;
+    switch(m){case 'YYYY':return String(y);case 'YY':return p2(y%100);case 'MM':return p2(d.getMonth()+1);case 'M':return String(d.getMonth()+1);
+      case 'DD':return p2(d.getDate());case 'D':return String(d.getDate());case 'ddd':return '週'+WD7[d.getDay()];case 'dd':return WD7[d.getDay()];
+      case 'HH':return p2(h);case 'H':return String(h);case 'hh':return p2(h%12||12);case 'h':return String(h%12||12);case 'mm':return p2(d.getMinutes());case 'ss':return p2(d.getSeconds());
+      case 'A':return h<12?'AM':'PM';case 'a':return h<12?'上午':'下午';case 'R':return String(y-1911);case 'W':{const n=y-2018;return n===1?'元':String(n)}case '\\n':return '\n'}return m})}
+/* 舊版（1.47–1.49）的下拉設定換算成格式字串，只換一次 */
+function dfMigrate(){const o=S.df;if(!o||o.f!==undefined)return;
+  const era=o.e==='m'?['R','民國R年']:o.e==='r'?['[R]W','令和W年']:['YYYY','YYYY年'],P=[era[0]+'/MM/DD',era[0]+'-MM-DD ddd','MM/DD',era[1]+'M月D日',era[1]+'M月D日 ddd',DFDEF];
+  let f=P[o.p]!==undefined?P[o.p]:DFDEF;if(o.p!==5&&o.tm)f+=[' HH:mm',' HH:mm:ss',' a h:mm',' A h:mm'][o.tf|0];
+  const lit=t=>'['+String(t).replace(/\]/g,'')+']';
+  if(o.pre)f=lit(o.pre)+(o.prel?'\\n':'')+f;if(o.suf)f=f+(o.sufl?'\\n':'')+lit(o.suf);
+  S.df={f};save()}
+const dfc=()=>{dfMigrate();const f=S.df&&typeof S.df.f==='string'?S.df.f:DFDEF;return f.trim()&&f.length<=120?f:DFDEF};
+function dfText(d,f){return dfFmt(d,f===undefined?dfc():(f.trim()&&f.length<=120?f:DFDEF))}
 const FSZ=[16,18,20,24];
 function applyFs(){document.documentElement.style.setProperty('--fs',(FSZ.includes(S.fs)?S.fs:18)+'px')}
 function applyRm(){document.documentElement.classList.toggle('rmo',S.rm===1)}
@@ -3279,12 +3307,26 @@ setp.innerHTML=`<div class="hd"><b>更多設定</b><button class="sg" id="spx">�
 <div class="pg" data-p="1">
  <div class="sec"><h3>備份</h3><div class="line"><span>備份提醒間隔</span><select id="spbk"><option value="1">1 小時</option><option value="3">3 小時</option><option value="7">7 小時</option><option value="24">1 天</option><option value="72">3 天</option><option value="120">5 天</option><option value="168">7 天</option></select></div></div>
  <div class="sec"><h3>${GEARC}設定日期時間樣式</h3>
-  <div class="line" style="padding-top:0"><span>紀年方式</span><div class="seg" id="spe"><button data-e="w">西元</button><button data-e="m">民國</button><button data-e="r">令和</button></div></div>
-  <div class="dp" id="spdp"></div>
-  <div class="line"><label><input type="checkbox" id="sptm"> 同時插入時間</label><select id="sptf"><option value="0">14:30</option><option value="1">14:30:05</option><option value="2">下午 2:30</option><option value="3">PM 2:30</option></select></div>
-  <div class="fx"><span>前綴</span><input type="text" id="sppre" placeholder="例如 ======"><label class="cb"><input type="checkbox" id="spprl"> 前綴獨立成一行</label><span>後綴</span><input type="text" id="spsuf" placeholder="例如 ======"><label class="cb"><input type="checkbox" id="spsul"> 後綴獨立成一行</label></div>
-  <div class="line" style="padding:0 0 4px"><small>按右上角 ${sv('cal',13)} 插入的樣子</small></div>
+  <div class="dfnav"><button class="sg" id="dfp">◀ 上一種</button><b id="dfn"></b><button class="sg" id="dfx">下一種 ▶</button></div>
+  <input type="text" id="dff" spellcheck="false" autocomplete="off" autocapitalize="off" maxlength="120">
+  <div class="line" style="padding:6px 0 4px"><small>按右上角 ${sv('cal',13)} 插入的樣子</small></div>
   <div class="pv" id="sppv"></div>
+  <details class="dfh"><summary>語法說明（可以自己改上面的格式）</summary>
+   <table>
+    <tr><td><code>YYYY</code> <code>YY</code></td><td>西元年　2026 ／ 26</td></tr>
+    <tr><td><code>R</code> <code>W</code></td><td>民國年數（115）／ 令和年數（8，第一年寫「元」）</td></tr>
+    <tr><td><code>M</code> <code>MM</code></td><td>月　3 ／ 03</td></tr>
+    <tr><td><code>D</code> <code>DD</code></td><td>日　3 ／ 03</td></tr>
+    <tr><td><code>ddd</code> <code>dd</code></td><td>星期　週二 ／ 二</td></tr>
+    <tr><td><code>H</code> <code>HH</code></td><td>24 小時制　9 ／ 09</td></tr>
+    <tr><td><code>h</code> <code>hh</code></td><td>12 小時制　9 ／ 09</td></tr>
+    <tr><td><code>mm</code> <code>ss</code></td><td>分、秒</td></tr>
+    <tr><td><code>a</code> <code>A</code></td><td>上午／下午 ，AM／PM</td></tr>
+    <tr><td><code>[文字]</code></td><td>括號裡的字原樣印出，例如 <code>[筆記]</code></td></tr>
+    <tr><td><code>\\n</code></td><td>換行</td></tr>
+   </table>
+   <p>例：<code>民國R年M月D日 ddd</code> → 民國115年11月3日 週二。前綴、後綴直接寫在前後就行；英文字母想原樣印出時要用 [ ] 括起來。</p>
+  </details>
  </div>
  <div class="dz"><h3>清除資料</h3><p>把這台瀏覽器裡的 R note 資料清掉。操作前會先請你確認。</p><button class="go" id="spdz">清除資料…</button></div>
 </div>
@@ -3296,13 +3338,9 @@ function setpPaint(){
   mark('#sprm button',b=>+b.dataset.v===(S.rm===1?1:S.rm===2?2:0));
   const fs=FSZ.includes(S.fs)?S.fs:18;mark('#spfs button',b=>+b.dataset.px===fs);sq('#spfm').style.fontSize=fs+'px';
   sq('#sphr1').checked=!!S.hr1;sq('#spbk').value=String(S.bki||7);
-  const c=dfc();mark('#spe button',b=>b.dataset.e===c.e);
-  const d=new Date();sq('#spdp').innerHTML=DFP.map((f,i)=>`<button data-i="${i}" class="${i===c.p?'on':''}">${f(d)}</button>`).join('');
-  sqa('#spdp button').forEach(b=>b.onclick=()=>{dfSet({p:+b.dataset.i})});
-  sq('#sptm').checked=!!c.tm;sq('#sptm').disabled=c.p===5;sq('#sptf').value=String(c.tf);sq('#sptf').disabled=c.p===5||!c.tm;
-  sq('#sppre').value=c.pre;sq('#spsuf').value=c.suf;sq('#spprl').checked=!!c.prel;sq('#spsul').checked=!!c.sufl;
-  sq('#sppv').textContent=dfText(d,c)}
-function dfSet(o){S.df=Object.assign(dfc(),o);save();setpPaint()}
+  const f=dfc(),ti=DFTPL.indexOf(f);sq('#dfn').textContent=ti>=0?DFNAME[ti]:'自訂';if(document.activeElement!==sq('#dff'))sq('#dff').value=S.df&&typeof S.df.f==='string'?S.df.f:DFDEF;
+  sq('#sppv').textContent=dfText(new Date(),f)}
+function dfSet(f){S.df={f};save();setpPaint()}
 function setpOpen(){setp.classList.add('on');tabGo(0);setpPaint();playSfx('tick')}
 function setpClose(quick){if(!setp.classList.contains('on'))return;setp.classList.remove('on');if(!quick)playSfx('tick')}
 function tabGo(i){mark('#setp .tabs button',b=>+b.dataset.t===i);sqa('.pg').forEach(p=>p.classList.toggle('on',+p.dataset.p===i));setp.scrollTop=0}
@@ -3315,20 +3353,18 @@ sqa('#sprm button').forEach(b=>b.onclick=()=>{const v=+b.dataset.v;if(v)S.rm=v;e
 sqa('#spfs button').forEach(b=>b.onclick=()=>{S.fs=+b.dataset.px;applyFs();save();setpPaint()});
 sq('#sphr1').onchange=e=>{S.hr1=e.target.checked?1:0;save()};
 sq('#spbk').onchange=e=>{S.bki=+e.target.value;save();chk()};
-sqa('#spe button').forEach(b=>b.onclick=()=>dfSet({e:b.dataset.e}));
-sq('#sptm').onchange=e=>dfSet({tm:e.target.checked?1:0});sq('#sptf').onchange=e=>dfSet({tf:+e.target.value});
-sq('#sppre').oninput=e=>{S.df=Object.assign(dfc(),{pre:e.target.value});save();sq('#sppv').textContent=dfText(new Date())};
-sq('#spsuf').oninput=e=>{S.df=Object.assign(dfc(),{suf:e.target.value});save();sq('#sppv').textContent=dfText(new Date())};
-sq('#spprl').onchange=e=>dfSet({prel:e.target.checked?1:0});sq('#spsul').onchange=e=>dfSet({sufl:e.target.checked?1:0});
+sq('#dff').oninput=e=>{S.df={f:e.target.value};save();const f=dfc(),ti=DFTPL.indexOf(f);sq('#dfn').textContent=ti>=0?DFNAME[ti]:'自訂';sq('#sppv').textContent=dfText(new Date(),f)};
+sq('#dff').onblur=()=>setpPaint();
+const dfStep=k=>{const ti=DFTPL.indexOf(dfc()),n=DFTPL.length;dfSet(DFTPL[ti<0?(k>0?0:n-1):(ti+k+n)%n]);playSfx('tick')};
+sq('#dfp').onclick=()=>dfStep(-1);sq('#dfx').onclick=()=>dfStep(1);
 document.addEventListener('keydown',e=>{if(e.key==='Escape'&&$('clw').classList.contains('on')){clClose();e.stopPropagation()}else if(e.key==='Escape'&&setp.classList.contains('on')&&cabOn()){setpClose();e.stopPropagation()}},true);
 /* ===== 1.47 清除資料 ===== */
 const CLS={all:[['全部筆記（含封存區、暗格）','歷史紀錄（備份裡沒有）','資料夾、排版、光色與各種設定','礦石、錢袋、採礦等級、番茄鐘、稱號'],['已下載的備份檔','自動備份指定的檔案']],
- notes:[['全部筆記（含封存區、暗格）','歷史紀錄（備份裡沒有）','資料夾','礦石與錢袋（它們存在筆記裡，會跟著消失）'],['採礦等級、番茄鐘、稱號','光色、音效、排版等設定','已下載的備份檔']],
- prog:[['礦石、錢袋（含每篇筆記上的錢袋）','採礦等級、番茄鐘','稱號回到「旅人」'],['全部筆記與歷史紀錄','資料夾','光色、音效、排版等設定']]};
+ prog:[['礦石、錢袋（含每篇筆記上的錢袋）','採礦等級、番茄鐘','稱號回到「旅人」（符合條件的稱號會依筆記現況重新取得）'],['全部筆記與歷史紀錄','資料夾','光色、音效、排版等設定']]};
 let clBk=false,clSc='all';
 function clOpen(){clBk=false;clSc='all';
   $('clw').innerHTML=`<div class="wb" id="cw1"><div class="haz"></div><div class="wc"><h2>清除資料</h2><p class="sub">這個動作無法復原。請先選擇要清除的範圍。</p>
-  <div class="scope" id="clsc"><label class="on"><input type="radio" name="clsc" value="all" checked> <b>全部清除</b><small>筆記、歷史紀錄、設定與所有進度，回到全新狀態</small></label><label><input type="radio" name="clsc" value="notes"> <b>只清筆記與歷史</b><small>保留採礦等級、番茄鐘、稱號與外觀設定</small></label><label><input type="radio" name="clsc" value="prog"> <b>只清進度</b><small>稱號回到「旅人」，礦石、錢袋、等級、番茄鐘歸零；筆記與設定不動</small></label></div>
+  <div class="scope" id="clsc"><label class="on"><input type="radio" name="clsc" value="all" checked> <b>全部清除</b><small>筆記、歷史紀錄、設定與所有進度，回到全新狀態</small></label><label><input type="radio" name="clsc" value="prog"> <b>只重置進度（保留筆記）</b><small>稱號回到「旅人」，礦石、錢袋、等級、番茄鐘歸零；筆記與設定不動</small></label></div>
   <div class="two"><div class="lose"><b>會消失</b><ul id="cllose"></ul></div><div><b>不會動</b><ul id="clkeep"></ul></div></div>
   <div class="bk" id="clbk"><button id="bkb"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M12 3v12M7 11l5 5 5-5M4 20h16"/></svg><span id="bkt">先下載備份</span></button><div class="tx"><b id="bkh">把目前所有筆記存成一個檔案</b><span id="bks">按下去會請你選擇存放位置（例如隨身碟）。不想備份就直接按「我了解，繼續」。</span></div></div>
   <div class="tipy" id="cltip"><b>還能回來嗎？</b> 有匯出過備份、或使用自動備份的話，之後可以按「匯入」還原：「取代」連進度一起還原，「追加」只加回筆記。歷史紀錄不在備份裡，清除後無法找回。<br><b>想徹底清除的話：</b>備份檔仍留在這台電腦（下載資料夾，或你指定的自動備份檔），請自行刪除。</div>
@@ -3337,7 +3373,7 @@ function clOpen(){clBk=false;clSc='all';
   const q=i=>$('clw').querySelector(i);
   const paint=()=>{clSc=q('[name=clsc]:checked').value;[...$('clw').querySelectorAll('#clsc label')].forEach(l=>l.classList.toggle('on',l.querySelector('input').checked));
     q('#cllose').innerHTML=CLS[clSc][0].map(x=>'<li>'+x+'</li>').join('');q('#clkeep').innerHTML=CLS[clSc][1].map(x=>'<li>'+x+'</li>').join('');
-    q('#cltip').style.display=clSc==='prog'?'none':'';q('#clbk').style.display=clSc==='prog'?'none':'';q('#cln').textContent=clSc==='prog'?'清除進度':'我了解，繼續'};
+    q('#cltip').style.display=clSc==='prog'?'none':'';q('#clbk').style.display=clSc==='prog'?'none':'';q('#cln').textContent=clSc==='prog'?'重置進度':'我了解，繼續'};
   [...$('clw').querySelectorAll('[name=clsc]')].forEach(r=>r.onchange=paint);paint();
   q('#clc').onclick=clClose;q('#clc2').onclick=clClose;
   q('#bkb').onclick=clBackup;
