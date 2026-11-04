@@ -136,6 +136,7 @@ html[data-th=u]{--tkb:#ca241c;--tkl:#348a2e;--tkd:#ffa19e;--tkg:200,70,60}
 #sysmsg .ln button{pointer-events:auto;margin-left:8px;height:18px;padding:0 9px;font-size:12px;line-height:16px;border:1px solid currentColor;border-radius:9px;background:transparent;color:inherit;cursor:pointer;vertical-align:1px}
 #sysmsg .ln button:hover{background:var(--abg)}
 #rbt{position:fixed;left:0;top:0;width:48px;height:48px;image-rendering:pixelated;pointer-events:none;z-index:22;display:none}
+#rbh{position:fixed;z-index:22;display:none;pointer-events:auto;touch-action:manipulation}
 #hatch{position:absolute;inset:0;border-radius:8px;pointer-events:none;display:none}
 #hatch,#twh,#hatch.fv{background:repeating-linear-gradient(135deg,rgba(var(--pv),.10) 0 1.5px,transparent 1.5px 18px)}
 #hatch.none,#hatch.fv{display:block}
@@ -258,6 +259,7 @@ html.fvm #lst .item.sel,html.cbm #lst .item.sel{background:none;border-color:tra
 #cm button{display:block;width:100%;text-align:left;padding:6px 12px;background:none;border:none;color:inherit;border-radius:5px;cursor:pointer;font:inherit;white-space:nowrap}
 #cm button:hover,#cm button:focus{background:var(--abg);outline:none}
 #cm button.dg{color:var(--dg)}
+#cm.jk{padding:4px}#cm.jk button{padding-left:40px}#cm .jkv{position:absolute;left:4px;top:0;width:36px;height:100%;pointer-events:none;overflow:visible}#cm .jkv .h{fill:none;stroke:var(--dm);stroke-width:1.4;opacity:.55}#cm .jkv .h.on{opacity:.9;stroke:var(--al)}#cm .jkv .cb{fill:none;stroke:var(--al);stroke-width:1.8;stroke-linecap:round;transition:d .22s ease-out}#cm .jkv .sc{fill:var(--al)}#cm .jkv .pl{fill:var(--al);transition:cy .22s ease-out}
 #cm button small{display:block;font-size:11px;color:var(--dm);margin-top:1px}
 html.ph #cm{display:none!important}
 .fvt{color:var(--dm);font-size:12px;white-space:nowrap}
@@ -310,7 +312,7 @@ html.ph #logo svg{width:200px;pointer-events:none}
 html.ph #ver{left:190px!important;top:10px!important}
 html.ph #tr{grid-column:2!important;grid-row:1!important}
 html.ph #tr>div:first-child{display:none}
-html.ph #tr .row>:not(#cpb){display:none!important}
+html.ph #tr .row>:not(#cpb):not(#pgear){display:none!important}#pgear{display:none}html.ph #pgear{display:flex}html.ph #ogear{display:none!important}
 html.ph #nr,html.ph #sorts,html.ph #vs,html.ph #sr,html.ph #dv,html.ph #arc,html.ph .fld,html.ph #sn,html.ph #rob,html.ph #dtb,html.ph #snd{display:none!important}
 html.ph #logo svg *{pointer-events:none!important}
 html.ph #phn{grid-column:1/-1;grid-row:2;font-size:13px;line-height:1.45;color:var(--al);padding:2px 4px 2px 58px;align-self:center}
@@ -352,7 +354,7 @@ html.ph #dz{display:none!important}
 
 html.cbm #body,html.cbm #ov,html.cbm #glow,html.cbm #spot,html.cbm #ul,html.cbm #mdv{visibility:hidden}
 #cabv{display:none;position:absolute;inset:0;z-index:5;box-sizing:border-box}
-html.ph #cabv{display:none!important}
+html.ph #cabv,html.ph #setp{display:none!important}
 #cabl{flex:1;min-width:0;overflow:auto;padding:12px 18px}
 #cabp{flex:none;width:var(--cpw,320px);box-sizing:border-box;background:var(--p1);border:1px solid var(--ln);border-radius:8px;padding:18px 16px 14px;display:flex;flex-direction:column;align-items:center;overflow:auto;color:var(--tx)}
 .cbh{display:flex;align-items:baseline;gap:10px;height:30px;font-size:14px;margin-bottom:6px}
@@ -522,9 +524,21 @@ label.chk.dis{opacity:.45}label.chk.dis *{cursor:default}
 html.cnar #ctb .tlb .lb,html.cnar #ctb .capr .lb{display:none}html.cnar #ctb .tlb{padding:0;width:34px}
 html.rmo *,html.rmo *::before,html.rmo *::after{animation-duration:.01ms!important;animation-delay:0s!important;transition-duration:.01ms!important;transition-delay:0s!important}
 
-/* ===== 1.47 更多設定抽屜 ===== */
+
+/* ===== 1.51 外置齒輪（機器人左邊）：兩格圖＝待機／打開；之後可換成像素圖或花苞／開花 ===== */
+#ogear{position:fixed;z-index:23;width:32px;height:32px;padding:0;display:none;align-items:center;justify-content:center;border-radius:50%;background:transparent;border:1px solid transparent;color:var(--dm);cursor:pointer}
+#ogear:hover{color:var(--tx);background:var(--abg)}#ogear.open{color:var(--ac)}
+#ogear .gi{display:block;width:24px;height:24px;image-rendering:pixelated;transition:transform calc(.5s*var(--ks,1)) cubic-bezier(.3,1.4,.5,1)}
+html.rmo #ogear .gi{transition:none}#ogear.open .gi{transform:rotate(60deg)}
+#ogear img.gi{object-fit:contain}
+#pgw{position:fixed;inset:0;z-index:95;background:rgba(0,0,0,.6);display:none;align-items:center;justify-content:center;padding:14px}#pgw.on{display:flex}
+#pgw .bx{width:min(360px,100%);background:var(--p1);color:var(--tx);border:1px solid var(--ln);border-radius:12px;padding:14px 16px;font-size:15px}
+#pgw h3{margin:0 0 8px;font-size:16px}#pgw .fsr{display:flex;gap:6px;margin:6px 0 14px}#pgw .fsr button{flex:1;padding:8px 0;border:1px solid var(--ln);border-radius:8px;background:var(--p2);color:var(--tx);font:inherit}#pgw .fsr button.on{border-color:var(--ac);background:var(--abg);font-weight:700}
+#pgw .cl{width:100%;padding:9px;border:1px solid var(--dg);border-radius:8px;background:transparent;color:var(--dg);font:inherit;font-weight:600}
+#pgw .x{width:100%;margin-top:8px;padding:9px;border:1px solid var(--ln);border-radius:8px;background:var(--p2);color:var(--tx);font:inherit}
+/* ===== 1.47 設定抽屜（1.51 起獨立於檔案櫃） ===== */
 html{--ks:1.4}#cabv{overflow:hidden}
-#setp{position:absolute;top:0;right:0;bottom:0;width:min(560px,100%);z-index:7;background:var(--p1);color:var(--tx);border:1px solid var(--ln);border-radius:8px 0 0 8px;overflow:auto;display:flex;flex-direction:column;transform:translateX(105%);visibility:hidden;box-shadow:-8px 0 24px rgba(0,0,0,.2);transition:transform calc(.5s*var(--ks)) cubic-bezier(.2,.8,.2,1),visibility 0s linear calc(.5s*var(--ks))}
+#setp{position:absolute;top:0;right:0;bottom:0;width:min(560px,100%);z-index:30;background:var(--p1);color:var(--tx);border:1px solid var(--ln);border-radius:8px 0 0 8px;overflow:auto;display:flex;flex-direction:column;transform:translateX(105%);visibility:hidden;box-shadow:-8px 0 24px rgba(0,0,0,.2);transition:transform calc(.5s*var(--ks)) cubic-bezier(.2,.8,.2,1),visibility 0s linear calc(.5s*var(--ks))}
 #setp.on{transform:none;visibility:visible;transition:transform calc(.5s*var(--ks)) cubic-bezier(.2,.8,.2,1)}
 #setp .hd{display:flex;align-items:center;justify-content:space-between;padding:10px 16px;border-bottom:1px solid var(--ln);position:sticky;top:0;background:var(--p1);z-index:2}#setp .hd b{font-size:15px}
 #setp .sg{padding:3px 10px;border:1px solid var(--ln);background:var(--p2);color:var(--tx);border-radius:7px;cursor:pointer;font:inherit;font-size:13px}
@@ -594,21 +608,21 @@ html{--ks:1.4}#cabv{overflow:hidden}
   </div>
   <div id="tr" style="grid-column:3;grid-row:1;align-self:start;display:flex;flex-direction:column;align-items:flex-end;gap:6px">
     <div style="text-align:right;line-height:1.25"><div style="display:flex;justify-content:flex-end;align-items:baseline;gap:8px;height:16px;line-height:16px"><span id="ttl" style="font-size:13px;color:var(--tx);white-space:nowrap"></span><div id="cd" style="font-size:12px;color:var(--dm)"></div></div><div id="ct" style="font-size:20px;font-weight:600"></div></div>
-    <div class="row"><button class="ib" id="twb" data-tip="鎖定打字範圍"><span data-ic="tw"></span></button><button class="ib" id="dtb" data-tip="插入日期時間"><span data-ic="cal"></span></button><button class="ib" id="cpb" data-tip="複製內文"><span data-ic="copy" id="cpi"></span></button><button class="ib" id="lipb" data-tip="關閉日常訊息"></button><span class="sep"></span><button class="ib" id="exp" data-tip="匯出備份"><span data-ic="out"></span></button><button class="ib" id="imp" data-tip="匯入備份"><span data-ic="inn"></span></button><button class="ib" id="abb" data-tip="" style="display:none"><span data-ic="auto"></span><i class="abd"></i></button><span class="sep"></span><button class="ib" id="hlp" data-tip="使用說明"><span data-ic="help"></span></button></div>
+    <div class="row"><button class="ib" id="twb" data-tip="鎖定打字範圍"><span data-ic="tw"></span></button><button class="ib" id="dtb" data-tip="插入日期時間"><span data-ic="cal"></span></button><button class="ib" id="pgear" data-tip="設定"></button><button class="ib" id="cpb" data-tip="複製內文"><span data-ic="copy" id="cpi"></span></button><button class="ib" id="lipb" data-tip="關閉日常訊息"></button><span class="sep"></span><button class="ib" id="exp" data-tip="匯出備份"><span data-ic="out"></span></button><button class="ib" id="imp" data-tip="匯入備份"><span data-ic="inn"></span></button><button class="ib" id="abb" data-tip="" style="display:none"><span data-ic="auto"></span><i class="abd"></i></button><span class="sep"></span><button class="ib" id="hlp" data-tip="使用說明"><span data-ic="help"></span></button></div>
   </div>
   <div class="row" id="r2" style="grid-column:3;grid-row:2"><div class="fld"><span data-ic="search"></span><input id="sq" autocomplete="off"><div id="tks"></div></div><div id="sn" class="row" style="display:none;align-items:center"><span id="sc" style="font-size:13px;color:var(--dm);min-width:40px;text-align:center"></span><button class="ib" id="sp" data-tip="上一個"><span data-ic="up"></span></button><button class="ib" id="sd" data-tip="下一個"><span data-ic="dn"></span></button><button class="ib" id="sx" data-tip="清除搜尋"><span data-ic="x"></span></button></div><div class="row" id="ths"><button class="ib" id="snd" data-tip="音效：無聲"><span data-ic="vol0"></span></button><span id="plg" aria-hidden="true"><svg width="21" height="34" viewBox="0 0 21 34"><circle class="sk" cx="-4" cy="11.3" r="1.7"/><circle class="sk" cx="-4" cy="22.7" r="1.7"/><circle class="sk" cx="25" cy="8.5" r="1.7"/><circle class="sk" cx="25" cy="17" r="1.7"/><circle class="sk" cx="25" cy="25.5" r="1.7"/><g class="cv"><path id="plgp" d=""/><circle id="plga" cx="-4" cy="11.3" r="1.6"/><circle id="plgb" cx="25" cy="8.5" r="1.6"/></g></svg></span><button class="ib" id="tsb"></button><span class="sep" id="tsep"></span><button class="ib" data-th="d" data-tip="亮色系"><span data-ic="sun"></span></button><button class="ib" data-th="u" data-tip="灰色系"><span data-ic="dusk"></span></button><button class="ib" data-th="n" data-tip="暗色系"><span data-ic="moon"></span></button></div><div id="phbag"></div></div>
   <div id="shelf" style="grid-column:3;grid-row:3;display:flex;align-items:center;gap:6px;min-width:0;overflow:hidden"></div>
-  <div id="ctb"><button class="ib tl" id="ctB" data-tip="關閉檔案櫃"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2.5"/><path d="M3 12h18M10 7.5h4M10 16.5h4"/></svg></button><button class="ib tlb tl" id="ctH" data-tip="全筆記歷史紀錄"></button><div class="capr tl"><span class="lb">資料量</span><div class="xbar"><i></i></div><b></b></div><span class="sp"></span><button class="ib tlb tl" id="ctS" data-tip="更多設定"></button></div>
+  <div id="ctb"><button class="ib tl" id="ctB" data-tip="關閉檔案櫃"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2.5"/><path d="M3 12h18M10 7.5h4M10 16.5h4"/></svg></button><button class="ib tlb tl" id="ctH" data-tip="全筆記歷史紀錄"></button><div class="capr tl"><span class="lb">資料量</span><div class="xbar"><i></i></div><b></b></div><span class="sp"></span></div>
   <div id="wc"><button class="ib" id="mdb"></button><button class="ib" id="rob" data-tip="設為唯讀"><span data-ic="ro"></span></button><span id="wcb"><span id="wcsl">選取數：</span><span id="wcsn"></span><span id="wcl">總字數：</span><span id="wcn">0</span><span id="xpl">EXP</span><span id="xpb"><i></i></span><span id="xph"></span></span></div>
   <div id="lst" style="grid-column:1;grid-row:4"><div id="sr"><span>搜尋結果：</span><b id="srq"></b><button id="srx" data-tip="取消搜尋"><span data-ic="x"></span></button></div><div id="fh"><button class="ib" id="cabb"></button><button class="ib" id="cabk"></button><button class="ib" id="eyeb"></button><button class="ib pos" id="fadd"></button><button class="ib" id="fdel"></button></div><div id="top"><div id="fcol"></div><div id="fr"><div id="frows"></div><div id="ftab"></div><div id="fdz">移出資料夾</div><div id="fpg"></div><div id="act"></div></div></div><div id="dv"></div><div id="arc"></div></div>
   <div id="vs" style="grid-column:2;grid-row:4"><i></i></div>
-  <div id="cell" style="grid-column:3;grid-row:4;min-height:0;position:relative"><textarea id="body" spellcheck="false" disabled></textarea><div id="mdv" tabindex="0"></div><div id="hatch"><span id="hl"></span></div><div id="fview"></div><div id="cabv"><div id="cabl"></div><div id="cabp"></div><div id="setp"></div></div><div id="ov"></div><div id="glow"></div><div id="spot"></div></div>
+  <div id="cell" style="grid-column:3;grid-row:4;min-height:0;position:relative"><textarea id="body" spellcheck="false" disabled></textarea><div id="mdv" tabindex="0"></div><div id="hatch"><span id="hl"></span></div><div id="fview"></div><div id="cabv"><div id="cabl"></div><div id="cabp"></div></div><div id="setp"></div><div id="ov"></div><div id="glow"></div><div id="spot"></div></div>
 </div>
 <input type="file" id="file" accept=".json,application/json" hidden>
-<div id="clw"></div><canvas id="cv"></canvas><div id="tip"></div><div id="pk"></div>
+<div id="clw"></div><button class="ib" id="ogear" data-tip="設定"></button><div id="pgw"></div><canvas id="cv"></canvas><div id="tip"></div><div id="pk"></div>
 <script>
 const TKMAX=9,TKLIVE=false;const TKS={s:26};let gmOn=false,gmCoin=0,gmTom=0,gmTk=0,tomPend=0,tomHold=0;
-const VERSION='1.50';const APPNAME='R note';
+const VERSION='1.53';const APPNAME='R note';
 const PROMO_URL='https://line.me/S/shop/sticker/author/123908';
 const PH=(()=>{try{const q=new URLSearchParams(location.search).get('phone');if(q==='1')return true;if(q==='0')return false;return matchMedia('(pointer:coarse)').matches&&!matchMedia('(hover:hover)').matches&&Math.min(screen.width,innerWidth)<=820}catch(e){return false}})();
 document.documentElement.classList.toggle('ph',PH);
@@ -808,7 +822,29 @@ bar($('dv'),e=>{const r=$('lst').getBoundingClientRect();L.ah=Math.max(10,Math.m
 $('vs').ondblclick=()=>{L.sw=314;layout();saveL()};$('dv').ondblclick=()=>{L.ah=60;layout();saveL()};
 function bkDirty(){const t=Math.max(S.lastExport||0,ABM.last||0)||S.born;return S.notes.some(n=>(n.modified||0)>t||(n.created||0)>t)||S.notes.length!==(S.bkN===undefined?S.notes.length:S.bkN)||S.folders.length!==(S.bkF===undefined?S.folders.length:S.bkF)}
 function chk(){const h=Math.floor((Date.now()-(Math.max(S.lastExport||0,ABM.last||0)||S.born))/36e5),b=$('exp'),on=h>=(S.bki||7)&&bkDirty(),was=b.classList.contains('dot');b.classList.toggle('dot',on);if(on&&!was){b.classList.remove('pls');void b.offsetWidth;b.classList.add('pls')}if(!on)b.classList.remove('pls');b.dataset.tip=on?`資料未備份長達 ${h} 小時`:'匯出備份'}
-function buildExport(d){return{app:'R_note',version:2,appVersion:VERSION,exported:d.toISOString(),profile:{xp:+S.xp||0,pick:+S.pick||0,tom:+S.tom||0,tt:S.tt,ts:S.ts},notes:S.notes,folders:S.folders,sort:S.sort}}
+/* 1.51：設定（光色、音色、音效、字級、日期樣式…）一併放進匯出備份；只有「取代」匯入會還原，「追加」不動設定。 */
+function setPick(){const o={};['th','ser','tpk','sfx','mute','h12','rh','fs','hr1','bki','df','fx'].forEach(k=>{if(S[k]!==undefined)o[k]=JSON.parse(JSON.stringify(S[k]))});o.rm=S.rm===1||S.rm===2?S.rm:0;return o}
+function setIn(x){if(!x||typeof x!=='object')return null;const o={};
+  if(['d','u','n'].includes(x.th))o.th=x.th;
+  if(x.ser&&typeof x.ser==='object'){o.ser={};['n','u','d'].forEach(t=>{const v=+x.ser[t];o.ser[t]=v>=0&&v<6?Math.floor(v):0})}
+  if(+x.tpk>=0&&+x.tpk<=5)o.tpk=Math.floor(+x.tpk);
+  if([0,1,2].includes(x.sfx))o.sfx=x.sfx;
+  if('mute' in x)o.mute=x.mute?1:0;
+  if('h12' in x)o.h12=!!x.h12;
+  if(+x.rh>=0&&+x.rh<=360)o.rh=Math.floor(+x.rh);
+  o.rm=x.rm===1||x.rm===2?x.rm:0;
+  if(FSZ.includes(x.fs))o.fs=x.fs;
+  if('hr1' in x)o.hr1=x.hr1?1:0;
+  if(+x.bki>=1&&+x.bki<=720)o.bki=Math.floor(+x.bki);
+  if(x.df&&typeof x.df.f==='string'&&x.df.f.length<=120)o.df={f:x.df.f};
+  if(x.fx&&typeof x.fx==='object')o.fx={glow:!!x.fx.glow,chips:!!x.fx.chips,mine:!!x.fx.mine};
+  return Object.keys(o).length>1?o:null}
+function setApply(o){if(!o)return;const wasMute=S.mute;
+  for(const k in o){if(k==='rm'){if(o.rm)S.rm=o.rm;else delete S.rm}else S[k]=o[k]}
+  applyTh();applyFs();applyRm();paintSnd();
+  if(!!wasMute!==!!S.mute){try{paintLip();rbSwitch()}catch(e){}}
+  if(window.setpPaint)try{setpPaint()}catch(e){}}
+function buildExport(d){return{app:'R_note',version:2,appVersion:VERSION,exported:d.toISOString(),profile:{xp:+S.xp||0,pick:+S.pick||0,tom:+S.tom||0,tt:S.tt,ts:S.ts},settings:setPick(),notes:S.notes,folders:S.folders,sort:S.sort}}
 $('exp').onclick=()=>{
   const d=new Date(),a=document.createElement('a');
   a.href=URL.createObjectURL(new Blob([JSON.stringify(buildExport(d),null,2)],{type:'application/json;charset=utf-8'}));
@@ -1310,7 +1346,7 @@ const SNDT=['音效：無聲','音效：小聲','音效：大聲'];
 const NOTE='<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5.5l10-2V16"/><circle cx="6.5" cy="18" r="2.5"/><circle cx="16.5" cy="16" r="2.5"/></svg>';
 function paintPlug(){const p=$('plgp');if(!p)return;const k=(S.tpk|0)%6,yl=k>2?22.7:11.3,yr=[8.5,17,25.5][k%3],d='M-4 '+yl+'C8 '+yl+' 13 '+yr+' 25 '+yr;p.setAttribute('d',d);p.style.d="path('"+d+"')";$('plga').setAttribute('cy',yl);$('plgb').setAttribute('cy',yr);$('plg').classList.toggle('off',!S.sfx)}
 const TIMB=['薄瓷','檜木','磚塊','霓虹','蘆笛','琉璃'];
-function paintTs(){const b=$('tsb');if(!b)return;paintPlug();if(!b.innerHTML)b.innerHTML=NOTE;b.dataset.tip='打字音色 '+(S.tpk+1)+'/6 '+(TIMB[S.tpk]||'')+(S.sfx?'':'\n音效關閉中')+'\n右鍵可直接選';if(typeof tcur!=='undefined'&&tcur===b&&tip.style.display==='block')tip.textContent=b.dataset.tip}
+function paintTs(){const b=$('tsb');if(!b)return;paintPlug();if(!b.innerHTML)b.innerHTML=NOTE;b.dataset.tip='音色：'+(TIMB[S.tpk]||'')+(S.sfx?'':'\n音效關閉中')+'\n'+(S.tpk+1)+'/6 右鍵可選';if(typeof tcur!=='undefined'&&tcur===b&&tip.style.display==='block')tip.textContent=b.dataset.tip}
 function tsPreview(){try{if(!actx())return;const g=MG.gain.value;if(!S.sfx)MG.gain.value=VOL[1];const id=curPack(),sx=SFXS[id]||(SFXS[id]=build(id));[0,90,180,300].forEach((d,k)=>setTimeout(()=>{try{k<3?sx.key():sx.commit()}catch(e){}},d));if(!S.sfx)setTimeout(()=>{MG.gain.value=VOL[S.sfx]||0},900)}catch(e){}}
 $('tsb').onclick=()=>{S.tpk=(S.tpk+1)%6;save();paintTs();if(!S.sfx&&!PH)say('音效現在關著，打字時聽不到這個音色。',{lv:'info',id:'tsmute',hold:7000,rx:'nod',actions:[{label:'打開音效',fn:()=>{sayOff('tsmute');S.sfx=1;save();paintSnd();playSfx('vol')}}]});const b=$('tsb');b.removeAttribute('data-n');void b.offsetWidth;b.dataset.n=S.tpk+1;clearTimeout(b._tn);b._tn=setTimeout(()=>b.removeAttribute('data-n'),1600);tsPreview()};
 function paintSnd(){paintTs();const b=$('snd');b.innerHTML=sv('vol'+S.sfx);b.dataset.tip=SNDT[S.sfx];b.classList.toggle('on',S.sfx>0)}
@@ -1444,7 +1480,7 @@ let tutA=false,tutDone=false,tutF={t:0,e:0};
 const tutCond=()=>S.notes.some(n=>n.icon==='📜')&&S.notes.every(n=>n.icon==='📜'||!String(n.content).trim());
 function tutCheck(){
   if(PH||tutDone||tutA)return;
-  if(tutCond()){tutA=true;tutF={t:0,e:0};const go=()=>{if(!tutA||tutDone)return;if(typeof thBusy==='function'&&thBusy()){setTimeout(go,800);return}say('↖請試著點看看 Rnote 字母；右邊可以打開音效→',{lv:'wait',id:'tut',pin:true})};setTimeout(go,2200)}
+  if(tutCond()){tutA=true;tutF={t:0,e:0};const go=()=>{if(!tutA||tutDone)return;if(typeof thBusy==='function'&&thBusy()){setTimeout(go,800);return}say('↖點擊左上角「t、e」體驗打字新樂趣，還可以打開音效喔↘',{lv:'wait',id:'tut',pin:true})};setTimeout(go,2200)}
 }
 function tutClick(k){if(!tutA)return;tutF[k]=1;if(tutF.t&&tutF.e){tutDone=true;tutA=false;sayOff('tut')}}
 function lunarMD(d){
@@ -1609,12 +1645,16 @@ $('lipb').onclick=()=>{
 };
 paintLip();
 var RB=(function(){
-const D={"default":[[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,"346e9a","7cabb9","346e9a",null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,"7cabb9","9fc9ca","7cabb9",null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,"346e9a","588da7","346e9a",null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,"295377",null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,"1d3854",null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],[null,null,null,null,"0b0e1f","0b0e1f","0b0e1f","0b0e1f","0b0e1f","0b0e1f","0b0e1f","0b0e1f",null,null,null,null,null,null,null,null,null,null,null,null],[null,null,"0b0e1f","0b0e1f","9ba8b5","9ba8b5","9ba8b5","9ba8b5","9ba8b5","9ba8b5","9ba8b5","9ba8b5","0b0e1f","0b0e1f",null,null,null,null,null,null,null,null,null,null],[null,"0b0e1f","788797","9ba8b5","c5d3d3","9ba8b5","788797","788797","788797","788797","788797","9ba8b5","9ba8b5","788797","0b0e1f",null,null,null,null,null,null,null,null,null],[null,"0b0e1f","788797","9ba8b5","9ba8b5","788797","788797","788797","788797","788797","788797","788797","9ba8b5","9ba8b5","0b0e1f",null,null,null,null,null,null,null,null,null],[null,"0b0e1f","788797","9ba8b5","788797","788797","0b0e1f","788797","788797","788797","0b0e1f","788797","9ba8b5","9ba8b5","0b0e1f",null,null,"0b0e1f","0b0e1f",null,null,"0b0e1f","0b0e1f",null],[null,"0b0e1f","788797","788797","788797","788797","0b0e1f","788797","788797","788797","0b0e1f","788797","9ba8b5","9ba8b5","0b0e1f",null,"0b0e1f","c5d3d3","0b0e1f",null,null,"0b0e1f","c5d3d3","0b0e1f"],[null,"0b0e1f","788797","788797","788797","788797","788797","788797","788797","788797","788797","788797","9ba8b5","9ba8b5","0b0e1f",null,"0b0e1f","9ba8b5","0b0e1f",null,null,"0b0e1f","9ba8b5","0b0e1f"],[null,"0b0e1f","788797","788797","788797","0b0e1f","0b0e1f","0b0e1f","0b0e1f","0b0e1f","0b0e1f","788797","9ba8b5","9ba8b5","0b0e1f",null,"0b0e1f","788797","525d75","0b0e1f","0b0e1f","525d75","788797","0b0e1f"],[null,"0b0e1f","0b0e1f","0b0e1f","0b0e1f",null,null,null,null,null,null,"0b0e1f","0b0e1f","0b0e1f","0b0e1f",null,"0b0e1f","788797","525d75","c5d3d3","c5d3d3","525d75","788797","0b0e1f"],[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,"0b0e1f","788797","9ba8b5","9ba8b5","788797","0b0e1f",null],[null,null,null,null,null,"0b0e1f","0b0e1f","0b0e1f","0b0e1f","0b0e1f",null,null,null,null,null,null,null,null,"0b0e1f","0b0e1f","0b0e1f","0b0e1f",null,null],[null,null,null,"0b0e1f","0b0e1f","525d75","788797","788797","788797","525d75","0b0e1f","0b0e1f",null,null,null,null,null,null,"0b0e1f","788797","9ba8b5","0b0e1f",null,null],[null,null,"0b0e1f","788797","9ba8b5","9ba8b5","9ba8b5","9ba8b5","9ba8b5","9ba8b5","9ba8b5","788797","0b0e1f",null,null,null,null,null,"0b0e1f","525d75","525d75","0b0e1f",null,null],[null,"0b0e1f","788797","9ba8b5","c5d3d3","9ba8b5","788797","788797","788797","9ba8b5","9ba8b5","9ba8b5","788797","0b0e1f",null,null,"0b0e1f","0b0e1f","525d75","788797","9ba8b5","0b0e1f",null,null],[null,"0b0e1f","788797","9ba8b5","9ba8b5","788797","788797","788797","788797","788797","9ba8b5","9ba8b5","788797","0b0e1f",null,"0b0e1f","525d75","788797","788797","525d75","0b0e1f",null,null,null],[null,"0b0e1f","788797","9ba8b5","788797","788797","788797","788797","788797","788797","9ba8b5","9ba8b5","788797","0b0e1f",null,null,"0b0e1f","0b0e1f","0b0e1f","0b0e1f",null,null,null,null],[null,"0b0e1f","0b0e1f","0b0e1f","0b0e1f","0b0e1f","0b0e1f","0b0e1f","0b0e1f","0b0e1f","0b0e1f","0b0e1f","0b0e1f","0b0e1f",null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null]],"rust":[[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,"343f55","525d75","343f55",null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,"525d75","9ba8b5","525d75",null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,"343f55","525d75","343f55",null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,"343f55",null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,"343f55",null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],[null,null,null,null,"0b0e1f","0b0e1f","0b0e1f","0b0e1f","0b0e1f","0b0e1f","0b0e1f","0b0e1f",null,null,null,null,null,null,null,null,null,null,null,null],[null,null,"0b0e1f","0b0e1f","b06b6c","9ba8b5","a08060","886848","b06b6c","a08060","a08060","b06b6c","0b0e1f","0b0e1f",null,null,null,null,null,null,null,null,null,null],[null,"0b0e1f","b06b6c","9ba8b5","c5d3d3","9ba8b5","788797","b06b6c","886848","788797","886848","9ba8b5","9ba8b5","886848","0b0e1f",null,null,null,null,null,null,null,null,null],[null,"0b0e1f","b06b6c","9ba8b5","9ba8b5","788797","788797","8f5151","788797","788797","705038","788797","9ba8b5","a08060","0b0e1f",null,null,null,null,null,null,null,null,null],[null,"0b0e1f","886848","9ba8b5","a08060","788797","0b0e1f","788797","788797","886848","0b0e1f","788797","9ba8b5","a08060","0b0e1f",null,null,"502820","502820",null,null,"502820","502820",null],[null,"0b0e1f","705038","788797","788797","a08060","0b0e1f","788797","705038","74403f","0b0e1f","788797","9ba8b5","a08060","0b0e1f",null,"401818","a08060","401818",null,null,"401818","a08060","0b0e1f"],[null,"0b0e1f","705038","886848","788797","788797","788797","886848","74403f","8f5151","74403f","886848","886848","a08060","0b0e1f",null,"401818","a08060","603828",null,null,"401818","a08060","0b0e1f"],[null,"0b0e1f","705038","705038","886848","0b0e1f","0b0e1f","0b0e1f","0b0e1f","0b0e1f","0b0e1f","74403f","8f5151","b06b6c","0b0e1f",null,"401818","886848","74403f","502820","401818","886848","8f5151","0b0e1f"],[null,"0b0e1f","0b0e1f","0b0e1f","0b0e1f",null,null,null,null,null,null,"0b0e1f","0b0e1f","0b0e1f","0b0e1f",null,"0b0e1f","886848","74403f","886848","886848","74403f","788797","0b0e1f"],[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,"0b0e1f","788797","a08060","a08060","8f5151","0b0e1f",null],[null,null,null,null,null,"0b0e1f","0b0e1f","0b0e1f","0b0e1f","0b0e1f",null,null,null,null,null,null,null,null,"0b0e1f","512b2a","512b2a","0b0e1f",null,null],[null,null,null,"0b0e1f","0b0e1f","705038","886848","886848","886848","705038","0b0e1f","0b0e1f",null,null,null,null,null,null,"0b0e1f","886848","8f5151","0b0e1f",null,null],[null,null,"0b0e1f","788797","9ba8b5","9ba8b5","9ba8b5","9ba8b5","788797","a08060","886848","8f5151","0b0e1f",null,null,null,null,null,"0b0e1f","603828","603828","0b0e1f",null,null],[null,"0b0e1f","788797","9ba8b5","c5d3d3","9ba8b5","788797","886848","886848","886848","a08060","a08060","b06b6c","0b0e1f",null,null,"0b0e1f","0b0e1f","705038","886848","b06b6c","0b0e1f",null,null],[null,"0b0e1f","a08060","9ba8b5","9ba8b5","705038","886848","886848","788797","788797","9ba8b5","a08060","b06b6c","0b0e1f",null,"0b0e1f","705038","886848","788797","705038","0b0e1f",null,null,null],[null,"0b0e1f","886848","9ba8b5","705038","886848","705038","788797","788797","a08060","9ba8b5","a08060","886848","0b0e1f",null,null,"0b0e1f","0b0e1f","0b0e1f","0b0e1f",null,null,null,null],[null,"0b0e1f","0b0e1f","0b0e1f","0b0e1f","0b0e1f","0b0e1f","0b0e1f","0b0e1f","0b0e1f","0b0e1f","0b0e1f","0b0e1f","0b0e1f",null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null]],"bulbdim":[[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,"353e49","476f5c","353e49",null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,"476f5c","59a16e","476f5c",null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,"353e49","476f5c","353e49",null,null,null,null,null,null,null,null,null,null,"476f5c","476f5c","476f5c","476f5c",null,null],[null,null,null,null,null,null,"343f55",null,null,null,null,null,null,null,null,null,null,"476f5c","9ba8b5","9ba8b5","9ba8b5","9ba8b5","476f5c",null],[null,null,null,null,null,null,"353e49",null,null,null,null,null,null,null,null,null,"476f5c","9ba8b5","c5d3d3","9ba8b5","9ba8b5","9ba8b5","9ba8b5","476f5c"],[null,null,null,null,"0b0e1f","0b0e1f","0b0e1f","0b0e1f","0b0e1f","0b0e1f","0b0e1f","0b0e1f",null,null,null,null,"476f5c","c5d3d3","dee5e6","c5d3d3","9ba8b5","9ba8b5","9ba8b5","476f5c"],[null,null,"0b0e1f","0b0e1f","9ba8b5","9ba8b5","9ba8b5","9ba8b5","9ba8b5","9ba8b5","9ba8b5","9ba8b5","0b0e1f","0b0e1f",null,null,"476f5c","9ba8b5","c5d3d3","9ba8b5","9ba8b5","9ba8b5","c5d3d3","476f5c"],[null,"0b0e1f","788797","9ba8b5","c5d3d3","9ba8b5","788797","788797","788797","788797","788797","9ba8b5","9ba8b5","788797","0b0e1f",null,"476f5c","9ba8b5","9ba8b5","9ba8b5","9ba8b5","9ba8b5","c5d3d3","476f5c"],[null,"0b0e1f","788797","9ba8b5","9ba8b5","788797","788797","788797","788797","788797","788797","788797","9ba8b5","9ba8b5","0b0e1f",null,"476f5c","9ba8b5","9ba8b5","9ba8b5","9ba8b5","c5d3d3","9ba8b5","476f5c"],[null,"0b0e1f","788797","9ba8b5","788797","788797","0b0e1f","788797","788797","788797","0b0e1f","788797","9ba8b5","9ba8b5","0b0e1f",null,null,"476f5c","9ba8b5","9ba8b5","9ba8b5","9ba8b5","476f5c",null],[null,"0b0e1f","788797","788797","788797","788797","0b0e1f","788797","788797","788797","0b0e1f","788797","9ba8b5","9ba8b5","0b0e1f",null,null,null,"476f5c","9ba8b5","9ba8b5","476f5c",null,null],[null,"0b0e1f","788797","788797","788797","788797","788797","788797","788797","788797","788797","788797","9ba8b5","9ba8b5","0b0e1f",null,null,null,"476f5c","788797","788797","476f5c",null,null],[null,"0b0e1f","788797","788797","788797","0b0e1f","0b0e1f","0b0e1f","0b0e1f","0b0e1f","0b0e1f","788797","9ba8b5","9ba8b5","0b0e1f",null,null,"0b0e1f","a67049","525d75","525d75","a67049","0b0e1f",null],[null,"0b0e1f","0b0e1f","0b0e1f","0b0e1f",null,null,null,null,null,null,"0b0e1f","0b0e1f","0b0e1f","0b0e1f",null,null,"8c5a3b","d9b179","a67049","a67049","d9b179","8c5a3b",null],[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,"0b0e1f","a67049","d9b179","d9b179","a67049","0b0e1f",null],[null,null,null,null,null,"0b0e1f","0b0e1f","0b0e1f","0b0e1f","0b0e1f","0b0e1f",null,null,null,null,null,null,null,"0b0e1f","8c5a3b","8c5a3b","0b0e1f",null,null],[null,null,null,"0b0e1f","0b0e1f","525d75","788797","788797","788797","525d75","0b0e1f","0b0e1f",null,null,null,null,null,null,"0b0e1f","0b0e1f","0b0e1f","0b0e1f",null,null],[null,null,"0b0e1f","788797","9ba8b5","9ba8b5","9ba8b5","9ba8b5","9ba8b5","9ba8b5","9ba8b5","788797","0b0e1f",null,null,null,null,null,"0b0e1f","788797","9ba8b5","0b0e1f",null,null],[null,"0b0e1f","788797","9ba8b5","c5d3d3","9ba8b5","788797","788797","788797","9ba8b5","9ba8b5","9ba8b5","788797","0b0e1f","0b0e1f","0b0e1f","0b0e1f","0b0e1f","343f55","343f55","525d75","0b0e1f",null,null],[null,"0b0e1f","788797","9ba8b5","9ba8b5","788797","788797","788797","788797","788797","9ba8b5","9ba8b5","788797","0b0e1f","788797","9ba8b5","525d75","9ba8b5","525d75","9ba8b5","0b0e1f",null,null,null],[null,"0b0e1f","788797","9ba8b5","788797","788797","788797","788797","788797","788797","9ba8b5","9ba8b5","788797","0b0e1f","0b0e1f","0b0e1f","0b0e1f","0b0e1f","0b0e1f","0b0e1f",null,null,null,null],[null,"0b0e1f","0b0e1f","0b0e1f","0b0e1f","0b0e1f","0b0e1f","0b0e1f","0b0e1f","0b0e1f","0b0e1f","0b0e1f","0b0e1f","0b0e1f",null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null]],"bulblit":[[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,"476f5c","59a16e","476f5c",null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,"59a16e","9dc89a","59a16e",null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,"476f5c","59a16e","476f5c",null,null,null,null,null,null,null,null,null,null,"7bb484","9dc89a","9dc89a","7bb484",null,null],[null,null,null,null,null,null,"353e49",null,null,null,null,null,null,null,null,null,null,"7bb484","f0f5ea","f0f5ea","f0f5ea","f0f5ea","7bb484",null],[null,null,null,null,null,null,"353e49",null,null,null,null,null,null,null,null,null,"7bb484","f0f5ea","f0f5ea","f0f5ea","f0f5ea","f0f5ea","f0f5ea","7bb484"],[null,null,null,null,"0b0e1f","0b0e1f","0b0e1f","0b0e1f","0b0e1f","353e49","353e49","353e49",null,null,null,null,"9dc89a","f0f5ea","f0f5ea","f0f5ea","f0f5ea","f0f5ea","f0f5ea","9dc89a"],[null,null,"0b0e1f","0b0e1f","9ba8b5","9ba8b5","9ba8b5","7bb484","7bb484","9dc89a","9dc89a","7bb484","353e49","353e49",null,null,"9dc89a","f0f5ea","f0f5ea","f0f5ea","f0f5ea","f0f5ea","f0f5ea","9dc89a"],[null,"0b0e1f","788797","9ba8b5","c5d3d3","9ba8b5","788797","788797","788797","7bb484","9dc89a","9dc89a","c6dfc2","9dc89a","353e49",null,"7bb484","f0f5ea","f0f5ea","f0f5ea","f0f5ea","f0f5ea","f0f5ea","7bb484"],[null,"0b0e1f","788797","9ba8b5","9ba8b5","788797","788797","788797","788797","788797","7bb484","9dc89a","c6dfc2","f0f5ea","353e49",null,"59a16e","9dc89a","f0f5ea","f0f5ea","f0f5ea","f0f5ea","9dc89a","59a16e"],[null,"0b0e1f","788797","9ba8b5","788797","788797","0b0e1f","788797","788797","788797","0b0e1f","9dc89a","f0f5ea","f0f5ea","353e49",null,null,"7bb484","c6dfc2","f0f5ea","f0f5ea","c6dfc2","7bb484",null],[null,"0b0e1f","788797","788797","788797","788797","0b0e1f","788797","788797","788797","0b0e1f","9dc89a","f0f5ea","f0f5ea","353e49",null,null,"59a16e","7bb484","f0f5ea","f0f5ea","7bb484","59a16e",null],[null,"0b0e1f","788797","788797","788797","788797","788797","788797","788797","788797","7bb484","9dc89a","c6dfc2","f0f5ea","353e49",null,null,null,"7bb484","c6dfc2","c6dfc2","7bb484",null,null],[null,"0b0e1f","788797","788797","788797","0b0e1f","0b0e1f","0b0e1f","0b0e1f","0b0e1f","0b0e1f","7bb484","9dc89a","c6dfc2","353e49",null,null,"0b0e1f","f7f0c8","9dc89a","9dc89a","f7f0c8","0b0e1f",null],[null,"0b0e1f","0b0e1f","0b0e1f","0b0e1f",null,null,null,null,null,null,"0b0e1f","0b0e1f","0b0e1f","0b0e1f",null,null,"8c5a3b","d9b179","f7f0c8","f7f0c8","d9b179","8c5a3b",null],[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,"0b0e1f","a67049","d9b179","d9b179","a67049","0b0e1f",null],[null,null,null,null,null,"0b0e1f","0b0e1f","0b0e1f","0b0e1f","0b0e1f","0b0e1f",null,null,null,null,null,null,null,"0b0e1f","8c5a3b","8c5a3b","0b0e1f",null,null],[null,null,null,"0b0e1f","0b0e1f","59a16e","7bb484","7bb484","9dc89a","9dc89a","9dc89a","353e49",null,null,null,null,null,null,"0b0e1f","0b0e1f","0b0e1f","0b0e1f",null,null],[null,null,"0b0e1f","788797","9ba8b5","9ba8b5","9ba8b5","9ba8b5","9ba8b5","9dc89a","9dc89a","c6dfc2","353e49",null,null,null,null,null,"0b0e1f","9dc89a","9dc89a","0b0e1f",null,null],[null,"0b0e1f","788797","9ba8b5","c5d3d3","9ba8b5","788797","788797","9ba8b5","9ba8b5","c6dfc2","f0f5ea","f0f5ea","353e49","0b0e1f","0b0e1f","0b0e1f","0b0e1f","343f55","343f55","525d75","0b0e1f",null,null],[null,"0b0e1f","788797","9ba8b5","9ba8b5","788797","788797","788797","788797","9ba8b5","9dc89a","c6dfc2","f0f5ea","353e49","c6dfc2","9dc89a","525d75","9dc89a","525d75","9dc89a","0b0e1f",null,null,null],[null,"0b0e1f","788797","9ba8b5","788797","788797","788797","788797","788797","9ba8b5","9ba8b5","9dc89a","9dc89a","353e49","0b0e1f","0b0e1f","0b0e1f","0b0e1f","0b0e1f","0b0e1f",null,null,null,null],[null,"0b0e1f","0b0e1f","0b0e1f","0b0e1f","0b0e1f","0b0e1f","0b0e1f","0b0e1f","0b0e1f","0b0e1f","0b0e1f","0b0e1f","0b0e1f",null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null]],"swatch":[[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,"d33f3f",null,null],["525d75","9ba8b5","525d75",null,null,"346e9a","7cabb9","346e9a",null,null,"476f5c","7bb484","476f5c",null,null,"8d3f24","c4653a","8d3f24",null,null,"a12b2b","d33f3f","a12b2b",null],["9ba8b5","c5d3d3","9ba8b5",null,null,"7cabb9","9fc9ca","7cabb9",null,null,"7bb484","c6dfc2","7bb484",null,null,"c4653a","e18c50","c4653a",null,"d33f3f","d33f3f","e48e78","d33f3f","d33f3f"],["525d75","788797","525d75",null,null,"346e9a","588da7","346e9a",null,null,"476f5c","59a16e","476f5c",null,null,"8d3f24","b5512f","8d3f24",null,null,"a12b2b","d33f3f","a12b2b",null],[null,"525d75",null,null,null,null,"295377",null,null,null,null,"476f5c",null,null,null,null,"652d18",null,null,null,null,"6e1616",null,null],[null,"343f55",null,null,null,null,"1d3854",null,null,null,null,"343f55",null,null,null,null,"3c1a0c",null,null,null,null,"6e1616",null,null],[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null]]};
+const D={"default":[[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,"346e9a","7cabb9","346e9a",null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,"7cabb9","9fc9ca","7cabb9",null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,"346e9a","588da7","346e9a",null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,"295377",null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,"1d3854",null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],[null,null,null,null,"0b0e1f","0b0e1f","0b0e1f","0b0e1f","0b0e1f","0b0e1f","0b0e1f","0b0e1f",null,null,null,null,null,null,null,null,null,null,null,null],[null,null,"0b0e1f","0b0e1f","9ba8b5","9ba8b5","9ba8b5","9ba8b5","9ba8b5","9ba8b5","9ba8b5","9ba8b5","0b0e1f","0b0e1f",null,null,null,null,null,null,null,null,null,null],[null,"0b0e1f","788797","9ba8b5","c5d3d3","9ba8b5","788797","788797","788797","788797","788797","9ba8b5","9ba8b5","788797","0b0e1f",null,null,null,null,null,null,null,null,null],[null,"0b0e1f","788797","9ba8b5","9ba8b5","788797","788797","788797","788797","788797","788797","788797","9ba8b5","9ba8b5","0b0e1f",null,null,null,null,null,null,null,null,null],[null,"0b0e1f","788797","9ba8b5","788797","788797","0b0e1f","788797","788797","788797","0b0e1f","788797","9ba8b5","9ba8b5","0b0e1f",null,null,"0b0e1f","0b0e1f",null,null,"0b0e1f","0b0e1f",null],[null,"0b0e1f","788797","788797","788797","788797","0b0e1f","788797","788797","788797","0b0e1f","788797","9ba8b5","9ba8b5","0b0e1f",null,"0b0e1f","c5d3d3","0b0e1f",null,null,"0b0e1f","c5d3d3","0b0e1f"],[null,"0b0e1f","788797","788797","788797","788797","788797","788797","788797","788797","788797","788797","9ba8b5","9ba8b5","0b0e1f",null,"0b0e1f","9ba8b5","0b0e1f",null,null,"0b0e1f","9ba8b5","0b0e1f"],[null,"0b0e1f","788797","788797","788797","0b0e1f","0b0e1f","0b0e1f","0b0e1f","0b0e1f","0b0e1f","788797","9ba8b5","9ba8b5","0b0e1f",null,"0b0e1f","788797","525d75","0b0e1f","0b0e1f","525d75","788797","0b0e1f"],[null,"0b0e1f","0b0e1f","0b0e1f","0b0e1f",null,null,null,null,null,null,"0b0e1f","0b0e1f","0b0e1f","0b0e1f",null,"0b0e1f","788797","525d75","c5d3d3","c5d3d3","525d75","788797","0b0e1f"],[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,"0b0e1f","788797","9ba8b5","9ba8b5","788797","0b0e1f",null],[null,null,null,null,null,"0b0e1f","0b0e1f","0b0e1f","0b0e1f","0b0e1f",null,null,null,null,null,null,null,null,"0b0e1f","0b0e1f","0b0e1f","0b0e1f",null,null],[null,null,null,"0b0e1f","0b0e1f","525d75","788797","788797","788797","525d75","0b0e1f","0b0e1f",null,null,null,null,null,null,"0b0e1f","788797","9ba8b5","0b0e1f",null,null],[null,null,"0b0e1f","788797","9ba8b5","9ba8b5","9ba8b5","9ba8b5","9ba8b5","9ba8b5","9ba8b5","788797","0b0e1f",null,null,null,null,null,"0b0e1f","525d75","525d75","0b0e1f",null,null],[null,"0b0e1f","788797","9ba8b5","c5d3d3","9ba8b5","788797","788797","788797","9ba8b5","9ba8b5","9ba8b5","788797","0b0e1f",null,null,"0b0e1f","0b0e1f","525d75","788797","9ba8b5","0b0e1f",null,null],[null,"0b0e1f","788797","9ba8b5","9ba8b5","788797","788797","788797","788797","788797","9ba8b5","9ba8b5","788797","0b0e1f",null,"0b0e1f","525d75","788797","788797","525d75","0b0e1f",null,null,null],[null,"0b0e1f","788797","9ba8b5","788797","788797","788797","788797","788797","788797","9ba8b5","9ba8b5","788797","0b0e1f",null,null,"0b0e1f","0b0e1f","0b0e1f","0b0e1f",null,null,null,null],[null,"0b0e1f","0b0e1f","0b0e1f","0b0e1f","0b0e1f","0b0e1f","0b0e1f","0b0e1f","0b0e1f","0b0e1f","0b0e1f","0b0e1f","0b0e1f",null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null]],"rust":[[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,"343f55","525d75","343f55",null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,"525d75","9ba8b5","525d75",null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,"343f55","525d75","343f55",null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,"343f55",null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,"343f55",null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],[null,null,null,null,"0b0e1f","0b0e1f","0b0e1f","0b0e1f","0b0e1f","0b0e1f","0b0e1f","0b0e1f",null,null,null,null,null,null,null,null,null,null,null,null],[null,null,"0b0e1f","0b0e1f","b06b6c","9ba8b5","a08060","886848","b06b6c","a08060","a08060","b06b6c","0b0e1f","0b0e1f",null,null,null,null,null,null,null,null,null,null],[null,"0b0e1f","b06b6c","9ba8b5","c5d3d3","9ba8b5","788797","b06b6c","886848","788797","886848","9ba8b5","9ba8b5","886848","0b0e1f",null,null,null,null,null,null,null,null,null],[null,"0b0e1f","b06b6c","9ba8b5","9ba8b5","788797","788797","8f5151","788797","788797","705038","788797","9ba8b5","a08060","0b0e1f",null,null,null,null,null,null,null,null,null],[null,"0b0e1f","886848","9ba8b5","a08060","788797","0b0e1f","788797","788797","886848","0b0e1f","788797","9ba8b5","a08060","0b0e1f",null,null,"502820","502820",null,null,"502820","502820",null],[null,"0b0e1f","705038","788797","788797","a08060","0b0e1f","788797","705038","74403f","0b0e1f","788797","9ba8b5","a08060","0b0e1f",null,"401818","a08060","401818",null,null,"401818","a08060","0b0e1f"],[null,"0b0e1f","705038","886848","788797","788797","788797","886848","74403f","8f5151","74403f","886848","886848","a08060","0b0e1f",null,"401818","a08060","603828",null,null,"401818","a08060","0b0e1f"],[null,"0b0e1f","705038","705038","886848","0b0e1f","0b0e1f","0b0e1f","0b0e1f","0b0e1f","0b0e1f","74403f","8f5151","b06b6c","0b0e1f",null,"401818","886848","74403f","502820","401818","886848","8f5151","0b0e1f"],[null,"0b0e1f","0b0e1f","0b0e1f","0b0e1f",null,null,null,null,null,null,"0b0e1f","0b0e1f","0b0e1f","0b0e1f",null,"0b0e1f","886848","74403f","886848","886848","74403f","788797","0b0e1f"],[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,"0b0e1f","788797","a08060","a08060","8f5151","0b0e1f",null],[null,null,null,null,null,"0b0e1f","0b0e1f","0b0e1f","0b0e1f","0b0e1f",null,null,null,null,null,null,null,null,"0b0e1f","512b2a","512b2a","0b0e1f",null,null],[null,null,null,"0b0e1f","0b0e1f","705038","886848","886848","886848","705038","0b0e1f","0b0e1f",null,null,null,null,null,null,"0b0e1f","886848","8f5151","0b0e1f",null,null],[null,null,"0b0e1f","788797","9ba8b5","9ba8b5","9ba8b5","9ba8b5","788797","a08060","886848","8f5151","0b0e1f",null,null,null,null,null,"0b0e1f","603828","603828","0b0e1f",null,null],[null,"0b0e1f","788797","9ba8b5","c5d3d3","9ba8b5","788797","886848","886848","886848","a08060","a08060","b06b6c","0b0e1f",null,null,"0b0e1f","0b0e1f","705038","886848","b06b6c","0b0e1f",null,null],[null,"0b0e1f","a08060","9ba8b5","9ba8b5","705038","886848","886848","788797","788797","9ba8b5","a08060","b06b6c","0b0e1f",null,"0b0e1f","705038","886848","788797","705038","0b0e1f",null,null,null],[null,"0b0e1f","886848","9ba8b5","705038","886848","705038","788797","788797","a08060","9ba8b5","a08060","886848","0b0e1f",null,null,"0b0e1f","0b0e1f","0b0e1f","0b0e1f",null,null,null,null],[null,"0b0e1f","0b0e1f","0b0e1f","0b0e1f","0b0e1f","0b0e1f","0b0e1f","0b0e1f","0b0e1f","0b0e1f","0b0e1f","0b0e1f","0b0e1f",null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null]],"swatch":[[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,"d33f3f",null,null],["525d75","9ba8b5","525d75",null,null,"346e9a","7cabb9","346e9a",null,null,"476f5c","7bb484","476f5c",null,null,"8d3f24","c4653a","8d3f24",null,null,"a12b2b","d33f3f","a12b2b",null],["9ba8b5","c5d3d3","9ba8b5",null,null,"7cabb9","9fc9ca","7cabb9",null,null,"7bb484","c6dfc2","7bb484",null,null,"c4653a","e18c50","c4653a",null,"d33f3f","d33f3f","e48e78","d33f3f","d33f3f"],["525d75","788797","525d75",null,null,"346e9a","588da7","346e9a",null,null,"476f5c","59a16e","476f5c",null,null,"8d3f24","b5512f","8d3f24",null,null,"a12b2b","d33f3f","a12b2b",null],[null,"525d75",null,null,null,null,"295377",null,null,null,null,"476f5c",null,null,null,null,"652d18",null,null,null,null,"6e1616",null,null],[null,"343f55",null,null,null,null,"1d3854",null,null,null,null,"343f55",null,null,null,null,"3c1a0c",null,null,null,null,"6e1616",null,null],[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null]]};
 const H=24;
+/* 1.53：舞台比機器人的 24×24 大——往上多 8 列、左右各多 4 列（透明），動作位移不會被切掉；機器人原位與底線不動。 */
+const PX=4,PT=8,MK=(x,y)=>(y+16)*64+(x+16);
 for(const k in D)D[k]=D[k].map(r=>r.map(c=>c?'#'+c:null));
 const rnd=(a=1)=>Math.random()*a;
-const hex=c=>[1,3,5].map(i=>parseInt(c.slice(i,i+2),16));
-const mix=(a,b,t)=>{const A=hex(a),B=hex(b);return '#'+A.map((v,i)=>Math.round(v+(B[i]-v)*t).toString(16).padStart(2,'0')).join('')};
+/* 顏色可以是 #rrggbb 或 #rrggbbaa（1.52 起支援半透明像素）；混色時透明度也一起漸變 */
+const hex=c=>{const v=[1,3,5].map(i=>parseInt(c.slice(i,i+2),16));v.push(c.length>7?parseInt(c.slice(7,9),16):255);return v};
+const h2=v=>v.toString(16).padStart(2,'0');
+const mix=(a,b,t)=>{const A=hex(a),B=hex(b),r=A.map((v,i)=>Math.round(v+(B[i]-v)*t));return '#'+r.slice(0,3).map(h2).join('')+(r[3]<255?h2(r[3]):'')};
 const hash=k=>((k*2654435761)>>>0)/4294967296;
 function comps(fr){const seen=new Set(),out=[];for(let y=0;y<H;y++)for(let x=0;x<H;x++){if(fr[y][x]&&!seen.has(y*H+x)){const st=[[x,y]];seen.add(y*H+x);const c=[];while(st.length){const[cx,cy]=st.pop();c.push([cx,cy]);for(let dx=-1;dx<=1;dx++)for(let dy=-1;dy<=1;dy++){const nx=cx+dx,ny=cy+dy;if(nx>=0&&ny>=0&&nx<H&&ny<H&&fr[ny][nx]&&!seen.has(ny*H+nx)){seen.add(ny*H+nx);st.push([nx,ny])}}}out.push(c)}}return out}
 const CEN=[1,6,11,16,21];
@@ -1628,7 +1668,12 @@ function buildPose(A,B,o){
     if(a||b)cells.push({x,y,a,b,th:Math.random(),f:Math.random()<.5,diff:a!==b})}
   return{cells,part}
 }
-const POSE={base:buildPose(D.default,D.rust,{}),bulb:buildPose(D.bulbdim,D.bulblit,{dropNew:true})};
+const POSE={base:buildPose(D.default,D.rust,{})};
+/* 1.52：燈泡不再是整隻機器人的另一張圖，而是「拿著燈泡的手」這個獨立的手部組件（暗／亮兩張，官方專用狀態）。
+   [x,y,暗色,亮色]；想到點子時，手用雜點漸進換成它，表演完再換回原本的手。頭與身體沒有反射。 */
+POSE.bulbx=[[18,0,"476f5c","7bb484"],[19,0,"476f5c","9dc89a"],[20,0,"476f5c","9dc89a"],[21,0,"476f5c","7bb484"],[17,1,"476f5c","7bb484"],[18,1,"9ba8b5","f0f5ea"],[19,1,"9ba8b5","f0f5ea"],[20,1,"9ba8b5","f0f5ea"],[21,1,"9ba8b5","f0f5ea"],[22,1,"476f5c","7bb484"],[16,2,"476f5c","7bb484"],[17,2,"9ba8b5","f0f5ea"],[18,2,"c5d3d3","f0f5ea"],[19,2,"9ba8b5","f0f5ea"],[20,2,"9ba8b5","f0f5ea"],[21,2,"9ba8b5","f0f5ea"],[22,2,"9ba8b5","f0f5ea"],[23,2,"476f5c","7bb484"],[16,3,"476f5c","9dc89a"],[17,3,"c5d3d3","f0f5ea"],[18,3,"dee5e6","f0f5ea"],[19,3,"c5d3d3","f0f5ea"],[20,3,"9ba8b5","f0f5ea"],[21,3,"9ba8b5","f0f5ea"],[22,3,"9ba8b5","f0f5ea"],[23,3,"476f5c","9dc89a"],[16,4,"476f5c","9dc89a"],[17,4,"9ba8b5","f0f5ea"],[18,4,"c5d3d3","f0f5ea"],[19,4,"9ba8b5","f0f5ea"],[20,4,"9ba8b5","f0f5ea"],[21,4,"9ba8b5","f0f5ea"],[22,4,"c5d3d3","f0f5ea"],[23,4,"476f5c","9dc89a"],[16,5,"476f5c","7bb484"],[17,5,"9ba8b5","f0f5ea"],[18,5,"9ba8b5","f0f5ea"],[19,5,"9ba8b5","f0f5ea"],[20,5,"9ba8b5","f0f5ea"],[21,5,"9ba8b5","f0f5ea"],[22,5,"c5d3d3","f0f5ea"],[23,5,"476f5c","7bb484"],[16,6,"476f5c","59a16e"],[17,6,"9ba8b5","9dc89a"],[18,6,"9ba8b5","f0f5ea"],[19,6,"9ba8b5","f0f5ea"],[20,6,"9ba8b5","f0f5ea"],[21,6,"c5d3d3","f0f5ea"],[22,6,"9ba8b5","9dc89a"],[23,6,"476f5c","59a16e"],[17,7,"476f5c","7bb484"],[18,7,"9ba8b5","c6dfc2"],[19,7,"9ba8b5","f0f5ea"],[20,7,"9ba8b5","f0f5ea"],[21,7,"9ba8b5","c6dfc2"],[22,7,"476f5c","7bb484"],[18,8,"476f5c","7bb484"],[19,8,"9ba8b5","f0f5ea"],[20,8,"9ba8b5","f0f5ea"],[21,8,"476f5c","7bb484"],[18,9,"476f5c","7bb484"],[19,9,"788797","c6dfc2"],[20,9,"788797","c6dfc2"],[21,9,"476f5c","7bb484"],[17,10,"0b0e1f","0b0e1f"],[18,10,"a67049","f7f0c8"],[19,10,"525d75","9dc89a"],[20,10,"525d75","9dc89a"],[21,10,"a67049","f7f0c8"],[22,10,"0b0e1f","0b0e1f"],[16,11,"0b0e1f","0b0e1f"],[17,11,"8c5a3b","8c5a3b"],[18,11,"d9b179","d9b179"],[19,11,"a67049","f7f0c8"],[20,11,"a67049","f7f0c8"],[21,11,"d9b179","d9b179"],[22,11,"8c5a3b","8c5a3b"],[23,11,"0b0e1f","0b0e1f"],[16,12,"0b0e1f","0b0e1f"],[17,12,"0b0e1f","0b0e1f"],[18,12,"a67049","a67049"],[19,12,"d9b179","d9b179"],[20,12,"d9b179","d9b179"],[21,12,"a67049","a67049"],[22,12,"0b0e1f","0b0e1f"],[23,12,"0b0e1f","0b0e1f"],[16,13,"0b0e1f","0b0e1f"],[17,13,"788797","788797"],[18,13,"0b0e1f","0b0e1f"],[19,13,"8c5a3b","8c5a3b"],[20,13,"8c5a3b","8c5a3b"],[21,13,"0b0e1f","0b0e1f"],[22,13,"788797","788797"],[23,13,"0b0e1f","0b0e1f"],[16,14,"0b0e1f","0b0e1f"],[17,14,"788797","788797"],[18,14,"0b0e1f","0b0e1f"],[19,14,"0b0e1f","0b0e1f"],[20,14,"0b0e1f","0b0e1f"],[21,14,"0b0e1f","0b0e1f"],[22,14,"788797","788797"],[23,14,"0b0e1f","0b0e1f"],[17,15,"0b0e1f","0b0e1f"],[18,15,"788797","788797"],[19,15,"9ba8b5","9ba8b5"],[20,15,"9ba8b5","9ba8b5"],[21,15,"788797","788797"],[22,15,"0b0e1f","0b0e1f"],[18,16,"0b0e1f","0b0e1f"],[19,16,"0b0e1f","0b0e1f"],[20,16,"0b0e1f","0b0e1f"],[21,16,"0b0e1f","0b0e1f"],[18,17,"0b0e1f","0b0e1f"],[19,17,"788797","788797"],[20,17,"9ba8b5","9ba8b5"],[21,17,"0b0e1f","0b0e1f"],[18,18,"0b0e1f","0b0e1f"],[19,18,"525d75","525d75"],[20,18,"525d75","525d75"],[21,18,"0b0e1f","0b0e1f"],[16,19,"0b0e1f","0b0e1f"],[17,19,"0b0e1f","0b0e1f"],[18,19,"525d75","525d75"],[19,19,"788797","788797"],[20,19,"9ba8b5","9ba8b5"],[21,19,"0b0e1f","0b0e1f"],[15,20,"0b0e1f","0b0e1f"],[16,20,"525d75","525d75"],[17,20,"788797","788797"],[18,20,"788797","788797"],[19,20,"525d75","525d75"],[20,20,"0b0e1f","0b0e1f"],[16,21,"0b0e1f","0b0e1f"],[17,21,"0b0e1f","0b0e1f"],[18,21,"0b0e1f","0b0e1f"],[19,21,"0b0e1f","0b0e1f"]].map(([x,y,a,b])=>({x,y,a:'#'+a,b:'#'+b}));
+POSE.bulbx.forEach(c=>POSE.base.part.set(c.y*H+c.x,'arm'));
+const HAND_AWAY={every:15,ms:1800};   // 清醒時手偶爾消失：每 20 秒抽一次，每次 1/every 機率（約平均 5 分鐘一次），消失約 ms 毫秒（頻率待 Roger 調整）
 const PRI={sway:.5,blink:1,tired:1.5,wave1:1.8,nod:2,nod2:2.2,look:2.5,shakehead:3,jump:3.5,happy:3.6,shake:4,wave2:5,wave3:6};
 const EYE=D.default[10][6];
 
@@ -1637,12 +1682,17 @@ class Mascot{
     this.g=g;this.rust=0;this.pose='base';this.bulb=0;this.tr=null;
     this.ant={a:2,b:2,t:1,id:0};this.pat='steady';this.patT0=performance.now();
     this.off={head:0,arm:0,body:0,dx:0,jump:0,eyeDx:0};this.blink=0;this.tired=0;this.shut=0;
-    this.vis=1;this.mode='';this.p=0;this.tok=0;this.cur=null;this.tm=[];this.on=true;this.sleep=false;this.nap=false;
+    this.handV=1;this.hw=1;this.hid=0;this.hwT=0;this.occ=false;this.vis=1;this.mode='';this.p=0;this.tok=0;this.cur=null;this.tm=[];this.on=true;this.sleep=false;this.nap=false;
     this.loop=this.loop.bind(this);requestAnimationFrame(this.loop);
   }
   setPose(name,ms=300){if(name===this.pose)return;if(RM()){this.pose=name;this.tr=null;return}const from=this.compose();this.pose=name;this.tr={from,t0:performance.now(),ms}}
   setAnt(k,ms){const s=this.ant;if(RM())ms=0;s.a=s.b;s.b=k;s.t=ms?0:1;const id=++s.id;if(!ms)return;const t0=performance.now();(function f(n){if(s.id!==id)return;s.t=Math.min(1,(n-t0)/ms);if(s.t<1)requestAnimationFrame(f)})(t0)}
   setPat(p){this.pat=p;this.patT0=performance.now()}
+  /* 手的顯示程度 0～1（逐格雜點淡入淡出，跟機器人其他漸變同一種風格） */
+  handTo(v,ms){const id=++this.hid;if(RM()||!ms){this.handV=v;return}const from=this.handV,t0=performance.now(),me=this;(function f(n){if(me.hid!==id)return;const t=Math.min(1,(n-t0)/ms);me.handV=from+(v-from)*t;if(t<1)requestAnimationFrame(f)})(t0)}
+  /* 睡覺（或手偶爾消失）時手不見；醒來時先睜眼，約 0.4 秒後手才淡入 */
+  syncHand(){const want=(this.nap||this.occ)?0:1;if(want===this.hw)return;this.hw=want;clearTimeout(this.hwT);
+    if(want===0)this.handTo(0,350);else if(RM())this.handTo(1,0);else this.hwT=setTimeout(()=>{if(this.hw===1)this.handTo(1,450)},420)}
   tween(prop,to,ms,done){if(RM()){this[prop]=to;done&&done();return}const from=this[prop],t0=performance.now(),me=this;(function f(n){const t=Math.min(1,(n-t0)/ms);me[prop]=from+(to-from)*t;if(t<1)requestAnimationFrame(f);else done&&done()})(t0)}
   intensity(now){if(RM())return 1;const t=now-this.patT0;switch(this.pat){
     case'breathe':return .45+.55*(.5+.5*Math.sin(t/2400*2*Math.PI-Math.PI/2));
@@ -1665,7 +1715,7 @@ class Mascot{
       nod:nod,
       nod2:[[0,()=>o.head=1],[200,()=>o.head=0],[160,()=>o.head=1],[200,()=>o.head=0]],
       shake:[[0,()=>o.dx=1],[60,()=>o.dx=-1],[60,()=>o.dx=1],[60,()=>o.dx=-1],[60,()=>o.dx=0]],
-      wave1:bp?nod:wave(1),wave2:bp?hn(2):wave(2),wave3:bp?hn(3):wave(3),
+      wave1:wave(1),wave2:wave(2),wave3:wave(3),
       jump:[[0,()=>o.jump=-1],[210,()=>o.jump=0]],
       happy:[[0,()=>{o.head=1}],[170,()=>{o.head=-1;o.body=-1;o.arm=-1}],[220,()=>{o.body=0;o.arm=0}],[90,()=>{o.head=1;this.shut=1}],[260,()=>{o.head=0;this.shut=0}]],
       shakehead:[[0,()=>o.eyeDx=-1],[150,()=>o.eyeDx=0],[130,()=>o.eyeDx=-1],[250,()=>o.eyeDx=0]],
@@ -1675,30 +1725,35 @@ class Mascot{
   stop(){this.tm.forEach(clearTimeout);this.tm=[];this.reset()}
   reset(){const o=this.off;o.head=o.arm=o.body=o.dx=o.jump=o.eyeDx=0;this.blink=0;this.tired=0;this.shut=0}
   compose(){
-    const P=POSE[this.pose],m=new Map(),o=this.off;
+    const P=POSE.base,m=new Map(),o=this.off;
     if(!P.idx){P.idx=new Map();P.cells.forEach(c=>P.idx.set(c.y*H+c.x,c))}
     const colOf=c=>{
       if(!c.diff)return c.a;
-      if(this.pose==='bulb')return(c.a&&c.b)?mix(c.a,c.b,this.bulb):(this.bulb>.5?c.b:c.a);
       const w=.12,th=c.th*(1-w),L=this.rust;return L<=th?c.a:(L>=th+w?c.b:((c.a&&c.b)?mix(c.a,c.b,.5):(c.f?c.b:c.a)))};
     const hold=(this.tired||this.nap)?1:0,headDy=hold?Math.max(o.head,1):o.head;
+    const bp=this.pose==='bulb',hv=this.handV;
     for(const c of P.cells){
+      if(bp&&P.part.get(c.y*H+c.x)==='arm')continue;   // 燈泡手臂整隻取代原本的手
+      if(hv<1&&P.part.get(c.y*H+c.x)==='arm'&&!(hash(c.y*H+c.x+21)<hv))continue;
       const eye=(c.x===6||c.x===10)&&(c.y===10||c.y===11);
       let col;if(eye){const nb=P.idx.get(c.y*H+8);col=nb?colOf(nb):colOf(c)}else col=colOf(c);
       if(!col)continue;
       const pt=P.part.get(c.y*H+c.x);const x=c.x+o.dx,y=c.y+o.jump+(pt==='head'?headDy:(pt&&o[pt]?o[pt]:0));
-      m.set(y*H+x,{x,y,col,k:c.y*H+c.x});
+      m.set(MK(x,y),{x,y,col,k:c.y*H+c.x});
     }
+    if(bp)for(const c of POSE.bulbx){
+      if(hv<1&&!(hash(c.y*H+c.x+21)<hv))continue;
+      const x=c.x+o.dx,y=c.y+o.jump+o.arm;m.set(MK(x,y),{x,y,col:mix(c.a,c.b,this.bulb),k:c.y*H+c.x})}
     const rows=(this.blink||hold||this.shut)?[11]:[10,11];
-    for(const bx of [6,10])for(const r of rows){const x=bx+o.eyeDx+o.dx,y=r+headDy+o.jump;m.set(y*H+x,{x,y,col:EYE,k:r*H+bx})}
+    for(const bx of [6,10])for(const r of rows){const x=bx+o.eyeDx+o.dx,y=r+headDy+o.jump;m.set(MK(x,y),{x,y,col:EYE,k:r*H+bx})}
     return m}
   draw(now){
-    const g=this.g;g.clearRect(0,0,H,H);
+    const g=this.g;g.clearRect(0,0,H+2*PX,H+PT);
     if(this.vis===0&&this.mode==='out')return;
-    const put=(x,y,col,al)=>{g.globalAlpha=al;g.fillStyle=col;g.fillRect(x,y,1,1)};
+    const put=(x,y,col,al)=>{g.globalAlpha=al;g.fillStyle=col;g.fillRect(x+PX,y+PT,1,1)};
     let M=this.compose();
     if(this.tr){const tp=Math.min(1,(now-this.tr.t0)/this.tr.ms),F=this.tr.from,out=new Map();
-      for(const[k,v]of M){if(F.has(k)||hash(k+3)<tp)out.set(k,v)}
+      for(const[k,v]of M){const f=F.get(k);if(f){out.set(k,(f.col===v.col||hash(k+3)<tp)?v:f)}else if(hash(k+3)<tp)out.set(k,v)}
       for(const[k,v]of F){if(!M.has(k)&&hash(k+3)>=tp)out.set(k,v)}
       M=out;if(tp>=1)this.tr=null}
     for(const v of M.values()){
@@ -1719,8 +1774,8 @@ class Mascot{
       if(this.vis<1){if(this.mode==='in'){if(this.p<.85)continue}else if(this.mode==='out'){if(this.p>hash(y*H+x+97))continue}}
       put(x+o.dx,y+hy,col,al)}
     g.globalAlpha=1}
-  sig(n){const o=this.off,a=this.ant;return [o.head,o.arm,o.body,o.dx,o.jump,o.eyeDx,this.blink,this.tired,this.nap,this.shut,this.pose,Math.round(this.bulb*100),Math.round(this.rust*500),a.a,a.b,Math.round(a.t*50),this.pat,Math.round(this.intensity(n)*50),this.vis,this.mode,Math.round(this.p*100),this.tr?(n|0):0].join()}
-  loop(n){const k=this.sig(n);if(k!==this.last){this.last=k;this.draw(n)}requestAnimationFrame(this.loop)}
+  sig(n){const o=this.off,a=this.ant;return [o.head,o.arm,o.body,o.dx,o.jump,o.eyeDx,this.blink,this.tired,this.nap,this.shut,this.pose,Math.round(this.bulb*100),Math.round(this.handV*50),Math.round(this.rust*500),a.a,a.b,Math.round(a.t*50),this.pat,Math.round(this.intensity(n)*50),this.vis,this.mode,Math.round(this.p*100),this.tr?(n|0):0].join()}
+  loop(n){this.syncHand();const k=this.sig(n);if(k!==this.last){this.last=k;this.draw(n)}requestAnimationFrame(this.loop)}
   enter(){const tok=++this.tok;this.on=true;this.stop();this.cur=null;
     if(RM()){this.mode='';this.vis=1;this.p=1;return}
     this.mode='in';this.vis=0;this.p=0;const t0=performance.now(),me=this;(function f(n){if(me.tok!==tok)return;const t=Math.min(1,(n-t0)/500);me.p=t;me.vis=t<1?t:1;if(t<1)requestAnimationFrame(f)})(t0)}
@@ -1729,17 +1784,20 @@ class Mascot{
     this.mode='out';this.vis=.01;this.p=0;const t0=performance.now(),me=this;(function f(n){if(me.tok!==tok)return;const t=Math.min(1,(n-t0)/400);me.p=t;if(t<1)requestAnimationFrame(f);else me.vis=0})(t0)}
 }
 
-const cv=document.createElement('canvas');cv.id='rbt';cv.width=cv.height=H;document.body.appendChild(cv);
+const cv=document.createElement('canvas');cv.id='rbt';cv.width=H+2*PX;cv.height=H+PT;document.body.appendChild(cv);
+const hit=document.createElement('div');hit.id='rbh';document.body.appendChild(hit);   // 只有機器人原位這一塊接收點擊，放大的舞台不擋其他按鈕
 const R=new Mascot(cv.getContext('2d'));
 R.rust=PH?0:Math.max(0,Math.min(1,+MS.rust||0));
-R.sleep=PH?false:!!S.mute;R.nap=R.sleep;R.vis=0;R.mode='out';if(R.sleep)R.setPat('sleep');
+R.sleep=PH?false:!!S.mute;R.nap=R.sleep;R.hw=R.nap?0:1;R.handV=R.hw;R.vis=0;R.mode='out';if(R.sleep)R.setPat('sleep');
 
 function place(){
   const a=PH?$('sysmsg'):$('pn');if(!a)return;
-  const ra=a.getBoundingClientRect();if(!ra.width){cv.style.display='none';return}
+  const ra=a.getBoundingClientRect();if(!ra.width){cv.style.display='none';hit.style.display='none';return}
   const dpr=window.devicePixelRatio||1,cell=Math.max(1,Math.round(2*dpr)),u=cell/dpr,sn=v=>Math.round(v*dpr)/dpr;
-  cv.style.width=cv.style.height=(24*u)+'px';
-  cv.style.left=sn(ra.left+(PH?0:u))+'px';cv.style.top=sn((PH?ra.bottom:ra.top)-23*u)+'px';cv.style.display='block'}
+  const hx=sn(ra.left+(PH?0:u)),hy=sn((PH?ra.bottom:ra.top)-23*u);
+  cv.style.width=((24+2*PX)*u)+'px';cv.style.height=((24+PT)*u)+'px';
+  cv.style.left=sn(hx-PX*u)+'px';cv.style.top=sn(hy-PT*u)+'px';cv.style.display='block';
+  hit.style.width=hit.style.height=(24*u)+'px';hit.style.left=hx+'px';hit.style.top=hy+'px';hit.style.display='block'}
 addEventListener('resize',place);
 
 const RXT={
@@ -1767,7 +1825,7 @@ let own=null,active=false,drift=2,tt=[],lp=null,wt=[],waking=false;
 const later=(f,d)=>{tt.push(setTimeout(f,d))};
 function clearT(){tt.forEach(clearTimeout);tt=[];clearInterval(lp);lp=null}
 function apply(msg,s){
-  clearT();wt.forEach(clearTimeout);wt=[];waking=false;own=msg;active=true;R.stop();R.cur=null;R.nap=false;
+  clearT();wt.forEach(clearTimeout);wt=[];waking=false;own=msg;active=true;R.stop();R.cur=null;R.nap=false;R.occ=false;
   let bulb=s.bulb,acts=s.acts.slice(),k=s.k;
   if(bulb&&R.rust>.3){bulb=null;acts=[[0,'nod']]}
   if(R.pose==='bulb'&&!bulb){R.bulb=0;R.setPose('base',300)}
@@ -1808,10 +1866,12 @@ R.setAnt(drift,0);
 let tk=Date.now(),saved=-1;
 setInterval(()=>{
   const now=Date.now(),last=tk;tk=now;
-  if(!PH&&!R.sleep&&!document.hidden){const over=Math.min(now-last,now-A.act-120000);if(over>0)R.rust=Math.min(1,R.rust+over/600000)}
+  if(eqAny())R.rust=0;else if(!PH&&!R.sleep&&!document.hidden){const over=Math.min(now-last,now-A.act-120000);if(over>0)R.rust=Math.min(1,R.rust+over/600000)}
   const v=Math.round(R.rust*1000)/1000;if(!PH&&v!==saved){saved=v;MS.rust=v;msSave()}
 },1000);
-function typed(){R.rust=Math.max(0,R.rust-.01)}
+/* 套件換裝掛鉤：頭、身體、手任一槽換成套件，機器人就永遠不生鏽（目前還沒有套件，所以回傳 false） */
+function eqAny(){return false}
+function typed(){R.rust=eqAny()?0:Math.max(0,R.rust-.002)}   // 1.52：全鏽打 500 字才除光（原本 100 字）
 function mine(kind){
   if(!S.fx.mine)return;
   if(R.sleep){if(kind==='diamond')wake('peek');return}
@@ -1827,13 +1887,15 @@ function sw(){
 if(PH){
   const g={leaving:false};setTimeout(()=>{if(!active){apply(g,RXT.guide);setTimeout(()=>release(g),6500)}},1300);
   (function ph(){setTimeout(()=>{if(!active&&!R.cur)R.act(Math.random()<.5?'blink':'look');ph()},8000+rnd(4000))})();
-  cv.style.pointerEvents='auto';cv.style.touchAction='manipulation';
-  cv.addEventListener('click',()=>{if(R.act('jump'))setTimeout(()=>R.act('blink'),350)});
+  hit.addEventListener('click',()=>{if(R.act('jump'))setTimeout(()=>R.act('blink'),350)});
 }
-if(!PH){cv.style.pointerEvents='auto';cv.addEventListener('dblclick',e=>{e.preventDefault();if(document.hidden||pv||pend)return;sayPromo()})}
+if(!PH){hit.addEventListener('dblclick',e=>{e.preventDefault();if(document.hidden||pv||pend)return;sayPromo()})}
 place();setInterval(place,1000);
-function idea(){if(PH||R.sleep||active||waking||R.cur||RM()||R.rust>.3||R.pose==='bulb')return false;const tok=R.tok;R.setPose('bulb',300);R.bulb=0;setTimeout(()=>{if(!active&&R.tok===tok)R.tween('bulb',1,450)},320);setTimeout(()=>{if(active||R.tok!==tok)return;R.tween('bulb',0,350,()=>{if(!active&&R.pose==='bulb')R.setPose('base',300)})},1900);return true}
-return{R,cv,react,release,typed,mine,sw,place,wake,idea};
+/* 清醒時手偶爾消失一下（低優先：忙的時候不做；跟機器人動作開關 S.fx.mine 走） */
+setInterval(()=>{if(PH||RM()||!R.on||R.sleep||R.nap||active||waking||R.cur||R.occ||R.pose!=='base'||!S.fx.mine||document.hidden)return;
+  if(Math.random()*HAND_AWAY.every>=1)return;R.occ=true;setTimeout(()=>{R.occ=false},HAND_AWAY.ms)},20000);
+function idea(){if(PH||R.sleep||active||waking||R.cur||R.occ||RM()||R.rust>.3||R.pose==='bulb')return false;const tok=R.tok;R.setPose('bulb',300);R.bulb=0;setTimeout(()=>{if(!active&&R.tok===tok)R.tween('bulb',1,450)},320);setTimeout(()=>{if(active||R.tok!==tok)return;R.tween('bulb',0,350,()=>{if(!active&&R.pose==='bulb')R.setPose('base',300)})},1900);return true}
+return{R,cv,react,release,typed,mine,sw,place,wake,idea,dbg:{POSE,mix,hex,HAND_AWAY}};
 })();
 function rbReact(m,k,d){if(RB)RB.react(m,k,d)}
 function rbRel(m){if(RB)RB.release(m)}
@@ -2035,7 +2097,7 @@ ta.addEventListener('dblclick',()=>{
   n.ro=false;ta.setSelectionRange(ta.selectionEnd,ta.selectionEnd);playSfx('unlock');save();render();
 });
 const IMPLIM=4500000;
-function buildReplace(j,clean,g2){const notes=clean.slice();if(g2&&notes[0])notes[0].coin=(notes[0].coin||0)+j.global.coin;const fs=(Array.isArray(j.folders)?j.folders:[]).filter(f=>f&&f.id&&f.name).map(f=>({id:String(f.id),name:String(f.name),color:+f.color||0,created:+f.created||0}));notes.forEach(n=>{if(n.folderId&&!fs.some(f=>f.id===n.folderId))delete n.folderId});return{notes,folders:fs,sort:(j.sort&&j.sort.k)?j.sort:S.sort,prof:profIn(j.profile)}}
+function buildReplace(j,clean,g2){const notes=clean.slice();if(g2&&notes[0])notes[0].coin=(notes[0].coin||0)+j.global.coin;const fs=(Array.isArray(j.folders)?j.folders:[]).filter(f=>f&&f.id&&f.name).map(f=>({id:String(f.id),name:String(f.name),color:+f.color||0,created:+f.created||0}));notes.forEach(n=>{if(n.folderId&&!fs.some(f=>f.id===n.folderId))delete n.folderId});return{notes,folders:fs,sort:(j.sort&&j.sort.k)?j.sort:S.sort,prof:profIn(j.profile),set:setIn(j.settings)}}
 /* 備份裡的十字鎬經驗值與等級（1.30）：只有「取代整份資料」會用；舊備份沒有這兩個值就保留現有的。 */
 function profIn(p){if(!p||typeof p!=='object')return null;const x=+p.xp,k=+p.pick;if(!(x>=0)||!isFinite(x))return null;return{xp:Math.floor(x),pick:Math.max(0,Math.min(PICK.max,Math.floor(k>=0?k:0))),tom:Math.max(0,Math.min(TKMAX,Math.floor(+p.tom||0))),tt:p.tt&&typeof p.tt==='object'?p.tt:null,ts:p.ts&&typeof p.ts==='object'?p.ts:null}}
 function buildAppend(list,skip,jf){
@@ -2049,10 +2111,10 @@ function buildAppend(list,skip,jf){
   return{notes:out,folders:fout,sort:S.sort,add,sk};
 }
 function commitImport(next){gmReset();if(next.add===undefined){const keep=new Set(next.notes.map(n=>n.title+'\u0000'+n.content));hDel(S.notes.filter(n=>!n.hv&&!keep.has(n.title+'\u0000'+n.content)),'imp')}
-  const snap={notes:JSON.parse(JSON.stringify(S.notes)),folders:JSON.parse(JSON.stringify(S.folders)),sort:Object.assign({},S.sort),sel:S.sel,xp:+S.xp||0,pick:+S.pick||0,tom:+S.tom||0,tt:JSON.parse(JSON.stringify(S.tt||null)),ts:JSON.parse(JSON.stringify(S.ts||null))};
+  const snap={notes:JSON.parse(JSON.stringify(S.notes)),folders:JSON.parse(JSON.stringify(S.folders)),sort:Object.assign({},S.sort),sel:S.sel,xp:+S.xp||0,pick:+S.pick||0,tom:+S.tom||0,tt:JSON.parse(JSON.stringify(S.tt||null)),ts:JSON.parse(JSON.stringify(S.ts||null)),set:setPick()};
   const trial=Object.assign({},S,{notes:next.notes,folders:next.folders||S.folders,sort:next.sort||S.sort,sel:null,q:''},next.prof?Object.assign({xp:next.prof.xp,pick:next.prof.pick,tom:next.prof.tom},next.prof.tt?{tt:next.prof.tt}:{},next.prof.ts?{ts:next.prof.ts}:{}):{});
   try{localStorage.setItem(KEY,JSON.stringify(trial))}catch(e){playSfx('err');say('空間不足，未匯入，原有資料沒有任何變動。',{lv:'warn'});return false}
-  S.notes=trial.notes;S.folders=trial.folders;curF=null;eyeOpen=true;S.sort=trial.sort;S.sel=null;S.q='';$('sq').value='';ms.clear();S.xp=trial.xp;S.pick=trial.pick;S.tom=trial.tom||0;S.tt=trial.tt;S.ts=trial.ts;tInit(true);
+  S.notes=trial.notes;S.folders=trial.folders;curF=null;eyeOpen=true;S.sort=trial.sort;S.sel=null;S.q='';$('sq').value='';ms.clear();S.xp=trial.xp;S.pick=trial.pick;S.tom=trial.tom||0;S.tt=trial.tt;S.ts=trial.ts;if(next.set)setApply(next.set);tInit(true);
   let persisted=false;try{localStorage.setItem(PKEY,JSON.stringify(snap));persisted=true}catch(e){}
   pend={snap,persisted};
   if(!S.notes.length)seedNotes();else{const f=activeList()[0];S.sel=f?f.id:null}
@@ -2071,6 +2133,7 @@ function impOk(){
 function impUndo(){
   if(!pend)return;const sn=pend.snap,k=[S.notes,S.sort,S.sel,S.folders,S.xp,S.pick];
   S.notes=sn.notes;S.folders=sn.folders||[];curF=null;eyeOpen=true;S.sort=sn.sort||S.sort;S.sel=sn.sel;if(sn.xp!==undefined){S.xp=sn.xp;S.pick=sn.pick;S.tom=sn.tom||0;if(sn.tt)S.tt=sn.tt;if(sn.ts)S.ts=sn.ts;tInit(true)}
+  if(sn.set)setApply(setIn(sn.set));
   try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){S.notes=k[0];S.sort=k[1];S.sel=k[2];S.folders=k[3];S.xp=k[4];S.pick=k[5];playSfx('err');say('復原失敗：儲存空間不足。',{lv:'warn'});return}
   pend=null;try{localStorage.removeItem(PKEY)}catch(e){}
   AB.later=0;sayOff('imp');ms.clear();playSfx('restore');render();xpPaint();tomPaint();say('已復原到匯入前的資料。',{lv:'info'});
@@ -2079,27 +2142,35 @@ function tick(){const d=new Date();chime(d);$('cd').textContent=`${d.getFullYear
 tick();setInterval(tick,5000);{const cb=$('ct').parentNode;cb.style.userSelect='none';cb.onclick=()=>{S.h12=!S.h12;save();tick();playSfx('clock')}}chk();setInterval(chk,60000);
 const README=`R note 使用說明
 ════════════════════════
-R note 是放在瀏覽器裡的純文字筆記本，打開網址就能寫。
+存在你自己瀏覽器裡的純文字筆記，打開網址就能寫，不用註冊、登入，即寫即存。
 
 【你的筆記很安全】
-．你寫的字會立刻存在自己的瀏覽器裡，不經過任何伺服器，只有你看得到。
-．超過 7 小時沒備份，匯出按鈕會亮小紅點提醒你；有備份檔，就算瀏覽器資料被清掉，也能匯入還原。
+．你寫的字只存在自己的瀏覽器裡，不經過任何伺服器、不記在雲端，只有你看得到。
+．會在設定的時間提醒備份資料；有備份檔，就算瀏覽器資料被清除，也能匯入還原。
 ．支援「自動備份」（電腦版 Chrome／Edge）：有變動就自動存進你指定的檔案。
-．備份檔放進雲端硬碟或寄給自己，多一份保障。
-．7 天歷史紀錄，每篇筆記保留 10 個舊版本，誤刪、改壞都能找回。
-做法請看後面的【備份與搬家】。
+．本機端保留 7 天歷史紀錄，每篇筆記保留 10 個版本，誤刪、改壞都能找回。
+　——詳情見後方【基本操作】與【備份與搬家】。
 
+【快速上手】
+．在左上角輸入標題、按 Enter 新增筆記；欄位左方的「＋」可以快速新增日記標題的筆記。
+．小機器人站的按鈕，可以把你剪貼簿（Ctrl＋C）的文字內容一鍵貼成新筆記，收集資料超方便。
+．直接把文件檔案（.txt/.md……等）拉進來，快速匯入新筆記繼續編輯！（支援多文件匯入）
 
-【三十秒上手】
-．打開網址就能寫：不用註冊與安裝、不用按存檔。
-．左上角輸入標題，按 Enter 新增筆記；＋ 是新增今天的日記；旁邊的剪貼簿按鈕，一鍵把剪貼簿的文字貼成新筆記。
-．最佳環境：電腦版 Chrome 或 Edge；也可以另存成單機版，離線也能用。手機瀏覽僅提供簡易版，只有一張便條紙（要管理筆記，網址後面加 ?phone=0）。
+想讓打字增添一點樂趣？
+．打開神秘的開關（？），打字不只會挖到寶石（？），還能換算筆記的含金量（？）
+．左上角的標題 R note，每個字母都可以點擊（難道就是神秘開關？文末有詳細介紹）。
+．聽說裡面還埋藏著讓你專注打字的小遊戲？（謎）
 
-想讓打字多一點樂趣嗎？
-．打開神秘的開關（？），打字時會挖到寶石（？），還能計算筆記的含金量？
-．左上角的標題 R note，每個字母都可以點點看（難道就是神秘開關？）。
-．好用的「鎖定打字範圍」功能，動不動就寫出長篇大論的人一定要試試看。
-．聽說後面還埋藏著讓你專注打字的小遊戲？（謎）
+【工具介紹】
+R note 是架構在瀏覽器裡的純文字筆記工具……
+．它像一本放在書桌抽屜裡的記事本。換一台電腦（瀏覽器），就像換了另一間房間，那裡的抽屜是空的。
+．「清除瀏覽器資料」或「重灌電腦」，就像整個抽屜清空、日記本也不見；但有先備份就不怕！
+．用「無痕視窗」開啟，就像寫在便條紙上，關掉視窗就丟掉了。
+．和別人共用電腦、同一個瀏覽器（同一個使用者設定檔）時，對方打開這個網址就看得到你的筆記，不建議用於公用電腦。
+．資料是以明文存放，不建議記錄密碼、帳號、身分證字號等敏感資料。
+．筆記內的網址，按住 Ctrl 會顯示成超連結，再點一下就在新分頁開啟。
+．把備份檔放進雲端硬碟或寄給自己，作為異地保管，多一份保障。
+．此網頁可另存為單機版，離線狀態也能用。
 
 
 【基本操作】
@@ -2115,7 +2186,8 @@ R note 是放在瀏覽器裡的純文字筆記本，打開網址就能寫。
 ．筆記裡的網址，按住 Ctrl 點一下，就在新分頁開啟。
 
 外觀與聲音
-．搜尋框右邊，從左到右是：音效開關、打字音色、亮色系／灰色系／暗色系三顆主題按鈕。同一顆主題按鈕連續點，會換成同色系的下一組。
+．搜尋框右邊，從左到右是：音效開關、音色、亮色系／灰色系／暗色系三顆主題按鈕。同一顆主題按鈕連續點，會換成同色系的下一組。
+．機器人左邊的齒輪是「設定」：外觀、字級、日期時間樣式、備份提醒、清除資料等都在這裡。
 
 唯讀與 Markdown 預覽
 ．內文上方「總字數」旁邊的鉛筆按鈕，把筆記鎖成唯讀；在內文點兩下可解鎖。
@@ -2123,13 +2195,12 @@ R note 是放在瀏覽器裡的純文字筆記本，打開網址就能寫。
 
 歷史紀錄與右鍵選單
 ．在筆記上按右鍵選「歷史紀錄」（或在檔案櫃按「全筆記歷史紀錄」），可以看到舊版本與刪掉的筆記，並救回來。
-．在筆記或資料夾上按右鍵，還有更多功能；筆記與資料夾都能另存為文字檔（.txt 或 .md）。光色按鈕和打字音色按鈕上按右鍵，可以直接選想要的那一個。
+．在筆記或資料夾上按右鍵，還有更多功能；筆記與資料夾都能另存為文字檔（.txt 或 .md）。光色按鈕和音色按鈕上按右鍵，可以直接選想要的那一個。
 
 
 【資料夾】
 ．資料夾列右邊的「＋」新增資料夾，「－」刪除所選的資料夾（裡面的筆記不會消失），刪除後幾秒內可以按「復原」。
 ．最左邊的「檔案櫃」按鈕：點一下打開總覽，列出所有資料夾和筆記，點任何一篇都能直接開啟；再點一下（或按 Esc）回到筆記。
-．檔案櫃上方有「更多設定」：R 字色、字級、日期時間樣式等，最底下可以清除資料（會先請你備份）。
 ．點一下資料夾是選取，右邊會列出裡面的筆記；再點一下才進入資料夾。
 ．把筆記拖到資料夾圖示上就能收進去；拖到「檔案櫃」按鈕或「移出資料夾」的虛線框，就能移出。
 ．眼睛按鈕：隱藏所有資料夾，筆記全部攤平顯示。
@@ -2147,7 +2218,7 @@ R note 是放在瀏覽器裡的純文字筆記本，打開網址就能寫。
 
 【備份與搬家】
 ．匯出：下載一個備份檔（.json），建議定期匯出，重要內容寫完就匯出。
-．匯入：選備份檔，可以「取代現有筆記」或「追加為新筆記」；匯入後先瀏覽，沒問題按「確認無誤」，不對勁就按「復原之前的資料」。
+．匯入：選備份檔，可以「取代現有筆記」或「追加為新筆記」；匯入後先瀏覽，沒問題按「確認無誤」，不對勁就按「復原之前的資料」。「取代」連光色、音色、字級等設定也一起還原，「追加」不動設定。
 ．自動備份：按「A」按鈕指定一個檔案，之後有變動就自動存進去；再點按鈕可以看狀態或停止。它是把整份筆記存成最新一份備份檔，不是兩台電腦的即時同步；兩台電腦請各自用自己的備份檔，不要共用同一個。仍建議偶爾手動匯出。
 ．換電腦，或在家裡和公司接著寫：這邊匯出，那邊匯入（備份檔放進雲端硬碟就能在兩邊取用）。到新電腦請先匯入，再設定自動備份。
 
@@ -2181,9 +2252,9 @@ o、t、e 的開關會被記住；R 和 n 每次重新開啟都是關閉。
 
 祝順心如意。`;
 const hs=t=>{let a=5381,b=0;for(let i=0;i<t.length;i++){const c=t.charCodeAt(i);a=((a<<5)+a+c)|0;b=(b*31+c)|0}return a+':'+b+':'+t.length};
-const OLDH=['1717136960:1119175561:2617','259163584:-342899575:2615','122576712:509132133:2551','156150843:-758912478:2459','-2106340733:-1114159256:3876','-1983915602:171529411:6757','561492873:771823936:2645','-1652934029:957503828:2482','-38752457:-718458112:2588','652580955:1757969548:2647','-1716669469:1205189334:2735'];
+const OLDH=['115170983:550979746:2688','-276557875:1915655092:2638','1717136960:1119175561:2617','259163584:-342899575:2615','122576712:509132133:2551','156150843:-758912478:2459','-2106340733:-1114159256:3876','-1983915602:171529411:6757','561492873:771823936:2645','-1652934029:957503828:2482','-38752457:-718458112:2588','652580955:1757969548:2647','-1716669469:1205189334:2735'];
 function diaryTitle(){const d=new Date();return `${d.getFullYear()}/${p2(d.getMonth()+1)}/${p2(d.getDate())}_週${'日一二三四五六'[d.getDay()]}`}
-const PHN='【給手機使用者】這是為電腦瀏覽器設計的筆記工具。手機上只提供簡易版：一張便條紙，打字也能挖礦。完整功能（多篇筆記、排序、封存、備份等）請改用電腦的 Chrome 或 Edge 打開。\n\n════════════════════════\n\n';
+const PHN='【給手機使用者】這是為電腦瀏覽器設計的筆記工具。手機上只提供簡易版：一張便條紙，打字也能挖礦；右上方的按鈕可以複製便條紙內容，齒輪可以調整字級、清除資料。完整功能（多篇筆記、排序、封存、備份等）請改用電腦的 Chrome 或 Edge 打開。\n\n════════════════════════\n\n';
 function seedNotes(){
   const now=Date.now(),did='n'+now+'d';
   if(PH){
@@ -2272,7 +2343,7 @@ function applyTh(){const th=S.th||'n',k=curSer(th),q=THS[th][k],F=THF[th],r=docu
   HEAD=th=='d'?'#23262d':th=='u'?tx:'#fff';
   if(th=='u'){const mx=(a,b,t)=>'#'+hrgb(a).map((v,i)=>Math.round(v+(hrgb(b)[i]-v)*t).toString(16).padStart(2,'0')).join('');PAL=[dm,mx(dm,tx,.35),mx(dm,tx,.65),mx(dm,'#ffffff',.25)];WSC=[tx,mx(tx,dm,.4),dm,mx(tx,'#000000',.15)];set('--gc','70,70,70')}else{PAL=PAL0;WSC=WSC0;r.style.removeProperty('--gc')}
   GC=getComputedStyle(r).getPropertyValue('--gc').trim()||'210,210,210';
-  document.querySelectorAll('#ths .ib[data-th]').forEach(b=>{const t=b.dataset.th;b.classList.toggle('on',t==th);b.dataset.tip=THN[t]+'・'+THS[t][curSer(t)][0]+'\n'+(curSer(t)+1)+'/'+THS[t].length+'\n右鍵可直接選'});
+  document.querySelectorAll('#ths .ib[data-th]').forEach(b=>{const t=b.dataset.th;b.classList.toggle('on',t==th);b.dataset.tip=THN[t]+'：'+THS[t][curSer(t)][0]+'\n'+(curSer(t)+1)+'/'+THS[t].length+' 右鍵可選'});
   if(booted)shelf()}
 /* 點光色按鈕：同一顆再點＝換下一個系列（共 6 個）；點完在按鈕右上角閃一下編號 1～6，之後淡出，方便大家說「暗色5」 */
 function thFlash(b,t){b.removeAttribute('data-n');void b.offsetWidth;b.dataset.n=curSer(t)+1;clearTimeout(b._tn);b._tn=setTimeout(()=>b.removeAttribute('data-n'),1600);
@@ -2336,10 +2407,27 @@ function archiveNotes(ids){
 const cm=document.createElement('div');cm.id='cm';document.body.appendChild(cm);
 function cmClose(){cm.style.display='none';cm.innerHTML=''}
 function cmOpen(x,y,items){
-  hideTip();cm.innerHTML='';
-  items.forEach(it=>{const b=document.createElement('button');b.textContent=it.t+(it.on?'  ✓':'');if(it.c){const d=document.createElement('i');d.style.cssText='display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:8px;vertical-align:-1px;background:'+it.c+';box-shadow:0 0 0 1px rgba(128,128,128,.5)';b.prepend(d)}if(it.sub){const m=document.createElement('small');m.textContent=it.sub;b.appendChild(m)}if(it.dg)b.className='dg';b.onclick=ev=>{ev.stopPropagation();cmClose();it.fn()};cm.appendChild(b)});
-  cm.style.display='block';
+  hideTip();cm.innerHTML='';const jk=items.some(i=>i.jack);cm.classList.toggle('jk',jk);
+  items.forEach(it=>{const b=document.createElement('button');b.textContent=it.t+(it.on&&!it.jack&&!it.ring?'  ✓':'');if(it.c){const d=document.createElement('i');d.style.cssText='display:inline-block;width:10px;height:10px;border-radius:50%;margin:0 11px 0 3px;vertical-align:-1px;background:'+it.c+';box-shadow:'+(it.on&&it.ring?'0 0 0 2px var(--p2),0 0 0 3.5px var(--tx)':'0 0 0 1px rgba(128,128,128,.5)');b.prepend(d)}if(it.sub){const m=document.createElement('small');m.textContent=it.sub;b.appendChild(m)}if(it.dg)b.className='dg';b.onclick=ev=>{ev.stopPropagation();if(it.jack&&cm._jk){cm._jk(items.indexOf(it),()=>{cmClose();it.fn()})}else{cmClose();it.fn()}};cm.appendChild(b)});
+  cm.style.display='block';cm._jk=null;
   cm.style.left=Math.max(4,Math.min(x,innerWidth-cm.offsetWidth-6))+'px';cm.style.top=Math.max(4,Math.min(y,innerHeight-cm.offsetHeight-6))+'px';
+  if(jk)jkBuild(items);
+}
+/* 打字音色選單：一排耳機孔，目前選中的那個插著耳機線；點別的孔，線會移過去再關閉 */
+function jkBuild(items){
+  const bs=[...cm.querySelectorAll('button')],NS='http://www.w3.org/2000/svg',X=21,ys=bs.map(b=>b.offsetTop+b.offsetHeight/2),y0=ys[0]-9;
+  const svg=document.createElementNS(NS,'svg');svg.setAttribute('class','jkv');
+  const mk=(t,a)=>{const e=document.createElementNS(NS,t);for(const k in a)e.setAttribute(k,a[k]);svg.appendChild(e);return e};
+  const dOf=y=>'M6 '+y0+'C15 '+y0+' 12 '+y+' '+X+' '+y;
+  const holes=ys.map(y=>mk('circle',{cx:X,cy:y,r:5,class:'h'}));
+  let cur=items.findIndex(i=>i.on);
+  mk('circle',{cx:6,cy:y0,r:2.2,class:'sc'});
+  const cable=mk('path',{d:cur>=0?dOf(ys[cur]):'M6 '+y0+'L6 '+y0,class:'cb'}),plug=mk('circle',{cx:X,cy:cur>=0?ys[cur]:y0,r:3.4,class:'pl'});
+  if(cur<0)plug.style.display='none';else holes[cur].classList.add('on');
+  cm.appendChild(svg);
+  if(cur>=0&&cable.animate&&!RM()){const L=cable.getTotalLength();cable.animate([{strokeDasharray:L,strokeDashoffset:L},{strokeDasharray:L,strokeDashoffset:0}],{duration:260,easing:'ease-out'});plug.animate([{opacity:0},{opacity:0,offset:.7},{opacity:1}],{duration:260})}
+  cm._jk=(i,done)=>{if(i===cur||RM()){done();return}
+    cable.setAttribute('d',dOf(ys[i]));cable.style.d="path('"+dOf(ys[i])+"')";plug.style.cy=ys[i]+'px';plug.setAttribute('cy',ys[i]);plug.style.display='';holes.forEach(h=>h.classList.remove('on'));holes[i].classList.add('on');cm._jk=null;setTimeout(done,240)}
 }
 document.addEventListener('contextmenu',e=>{
   if(PH||pend){return}
@@ -2347,8 +2435,8 @@ document.addEventListener('contextmenu',e=>{
   if(t.closest('textarea,input,#cm,#fview'))return;
   let items=null;
   {const tb=t.closest('#ths .ib[data-th]'),sb=t.closest('#tsb');
-   if(tb){const th=tb.dataset.th;items=THS[th].map((q,i)=>({t:(i+1)+' '+q[0],c:q[9],on:(S.th||'n')===th&&curSer(th)===i,fn:()=>{tTheme();S.th=th;S.ser[th]=i;S.thSeen=1;sayOff('thm');save();applyTh();thFlash(tb,th);playSfx('theme',th)}}))}
-   else if(sb){items=TIMB.map((n,i)=>({t:(i+1)+' '+n,on:(S.tpk|0)===i,fn:()=>{S.tpk=i;save();paintTs();sb.removeAttribute('data-n');void sb.offsetWidth;sb.dataset.n=i+1;clearTimeout(sb._tn);sb._tn=setTimeout(()=>sb.removeAttribute('data-n'),1600);tsPreview()}}))}
+   if(tb){const th=tb.dataset.th;items=THS[th].map((q,i)=>({t:(i+1)+' '+q[0],c:q[9],ring:1,on:curSer(th)===i,fn:()=>{tTheme();S.th=th;S.ser[th]=i;S.thSeen=1;sayOff('thm');save();applyTh();thFlash(tb,th);playSfx('theme',th)}}))}
+   else if(sb){items=TIMB.map((n,i)=>({jack:1,t:(i+1)+' '+n,on:(S.tpk|0)===i,fn:()=>{S.tpk=i;save();paintTs();sb.removeAttribute('data-n');void sb.offsetWidth;sb.dataset.n=i+1;clearTimeout(sb._tn);sb._tn=setTimeout(()=>sb.removeAttribute('data-n'),1600);tsPreview()}}))}
    if(items){e.preventDefault();cmOpen(e.clientX,e.clientY,items);return}}
   const it=t.closest('#act .item'),ar=t.closest('#arc .item'),fo=t.closest('.fo'),tab=t.closest('#ftab');let ftid=null;if(!it&&!fo&&colOn()&&t.closest('#fr')){const ci=colPoint(e,true);if(ci>=0)ftid=S.folders[ci].id}
   if(it){
@@ -2621,7 +2709,6 @@ let cabWas=false;
 function cabRender(){
   const on=cabOn(),v=$('cabv');if(!on)sayOff('cabsay');
   const chg=on!==cabWas;cabWas=on;
-  if(chg&&!on&&window.setpClose)setpClose(true);
   document.documentElement.classList.toggle('cbm',on);
   if(chg)cabAnim(on);
   clearTimeout(cabRender.t);
@@ -2630,7 +2717,7 @@ function cabRender(){
   else v.style.display='none';
   $('cabb').classList.toggle('open',on);
   if(!on)return;
-  cabSize();ctPlace();
+  cabSize();
   const L1=$('cabl'),st=L1.scrollTop;L1.innerHTML='';
   const act=S.notes.filter(n=>!n.archived&&!n.vault);let tw=0;act.forEach(n=>{tw+=fvChars(n)});
   const h=document.createElement('div');h.className='cbw';h.innerHTML='<div class="cbt"><b>檔案櫃</b></div><div class="cbs"><i></i></div>';
@@ -3233,12 +3320,9 @@ const selSoon=()=>{if(selRaf)return;selRaf=requestAnimationFrame(()=>{selRaf=0;s
 const CK={k:1.7,kd:.3,rs:35,ro:1.65,ks:1.4};
 P.gear='<circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/>';
 $('ctH').innerHTML=sv('clock',18)+'<span class="lb">全筆記歷史紀錄</span>';
-$('ctS').innerHTML=sv('gear',18)+'<span class="lb">更多設定</span>';
-$('ctH').onclick=()=>hOpen(null);
 $('ctB').onclick=()=>cabClose();
-/* 更多設定鈕：靠左，與右側採礦面板左緣切齊；空間不夠就回到原本排列 */
-function ctPlace(){const g=$('ctS'),b=$('ctb'),p=$('cabp'),v=$('cabv');if(!g||!b||!p||!cabOn())return;g.style.position='';g.style.left='';const cp=b.querySelector('.capr'),x=v.getBoundingClientRect().left+p.offsetLeft-b.getBoundingClientRect().left;if(x>cp.getBoundingClientRect().right-b.getBoundingClientRect().left+10){g.style.position='absolute';g.style.left=x+'px'}}
-window.addEventListener('resize',()=>ctPlace());
+$('ctH').onclick=()=>hOpen(null);
+
 function cabCap(){const e=$('ctb').querySelector('.capr');if(!e)return;const cp=capInfo();e.dataset.tip=cp.t;e.querySelector('.xbar').classList.toggle('hi',cp.p>=80);e.querySelector('.xbar i').style.width=cp.p+'%';e.querySelector('b').textContent=cp.p+'%'}
 function cabAnim(on){
   const kk=on?CK.k:.4;  // 開櫃用調好的速度，關櫃快速收回
@@ -3251,8 +3335,7 @@ function cabAnim(on){
   if(on){
     kids.forEach((e,i)=>e.animate([{transform:'none',opacity:1},{transform:'translateX('+dxOf(e)+'px) scale(.15)',opacity:0}],{duration:500*kk,delay:i*22*kk,easing:'cubic-bezier(.5,0,.2,1)',fill:'forwards'}));
     cabAnim.t=setTimeout(()=>{html.classList.add('cbq');kids.forEach(e=>e.getAnimations().forEach(a=>a.cancel()))},(500+kids.length*22)*kk+60);
-    [...$('ctb').querySelectorAll('.tl:not(#ctS)')].forEach((e,i)=>e.animate([{opacity:0,transform:'translateX(-16px)'},{opacity:1,transform:'none'}],{duration:450*kk,delay:(380+kids.length*22+i*70)*kk,easing:'cubic-bezier(.2,.9,.3,1.2)',fill:'backwards'}));
-    const g=$('ctS');if(g)g.animate([{opacity:0,transform:'translateX(40px)'},{opacity:1,transform:'none'}],{duration:CK.kd*1400,delay:CK.kd*400+100,easing:'cubic-bezier(.2,.9,.3,1)',fill:'backwards'});  // 更多設定跟著十字鎬面板出現
+    [...$('ctb').querySelectorAll('.tl')].forEach((e,i)=>e.animate([{opacity:0,transform:'translateX(-16px)'},{opacity:1,transform:'none'}],{duration:450*kk,delay:(380+kids.length*22+i*70)*kk,easing:'cubic-bezier(.2,.9,.3,1.2)',fill:'backwards'}));
   }else{
     html.classList.remove('cbq');const n=kids.length;
     kids.forEach((e,i)=>e.animate([{transform:'translateX('+dxOf(e)+'px) scale(.15)',opacity:0},{transform:'none',opacity:1}],{duration:500*kk,delay:(n-1-i)*22*kk,easing:'cubic-bezier(.5,0,.2,1)',fill:'backwards'}));
@@ -3265,7 +3348,7 @@ function cabEnter(){
   pk.animate([{opacity:0,transform:'translateX(40px)'},{opacity:1,transform:'none'}],{duration:CK.kd*1400,delay:CK.kd*400,easing:'cubic-bezier(.2,.9,.3,1)',fill:'backwards'});
 }
 
-/* ===== 1.47 更多設定 ===== */
+/* ===== 1.47 設定 ===== */
 const WD7='日一二三四五六',DFDEF='YYYY_MMDD_HHmm';
 /* 日期時間格式字串：YYYY YY R W M MM D DD ddd dd H HH h hh mm ss a A，[文字] 原樣印出，\n 換行 */
 const DFTPL=['YYYY_MMDD_HHmm','YYYY/MM/DD','YYYY-MM-DD ddd','YYYY-MM-DD HH:mm','YYYY/MM/DD a h:mm','MM/DD','YYYY年M月D日','YYYY年M月D日 ddd','民國R年M月D日','令和W年M月D日','──── YYYY/MM/DD HH:mm ────'];
@@ -3292,7 +3375,7 @@ function applyRm(){document.documentElement.classList.toggle('rmo',S.rm===1)}
 applyFs();applyRm();
 const setp=$('setp');
 const GEARC='<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:-2px;margin-right:5px"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>';
-setp.innerHTML=`<div class="hd"><b>更多設定</b><button class="sg" id="spx">✕ 關閉</button></div>
+setp.innerHTML=`<div class="hd"><b>設定</b><button class="sg" id="spx">✕ 關閉</button></div>
 <div class="tabs"><button class="on" data-t="0">操作與外觀</button><button data-t="1">資料與備份</button></div>
 <div class="bd">
 <div class="pg on" data-p="0">
@@ -3341,10 +3424,10 @@ function setpPaint(){
   const f=dfc(),ti=DFTPL.indexOf(f);sq('#dfn').textContent=ti>=0?DFNAME[ti]:'自訂';if(document.activeElement!==sq('#dff'))sq('#dff').value=S.df&&typeof S.df.f==='string'?S.df.f:DFDEF;
   sq('#sppv').textContent=dfText(new Date(),f)}
 function dfSet(f){S.df={f};save();setpPaint()}
-function setpOpen(){setp.classList.add('on');tabGo(0);setpPaint();playSfx('tick')}
-function setpClose(quick){if(!setp.classList.contains('on'))return;setp.classList.remove('on');if(!quick)playSfx('tick')}
+function setpOpen(){setp.classList.add('on');tabGo(0);setpPaint();playSfx('tick');ogPaint()}
+function setpClose(quick){if(!setp.classList.contains('on'))return;setp.classList.remove('on');if(!quick)playSfx('tick');ogPaint()}
 function tabGo(i){mark('#setp .tabs button',b=>+b.dataset.t===i);sqa('.pg').forEach(p=>p.classList.toggle('on',+p.dataset.p===i));setp.scrollTop=0}
-$('ctS').onclick=()=>{if(setp.classList.contains('on'))setpClose();else setpOpen()};
+
 sq('#spx').onclick=()=>setpClose();
 sqa('.tabs button').forEach(b=>b.onclick=()=>tabGo(+b.dataset.t));
 sq('#sphue').oninput=e=>{S.rh=+e.target.value;sq('#sph').textContent=S.rh;applyTh();save()};
@@ -3357,7 +3440,28 @@ sq('#dff').oninput=e=>{S.df={f:e.target.value};save();const f=dfc(),ti=DFTPL.ind
 sq('#dff').onblur=()=>setpPaint();
 const dfStep=k=>{const ti=DFTPL.indexOf(dfc()),n=DFTPL.length;dfSet(DFTPL[ti<0?(k>0?0:n-1):(ti+k+n)%n]);playSfx('tick')};
 sq('#dfp').onclick=()=>dfStep(-1);sq('#dfx').onclick=()=>dfStep(1);
-document.addEventListener('keydown',e=>{if(e.key==='Escape'&&$('clw').classList.contains('on')){clClose();e.stopPropagation()}else if(e.key==='Escape'&&setp.classList.contains('on')&&cabOn()){setpClose();e.stopPropagation()}},true);
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&$('clw').classList.contains('on')){clClose();e.stopPropagation()}else if(e.key==='Escape'&&setp.classList.contains('on')){setpClose();e.stopPropagation()}},true);
+
+/* ===== 1.51 外置齒輪與手機齒輪 ===== */
+const OGIMG={idle:'',open:''};   // 日後把像素圖的 data URI 放這兩格（待機／打開）；空的就用內建的臨時齒輪
+function ogPaint(){const g=$('ogear');if(!g)return;const on=setp.classList.contains('on');g.classList.toggle('open',on);
+  if(OGIMG.idle&&OGIMG.open){const im=g.querySelector('img');if(im)im.src=on?OGIMG.open:OGIMG.idle}}
+{const g=$('ogear');g.innerHTML=OGIMG.idle?'<img class="gi" alt="" src="'+OGIMG.idle+'">':sv('gear',24).replace('<svg','<svg class="gi"');
+  g.onmousedown=e=>e.preventDefault();   // 不搶走正在編輯的筆記的游標
+  g.onclick=()=>{if(setp.classList.contains('on'))setpClose();else setpOpen()}}
+function ogPlace(){const g=$('ogear'),a=$('pn');if(!g)return;if(PH||!a){g.style.display='none';return}
+  const ra=a.getBoundingClientRect(),vr=$('logo').querySelector('svg').getBoundingClientRect(),x=Math.round(ra.left-36),lim=Math.round(vr.right)+2;
+  if(!ra.width){g.style.display='none';return}
+  g.style.left=Math.max(4,x)+'px';g.style.top=Math.round(ra.top-30)+'px';g.style.display='flex'}
+addEventListener('resize',ogPlace);try{new ResizeObserver(ogPlace).observe($('nr'))}catch(e){}setTimeout(ogPlace,0);
+$('pgear').innerHTML=sv('gear',20);
+$('pgear').onclick=()=>{const w=$('pgw');
+  w.innerHTML='<div class="bx"><h3>設定</h3><div>字級</div><div class="fsr">'+FSZ.map(p=>'<button data-px="'+p+'"'+((FSZ.includes(S.fs)?S.fs:18)===p?' class="on"':'')+'>'+({16:'小',18:'中',20:'大',24:'特大'})[p]+'</button>').join('')+'</div><button class="cl" id="pgcl">清除資料…</button><button class="x" id="pgx">關閉</button></div>';
+  w.classList.add('on');
+  [...w.querySelectorAll('.fsr button')].forEach(b=>b.onclick=()=>{S.fs=+b.dataset.px;applyFs();save();[...w.querySelectorAll('.fsr button')].forEach(x=>x.classList.toggle('on',x===b))});
+  w.querySelector('#pgx').onclick=()=>w.classList.remove('on');
+  w.querySelector('#pgcl').onclick=()=>{w.classList.remove('on');clOpen()};
+  w.onmousedown=e=>{if(e.target===w)w.classList.remove('on')}};
 /* ===== 1.47 清除資料 ===== */
 const CLS={all:[['全部筆記（含封存區、暗格）','歷史紀錄（備份裡沒有）','資料夾、排版、光色與各種設定','礦石、錢袋、採礦等級、番茄鐘、稱號'],['已下載的備份檔','自動備份指定的檔案']],
  prog:[['礦石、錢袋（含每篇筆記上的錢袋）','採礦等級、番茄鐘','稱號回到「旅人」（符合條件的稱號會依筆記現況重新取得）'],['全部筆記與歷史紀錄','資料夾','光色、音效、排版等設定']]};
@@ -3373,12 +3477,12 @@ function clOpen(){clBk=false;clSc='all';
   const q=i=>$('clw').querySelector(i);
   const paint=()=>{clSc=q('[name=clsc]:checked').value;[...$('clw').querySelectorAll('#clsc label')].forEach(l=>l.classList.toggle('on',l.querySelector('input').checked));
     q('#cllose').innerHTML=CLS[clSc][0].map(x=>'<li>'+x+'</li>').join('');q('#clkeep').innerHTML=CLS[clSc][1].map(x=>'<li>'+x+'</li>').join('');
-    q('#cltip').style.display=clSc==='prog'?'none':'';q('#clbk').style.display=clSc==='prog'?'none':'';q('#cln').textContent=clSc==='prog'?'重置進度':'我了解，繼續'};
+    q('#cltip').style.display=clSc==='prog'||PH?'none':'';q('#clbk').style.display=clSc==='prog'||PH?'none':'';q('#cln').textContent=clSc==='prog'?'重置進度':'我了解，繼續'};
   [...$('clw').querySelectorAll('[name=clsc]')].forEach(r=>r.onchange=paint);paint();
   q('#clc').onclick=clClose;q('#clc2').onclick=clClose;
   q('#bkb').onclick=clBackup;
   q('#cln').onclick=()=>{if(clSc==='prog'){clRun('prog');return}
-    q('#cw1').style.display='none';q('#cw2').style.display='';q('#clnob').style.display=clBk?'none':'';q('#clcf').value='';clChk();q('#clcf').focus()};
+    q('#cw1').style.display='none';q('#cw2').style.display='';q('#clnob').style.display=clBk?'none':'';q('#clcf').value='';if(PH){q('#clcf').style.display='none';q('#cw2 .sub').innerHTML='請按住圓形按鈕 2 秒。';q('#clnob').textContent='清除後，這支手機上的資料將無法找回。'}clChk();if(!PH)q('#clcf').focus()};
   q('#clcf').oninput=clChk;
   const H=q('#hold');let t0=0,raf=0,done=false;
   function st(){if(!H.classList.contains('rdy')||done)return;t0=performance.now();H.classList.add('hd');const rm=RM();
@@ -3389,7 +3493,7 @@ function clOpen(){clBk=false;clSc='all';
   H.onkeydown=e=>{if((e.key===' '||e.key==='Enter')&&!e.repeat){e.preventDefault();st()}};H.onkeyup=e=>{if(e.key===' '||e.key==='Enter')sp()};
   $('clw').classList.add('on');
 }
-function clChk(){const H=$('clw').querySelector('#hold'),ok=$('clw').querySelector('#clcf').value.trim().toLowerCase()==='delete';H.classList.toggle('rdy',ok);$('clw').querySelector('#holdt').textContent=ok?'按住 2 秒':'🔒';H.style.setProperty('--p','0deg')}
+function clChk(){const H=$('clw').querySelector('#hold'),ok=PH||$('clw').querySelector('#clcf').value.trim().toLowerCase()==='delete';H.classList.toggle('rdy',ok);$('clw').querySelector('#holdt').textContent=ok?'按住 2 秒':'🔒';H.style.setProperty('--p','0deg')}
 function clClose(){$('clw').classList.remove('on');$('clw').innerHTML=''}
 async function clBackup(){
   const d=new Date(),txt=JSON.stringify(buildExport(d),null,2);let name=`R_note_備份_${d.getFullYear()}${p2(d.getMonth()+1)}${p2(d.getDate())}_${p2(d.getHours())}${p2(d.getMinutes())}.json`;
