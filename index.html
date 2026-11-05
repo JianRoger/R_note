@@ -101,6 +101,7 @@ html.ph #plg{display:none!important}
 #spot{position:absolute;inset:0;pointer-events:none;display:none;border-radius:8px}
 #tl{transform-box:fill-box;transform-origin:center}
 .app.bl>:not(#logo){filter:blur(7px);pointer-events:none}
+#tip.vt{writing-mode:vertical-rl;text-orientation:upright;white-space:normal;padding:7px 4px;letter-spacing:1px}
 #tip{position:fixed;display:none;z-index:60;background:var(--p2);border:1px solid var(--ac);color:var(--tx);box-shadow:0 2px 8px rgba(0,0,0,.25);font-size:12px;padding:4px 8px;border-radius:6px;pointer-events:none;white-space:pre}
 #pk{position:fixed;display:none;z-index:50;background:var(--p2);border:1px solid var(--ln);border-radius:8px;padding:6px;grid-template-columns:repeat(6,34px);gap:2px}
 #pk button{height:34px;border:1px solid transparent;border-radius:6px;background:transparent;font-size:19px;cursor:pointer}
@@ -158,6 +159,9 @@ html.ph .pinl,html.ph .pnb{display:none}
 #ul{position:absolute;display:none;box-sizing:border-box;color:transparent;white-space:pre-wrap;overflow-wrap:break-word;overflow:hidden;tab-size:4;pointer-events:none;z-index:2;border-radius:7px}
 #ul .lk{pointer-events:auto;cursor:pointer;text-decoration:underline;text-decoration-color:var(--al);text-decoration-thickness:1.5px;text-underline-offset:3px}
 #wc #mdb{pointer-events:auto;flex:none;margin-right:8px}
+#wc #twb,#wc #dtb,#wc #cpb{pointer-events:auto;flex:none;margin-right:6px}
+#wc .sep{align-self:flex-end;margin:0 10px 6px 4px}
+#cpb.sel{color:var(--al)}
 html.ph #mdb{display:none}
 #mdv{display:none;position:absolute;inset:0;overflow:auto;background:var(--p1);border:1px solid var(--ln);border-radius:8px;padding:14px 16px;outline:none;font:var(--fs,18px)/1.7 "Microsoft JhengHei","微軟正黑體","PingFang TC","Noto Sans TC",sans-serif;color:var(--tx);overflow-wrap:break-word}
 html.mdm #mdv{display:block}
@@ -388,12 +392,6 @@ html.ph #cabv,html.ph #setp{display:none!important}
 #cabv.nar #cabp .lv{margin-top:0;text-align:left;font-size:18px}
 #cabv.nar #cabp .av{text-align:left;margin-top:2px}
 #cabv.nar #cabp .chk{display:none}
-#cabp .abr{display:flex;align-items:center;gap:6px;margin-top:0;font-size:12px;color:var(--dm);width:100%}
-#cabp .abr span{flex:none}
-#cabp .abr .ai{display:inline-flex;align-items:center;width:13px;height:13px;margin:0 3px 0 4px;overflow:visible}
-#cabp .abr .ai svg{flex:none;width:22px;height:22px;margin-left:-4.6px}
-#cabp .abr select{flex:1;min-width:0;height:28px;border:1px solid var(--ln);border-radius:8px;background:var(--p2);color:var(--tx);font:inherit;font-size:12px;padding:0 6px}
-#cabv.nar #cabp .abr{margin-top:8px}
 #abb .abd{position:absolute;top:3px;right:3px;width:8px;height:8px;border-radius:50%;background:#8a8f98;pointer-events:none}
 #abb[data-s=ok] .abd{background:#3fb27f}
 #abb[data-s=paused] .abd,#abb[data-s=guard] .abd{background:#e0a526;animation:abbl 1.4s ease-in-out infinite}
@@ -511,8 +509,6 @@ html.ph #ttl{display:none}
 #cabp .av{height:auto;min-height:0;margin-top:4px}
 #cabp .av:empty{display:none}
 #cabp .chk{margin-top:6px}
-#cabp .abslot{width:100%}
-#cabv.nar #cabp .abslot .cdv{display:none}
 #cabv.nar .xrow{margin-top:0}
 .fld input::placeholder{color:var(--dm);opacity:.4}
 
@@ -545,6 +541,67 @@ html.rmo #ogear .gi{transition:none}#ogear.open .gi{transform:rotate(60deg)}
 #pgw .x{width:100%;margin-top:8px;padding:9px;border:1px solid var(--ln);border-radius:8px;background:var(--p2);color:var(--tx);font:inherit}
 /* ===== 1.47 設定抽屜（1.51 起獨立於檔案櫃） ===== */
 html{--ks:1.4}#cabv{overflow:hidden}
+
+/* 1.57 個人檔案：版面比照設定（標題橫條、通欄分頁、圓角卡片）；「Profile」標籤黏在這張紙的左緣 */
+#cabp{padding:0;align-items:stretch}
+#cabp .phd{display:flex;align-items:center;gap:8px;min-height:46px;box-sizing:border-box;padding:10px 16px;border-bottom:1px solid var(--ln);position:sticky;top:0;background:var(--p1);z-index:2}
+#cabp .phd b{font-size:15px}#cabp .phd small{color:var(--dm);font-size:12px;flex:1}
+#cabp .sg{padding:3px 10px;border:1px solid var(--ln);background:var(--p2);color:var(--tx);border-radius:7px;cursor:pointer;font:inherit;font-size:13px}
+#cabp:not(.drw) .prt{display:none}
+#cabp .ptabs{display:flex;gap:4px;padding:8px 16px 0;border-bottom:1px solid var(--ln);background:var(--p2);position:sticky;top:46px;z-index:2}
+#cabp .ptabs button{position:relative;top:1px;padding:5px 16px 4px;border:1px solid var(--ln);border-bottom:0;border-radius:9px 9px 0 0;background:color-mix(in srgb,var(--p2) 70%,var(--ln));color:var(--dm);cursor:pointer;font:inherit;font-size:13px;margin-top:4px}
+#cabp .ptabs button.on{background:var(--p1);color:var(--tx);font-weight:700;margin-top:0;padding-top:8px;padding-bottom:5px}
+#cabp .ptabs button:not(.on):hover{background:var(--p1)}
+#cabp .pbd{padding:12px 16px 20px}
+#cabp .ppg{display:none}#cabp .ppg.on{display:block}
+#cabp .pcard{border:1px solid var(--ln);border-radius:10px;padding:10px 12px;margin-bottom:12px;background:var(--p2)}
+#cabv.nar #cabp .phd,#cabv.nar #cabp .ptabs,#cabv.nar #cabp .ppg[data-p="1"]{display:none}
+#cabv.nar #cabp .pbd,#cabv.nar #cabp .ppg[data-p="0"],#cabv.nar #cabp .pcard{display:contents}
+#cabp .rrow{display:flex;align-items:center;gap:14px}#cabp .rl{font:800 52px/1 Georgia,'Times New Roman',serif;filter:drop-shadow(0 0 7px color-mix(in srgb,var(--ry) 60%,transparent));width:46px;flex:none;text-align:center}
+#cabp .rsx{flex:1;min-width:0}#cabp .rsl{font-size:12px;color:var(--dm);margin-bottom:2px}
+#cabp input.hue{width:100%;-webkit-appearance:none;appearance:none;height:10px;border-radius:5px;background:linear-gradient(90deg,hsl(0,75%,55%),hsl(60,75%,55%),hsl(120,75%,50%),hsl(180,75%,50%),hsl(240,75%,60%),hsl(300,75%,55%),hsl(360,75%,55%));outline:0;margin:0}
+#cabp input.hue::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;border-radius:50%;background:#fff;border:2px solid var(--tx);box-shadow:0 1px 4px rgba(0,0,0,.4);cursor:pointer}
+#cabp input.hue::-moz-range-thumb{width:14px;height:14px;border-radius:50%;background:#fff;border:2px solid var(--tx);cursor:pointer}
+#cabph{flex:none;width:var(--cpw,320px)}#cabv.nar #cabph{display:none}
+#profw{position:fixed;z-index:29;display:none}
+#profw #cabp{width:100%;height:100%;box-sizing:border-box;box-shadow:-6px 0 18px rgba(0,0,0,.28);border-radius:8px 0 0 0}
+#profh{position:absolute;left:-24px;bottom:0;width:24px;height:84px;padding:0;border:0;background:none;cursor:pointer}
+#profh svg{position:absolute;left:0;top:0;width:24px;height:84px;overflow:visible}
+#profh .phf{fill:color-mix(in srgb,var(--ac) 18%,var(--p1))}#profh:hover .phf{fill:var(--p1)}#profh.open .phf,#profh.open:hover .phf{fill:color-mix(in srgb,var(--ac) 18%,var(--p1))}
+#profh .phs{fill:none;stroke:var(--ln);stroke-width:1}
+#profh{color:var(--tx)}#profh:hover{color:var(--dm)}#profh.open,#profh.open:hover{color:var(--tx)}
+#profh .pht{position:absolute;left:4px;top:26px;width:16px;height:54px;writing-mode:vertical-rl;transform:rotate(180deg);font-weight:700;font-size:12px;line-height:16px;font-family:inherit;letter-spacing:.6px;text-align:center;white-space:nowrap}
+html.ph #profw{display:none!important}
+/* 光色 hint 中間的一排色圓 */
+#tip .tdots{display:flex;justify-content:center;gap:8px;margin:6px 0 5px}
+#tip .tdots i{display:block;width:10px;height:10px;border-radius:50%;box-shadow:0 0 0 1px rgba(128,128,128,.5)}
+#tip .tdots i.on{box-shadow:0 0 0 2px var(--p2),0 0 0 3.5px var(--tx)}
+/* 1.56 機器人活躍度電池：hint 與右鍵選單共用 */
+html{--rok:#3fb27f}html[data-th=d]{--rok:#2f9e6b}html[data-th=u]{--rok:#1f7d52}
+.bt{display:inline-flex;align-items:center;gap:5px;color:var(--dm)}
+.bty{position:relative;display:inline-flex;align-items:center;gap:1px;padding:2px;border:1.5px solid var(--dm);border-radius:3px;margin-right:3px}
+.bty::after{content:"";position:absolute;right:-4.5px;top:50%;width:2px;height:6px;margin-top:-3px;background:var(--dm);border-radius:0 1px 1px 0}
+.bty b{display:block;width:4px;height:9px;background:color-mix(in srgb,var(--dm) 22%,transparent)}
+.bty b.on{background:var(--rok)}.bty.lo b.on{background:var(--dg)}
+.off .bty{opacity:.7}.off .bty b.on{background:var(--dm);opacity:.6}
+#tip .tbat{display:flex;align-items:center;justify-content:center;gap:9px;margin-top:5px}
+#tip .tdv{width:1px;height:16px;background:var(--ln)}
+#tip .tsm{margin-top:4px;font-size:11px;color:var(--dm);text-align:center}
+#cm .cbr{display:flex;align-items:center;gap:12px;min-width:176px;padding:5px 12px}
+#cm .cbl{flex:1;display:flex;align-items:center;gap:9px}#cm .cbl svg{color:var(--dm)}
+#cm .cbc{display:inline-flex;gap:3px}
+#cm .cbc button{display:block;width:13px;height:20px;padding:0;border:1.5px solid var(--dm);border-radius:3px;background:color-mix(in srgb,var(--dm) 18%,transparent)}
+#cm .cbc button:hover{border-color:var(--tx)}
+#cm .cbc button.on{background:var(--rok)}#cm .cbc.lo button.on{background:var(--dg)}
+#cm .cbr.off .cbc button.on{background:var(--dm);opacity:.6}
+/* 1.56 右鍵選單圖示 */
+#cm button.ci{display:flex;align-items:center;gap:9px}
+#cm .ic{flex:none;display:flex;width:16px;height:16px;color:var(--dm)}
+#cm .lb{flex:1}
+#cm .k{color:var(--dm);font-size:12px;margin-left:16px}
+#cm button.dg .ic{color:var(--dg)}
+#cm hr{border:0;border-top:1px solid var(--ln);margin:4px 6px}
+
 #setp{position:absolute;top:0;right:0;bottom:0;width:min(560px,100%);z-index:30;background:var(--p1);color:var(--tx);border:1px solid var(--ln);border-radius:8px 0 0 8px;overflow:auto;display:flex;flex-direction:column;transform:translateX(105%);visibility:hidden;box-shadow:-8px 0 24px rgba(0,0,0,.2);transition:transform calc(.5s*var(--ks)) cubic-bezier(.2,.8,.2,1),visibility 0s linear calc(.5s*var(--ks))}
 #setp.on{transform:none;visibility:visible;transition:transform calc(.5s*var(--ks)) cubic-bezier(.2,.8,.2,1)}
 #setp .hd{display:flex;align-items:center;justify-content:space-between;padding:10px 16px;border-bottom:1px solid var(--ln);position:sticky;top:0;background:var(--p1);z-index:2}#setp .hd b{font-size:15px}
@@ -575,7 +632,7 @@ html{--ks:1.4}#cabv{overflow:hidden}
 #setp .fx{display:grid;grid-template-columns:auto 1fr;gap:6px 8px;align-items:center;margin-bottom:8px}#setp .fx input[type=text]{width:100%}#setp .fx label.cb{grid-column:2;font-size:12px;color:var(--dm)}
 #setp .dfnav{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:8px}#setp .dfnav b{font-size:14px;flex:1;text-align:center}#setp #dff{width:100%;box-sizing:border-box;font-family:ui-monospace,Consolas,monospace;font-size:13px;margin-bottom:2px}#setp .dfh{margin-top:10px;font-size:12px;color:var(--dm)}#setp .dfh summary{cursor:pointer}#setp .dfh table{border-collapse:collapse;margin:6px 0}#setp .dfh td{padding:2px 10px 2px 0;vertical-align:top}#setp .dfh code{font-family:ui-monospace,Consolas,monospace;background:var(--p2);border-radius:4px;padding:0 4px}
 #setp .pv{white-space:pre-wrap;border:1px dashed var(--ln);border-radius:8px;padding:8px 10px;background:var(--p1);min-height:44px;font-family:ui-monospace,Consolas,monospace;font-size:13px}
-#setp .dz{border:2px solid var(--dg);border-radius:10px;padding:10px 12px;background:color-mix(in srgb,var(--dg) 6%,var(--p1))}#setp .dz h3{margin:0 0 2px;color:var(--dg);font-size:14px}#setp .dz p{margin:0 0 8px;color:var(--dm);font-size:12px}
+#setp .abln b{font-weight:600}#setp .dz{border:2px solid var(--dg);border-radius:10px;padding:10px 12px;background:color-mix(in srgb,var(--dg) 6%,var(--p1))}#setp .dz h3{margin:0 0 2px;color:var(--dg);font-size:14px}#setp .dz p{margin:0 0 8px;color:var(--dm);font-size:12px}
 #setp .dz .go{background:var(--p1);border:1px solid var(--dg);color:var(--dg);height:34px;padding:0 14px;border-radius:8px;cursor:pointer;font:inherit;font-weight:600}#setp .dz .go:hover{background:var(--dg);color:#fff}
 /* ===== 清除資料 ===== */
 #clw{position:fixed;inset:0;z-index:95;background:rgba(0,0,0,.6);display:none;align-items:center;justify-content:center;padding:12px}#clw.on{display:flex}
@@ -636,22 +693,50 @@ html{--ks:1.4}#cabv{overflow:hidden}
 <script>
 const RBM=[16,12,7,4,2],RBA=[.25,.5,.75,1,1],RBI=[20,10,7,5,2.5];function rbLv(k){const v=+S[k];return v>=1&&v<=5?Math.floor(v):4}
 const TKMAX=9,TKLIVE=false;const TKS={s:26};let gmOn=false,gmCoin=0,gmTom=0,gmTk=0,tomPend=0,tomHold=0;
-const VERSION='1.55';const APPNAME='R note';
+const VERSION='1.59';const APPNAME='R note';
 const PROMO_URL='https://line.me/S/shop/sticker/author/123908';
 const PH=(()=>{try{const q=new URLSearchParams(location.search).get('phone');if(q==='1')return true;if(q==='0')return false;return matchMedia('(pointer:coarse)').matches&&!matchMedia('(hover:hover)').matches&&Math.min(screen.width,innerWidth)<=820}catch(e){return false}})();
 document.documentElement.classList.toggle('ph',PH);
 const IS_TW=(()=>{try{return (navigator.languages||[navigator.language]).some(l=>/^zh-(TW|Hant)/i.test(l))||Intl.DateTimeFormat().resolvedOptions().timeZone==='Asia/Taipei'}catch(e){return false}})();
 const KEY='R_note',LK='R_note_layout',ICONS=['📝','⬜','✅','📌','💡','⭐','📕','🔥','❤️','🔒','⚠️','🚧','📋','🛒','🍽️','🎬','🎮','🎁','🔔','💼','📆','🎨','🎵','🛠️','㊙️','🔗','📚','⏰','🏝️','®️'];
-const P={plus:'<path d="M12 5v14M5 12h14"/>',search:'<circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5L21 21"/>',clock:'<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',hand:'<path d="M8 13V6a1.5 1.5 0 0 1 3 0v5M11 11V4.5a1.5 1.5 0 0 1 3 0V11M14 11V6a1.5 1.5 0 0 1 3 0v8a6 6 0 0 1-6 6h-1a6 6 0 0 1-5-2.7L3.5 13.5a1.5 1.5 0 0 1 2.5-1.6L8 14"/>',abc:'<path d="M3 17l4-10 4 10M4.7 13h4.6M15 8h6M15 12h6M15 16h6"/>',tag:'<path d="M4 4h7l9 9-7 7-9-9zM8 8h.01"/>',up:'<path d="M7 15l5-7 5 7z"/>',dn:'<path d="M7 9l5 7 5-7z"/>',cpp:'<path d="M9 4h6v3H9zM7 5H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-1M12 11v6M9 14h6"/>',auto:'<path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8zM14 3v5h5M9.6 18.2L12 11.8l2.4 6.4M10.4 16.3h3.2"/>',out:'<path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8zM14 3v5h5M12 18v-6M9.5 14.5L12 12l2.5 2.5"/>',inn:'<path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8zM14 3v5h5M12 12v6M9.5 15.5L12 18l2.5-2.5"/>',cal:'<path d="M4 6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zM4 10h16M8 3v3M16 3v3M12 13v3l2 1"/>',copy:'<path d="M9 9h10a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1V10a1 1 0 0 1 1-1zM5 15H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v1"/>',trash:'<path d="M4 7h16M10 11v6M14 11v6M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2l1-12M9 7V4h6v3"/>',R:'<path d="M7 20V4h5a4.5 4.5 0 0 1 0 9H7M12 13l5 7"/>',x:'<path d="M6 6l12 12M18 6L6 18"/>',ok:'<path d="M5 12l5 5 9-10"/>',lock:'<rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/>'};
+const P={plus:'<path d="M12 5v14M5 12h14"/>',search:'<circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5L21 21"/>',clock:'<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',hand:'<path d="M8 13V6a1.5 1.5 0 0 1 3 0v5M11 11V4.5a1.5 1.5 0 0 1 3 0V11M14 11V6a1.5 1.5 0 0 1 3 0v8a6 6 0 0 1-6 6h-1a6 6 0 0 1-5-2.7L3.5 13.5a1.5 1.5 0 0 1 2.5-1.6L8 14"/>',abc:'<path d="M3 17l4-10 4 10M4.7 13h4.6M15 8h6M15 12h6M15 16h6"/>',tag:'<path d="M4 4h7l9 9-7 7-9-9zM8 8h.01"/>',up:'<path d="M7 15l5-7 5 7z"/>',dn:'<path d="M7 9l5 7 5-7z"/>',cpp:'<path d="M9 4h6v3H9zM7 5H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-1M12 11v6M9 14h6"/>',auto:'<path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8zM14 3v5h5M9.6 18.2L12 11.8l2.4 6.4M10.4 16.3h3.2"/>',out:'<path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8zM14 3v5h5M12 18v-6M9.5 14.5L12 12l2.5 2.5"/>',inn:'<path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8zM14 3v5h5M12 12v6M9.5 15.5L12 18l2.5-2.5"/>',cal:'<path d="M4 6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zM4 10h16M8 3v3M16 3v3M12 13v3l2 1"/>',copysel:'<path stroke-dasharray="2.4 2.4" d="M9 9h10a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1V10a1 1 0 0 1 1-1z"/><path d="M5 15H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v1"/>',copy:'<path d="M9 9h10a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1V10a1 1 0 0 1 1-1zM5 15H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v1"/>',trash:'<path d="M4 7h16M10 11v6M14 11v6M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2l1-12M9 7V4h6v3"/>',R:'<path d="M7 20V4h5a4.5 4.5 0 0 1 0 9H7M12 13l5 7"/>',x:'<path d="M6 6l12 12M18 6L6 18"/>',ok:'<path d="M5 12l5 5 9-10"/>',lock:'<rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/>'};
 P.sun='<path d="M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8zM12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>';P.dusk='<path d="M5 16a7 7 0 0 1 14 0M3 19h18M12 5v2M5.6 8.6l1.4 1.4M18.4 8.6L17 10M2 16h2M20 16h2"/>';P.moon='<path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/>';
 P.rbo='<path d="M3.5 21.2V13.7Q3.5 9.2 8 9.2H16Q20.5 9.2 20.5 13.7V21.2Z"/><path d="M8 9.2V6.6"/><path d="M8.8 13.8v3M15.2 13.8v3"/><circle cx="8" cy="4.9" r="1.7" fill="#4fd17a" stroke="none"/>';P.rbx='<path d="M3.5 21.2V13.7Q3.5 9.2 8 9.2H16Q20.5 9.2 20.5 13.7V21.2Z"/><path d="M8 9.2V6.6"/><path d="M7.2 15.7h3M13.8 15.7h3"/><circle cx="8" cy="4.9" r="1.7" fill="#8a93a6" stroke="none"/><path d="M17.6 1.6h3l-3 3.2h3" stroke-width="1.4"/>';P.lips='<path d="M3 12C5 9.2 8 8.4 10.6 9.4C11.4 9.7 12 10.3 12 10.3C12 10.3 12.6 9.7 13.4 9.4C16 8.4 19 9.2 21 12C19 15.4 15.5 17.4 12 17.4C8.5 17.4 5 15.4 3 12Z"/><path d="M3 12C7 13.6 17 13.6 21 12"/>';P.lipx=P.lips+'<path d="M4.5 4.5L19.5 19.5"/>';
 P.help='<circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.6 2.2c-.7.4-1.1 1-1.1 1.8M12 17h.01"/>';
 P.vol0='<path d="M3 9.5h3l4-3.5v12l-4-3.5H3z"/><circle cx="17" cy="12" r="4.5"/><path d="M13.8 15.2L20.2 8.8"/>';P.vol1='<path d="M3 9.5h3l4-3.5v12l-4-3.5H3z"/><path d="M13.5 9.8a3.2 3.2 0 0 1 0 4.4"/>';P.vol2='<path d="M3 9.5h3l4-3.5v12l-4-3.5H3z"/><path d="M13.5 9.8a3.2 3.2 0 0 1 0 4.4M16.5 7.2a7 7 0 0 1 0 9.6M19.3 5a10.5 10.5 0 0 1 0 14"/>';
 P.ro='<path d="M4 20l1.2-4.2L16.5 4.5a2.1 2.1 0 0 1 3 3L8.2 18.8zM14.5 6.5l3 3M3.5 3.5l17 17"/>';
 Object.assign(P,{pinu:'<path d="M6 5h12M12 20V9M7.5 13.5L12 9l4.5 4.5"/>',minus:'<path d="M5 12h14"/>',eye:'<path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/>',eyeo:'<path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/><path d="M3 3l18 18"/>',cab:'<rect x="4.5" y="2" width="15" height="20" rx="2.5"/><path d="M4.5 12h15M10 7h4M10 17h4"/>',dnc:'<path d="M6 9l6 6 6-6"/>',tw:'<path d="M3 6l3.5-2.5H21v5H6.5z"/><path d="M16.5 3.5v5"/><path d="M3 18l3.5-2.5H21v5H6.5z"/><path d="M16.5 15.5v5"/>'});
+
+/* 1.56 右鍵選單用的圖示（同一個動作在不同選單用同一個圖示） */
+Object.assign(P,{
+m_open:'<path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8zM14 3v5h5M9 13h6M12.5 10.5L15 13l-2.5 2.5"/>',
+m_rename:'<path d="M4 20h16M6 16l9.5-9.5a2 2 0 0 1 3 3L9 19H6z"/>',
+m_pin:'<path d="M6 5h12M12 20V9M7.5 13.5L12 9l4.5 4.5"/>',
+m_unpin:'<path d="M6 5h12M12 9v11M7.5 15.5L12 20l4.5-4.5"/>',
+m_dup:'<path d="M9 9h10a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1V10a1 1 0 0 1 1-1zM5 15H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v1M14 12.5v5M11.5 15h5"/>',
+m_save:'<path d="M12 3v11M7.5 9.5L12 14l4.5-4.5M4 15v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3"/>',
+m_copytx:'<path d="M9 4h6v3H9zM7 5H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-1M8 12h8M8 16h5"/>',
+m_hist:'<path d="M3.5 12a8.5 8.5 0 1 0 2.5-6M3 4v4h4M12 8v4.5l3 2"/>',
+m_ro:'<path d="M4 20l1.2-4.2L16.5 4.5a2.1 2.1 0 0 1 3 3L8.2 18.8zM14.5 6.5l3 3M3.5 3.5l17 17"/>',
+m_unro:'<path d="M4 20l1.2-4.2L16.5 4.5a2.1 2.1 0 0 1 3 3L8.2 18.8zM14.5 6.5l3 3"/>',
+m_arch:'<path d="M3 5h18v4H3zM5 9v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V9M10 13h4"/>',
+m_vault:'<rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/>',
+m_take:'<path d="M3 5h18v4H3zM5 9v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V9M12 18v-6M9.5 14.5L12 12l2.5 2.5"/>',
+m_trash:'<path d="M4 7h16M10 11v6M14 11v6M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2l1-12M9 7V4h6v3"/>',
+m_enter:'<path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2zM10 13.5h6M13.5 11l2.5 2.5-2.5 2.5"/>',
+m_color:'<path d="M12 3.5c3 3.6 6 7 6 10.5a6 6 0 0 1-12 0c0-3.5 3-6.9 6-10.5z"/>',
+m_fexp:'<path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2zM12 10v6M9.5 13.5L12 16l2.5-2.5"/>',
+m_fold:'<path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2zM16 13.5H9M11.5 11L9 13.5l2.5 2.5"/>',
+m_unfold:'<path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2zM8 13.5h7M12.5 11l2.5 2.5-2.5 2.5"/>',
+m_fadd:'<path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2zM12 10.5v6M9 13.5h6"/>',
+m_msg:'<path d="M4 5h16v11h-8.5L7 20v-4H4z"/>',
+m_act:'<path d="M3 12h4l2-6 4 12 2-6h6"/>'});
 const sv=(n,s=20)=>`<svg viewBox="0 0 24 24" width="${s}" height="${s}" fill="${n=='up'||n=='dn'?'currentColor':'none'}" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">${P[n]}</svg>`;
 const $=id=>document.getElementById(id),ta=$('body');
 document.querySelectorAll('[data-ic]').forEach(e=>e.innerHTML=sv(e.dataset.ic,+e.dataset.s||20));
+if(!PH){   // 電腦版：三顆編輯用的按鈕搬到內文上方那一排（手機直式維持原樣）
+  const w=$('wc'),sp=document.createElement('span');sp.className='sep';w.insertBefore(sp,w.firstChild);
+  ['cpb','dtb','twb'].forEach(id=>w.insertBefore($(id),w.firstChild))}
 let S={notes:[],sort:{k:'custom',dir:'asc'},sel:null,q:'',born:Date.now(),lastExport:0},L={sw:314,ah:60,cl:0};
 let HAD=false;  // 這台瀏覽器以前用過（有舊資料）
 try{const s=JSON.parse(localStorage.getItem(KEY)||localStorage.getItem('plain-notes-v1'));if(s&&Array.isArray(s.notes)){Object.assign(S,s);HAD=true}}catch(e){}
@@ -779,10 +864,17 @@ $('dtb').onclick=()=>{
   const d=new Date(),s=dfText(d);
   ta.focus();fxHint='date';if(!document.execCommand('insertText',false,s)){ta.setRangeText(s,ta.selectionStart,ta.selectionEnd,'end');ta.oninput()}fxHint=null;
 };
+function selText(){   // 目前框選的文字（Markdown 預覽中看預覽區），沒有框選就回空字串
+  if(PH)return '';
+  if(mdOn()){const g=getSelection(),v=$('mdv');return g&&!g.isCollapsed&&v.contains(g.anchorNode)&&v.contains(g.focusNode)?g.toString():''}
+  return ta.selectionStart!==ta.selectionEnd?ta.value.slice(ta.selectionStart,ta.selectionEnd):''}
+let cpBusy=0;
+if(!PH)$('cpb').onmousedown=e=>e.preventDefault();   // 按下去不搶走內文的游標與框選
 $('cpb').onclick=async()=>{
   const n=byId(S.sel);if(!n)return;
-  try{await navigator.clipboard.writeText(n.content)}catch(e){const sS=ta.selectionStart,sE=ta.selectionEnd;ta.select();document.execCommand('copy');ta.setSelectionRange(sS,sE)}
-  $('cpi').innerHTML=sv('ok');setTimeout(()=>$('cpi').innerHTML=sv('copy'),1000);
+  const t=selText()||n.content;
+  if(!await copyTxt(t)){say('複製失敗，請改用 Ctrl＋C。',{lv:'warn'});return}
+  cpBusy=1;$('cpi').innerHTML=sv('ok');setTimeout(()=>{cpBusy=0;$('cpi').innerHTML=sv($('cpb').classList.contains('sel')?'copysel':'copy')},1000);
 };
 const pk=$('pk');let pkId=null;
 function openPk(id,el){
@@ -1198,21 +1290,38 @@ const tip=$('tip');let tt,tcur=null,mx=0,my=0;
 const hideTip=()=>{clearTimeout(tt);tip.style.display='none'};
 function placeTip(){
   if(!tcur)return;
+  tip.classList.toggle('vt',tcur.id==='profh');
+  if(tcur.id==='profh'){   // 個人檔案標籤：直排、固定在標籤正上方，不蓋住標籤
+    const r=tcur.getBoundingClientRect();tip.style.top='6px';   // 直排的高度取決於上方剩多少空間，先放到最上面再量
+    tip.style.left=Math.max(6,Math.min(r.left+r.width/2-tip.offsetWidth/2,innerWidth-tip.offsetWidth-6))+'px';
+    tip.style.top=Math.max(6,r.top-tip.offsetHeight-6)+'px';return}
   if(tcur.classList.contains('item')||tcur.classList.contains('fvr')||(tcur.closest&&tcur.closest('#lst,#sorts'))){
     tip.style.left=Math.max(6,Math.min(mx+14,innerWidth-tip.offsetWidth-6))+'px';
     tip.style.top=Math.max(6,Math.min(my+18,innerHeight-tip.offsetHeight-6))+'px';
   }else{
     const r=tcur.getBoundingClientRect();
-    tip.style.left=Math.max(6,Math.min(r.left+r.width/2-tip.offsetWidth/2,innerWidth-tip.offsetWidth-6))+'px';tip.style.top=(r.bottom+6)+'px';
+    tip.style.left=Math.max(6,Math.min(r.left+r.width/2-tip.offsetWidth/2,innerWidth-tip.offsetWidth-6))+'px';
+    let ty=r.bottom+6;if(ty+tip.offsetHeight>innerHeight-6)ty=r.top-tip.offsetHeight-6;   // 下方放不下就翻到按鈕上方
+    tip.style.top=Math.max(6,Math.min(ty,innerHeight-tip.offsetHeight-6))+'px';
   }
 }
 document.addEventListener('mousemove',e=>{
   if(PH)return;
   mx=e.clientX;my=e.clientY;
   const t=e.target.closest?e.target.closest('[data-tip]'):null;
-  if(t!==tcur){hideTip();tcur=t;if(t)tt=setTimeout(()=>{if(!tcur||!tcur.isConnected)return;if(tcur.id==='abb')tcur.dataset.tip=abTip();if(tcur.classList.contains('item')&&tcur.dataset.id){const nn=byId(tcur.dataset.id);if(nn)tcur.dataset.tip=itemTip(nn)}tip.textContent=tcur.dataset.tip;tip.style.display='block';placeTip()},200)}
+  if(t!==tcur){hideTip();tcur=t;if(t)tt=setTimeout(()=>{if(!tcur||!tcur.isConnected)return;if(tcur.id==='abb')tcur.dataset.tip=abTip();if(tcur.classList.contains('item')&&tcur.dataset.id){const nn=byId(tcur.dataset.id);if(nn)tcur.dataset.tip=itemTip(nn)}if(tcur.id==='lipb')rbTipFill(tcur);else if(tcur.dataset.th&&tcur.closest('#ths'))thTipFill(tcur);else tip.textContent=tcur.dataset.tip;tip.style.display='block';placeTip()},200)}
   else if(tip.style.display==='block'){if(tcur&&!tcur.isConnected){hideTip();tcur=null}else placeTip()}
 });
+function thTipFill(b){tip.textContent='';const th=b.dataset.th,ln=b.dataset.tip.split('\n'),cur=curSer(th);   // 第一行色系與組名、中間一排色圓（目前這組套圈）、第二行序號與提示
+  const a=document.createElement('div');a.textContent=ln[0];tip.appendChild(a);
+  const d=document.createElement('div');d.className='tdots';THS[th].forEach((q,i)=>{const c=document.createElement('i');c.style.background=q[9];if(i===cur)c.className='on';d.appendChild(c)});tip.appendChild(d);
+  const z=document.createElement('div');z.textContent=ln[1]||'';tip.appendChild(z)}
+function batHtml(k,ic){const n=rbLv(k);return '<span class="bt">'+sv(ic,12)+'<span class="bty'+(n===1?' lo':'')+'">'+[1,2,3,4,5].map(i=>'<b'+(i<=n?' class="on"':'')+'></b>').join('')+'</span></span>'}
+function rbTipFill(b){tip.textContent='';
+  const t0=document.createElement('div');t0.textContent=b.dataset.tip;tip.appendChild(t0);
+  const bar=document.createElement('div');bar.className='tbat'+(S.mute?' off':'');
+  bar.innerHTML=batHtml('rbm','m_msg')+'<i class="tdv"></i>'+batHtml('rba','m_act');tip.appendChild(bar);
+  const t2=document.createElement('div');t2.className='tsm';t2.textContent='右鍵設定活躍度';tip.appendChild(t2)}
 document.addEventListener('mousedown',hideTip);
 document.documentElement.addEventListener('mouseleave',()=>{hideTip();tcur=null});
 let AC=null,MG=null,NB=null,DL=null,DG=null,voices=0;const VOL=[0,.3,1],rr=(a,b)=>a+Math.random()*(b-a);
@@ -1389,7 +1498,7 @@ const wcCount=t=>{t=t.replace(WCX,'');return t.length-(t.match(/[\uD800-\uDBFF]/
 function placeWc(){
   const w=$('wc');if(w.style.display!=='flex')return;
   if(PH){w.style.marginLeft='0px';return}
-  const b=$('tsb'),s=$('r2').getBoundingClientRect(),pw=($('rob').offsetWidth||34)+21+($('mdb').offsetWidth||34)+8;
+  const b=$('tsb'),s=$('r2').getBoundingClientRect();let pw=0;for(const e of w.children){if(e===$('wcb'))break;const cs=getComputedStyle(e);if(cs.display!=='none')pw+=e.offsetWidth+(parseFloat(cs.marginLeft)||0)+(parseFloat(cs.marginRight)||0)}
   const x=b.getBoundingClientRect().left-s.left-pw;   // 總字數標籤左緣＝音色按鈕左緣（不再被擠動）
   w.style.marginLeft=Math.max(0,x)+'px';$('shelf').style.maxWidth=Math.max(0,x-6)+'px';xpWidth();
 }
@@ -2233,7 +2342,8 @@ R note 是架構在瀏覽器裡的純文字筆記工具……
 
 外觀與聲音
 ．搜尋框右邊，從左到右是：音效開關、音色、亮色系／灰色系／暗色系三顆主題按鈕。同一顆主題按鈕連續點，會換成同色系的下一組。
-．機器人左邊的齒輪是「設定」：外觀、字級、時鐘與日期時間樣式、備份提醒、清除資料等都在這裡；「機器人」分頁可以調整報時，以及機器人說話和活動的頻率。
+．機器人左邊的齒輪是「設定」：字級、時鐘與日期時間樣式、備份提醒與自動備份、清除資料等都在這裡；「機器人」分頁可以調整報時，以及機器人說話和活動的頻率。
+．設定打開時，設定左緣下方有一個「Profile」標籤，拉出來就是「個人檔案」（檔案櫃右邊那一張）；再按一次標籤就收回。
 
 唯讀與 Markdown 預覽
 ．內文上方「總字數」旁邊的鉛筆按鈕，把筆記鎖成唯讀；在內文點兩下可解鎖。
@@ -2260,13 +2370,17 @@ R note 是架構在瀏覽器裡的純文字筆記工具……
 
 
 【右上角的按鈕】
-由左到右：鎖定打字範圍、插入日期時間、複製內文、機器人（關閉後僅提示系統必要訊息）、匯出備份、匯入備份、自動備份（白紙加 A，僅電腦版 Chrome／Edge）、使用說明（？）。
+由左到右：機器人（關閉後僅提示系統必要訊息；滑過去可以看說話和活動的電量，按右鍵可以調整）、匯出備份、匯入備份、自動備份（白紙加 A，僅電腦版 Chrome／Edge）、使用說明（？）。
+
+【內文上方的按鈕】
+由左到右：鎖定打字範圍、插入日期時間、複製、Markdown 預覽、唯讀。複製平常是複製整篇；框選文字後圖示會變成虛線框，只複製框選的部分。
 
 
 【備份與搬家】
 ．匯出：下載一個備份檔（.json），建議定期匯出，重要內容寫完就匯出。
 ．匯入：選備份檔，可以「取代現有筆記」或「追加為新筆記」；匯入後先瀏覽，沒問題按「確認無誤」，不對勁就按「復原之前的資料」。「取代」連光色、音色、字級等設定也一起還原，「追加」不動設定。
 ．自動備份：按右上角的「自動備份」按鈕指定一個檔案，之後有變動就自動存進去；再點按鈕可以看狀態或停止。它是把整份筆記存成最新一份備份檔，不是兩台電腦的即時同步；兩台電腦請各自用自己的備份檔，不要共用同一個。仍建議偶爾手動匯出。
+．想知道備份檔放在哪裡、或想換個位置：到「設定」→「資料與備份」按「重新指定位置」，選擇視窗會直接開在目前備份檔的資料夾（按取消就維持原樣）。
 ．換電腦，或在家裡和公司接著寫：這邊匯出，那邊匯入（備份檔放進雲端硬碟就能在兩邊取用）。到新電腦請先匯入，再設定自動備份。
 
 
@@ -2455,9 +2569,29 @@ function archiveNotes(ids){
 }
 const cm=document.createElement('div');cm.id='cm';document.body.appendChild(cm);
 function cmClose(){cm.style.display='none';cm.innerHTML=''}
+/* 機器人活躍度：選單裡的一列電池（點某一格就設定，選單不關） */
+function batRow(it){
+  const k=it.bat,row=document.createElement('div');row.className='cbr';
+  const lab=document.createElement('span');lab.className='cbl';lab.innerHTML=sv(it.ic,14);const tx=document.createElement('span');tx.textContent=it.t;lab.appendChild(tx);row.appendChild(lab);
+  const w=document.createElement('span');w.className='cbc';
+  const cells=[1,2,3,4,5].map(i=>{const c=document.createElement('button');c.type='button';c.setAttribute('aria-label',it.t+' '+i+'/5');
+    c.onclick=ev=>{ev.stopPropagation();S[k]=i;save();paint();playSfx('tick');if(window.setpPaint)try{setpPaint()}catch(e){}};w.appendChild(c);return c});
+  const paint=()=>{const n=rbLv(k);cells.forEach((c,i)=>c.classList.toggle('on',i<n));w.classList.toggle('lo',n===1);row.classList.toggle('off',!!S.mute)};
+  paint();row.appendChild(w);return row}
 function cmOpen(x,y,items){
   hideTip();cm.innerHTML='';const jk=items.some(i=>i.jack);cm.classList.toggle('jk',jk);
-  items.forEach(it=>{const b=document.createElement('button');b.textContent=it.t+(it.on&&!it.jack&&!it.ring?'  ✓':'');if(it.c){const d=document.createElement('i');d.style.cssText='display:inline-block;width:10px;height:10px;border-radius:50%;margin:0 11px 0 3px;vertical-align:-1px;background:'+it.c+';box-shadow:'+(it.on&&it.ring?'0 0 0 2px var(--p2),0 0 0 3.5px var(--tx)':'0 0 0 1px rgba(128,128,128,.5)');b.prepend(d)}if(it.sub){const m=document.createElement('small');m.textContent=it.sub;b.appendChild(m)}if(it.dg)b.className='dg';b.onclick=ev=>{ev.stopPropagation();if(it.jack&&cm._jk){cm._jk(items.indexOf(it),()=>{cmClose();it.fn()})}else{cmClose();it.fn()}};cm.appendChild(b)});
+  items.forEach(it=>{
+    if(it.bat){cm.appendChild(batRow(it));return}
+    if(it.hr&&cm.children.length)cm.appendChild(document.createElement('hr'));
+    const b=document.createElement('button');
+    if(it.ic){   // 1.56：前面有圖示、熱鍵靠右的樣式
+      b.classList.add('ci');const a=document.createElement('span');a.className='ic';a.innerHTML=sv(it.ic,16);
+      const l=document.createElement('span');l.className='lb';l.textContent=it.t;if(it.sub){const m=document.createElement('small');m.textContent=it.sub;l.appendChild(m)}
+      b.append(a,l);if(it.k){const kk=document.createElement('span');kk.className='k';kk.textContent=it.k;b.appendChild(kk)}
+    }else{
+      b.textContent=it.t+(it.on&&!it.jack&&!it.ring?'  ✓':'');if(it.c){const d=document.createElement('i');d.style.cssText='display:inline-block;width:10px;height:10px;border-radius:50%;margin:0 11px 0 3px;vertical-align:-1px;background:'+it.c+';box-shadow:'+(it.on&&it.ring?'0 0 0 2px var(--p2),0 0 0 3.5px var(--tx)':'0 0 0 1px rgba(128,128,128,.5)');b.prepend(d)}if(it.sub){const m=document.createElement('small');m.textContent=it.sub;b.appendChild(m)}
+    }
+    if(it.dg)b.classList.add('dg');b.onclick=ev=>{ev.stopPropagation();if(it.jack&&cm._jk){cm._jk(items.indexOf(it),()=>{cmClose();it.fn()})}else{cmClose();it.fn()}};cm.appendChild(b)});
   cm.style.display='block';cm._jk=null;
   cm.style.left=Math.max(4,Math.min(x,innerWidth-cm.offsetWidth-6))+'px';cm.style.top=Math.max(4,Math.min(y,innerHeight-cm.offsetHeight-6))+'px';
   if(jk)jkBuild(items);
@@ -2484,7 +2618,8 @@ document.addEventListener('contextmenu',e=>{
   if(t.closest('textarea,input,#cm,#fview'))return;
   let items=null;
   {const tb=t.closest('#ths .ib[data-th]'),sb=t.closest('#tsb');
-   if(tb){const th=tb.dataset.th;items=THS[th].map((q,i)=>({t:(i+1)+' '+q[0],c:q[9],ring:1,on:curSer(th)===i,fn:()=>{tTheme();S.th=th;S.ser[th]=i;S.thSeen=1;sayOff('thm');save();applyTh();thFlash(tb,th);playSfx('theme',th)}}))}
+   if(t.closest('#lipb'))items=[{bat:'rbm',ic:'m_msg',t:'訊息'},{bat:'rba',ic:'m_act',t:'動態'}];
+   else if(tb){const th=tb.dataset.th;items=THS[th].map((q,i)=>({t:(i+1)+' '+q[0],c:q[9],ring:1,on:curSer(th)===i,fn:()=>{tTheme();S.th=th;S.ser[th]=i;S.thSeen=1;sayOff('thm');save();applyTh();thFlash(tb,th);playSfx('theme',th)}}))}
    else if(sb){items=TIMB.map((n,i)=>({jack:1,t:(i+1)+' '+n,on:(S.tpk|0)===i,fn:()=>{S.tpk=i;save();paintTs();sb.removeAttribute('data-n');void sb.offsetWidth;sb.dataset.n=i+1;clearTimeout(sb._tn);sb._tn=setTimeout(()=>sb.removeAttribute('data-n'),1600);tsPreview()}}))}
    if(items){e.preventDefault();cmOpen(e.clientX,e.clientY,items);return}}
   const it=t.closest('#act .item'),ar=t.closest('#arc .item'),fo=t.closest('.fo'),tab=t.closest('#ftab');let ftid=null;if(!it&&!fo&&colOn()&&t.closest('#fr')){const ci=colPoint(e,true);if(ci>=0)ftid=S.folders[ci].id}
@@ -2493,36 +2628,39 @@ document.addEventListener('contextmenu',e=>{
     if(!ms.has(n.id)){ms=new Set([n.id]);mzone='a';anchor=n.id;pick(n.id);paintMs()}
     const multi=ms.size>1&&ms.has(n.id),ids=ordered([...ms]);
     const cp=ids.filter(id=>{const m=byId(id);return m&&m.icon!=='📜'});
-    items=multi?[{t:(vaultOn?'放入暗格 ':'封存 ')+ids.length+' 則'+(vaultOn?' (Ins)':' (Del)'),fn:()=>archiveNotes(ids)},{t:(ids.every(id=>byId(id)&&byId(id).pin)?'取消置頂 ':'置頂 ')+ids.length+' 則',fn:()=>pinNotes(ids)}].concat(cp.length?[{t:'建立 '+cp.length+' 份副本',sub:'僅文字內容',fn:()=>copyNotes(cp)}]:[]):[
-      {t:'開啟',fn:()=>{pick(n.id);ta.focus()}},
-      {t:'改名 (F2)',fn:()=>{const d=document.querySelector('#act .item[data-id="'+n.id+'"]');if(d)rename(d,n)}},
-      {t:n.pin?'取消置頂':'置頂',fn:()=>pinNotes([n.id])},
-      ...(n.icon!=='📜'?[{t:'建立副本',sub:'僅文字內容',fn:()=>copyNotes([n.id])}]:[]),
-      {t:'另存為文字檔…',fn:()=>{saveTxt(n.title,n.content).then(r=>{if(r)say(r==='pick'?'已另存為檔案。':'已另存為文字檔，請見瀏覽器的下載。',{lv:'info'})})}},
-      {t:'複製內文',fn:()=>copyTxt(n.content).then(ok=>say(ok?'已複製內文。':'複製失敗，請改用右上角的複製按鈕。',{lv:ok?'info':'warn'}))},
-      ...(PH?[]:[{t:'歷史紀錄',fn:()=>hOpen(n.id)}]),
-      {t:n.ro?'解除唯讀':'設為唯讀',fn:()=>{n.ro=!n.ro;playSfx(n.ro?'lock':'unlock');save();render()}},
-      {t:vaultOn?'放入暗格 (Ins)':'封存 (Del)',fn:()=>archiveNotes([n.id])}];
+    items=multi?[
+      {ic:'m_pin',t:(ids.every(id=>byId(id)&&byId(id).pin)?'取消置頂 ':'置頂 ')+ids.length+' 則',fn:()=>pinNotes(ids)},
+      ...(cp.length?[{ic:'m_dup',t:'建立 '+cp.length+' 份副本',sub:'僅文字內容',fn:()=>copyNotes(cp)}]:[]),
+      {hr:1,ic:vaultOn?'m_vault':'m_arch',t:(vaultOn?'放入暗格 ':'封存 ')+ids.length+' 則',k:vaultOn?'Ins':'Del',fn:()=>archiveNotes(ids)}]:[
+      {ic:'m_open',t:'開啟',fn:()=>{pick(n.id);ta.focus()}},
+      {hr:1,ic:'m_rename',t:'改名',k:'F2',fn:()=>{const d=document.querySelector('#act .item[data-id="'+n.id+'"]');if(d)rename(d,n)}},
+      {ic:n.pin?'m_unpin':'m_pin',t:n.pin?'取消置頂':'置頂',fn:()=>pinNotes([n.id])},
+      ...(n.icon!=='📜'?[{ic:'m_dup',t:'建立副本',sub:'僅文字內容',fn:()=>copyNotes([n.id])}]:[]),
+      {hr:1,ic:'m_save',t:'另存為文字檔…',fn:()=>{saveTxt(n.title,n.content).then(r=>{if(r)say(r==='pick'?'已另存為檔案。':'已另存為文字檔，請見瀏覽器的下載。',{lv:'info'})})}},
+      {ic:'m_copytx',t:'複製內文',fn:()=>copyTxt(n.content).then(ok=>say(ok?'已複製內文。':'複製失敗，請改用複製按鈕。',{lv:ok?'info':'warn'}))},
+      ...(PH?[]:[{ic:'m_hist',t:'歷史紀錄',fn:()=>hOpen(n.id)}]),
+      {ic:n.ro?'m_unro':'m_ro',t:n.ro?'解除唯讀':'設為唯讀',fn:()=>{n.ro=!n.ro;playSfx(n.ro?'lock':'unlock');save();render()}},
+      {hr:1,ic:vaultOn?'m_vault':'m_arch',t:vaultOn?'放入暗格':'封存',k:vaultOn?'Ins':'Del',fn:()=>archiveNotes([n.id])}];
   }else if(ar){
     const n=byId(ar.dataset.id);if(!n)return;
     if(!ms.has(n.id)){ms=new Set([n.id]);mzone='r';anchor=n.id;paintMs()}
     const multi=ms.size>1&&ms.has(n.id),ids=multi?ordered([...ms]):[n.id],lab=multi?' '+ids.length+' 則':'';
-    items=[{t:'取出'+lab+'（放回檔案櫃）',fn:()=>{structOp();ids.map(byId).filter(Boolean).forEach(restoreN);ms.clear();playSfx('restore');save();render()}}];
-    if(!n.vault)items.push({t:'永久刪除'+lab+'…',dg:1,fn:()=>delSel(ids)});
+    items=[{ic:'m_take',t:'取出'+lab+'（放回檔案櫃）',fn:()=>{structOp();ids.map(byId).filter(Boolean).forEach(restoreN);ms.clear();playSfx('restore');save();render()}}];
+    if(!n.vault)items.push({hr:1,ic:'m_trash',t:'永久刪除'+lab+'…',k:'Del',dg:1,fn:()=>delSel(ids)});
   }else if(fo||tab||ftid){
     const id=fo?fo.dataset.id:ftid||curF,f=fById(id);if(!f)return;
     const el=fo||(ftid?$('frows'):$('ftab').querySelector('.fsw')||tab);
     if(!curF&&!fms.has(id)){fms=new Set([id]);fanc=id;fmulti=false;colNoSc=true;paintFms();colNoSc=false}
-    if(!curF&&fms.size>1&&fms.has(id)){items=[{t:'刪除 '+fms.size+' 個資料夾',dg:1,fn:()=>delFolders([...fms])}]}
+    if(!curF&&fms.size>1&&fms.has(id)){items=[{ic:L.cl?'m_unfold':'m_fold',t:L.cl?'展開資料夾':'收納資料夾',fn:colToggle},{hr:1,ic:'m_trash',t:'刪除 '+fms.size+' 個資料夾',dg:1,fn:()=>delFolders([...fms])}]}
     else{items=[];
-      if(curF!==id)items.push({t:'進入',fn:()=>{fms.clear();enterF(id)}});
-      items.push({t:'改名',fn:()=>{fms.clear();if(curF!==id)enterF(id);fEdit=true;paintTab()}});
-      items.push({t:'換顏色',fn:()=>openFpk(id,el)});
-      items.push({t:'匯出為一個文字檔…',sub:'資料夾裡所有筆記，合成一份（.txt 或 .md）',fn:()=>exportFolder(id)});
-      if(!curF)items.push({t:L.cl?'展開資料夾':'收納資料夾',fn:colToggle});
-      items.push({t:'刪除資料夾',dg:1,fn:()=>delFolders([id])})}
+      if(curF!==id)items.push({ic:'m_enter',t:'進入',fn:()=>{fms.clear();enterF(id)}});
+      items.push({ic:'m_rename',t:'改名',fn:()=>{fms.clear();if(curF!==id)enterF(id);fEdit=true;paintTab()}});
+      items.push({ic:'m_color',t:'換顏色',fn:()=>openFpk(id,el)});
+      items.push({hr:1,ic:'m_fexp',t:'匯出為一個文字檔…',sub:'資料夾裡所有筆記，合成一份（.txt 或 .md）',fn:()=>exportFolder(id)});
+      if(!curF)items.push({ic:L.cl?'m_unfold':'m_fold',t:L.cl?'展開資料夾':'收納資料夾',fn:colToggle});
+      items.push({hr:1,ic:'m_trash',t:'刪除資料夾',dg:1,fn:()=>delFolders([id])})}
   }else if((t.id==='act'||t.id==='frows'||t.id==='fr')&&!curF&&!S.q){
-    items=[{t:'新增資料夾',fn:()=>newFolder()}];if(S.folders.length)items.push({t:L.cl?'展開資料夾':'收納資料夾',fn:colToggle});
+    items=[{ic:'m_fadd',t:'新增資料夾',fn:()=>newFolder()}];if(S.folders.length)items.push({ic:L.cl?'m_unfold':'m_fold',t:L.cl?'展開資料夾':'收納資料夾',fn:colToggle});
   }
   if(!items)return;
   e.preventDefault();cmOpen(e.clientX,e.clientY,items);
@@ -2752,9 +2890,11 @@ const PKP=[["#242d38",0.96,"#5f7491",0.8,"#b7602a",0.86,"#592a0d",0.8],["#2c486d
 const PKHEAD='M2 11C3.9 5.8 8 3.8 12 3.8H20L21.6 8.2H12C8.1 8.2 4.6 9 2 11z';
 function pkSvg(lv,s){const q=PKP[Math.max(0,Math.min(10,lv|0))];return `<svg viewBox="0 0 24 24" width="${s}" height="${s}" fill="none" stroke-linecap="round" stroke-linejoin="round"><g transform="rotate(-45 12 12) translate(0 .6)"><path d="M10.8 4.5h2.4v16.6a1.2 1.2 0 0 1-2.4 0z" fill="${q[4]}" fill-opacity="${q[5]}" stroke="none"/><path d="M10.8 8.3V21.1a1.2 1.2 0 0 0 2.4 0V8.3" stroke="${q[6]}" stroke-width="${q[7]}"/><path d="${PKHEAD}" fill="${q[0]}" fill-opacity="${q[1]}" stroke="${q[2]}" stroke-width="${q[3]}"/></g></svg>`}
 function cabOn(){return !PH&&cabV&&!curF&&!S.q&&fms.size===0}
+const PD={tuck:0,open:0,ph:null,w:340};   // 個人檔案抽屜：tuck 設定打開時紙躲在設定後面、open 抽出來了、ph 檔案櫃裡留的空位、w 紙的寬度
 function cabToggle(){if(PH)return;if(cabOn()){cabClose();return}if(curF||S.q)return;cabV=true;fms.clear();ms.clear();try{ta.blur()}catch(e){}playSfx('unlock');render();tCabSay()}
 function cabClose(){if(!cabV)return;cabV=false;playSfx('upfast');render();if(byId(S.sel)&&!S.q)try{ta.focus()}catch(e){}}
-function cabSize(){const c=$('cell'),sn=$('twb'),v=$('cabv');if(!c||!sn||!v)return;const cr=c.getBoundingClientRect(),sr=sn.getBoundingClientRect();let w=Math.round(cr.right-sr.left);if(!(sr.width>0)||w<200)w=300;v.classList.toggle('nar',cr.width-w<280);document.documentElement.classList.toggle('cnar',cr.width-w<280);v.style.setProperty('--cpw',w+'px')}
+function cabSize(){const c=$('cell'),sn=$('twb'),v=$('cabv');if(!c||!sn||!v)return;const cr=c.getBoundingClientRect();let sr=sn.getBoundingClientRect();if(!PH){const lb=$('lipb').getBoundingClientRect();sr={left:lb.left-3*(lb.width+6),width:lb.width}}   // 搬家前 twb 的位置＝機器人左邊三顆
+  let w=Math.round(cr.right-sr.left);if(!(sr.width>0)||w<200)w=300;v.classList.toggle('nar',cr.width-w<280);document.documentElement.classList.toggle('cnar',cr.width-w<280);v.style.setProperty('--cpw',w+'px')}
 let cabWas=false;
 function cabRender(){
   const on=cabOn(),v=$('cabv');if(!on)sayOff('cabsay');
@@ -2803,18 +2943,29 @@ function pkBurst(k,lv){
   if(f.max&&!L.pkm){L.pkm=1;saveL();setTimeout(()=>say('恭喜！十字鎬升到最高等級 Lv.'+f.lv+' 了。',{lv:'info',hold:6000}),700)}
   Promise.allSettled(parts).then(()=>W.remove());setTimeout(()=>W.remove(),2600);
 }
+/* ===== 個人檔案（原「十字鎬介面」，1.56 改名） =====
+   檔案櫃右邊那一張紙：十字鎬等級、稱號、R 字色。設定打開時，可以從設定左緣的「Profile」標籤抽出來（見 profOpen）。
+   抽出時是同一個元素搬到 #profw，所以狀態不會分兩份。 */
+let PTB=0;   // 分頁：0 進度、1 外觀
 function cabPaintPanel(){
-  const p=$('cabp');if(!p||!cabOn())return;const f=xpInfo();
+  const p=$('cabp');if(!p||!(cabOn()||PD.tuck))return;const f=xpInfo();
   const av=f.avail>1?'可升 '+f.avail+' 級':f.avail===1?'可以升級了':'';
   const can=f.full&&!f.max,tip=f.max?'已是最高等級':can?'點擊升級':'採礦等級 Lv.'+f.lv;
-  p.innerHTML='<div class="pkt"><button class="pkb'+(can?' go':'')+'" data-tip="'+tip+'">'+pkSvg(f.lv,96)+'<span class="plv">Lv.'+f.lv+'</span><span class="pxb"><i style="width:'+(f.frac*100).toFixed(1)+'%"></i></span></button><div class="pkr"><b class="pkh">採礦等級</b><span class="pkn">提升採礦的能力</span><div class="av">'+av+'</div><label class="chk'+(f.max?' dis':'')+'"'+(f.max?' data-tip="十字鎬已是最高等級，這個選項暫時沒作用"':'')+'><input type="checkbox" class="xbk"'+(L.xb?' checked':'')+(f.max?' disabled':'')+'><span>顯示經驗條</span></label></div></div><div class="cdv"></div>'+tPanel()+'<div class="cdv"></div><div class="abslot"></div>';
+  p.classList.toggle('drw',!!PD.open);
+  p.innerHTML='<div class="phd"><b>個人檔案</b><small>Profile</small><button class="sg prt" data-tip="收回">收回 ›</button></div>'
+   +'<div class="ptabs"><button data-t="0"'+(PTB===0?' class="on"':'')+'>進度</button><button data-t="1"'+(PTB===1?' class="on"':'')+'>外觀</button></div>'
+   +'<div class="pbd"><div class="ppg'+(PTB===0?' on':'')+'" data-p="0"><div class="pcard"><div class="pkt"><button class="pkb'+(can?' go':'')+'" data-tip="'+tip+'">'+pkSvg(f.lv,96)+'<span class="plv">Lv.'+f.lv+'</span><span class="pxb"><i style="width:'+(f.frac*100).toFixed(1)+'%"></i></span></button><div class="pkr"><b class="pkh">採礦等級</b><span class="pkn">提升採礦的能力</span><div class="av">'+av+'</div><label class="chk'+(f.max?' dis':'')+'"'+(f.max?' data-tip="十字鎬已是最高等級，這個選項暫時沒作用"':'')+'><input type="checkbox" class="xbk"'+(L.xb?' checked':'')+(f.max?' disabled':'')+'><span>顯示經驗條</span></label></div></div></div>'
+   +(S.tt?'<div class="pcard">'+tPanel()+'</div>':'')+'</div>'
+   +'<div class="ppg'+(PTB===1?' on':'')+'" data-p="1"><div class="pcard"><div class="rrow"><svg class="rl" viewBox="3 3 22 32" width="36" height="52" fill="none" stroke="var(--ry)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 28V6h7a6 6 0 0 1 0 12H6M13 18l7 10"/></svg><div class="rsx"><div class="rsl">R 字色相 <b class="rhv">'+(S.rh||0)+'</b></div><input type="range" class="hue" min="0" max="360" value="'+(S.rh||0)+'"></div><button class="sg rhr">還原</button></div></div></div></div>';
   tPanelBind(p);
+  const tb=[...p.querySelectorAll('.ptabs button')],pg=[...p.querySelectorAll('.ppg')];
+  tb.forEach(x=>x.onclick=()=>{PTB=+x.dataset.t;tb.forEach(y=>y.classList.toggle('on',y===x));pg.forEach(g=>g.classList.toggle('on',+g.dataset.p===PTB));playSfx('tick')});
+  const rt=p.querySelector('.prt');if(rt)rt.onclick=()=>profClose();
   p.querySelector('.pkb').onclick=()=>{if(!can)return;if(pend){lockMsg();return}if(pickUp()){const lv0=f.lv+1;cabPaintPanel();pkBurst(p.querySelector('.pkb'),lv0)}};
   p.querySelector('.xbk').onchange=e=>{L.xb=e.target.checked?1:0;saveL();xpPaint();playSfx('tick')};
-  if(AB.sup){const r=document.createElement('div'),iv=ABM.iv===undefined?300:ABM.iv;r.className='abr';
-    r.innerHTML='<span class="ai">'+sv('auto',22)+'</span><span>自動備份間隔</span><select>'+[[0,'即時（停手約 4 秒）'],[300,'5 分鐘'],[900,'15 分鐘'],[3600,'1 小時']].map(o=>'<option value="'+o[0]+'"'+(o[0]===iv?' selected':'')+'>'+o[1]+'</option>').join('')+'</select>';
-    const sl=p.querySelector('.abslot');sl.appendChild(r);const dv=document.createElement('div');dv.className='cdv';sl.appendChild(dv);
-    r.querySelector('select').onchange=e=>{ABM.iv=+e.target.value;abMetaSave();abKick();playSfx('tick')}}
+  const hu=p.querySelector('.hue'),hv=p.querySelector('.rhv');
+  hu.oninput=e=>{S.rh=+e.target.value;hv.textContent=S.rh;applyTh();save()};
+  p.querySelector('.rhr').onclick=()=>{S.rh=0;hu.value=0;hv.textContent=0;applyTh();save()};
 }
 /* 1.31：第一次使用的人，機器人輕輕問一句要不要挑色調。舊使用者不會看到；開始打字就自動淡出；沒選過最多再問一次。 */
 const thBusy=()=>SM.list.some(m=>(m.id==='thm'||m.id==='ths')&&!m.leaving);  // 選色調的提示還在時，新手教學先等一下
@@ -2851,7 +3002,8 @@ function abPaintBtn(){
   b.style.display=AB.sup?'':'none';b.dataset.s=AB.st;
   b.classList.toggle('on',AB.st==='ok'||AB.st==='paused'||AB.st==='guard');
   b.dataset.tip=abTip();
-  if(typeof tcur!=='undefined'&&tcur===b&&tip.style.display==='block')tip.textContent=b.dataset.tip}
+  if(typeof tcur!=='undefined'&&tcur===b&&tip.style.display==='block')tip.textContent=b.dataset.tip;
+  try{setpAbPaint()}catch(e){}}
 function abClick(){
   if(AB.st==='ok'){say('自動備份運作中，上次備份：'+abAgo(ABM.last)+'。',{lv:'info',id:'abi',hold:8000,actions:[{label:'現在備份',fn:abNow},{label:'停止自動備份',fn:abStop}]})}
   else if(AB.st==='none')abPick();
@@ -2901,9 +3053,12 @@ async function abInit(){
 }
 const abSig=a=>a.length+':'+a.reduce((x,n)=>x+String((n&&n.title)||'').length+String((n&&n.content)||'').length,0);
 async function abPick(){
-  let h;
-  try{h=await window.showSaveFilePicker({suggestedName:'R_note_自動備份.json',types:[{description:'R note 備份',accept:{'application/json':['.json']}}]})}
-  catch(e){if(e&&e.name==='AbortError'){say('沒關係，之後想用再按。',{lv:'info'});return}abSet('fail');return}
+  let h;const had=!!AB.h;   // 已經有備份檔：這是「重新指定位置」，取消就維持原樣
+  const o={suggestedName:(AB.h&&AB.h.name)||'R_note_autobackup.json',types:[{description:'R note 備份',accept:{'application/json':['.json']}}]};
+  if(AB.h)o.startIn=AB.h;   // 選擇視窗直接開在目前備份檔所在的資料夾，順便看到它放在哪
+  try{try{h=await window.showSaveFilePicker(o)}catch(e){if(e&&e.name==='TypeError'&&o.startIn){delete o.startIn;h=await window.showSaveFilePicker(o)}else throw e}}
+  catch(e){if(e&&e.name==='AbortError'){say(had?'位置沒有變。':'沒關係，之後想用再按。',{lv:'info'});return}if(!had)abSet('fail');return}
+  if(had){let same=false;try{same=await h.isSameEntry(AB.h)}catch(e){}if(same){say('位置沒有變，繼續使用「'+(h.name||'備份檔')+'」。',{lv:'info'});return}}   // 重新指定到同一個檔案：不用重來
   let j=null;try{const f=await h.getFile(),txt=await f.text();if(txt.trim())j=JSON.parse(txt)}catch(e){}   // 先看看檔案裡有沒有別的資料，免得一指定就蓋掉
   if(j&&j.app==='R_note'&&Array.isArray(j.notes)&&j.notes.length&&abSig(j.notes)!==abSig(S.notes)){abAskFile(j,h);return}
   abStart(h)
@@ -2957,7 +3112,7 @@ function xpPaint(lite){
   if(!full){xpRemPend=false;b.classList.remove('pulse')}
   xpWasFull=full;
   $('cabb').classList.toggle('dot',full);
-  if(cabOn())cabPaintPanel();
+  if(cabOn()||PD.tuck)cabPaintPanel();
 }
 xpHook=()=>xpPaint(1);  // 挖到礦時只更新比例，不重新量版面
 function xpRemind(){if(!xpRemPend||!booted||cabOn()||!canSay()||Date.now()-A.act<3000)return;xpRemPend=false;MS.xf=Date.now();msSave();say('你的採礦經驗值已滿，記得升級十字鎬。',{lv:'info',hold:9000,rx:'nod',actions:[{label:'去升級',fn:()=>{if(!cabOn())cabToggle()}}]})}
@@ -3160,7 +3315,7 @@ function tInit(quiet){
   save();tPaint()}
 const tHas=(k,i)=>gmOn||S.tt[k].includes(i);
 function tName(){const t=gmOn?TT.gm:S.tt;return (t.up?TP[t.sp]||'':'')+(TN[t.sn]||TN[0])}
-function tPaint(){const e=$('ttl');if(!e)return;e.textContent=S.tt&&S.tt.show&&!PH?'《'+tName()+'》':'';if(cabOn())cabPaintPanel()}
+function tPaint(){const e=$('ttl');if(!e)return;e.textContent=S.tt&&S.tt.show&&!PH?'《'+tName()+'》':'';if(cabOn()||PD.tuck)cabPaintPanel()}
 function tGet(k,i){if(PH||!S.tt||S.tt[k].includes(i))return;S.tt[k].push(i);S.tt.nw.push(k+i);
   if(S.tt.auto&&(k==='n'||S.tt.up)){if(k==='n')S.tt.sn=i;else S.tt.sp=i;S.tt.nw=S.tt.nw.filter(x=>x!==k+i)}
   save();tPaint();if(TT.retro)return;
@@ -3250,7 +3405,8 @@ function selUpdate(){const b=$('wcb');if(!b)return;const n=byId(S.sel);let c=0;
   if(n&&!PH){
     if(mdOn()){const g=getSelection(),v=$('mdv');if(g&&!g.isCollapsed&&v.contains(g.anchorNode)&&v.contains(g.focusNode))c=wcCount(g.toString())}  // Markdown 預覽中，算預覽區裡選到的字
     else if(ta.selectionStart!==ta.selectionEnd)c=wcCount(ta.value.slice(ta.selectionStart,ta.selectionEnd))}
-  b.classList.toggle('sel',c>0);if(c>0)$('wcsn').textContent=c}
+  b.classList.toggle('sel',c>0);if(c>0)$('wcsn').textContent=c;
+  const cb=$('cpb');if(cb.classList.contains('sel')!==(c>0)){cb.classList.toggle('sel',c>0);cb.dataset.tip=c>0?'複製選取':'複製內文';if(!cpBusy)$('cpi').innerHTML=sv(c>0?'copysel':'copy')}}
 const selSoon=()=>{if(selRaf)return;selRaf=requestAnimationFrame(()=>{selRaf=0;selUpdate()})};
 ['select','keyup','mouseup','input','focus','blur'].forEach(v=>ta.addEventListener(v,selSoon));document.addEventListener('selectionchange',selSoon);
 
@@ -3430,7 +3586,6 @@ setp.innerHTML=`<div class="hd"><b>設定</b><button class="sg" id="spx">✕ 關
 <div class="tabs"><button class="on" data-t="0">操作與外觀</button><button data-t="2">機器人</button><button data-t="1">資料與備份</button></div>
 <div class="bd">
 <div class="pg on" data-p="0">
- <div class="sec"><div class="rrow"><svg class="rl" viewBox="3 3 22 32" width="36" height="52" fill="none" stroke="var(--ry)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 28V6h7a6 6 0 0 1 0 12H6M13 18l7 10"/></svg><div class="rsx"><div class="rsl">色相 <b id="sph">0</b></div><input type="range" id="sphue" class="hue" min="0" max="360" value="0"></div><button class="sg" id="sphr">還原</button></div></div>
  <div class="sec"><h3>一般</h3>
   <div class="line"><span>減少動態效果<br><small>預設跟著系統；開啟時粒子也會減半</small></span><div class="seg" id="sprm"><button data-v="0">跟隨系統</button><button data-v="1">開</button><button data-v="2">關</button></div></div>
   <div class="line"><span>內文字級</span><div class="seg" id="spfs"><button data-px="16" style="font-size:12px">小</button><button data-px="18" style="font-size:14px">中</button><button data-px="20" style="font-size:17px">大</button><button data-px="24" style="font-size:20px">特大</button></div></div>
@@ -3450,7 +3605,10 @@ setp.innerHTML=`<div class="hd"><b>設定</b><button class="sg" id="spx">✕ 關
  </div>
 </div>
 <div class="pg" data-p="1">
- <div class="sec"><h3>備份</h3><div class="line"><span>備份提醒間隔</span><select id="spbk"><option value="1">1 小時</option><option value="3">3 小時</option><option value="7">7 小時</option><option value="24">1 天</option><option value="72">3 天</option><option value="120">5 天</option><option value="168">7 天</option></select></div></div>
+ <div class="sec"><h3>備份</h3><div class="line"><span>備份提醒間隔</span><select id="spbk"><option value="1">1 小時</option><option value="3">3 小時</option><option value="7">7 小時</option><option value="24">1 天</option><option value="72">3 天</option><option value="120">5 天</option><option value="168">7 天</option></select></div>
+ ${AB.sup?`<div class="line"><span>自動備份間隔</span><select id="spai"><option value="0">即時（停手約 4 秒）</option><option value="300">5 分鐘</option><option value="900">15 分鐘</option><option value="3600">1 小時</option></select></div>
+ <div class="line abln"><span><b id="spas"></b><br><small id="spaf"></small></span><button class="sg" id="spab"></button></div>`:''}
+ </div>
  <div class="sec"><h3>${GEARC}設定日期時間樣式</h3>
   <div class="dfnav"><button class="sg" id="dfp">◀ 上一種</button><b id="dfn"></b><button class="sg" id="dfx">下一種 ▶</button></div>
   <input type="text" id="dff" spellcheck="false" autocomplete="off" autocapitalize="off" maxlength="120">
@@ -3480,24 +3638,82 @@ const sq=q=>setp.querySelector(q),sqa=q=>[...setp.querySelectorAll(q)];
 const mark=(q,f)=>sqa(q).forEach(b=>b.classList.toggle('on',f(b)));
 const RBW={rbm:['沉默寡言','話不多','偶爾聊聊','健談','碎碎念'],rba:['幾乎不動','偶爾動動','悠哉','活潑','停不下來']},RBS={rbm:['那我就多講一點囉！','收到，我少說兩句。'],rba:['電力全滿，我要動起來了！','收到，我少動一點。']};
 function setpPaint(){
-  sq('#sphue').value=S.rh||0;sq('#sph').textContent=S.rh||0;
   mark('#sprm button',b=>+b.dataset.v===(S.rm===1?1:S.rm===2?2:0));
   const fs=FSZ.includes(S.fs)?S.fs:18;mark('#spfs button',b=>+b.dataset.px===fs);sq('#spfm').style.fontSize=fs+'px';
   sq('#spcs').value=String(+S.cs||0);mark('#sphz button',b=>+b.dataset.v===hzOf());sq('#sphh').checked=!!S.hh;sq('#sphh').disabled=!hzOf();sq('#sphl').classList.toggle('dis',!hzOf());
   sqa('.rbat').forEach(b=>{const k=b.dataset.k,n=rbLv(k),w=b.querySelector('.rbf');b.querySelector('i').style.width=(n===1?9:n*20)+'%';b.classList.toggle('low',n===1);b.querySelector('small').textContent=RBW[k][n-1];w.setAttribute('aria-valuenow',n);w.tabIndex=S.mute?-1:0});
   sq('#spact').classList.toggle('busy',!!S.mute);sq('#sprest').style.display=S.mute?'':'none';
   sq('#spbk').value=String(S.bki||7);
+  if(AB.sup){sq('#spai').value=String(ABM.iv===undefined?300:ABM.iv);setpAbPaint()}
   const f=dfc(),ti=DFTPL.indexOf(f);sq('#dfn').textContent=ti>=0?DFNAME[ti]:'自訂';if(document.activeElement!==sq('#dff'))sq('#dff').value=S.df&&typeof S.df.f==='string'?S.df.f:DFDEF;
   sq('#sppv').textContent=dfText(new Date(),f)}
+/* 設定裡的自動備份狀態列：狀態、檔名、上次備份；按鈕開啟檔案選擇視窗（定位在目前備份檔的資料夾） */
+function setpAbPaint(){const s=sq('#spas');if(!s)return;const st=AB.st,nm={none:'未啟用',ok:'運作中',paused:'等你同意',fail:'失敗',conflict:'暫停（備份檔較新）',guard:'暫停（筆記驟減）'};
+  s.textContent='自動備份：'+(nm[st]||'');
+  sq('#spaf').textContent=st==='none'?'尚未指定備份檔':'檔案：'+(ABM.name||'（未命名）')+(ABM.last?'　上次備份 '+abAgo(ABM.last):'');
+  sq('#spab').textContent=st==='none'?'指定檔案並啟用…':'重新指定位置…'}
 function dfSet(f){S.df={f};save();setpPaint()}
-function setpOpen(){setp.classList.add('on');tabGo(0);setpPaint();playSfx('tick');ogPaint()}
-function setpClose(quick){if(!setp.classList.contains('on'))return;setp.classList.remove('on');if(!quick)playSfx('tick');ogPaint()}
+function setpOpen(){setp.classList.add('on');tabGo(0);setpPaint();playSfx('tick');ogPaint();profTuck()}
+function setpClose(quick){if(!setp.classList.contains('on'))return;setp.classList.remove('on');profUntuck(quick);if(!quick)playSfx('tick');ogPaint()}
 function tabGo(i){mark('#setp .tabs button',b=>+b.dataset.t===i);sqa('.pg').forEach(p=>p.classList.toggle('on',+p.dataset.p===i));setp.scrollTop=0}
+
+/* ===== 個人檔案抽屜（1.57 改版） =====
+   設定打開時，個人檔案這張紙（#cabp）搬到 #profw、疊在設定後面躲起來，只露出黏在紙左緣的「Profile」標籤（#profh）。
+   點標籤把紙往左拉出，標籤跟著紙走；再點收回。關設定時紙搬回檔案櫃（檔案櫃裡留 #cabph 空位）。
+   PD.tuck＝躲在設定後面、PD.open＝抽出來。視窗放不下兩張紙，或手機直式，就不躲、不顯示標籤。 */
+const profw=document.createElement('div');profw.id='profw';document.body.appendChild(profw);
+const profh=document.createElement('button');profh.id='profh';profh.type='button';profh.dataset.tip='個人檔案';profh.setAttribute('aria-expanded','false');
+profh.innerHTML='<svg viewBox="0 0 24 84"><path class="phf" d="M26 0L24 0L8 16Q0 22 0 30L0 74Q0 84 10 84L26 84Z"/><path class="phs" d="M24 0.5L8.3 16.4Q0.5 22 0.5 30L0.5 74Q0.5 83.5 10 83.5L26 83.5"/></svg><span class="pht">Profile</span>';
+profw.appendChild(profh);
+const profGeo=()=>{const c=$('cell').getBoundingClientRect(),sw=Math.min(560,c.width);return{c,sw,sl:c.right-sw}};
+const profAvail=()=>{if(PH)return false;const g=profGeo();return g.c.width>0&&g.sl-(PD.tuck?PD.w:340)-14>=4};
+const profBase=()=>PD.open?'none':'translateX('+(PD.w-10)+'px)';
+const profKs=()=>parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--ks'))||1;
+function profAnim(from,to,done){   // 紙從 from 滑到 to（樣式已先設成 to）
+  if(RM()||!profw.animate){if(done)done();return}
+  const an=profw.animate([{transform:from},{transform:to}],{duration:500*profKs(),easing:'cubic-bezier(.2,.8,.2,1)'});
+  an.onfinish=()=>{an.cancel();if(done)done()}}
+function profPlace(){
+  if(!PD.tuck)return;const g=profGeo();
+  if(!profAvail()){profUntuck(true);return}
+  profw.style.left=(g.sl-PD.w+10)+'px';profw.style.top=(g.c.top+4)+'px';profw.style.height=(g.c.height-4)+'px';profw.style.width=PD.w+'px';profw.style.transform=profBase()}
+function profTuck(){
+  if(PD.tuck||!profAvail())return;
+  if(PD.fin&&$('cabp').parentNode===profw){   // 紙還在回程時又打開設定：從目前位置接著滑回設定後面，不重建空位
+    const cur=getComputedStyle(profw).transform;
+    profw.getAnimations().forEach(a=>a.cancel());PD.fin=0;PD.tuck=1;PD.open=0;
+    profPlace();cabPaintPanel();profAnim(cur&&cur!=='none'?cur:'translateX(0)','translateX('+(PD.w-10)+'px)');return}
+  const p=$('cabp'),v=$('cabv'),was=cabOn(),r0=was?p.getBoundingClientRect():null,g=profGeo();
+  PD.w=Math.min(r0&&r0.width?Math.max(300,Math.min(400,Math.round(r0.width))):340,Math.round(g.sl-18));
+  const ph=document.createElement('div');ph.id='cabph';v.insertBefore(ph,p);PD.ph=ph;
+  PD.tuck=1;PD.open=0;profw.insertBefore(p,profh);profw.style.display='block';profPlace();cabPaintPanel();
+  profw.getAnimations().forEach(a=>a.cancel());
+  const tx=PD.w-10,L0=g.sl-PD.w+10;
+  if(r0)profAnim('translate('+(r0.left-L0)+'px,'+(r0.top-(g.c.top+4))+'px)','translateX('+tx+'px)');   // 從檔案櫃桌面滑到設定後面
+  else profAnim('translateX('+(tx+g.sw*1.05)+'px)','translateX('+tx+'px)')}                              // 跟著設定一起滑進來
+function profOpen(){
+  if(!PD.tuck||PD.open)return;PD.open=1;profh.classList.add('open');profh.setAttribute('aria-expanded','true');cabPaintPanel();
+  profw.getAnimations().forEach(a=>a.cancel());profw.style.transform='none';profAnim('translateX('+(PD.w-10)+'px)','none');playSfx('tick')}
+function profClose(){
+  if(!PD.open)return;PD.open=0;profh.classList.remove('open');profh.setAttribute('aria-expanded','false');$('cabp').classList.remove('drw');
+  profw.getAnimations().forEach(a=>a.cancel());profw.style.transform=profBase();profAnim('none',profBase());playSfx('tick')}
+function profUntuck(quick){
+  if(!PD.tuck)return;
+  const p=$('cabp'),v=$('cabv'),ph=PD.ph,g=profGeo(),L0=g.sl-PD.w+10,cx=PD.w-10,cur=profBase();   // 不管拉出與否，終點都是躲回設定後面，跟設定一起滑走
+  
+  const seen=cabOn()&&ph&&ph.offsetParent!==null;
+  PD.tuck=0;PD.open=0;profh.classList.remove('open');profh.setAttribute('aria-expanded','false');p.classList.remove('drw');
+  profw.getAnimations().forEach(a=>a.cancel());
+  const done=()=>{PD.fin=0;if(p.parentNode===profw)v.insertBefore(p,ph&&ph.parentNode===v?ph:null);if(ph)ph.remove();PD.ph=null;profw.style.display='none';profw.style.transform='';cabPaintPanel()};
+  if(quick){done();return}
+  let to;if(seen){const r=ph.getBoundingClientRect();to='translate('+(r.left-L0)+'px,'+(r.top-(g.c.top+4))+'px)'}else to='translateX('+(cx+g.sw*1.05)+'px)';   // 沒開檔案櫃：紙跟著設定一起滑走
+  profw.style.transform=to;PD.fin=1;profAnim(cur,to,done)}
+profh.onmousedown=e=>e.preventDefault();   // 不搶走正在編輯的筆記的游標
+profh.onclick=()=>{if(PD.open)profClose();else profOpen()};
+addEventListener('resize',profPlace);try{new ResizeObserver(profPlace).observe($('cell'))}catch(e){}
 
 sq('#spx').onclick=()=>setpClose();
 sqa('.tabs button').forEach(b=>b.onclick=()=>tabGo(+b.dataset.t));
-sq('#sphue').oninput=e=>{S.rh=+e.target.value;sq('#sph').textContent=S.rh;applyTh();save()};
-sq('#sphr').onclick=()=>{S.rh=0;applyTh();save();setpPaint()};
 sqa('#sprm button').forEach(b=>b.onclick=()=>{const v=+b.dataset.v;if(v)S.rm=v;else delete S.rm;applyRm();save();setpPaint()});
 sqa('#spfs button').forEach(b=>b.onclick=()=>{S.fs=+b.dataset.px;applyFs();save();setpPaint()});
 sq('#spcs').onchange=e=>{S.cs=+e.target.value;save();tick()};
@@ -3511,6 +3727,7 @@ sqa('.rbat').forEach(b=>{const k=b.dataset.k,f=b.querySelector('.rbf');let v0=0;
   f.onpointerup=()=>{if(f.onpointermove){f.onpointermove=null;end()}};f.onpointercancel=()=>{f.onpointermove=null};
   f.onkeydown=e=>{const d=e.key==='ArrowRight'?1:e.key==='ArrowLeft'?-1:0;if(!d||S.mute)return;e.preventDefault();v0=rbLv(k);set(v0+d);end()}});
 sq('#spbk').onchange=e=>{S.bki=+e.target.value;save();chk()};
+if(AB.sup){sq('#spai').onchange=e=>{ABM.iv=+e.target.value;abMetaSave();abKick();playSfx('tick')};sq('#spab').onclick=()=>abPick()}
 sq('#dff').oninput=e=>{S.df={f:e.target.value};save();const f=dfc(),ti=DFTPL.indexOf(f);sq('#dfn').textContent=ti>=0?DFNAME[ti]:'自訂';sq('#sppv').textContent=dfText(new Date(),f)};
 sq('#dff').onblur=()=>setpPaint();
 const dfStep=k=>{const ti=DFTPL.indexOf(dfc()),n=DFTPL.length;dfSet(DFTPL[ti<0?(k>0?0:n-1):(ti+k+n)%n]);playSfx('tick')};
