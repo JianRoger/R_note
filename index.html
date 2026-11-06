@@ -555,7 +555,10 @@ html{--ks:1.4}#cabv{overflow:hidden}
 #cabp .pbd{padding:12px 16px 20px}
 #cabp .ppg{display:none}#cabp .ppg.on{display:block}
 #cabp .pcard{border:1px solid var(--ln);border-radius:10px;padding:10px 12px;margin-bottom:12px;background:var(--p2)}
-#cabv.nar #cabp .phd,#cabv.nar #cabp .ptabs,#cabv.nar #cabp .ppg[data-p="1"]{display:none}
+#cabv.nar #cabp .phd,#cabv.nar #cabp .ptabs,#cabv.nar #cabp .ppg[data-p="1"],#cabv.nar #cabp .ppg[data-p="2"]{display:none}
+#spal .alr{flex-wrap:wrap;display:flex;align-items:center;gap:8px;padding:5px 0}#spal .alm{flex:1;min-width:0}#spal .alt{display:inline-flex;align-items:center;gap:3px}#spal .alt select,#spal .alm,#spal .alc{color:var(--tx);background:var(--p2);border:1px solid var(--ln);border-radius:6px;padding:3px 6px;font:inherit;font-size:13px}html[data-th=n] #spal select{color-scheme:dark}#spal .aln{flex-basis:100%;margin-left:30px;opacity:.65;font-size:12px}#spal .aln:empty{display:none}#spal .alk{white-space:nowrap;font-size:13px}
+#cabp .rcr{display:flex;justify-content:space-between;gap:10px;padding:5px 0;border-bottom:1px dashed var(--ln);font-size:13px}#cabp .rcr b{font-weight:700}
+#cabp .rctt{font-weight:700;margin-bottom:6px}#cabp .rcc{margin:8px 0;font:12px monospace;opacity:.7}#cabp .rcn{font-size:12px;opacity:.8;margin:4px 0 8px}#cabp .rcs:disabled{opacity:.4;cursor:default}
 #cabv.nar #cabp .pbd,#cabv.nar #cabp .ppg[data-p="0"],#cabv.nar #cabp .pcard{display:contents}
 #cabp .rrow{display:flex;align-items:center;gap:14px}#cabp .rl{font:800 52px/1 Georgia,'Times New Roman',serif;filter:drop-shadow(0 0 7px color-mix(in srgb,var(--ry) 60%,transparent));width:46px;flex:none;text-align:center}
 #cabp .rsx{flex:1;min-width:0}#cabp .rsl{font-size:12px;color:var(--dm);margin-bottom:2px}
@@ -693,7 +696,7 @@ html{--rok:#3fb27f}html[data-th=d]{--rok:#2f9e6b}html[data-th=u]{--rok:#1f7d52}
 <script>
 const RBM=[16,12,7,4,2],RBA=[.25,.5,.75,1,1],RBI=[20,10,7,5,2.5];function rbLv(k){const v=+S[k];return v>=1&&v<=5?Math.floor(v):4}
 const TKMAX=9,TKLIVE=false;const TKS={s:26};let gmOn=false,gmCoin=0,gmTom=0,gmTk=0,tomPend=0,tomHold=0;
-const VERSION='1.59';const APPNAME='R note';
+const VERSION='1.62';const APPNAME='R note';
 const PROMO_URL='https://line.me/S/shop/sticker/author/123908';
 const PH=(()=>{try{const q=new URLSearchParams(location.search).get('phone');if(q==='1')return true;if(q==='0')return false;return matchMedia('(pointer:coarse)').matches&&!matchMedia('(hover:hover)').matches&&Math.min(screen.width,innerWidth)<=820}catch(e){return false}})();
 document.documentElement.classList.toggle('ph',PH);
@@ -787,7 +790,8 @@ function sortL(a){
 }
 const archList=()=>S.notes.filter(n=>inBot(n)&&match(n)).sort((x,y)=>y.archivedAt-x.archivedAt);
 function paintSort(){document.querySelectorAll('.sb').forEach(b=>{const on=b.dataset.k==S.sort.k;b.classList.toggle('on',on);const c=b.querySelector('.c');if(c)c.innerHTML=sv(S.sort.dir=='asc'?'up':'dn',12)})}
-function meta(){shelf();wcUpdate();applyRO();selUpdate();{const n=byId(S.sel);document.title=n?n.title+' - '+APPNAME:APPNAME}}
+function alTitle(){const n=byId(S.sel);document.title=(alOpen?'⏰ ':'')+(n?n.title+' - '+APPNAME:APPNAME)}
+function meta(){shelf();wcUpdate();applyRO();selUpdate();alTitle()}
 function showNote(){const n=byId(S.sel);ta.disabled=!n;ta.value=n?n.content:'';fxPrev=ta.value.length;meta()}
 function fill(box,list,arch){
   box.innerHTML='';
@@ -867,8 +871,8 @@ $('dtb').onclick=()=>{
 function selText(){   // 目前框選的文字（Markdown 預覽中看預覽區），沒有框選就回空字串
   if(PH)return '';
   if(mdOn()){const g=getSelection(),v=$('mdv');return g&&!g.isCollapsed&&v.contains(g.anchorNode)&&v.contains(g.focusNode)?g.toString():''}
-  return ta.selectionStart!==ta.selectionEnd?ta.value.slice(ta.selectionStart,ta.selectionEnd):''}
-let cpBusy=0;
+  return document.activeElement===ta&&ta.selectionStart!==ta.selectionEnd?ta.value.slice(ta.selectionStart,ta.selectionEnd):''}
+let cpBusy=0,selHint=0,alOpen=0;
 if(!PH)$('cpb').onmousedown=e=>e.preventDefault();   // 按下去不搶走內文的游標與框選
 $('cpb').onclick=async()=>{
   const n=byId(S.sel);if(!n)return;
@@ -933,7 +937,7 @@ $('vs').ondblclick=()=>{L.sw=314;layout();saveL()};$('dv').ondblclick=()=>{L.ah=
 function bkDirty(){const t=Math.max(S.lastExport||0,ABM.last||0)||S.born;return S.notes.some(n=>(n.modified||0)>t||(n.created||0)>t)||S.notes.length!==(S.bkN===undefined?S.notes.length:S.bkN)||S.folders.length!==(S.bkF===undefined?S.folders.length:S.bkF)}
 function chk(){const h=Math.floor((Date.now()-(Math.max(S.lastExport||0,ABM.last||0)||S.born))/36e5),b=$('exp'),on=h>=(S.bki||7)&&bkDirty(),was=b.classList.contains('dot');b.classList.toggle('dot',on);if(on&&!was){b.classList.remove('pls');void b.offsetWidth;b.classList.add('pls')}if(!on)b.classList.remove('pls');b.dataset.tip=on?`資料未備份長達 ${h} 小時`:'匯出備份'}
 /* 1.51：設定（光色、音色、音效、字級、日期樣式…）一併放進匯出備份；只有「取代」匯入會還原，「追加」不動設定。 */
-function setPick(){const o={};['th','ser','tpk','sfx','mute','cs','rh','fs','hz','hh','bki','df','fx','rbm','rba'].forEach(k=>{if(S[k]!==undefined)o[k]=JSON.parse(JSON.stringify(S[k]))});o.rm=S.rm===1||S.rm===2?S.rm:0;return o}
+function setPick(){const o={};['th','ser','tpk','sfx','mute','cs','rh','fs','hz','hh','bki','df','fx','rbm','rba','al','alf'].forEach(k=>{if(S[k]!==undefined)o[k]=JSON.parse(JSON.stringify(S[k]))});o.rm=S.rm===1||S.rm===2?S.rm:0;return o}
 function setIn(x){if(!x||typeof x!=='object')return null;const o={};
   if(['d','u','n'].includes(x.th))o.th=x.th;
   if(x.ser&&typeof x.ser==='object'){o.ser={};['n','u','d'].forEach(t=>{const v=+x.ser[t];o.ser[t]=v>=0&&v<6?Math.floor(v):0})}
@@ -949,6 +953,8 @@ function setIn(x){if(!x||typeof x!=='object')return null;const o={};
   if([0,1,2].includes(x.hz))o.hz=x.hz;
   if('hh' in x)o.hh=x.hh?1:0;
   ['rbm','rba'].forEach(k=>{if(+x[k]>=1&&+x[k]<=5)o[k]=Math.floor(+x[k])});
+  if(Array.isArray(x.al)&&x.al.length===2)o.al=x.al.map(r=>{r=r||{};const md=[0,1,2].includes(+r.md)?+r.md:(r.once?0:1);const t=/^([01]\d|2[0-3]):[0-5]\d$/.test(r.t)?r.t:'22:00',on=r.on?1:0;return{on,t,m:String(r.m||'').slice(0,30),md,nx:on?alNext(t,Date.now(),md):0}});
+  if('alf' in x)o.alf=x.alf?1:0;
   if(+x.bki>=1&&+x.bki<=720)o.bki=Math.floor(+x.bki);
   if(x.df&&typeof x.df.f==='string'&&x.df.f.length<=120)o.df={f:x.df.f};
   if(x.fx&&typeof x.fx==='object')o.fx={glow:!!x.fx.glow,chips:!!x.fx.chips,mine:!!x.fx.mine};
@@ -959,8 +965,8 @@ function setApply(o){if(!o)return;const wasMute=S.mute;
   if(!!wasMute!==!!S.mute){try{paintLip();rbSwitch()}catch(e){}}
   try{tick()}catch(e){}
   if(window.setpPaint)try{setpPaint()}catch(e){}}
-function setRestore(o){['th','ser','tpk','sfx','mute','cs','rh','fs','hz','hh','bki','df','fx','rbm','rba','rm'].forEach(k=>{if(!(k in o))delete S[k]});setApply(o)}
-function buildExport(d){return{app:'R_note',version:2,appVersion:VERSION,exported:d.toISOString(),profile:{xp:+S.xp||0,pick:+S.pick||0,tom:+S.tom||0,tt:S.tt,ts:S.ts},settings:setPick(),notes:S.notes,folders:S.folders,sort:S.sort}}
+function setRestore(o){['th','ser','tpk','sfx','mute','cs','rh','fs','hz','hh','bki','df','fx','rbm','rba','al','alf','rm'].forEach(k=>{if(!(k in o))delete S[k]});setApply(o)}
+function buildExport(d){return{app:'R_note',version:2,appVersion:VERSION,exported:d.toISOString(),profile:{xp:+S.xp||0,pick:+S.pick||0,tom:+S.tom||0,tt:S.tt,ts:S.ts,rc:Object.assign({},rcFix()),rcs:rcSig(S.rc)},settings:setPick(),notes:S.notes,folders:S.folders,sort:S.sort}}
 $('exp').onclick=()=>{
   const d=new Date(),a=document.createElement('a');
   a.href=URL.createObjectURL(new Blob([JSON.stringify(buildExport(d),null,2)],{type:'application/json;charset=utf-8'}));
@@ -1276,7 +1282,10 @@ $('nhit').onclick=()=>{
   vaultOn=!vaultOn;playSfx('logo',{k:'n',on:vaultOn});flipN(vaultOn);
   setTimeout(()=>{if(!vaultOn){const s=byId(S.sel);if(s&&s.vault){const f=activeList()[0];S.sel=f?f.id:null;save()}}ms.clear();render()},RM()?0:190);
 };
-$('dy').onclick=()=>{const d=new Date();tDiary();addNote(uniq(`${d.getFullYear()}/${p2(d.getMonth()+1)}/${p2(d.getDate())}_週${'日一二三四五六'[d.getDay()]}`,null),'','📕')&&ta.focus()};
+$('dy').onclick=()=>{const d=new Date();tDiary();const ttl=uniq(`${d.getFullYear()}/${p2(d.getMonth()+1)}/${p2(d.getDate())}_週${'日一二三四五六'[d.getDay()]}`,null);
+  if(addNote(ttl,'','📕')){ta.focus();dyQuip(ttl)}};
+function dyQuip(t){if(PH)return;const m=/\((\d+)\)$/.exec(t),k=m?+m[1]:0,key=k===3?'q3':k===10?'q10':'';if(!key)return;const dk=dayKey();if(MS[key]===dk)return;MS[key]=dk;msSave();
+  setTimeout(()=>say(k===3?'今天有這麼多祕密要藏嗎？':'今天的日記已經第十篇了，要不要回頭整理一下，把不要的刪掉？',{lv:'info',hold:7000,rx:'nod'}),500)}
 
 const GMSEQ='RLLOOSMSM',gmBuf=[];
 function gmEnter(){if(gmOn)return;gmOn=true;tGet('n',25);gmCoin=0;gmTom=0;gmTk=0;gmXp=1e9;gmPick=0;const v=$('ver'),g=document.createElement('span');g.id='gm';g.textContent=' GM';g.style.cssText='font-size:14px;font-weight:600;color:var(--tx);margin-left:2px;opacity:0;transition:opacity .6s';v.appendChild(g);requestAnimationFrame(()=>{g.style.opacity='1'});applyTh();tomPaint();shelf()}
@@ -1405,6 +1414,7 @@ function SFXF(tone,noise,cr){const SFX={
   coin:n=>{const k=Math.min(6,2+Math.ceil(Math.log2((n||1)+1)));for(let i=0;i<k;i++)tone(1568*(1+i*.07),.12,{type:'square',v:.05,at:i*.045});tone(2349,.2,{v:.06,at:k*.045})},
   wc100:()=>{tone(400,.35,{v:.04,to:1800});tone(1568,.5,{type:'triangle',v:.12,at:.05});tone(2349,.6,{type:'triangle',v:.09,at:.11});tone(3136,.7,{v:.06,at:.17});noise(.4,{ft:'highpass',f:5000,v:.06,at:.1})},
   half:()=>{tone(1046,.45,{v:.05})},
+  alarm:()=>{[0,.34,.68].forEach(a=>{tone(1568,.3,{v:.1,at:a});tone(2093,.3,{v:.07,at:a+.04})});tone(1046,.9,{v:.08,at:1.05})},
   hour:()=>{tone(1046,.9,{v:.1});tone(1568,.7,{v:.07,at:.02});tone(2093,.5,{v:.04,at:.04})},
   upgrade:()=>[523,659,784,1047].forEach((f,k)=>tone(f,.14,{type:'triangle',v:.1,at:k*.07})),
   upfast:()=>[523,659,784,1047].forEach((f,k)=>tone(f,.1,{type:'triangle',v:.1,at:k*.045})),
@@ -2252,7 +2262,7 @@ ta.addEventListener('dblclick',()=>{
 const IMPLIM=4500000;
 function buildReplace(j,clean,g2){const notes=clean.slice();if(g2&&notes[0])notes[0].coin=(notes[0].coin||0)+j.global.coin;const fs=(Array.isArray(j.folders)?j.folders:[]).filter(f=>f&&f.id&&f.name).map(f=>({id:String(f.id),name:String(f.name),color:+f.color||0,created:+f.created||0}));notes.forEach(n=>{if(n.folderId&&!fs.some(f=>f.id===n.folderId))delete n.folderId});return{notes,folders:fs,sort:(j.sort&&j.sort.k)?j.sort:S.sort,prof:profIn(j.profile),set:setIn(j.settings)}}
 /* 備份裡的十字鎬經驗值與等級（1.30）：只有「取代整份資料」會用；舊備份沒有這兩個值就保留現有的。 */
-function profIn(p){if(!p||typeof p!=='object')return null;const x=+p.xp,k=+p.pick;if(!(x>=0)||!isFinite(x))return null;return{xp:Math.floor(x),pick:Math.max(0,Math.min(PICK.max,Math.floor(k>=0?k:0))),tom:Math.max(0,Math.min(TKMAX,Math.floor(+p.tom||0))),tt:p.tt&&typeof p.tt==='object'?p.tt:null,ts:p.ts&&typeof p.ts==='object'?p.ts:null}}
+function profIn(p){if(!p||typeof p!=='object')return null;const x=+p.xp,k=+p.pick;if(!(x>=0)||!isFinite(x))return null;return{xp:Math.floor(x),pick:Math.max(0,Math.min(PICK.max,Math.floor(k>=0?k:0))),tom:Math.max(0,Math.min(TKMAX,Math.floor(+p.tom||0))),tt:p.tt&&typeof p.tt==='object'?p.tt:null,ts:p.ts&&typeof p.ts==='object'?p.ts:null,rc:(rcIn(p.rc,p.rcs)||{}).rc||null,rcv:!!(rcIn(p.rc,p.rcs)||{}).v}}
 function buildAppend(list,skip,jf){
   const now=Date.now(),cur=S.notes,base=Math.min(0,...cur.map(n=>n.order||0))-list.length,out=cur.slice(),ex=new Set(cur.map(m=>m.title));let add=0,sk=0;const fout=S.folders.slice(),fmap={};
   list.forEach((n,i)=>{
@@ -2264,10 +2274,10 @@ function buildAppend(list,skip,jf){
   return{notes:out,folders:fout,sort:S.sort,add,sk};
 }
 function commitImport(next){gmReset();if(next.add===undefined){const keep=new Set(next.notes.map(n=>n.title+'\u0000'+n.content));hDel(S.notes.filter(n=>!n.hv&&!keep.has(n.title+'\u0000'+n.content)),'imp')}
-  const snap={notes:JSON.parse(JSON.stringify(S.notes)),folders:JSON.parse(JSON.stringify(S.folders)),sort:Object.assign({},S.sort),sel:S.sel,xp:+S.xp||0,pick:+S.pick||0,tom:+S.tom||0,tt:JSON.parse(JSON.stringify(S.tt||null)),ts:JSON.parse(JSON.stringify(S.ts||null)),set:setPick()};
-  const trial=Object.assign({},S,{notes:next.notes,folders:next.folders||S.folders,sort:next.sort||S.sort,sel:null,q:''},next.prof?Object.assign({xp:next.prof.xp,pick:next.prof.pick,tom:next.prof.tom},next.prof.tt?{tt:next.prof.tt}:{},next.prof.ts?{ts:next.prof.ts}:{}):{});
+  const snap={notes:JSON.parse(JSON.stringify(S.notes)),folders:JSON.parse(JSON.stringify(S.folders)),sort:Object.assign({},S.sort),sel:S.sel,xp:+S.xp||0,pick:+S.pick||0,tom:+S.tom||0,tt:JSON.parse(JSON.stringify(S.tt||null)),ts:JSON.parse(JSON.stringify(S.ts||null)),rc:JSON.parse(JSON.stringify(S.rc||null)),rcu:S.rcu?1:0,set:setPick()};
+  const trial=Object.assign({},S,{notes:next.notes,folders:next.folders||S.folders,sort:next.sort||S.sort,sel:null,q:''},next.prof?Object.assign({xp:next.prof.xp,pick:next.prof.pick,tom:next.prof.tom},next.prof.tt?{tt:next.prof.tt}:{},next.prof.ts?{ts:next.prof.ts}:{},next.prof.rc?{rc:next.prof.rc,rcu:next.prof.rcv?0:1}:{}):{});
   try{localStorage.setItem(KEY,JSON.stringify(trial))}catch(e){playSfx('err');say('空間不足，未匯入，原有資料沒有任何變動。',{lv:'warn'});return false}
-  S.notes=trial.notes;S.folders=trial.folders;curF=null;eyeOpen=true;S.sort=trial.sort;S.sel=null;S.q='';$('sq').value='';ms.clear();S.xp=trial.xp;S.pick=trial.pick;S.tom=trial.tom||0;S.tt=trial.tt;S.ts=trial.ts;if(next.set)setApply(next.set);tInit(true);
+  S.notes=trial.notes;S.folders=trial.folders;curF=null;eyeOpen=true;S.sort=trial.sort;S.sel=null;S.q='';$('sq').value='';ms.clear();S.xp=trial.xp;S.pick=trial.pick;S.tom=trial.tom||0;S.tt=trial.tt;S.ts=trial.ts;S.rc=trial.rc;if(trial.rcu)S.rcu=1;else delete S.rcu;if(next.set)setApply(next.set);tInit(true);
   let persisted=false;try{localStorage.setItem(PKEY,JSON.stringify(snap));persisted=true}catch(e){}
   pend={snap,persisted};
   if(!S.notes.length)seedNotes();else{const f=activeList()[0];S.sel=f?f.id:null}
@@ -2285,13 +2295,54 @@ function impOk(){
 }
 function impUndo(){
   if(!pend)return;const sn=pend.snap,k=[S.notes,S.sort,S.sel,S.folders,S.xp,S.pick];
-  S.notes=sn.notes;S.folders=sn.folders||[];curF=null;eyeOpen=true;S.sort=sn.sort||S.sort;S.sel=sn.sel;if(sn.xp!==undefined){S.xp=sn.xp;S.pick=sn.pick;S.tom=sn.tom||0;if(sn.tt)S.tt=sn.tt;if(sn.ts)S.ts=sn.ts;tInit(true)}
+  S.notes=sn.notes;S.folders=sn.folders||[];curF=null;eyeOpen=true;S.sort=sn.sort||S.sort;S.sel=sn.sel;if(sn.xp!==undefined){S.xp=sn.xp;S.pick=sn.pick;S.tom=sn.tom||0;if(sn.tt)S.tt=sn.tt;if(sn.ts)S.ts=sn.ts;if(sn.rc){S.rc=sn.rc;if(sn.rcu)S.rcu=1;else delete S.rcu}tInit(true)}
   if(sn.set)setRestore(sn.set);
   try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){S.notes=k[0];S.sort=k[1];S.sel=k[2];S.folders=k[3];S.xp=k[4];S.pick=k[5];playSfx('err');say('復原失敗：儲存空間不足。',{lv:'warn'});return}
   pend=null;try{localStorage.removeItem(PKEY)}catch(e){}
   AB.later=0;sayOff('imp');ms.clear();playSfx('restore');render();xpPaint();tomPaint();say('已復原到匯入前的資料。',{lv:'info'});
 }
-function tick(){const d=new Date();chime(d);$('cd').textContent=`${d.getFullYear()}/${p2(d.getMonth()+1)}/${p2(d.getDate())} 週${'日一二三四五六'[d.getDay()]}`;$('ct').textContent=clkText(d)}
+
+/* ===== 定時提醒（鬧鐘，1.60，僅電腦版）：兩列，每列 on/t/m/once，另有 nx(下次時間)、pend(待確認)、sn(再提醒時間)、su(已延後次數)。
+   錯過規則：「只響一次」一定補提醒並註明錯過多久；每天重複的超過 2 小時就當作沒發生、直接排下一次。 ===== */
+function alMd(r){return r.md===0||r.md===1||r.md===2?r.md:(r.once?0:1)}
+function alRows(){if(!Array.isArray(S.al)||S.al.length!==2)S.al=[0,1].map(()=>({on:0,t:'22:00',m:'',md:1}));S.al.forEach(r=>{r.md=alMd(r);delete r.once});return S.al}
+let alDirty=0;
+function alNext(t,from,md){const m=/^([01]\d|2[0-3]):([0-5]\d)$/.exec(t||'');if(!m)return 0;const d=new Date(from);d.setHours(+m[1],+m[2],0,0);if(d.getTime()<=from)d.setDate(d.getDate()+1);if(md===2)while(d.getDay()===0||d.getDay()===6)d.setDate(d.getDate()+1);return d.getTime()}
+const alSnd={};
+function alTick(){if(PH||!Array.isArray(S.al))return;const now=Date.now();
+  S.al.forEach((r,i)=>{
+    if(r.pend){alShow(i);return}
+    if(r.sn&&now>=r.sn){r.sn=0;r.pend=1;r.late=0;r.tries=0;save();alShow(i);return}
+    if(!r.on||!r.nx||now<r.nx||r.sn)return;
+    const late=now-r.nx;
+    if(alMd(r)===0){r.on=0;r.nx=0}else{r.nx=alNext(r.t,now,alMd(r));if(late>2*36e5){save();alPaint();return}}
+    r.su=0;r.pend=1;r.late=late;r.tries=0;save();alPaint();alShow(i)})}
+function alShow(i){const r=S.al[i];if(!r||!r.pend)return;
+  const id='al'+i,up=()=>{alOpen=S.al.filter(x=>x.pend).length;alTitle()};
+  if(SM.list.some(m=>m.id===id&&!m.leaving)){up();return}
+  if((r.tries=(r.tries||0)+1)>30){r.pend=0;save();up();return}
+  const mn=Math.floor((r.late||0)/6e4),lt=mn>=60?Math.floor(mn/60)+' 小時'+(mn%60?' '+mn%60+' 分鐘':''):mn+' 分鐘',txt=(r.m||'時間到了')+(mn>=2?'（錯過了 '+lt+'）':'');
+  const acts=[{label:'知道了',fn:()=>alAck(i)}];if((r.su||0)<2)acts.push({label:'5 分鐘後再提醒',fn:()=>alSnooze(i)});
+  say('⏰ '+txt,{lv:'act',id,pin:true,actions:acts,rx:'act'});
+  if(SM.list.some(m=>m.id===id&&!m.leaving)){up();if(!alSnd[i]){alSnd[i]=1;alSound()}}}
+function alSound(){if(S.sfx){playSfx('alarm');return}if(S.alf){S.sfx=1;try{playSfx('alarm')}finally{S.sfx=0}}}
+function alAck(i){const r=S.al[i];if(!r)return;r.pend=0;r.su=0;r.sn=0;r.tries=0;alSnd[i]=0;sayOff('al'+i);save();alOpen=S.al.filter(x=>x.pend).length;alTitle()}
+function alSnooze(i){const r=S.al[i];if(!r)return;r.pend=0;r.su=(r.su||0)+1;r.sn=Date.now()+5*60000;r.tries=0;alSnd[i]=0;sayOff('al'+i);save();alOpen=S.al.filter(x=>x.pend).length;alTitle();say('好，5 分鐘後再提醒妳。',{lv:'info',rx:'ok',hold:3500})}
+function alFmt(h,m){return (h<12?'上午 ':'下午 ')+(h%12||12)+':'+p2(m)}
+function alWhen(ts){const d=new Date(ts),n=new Date(),dk=x=>x.getFullYear()*400+x.getMonth()*32+x.getDate(),t=new Date(n.getTime()+864e5),hm=alFmt(d.getHours(),d.getMinutes());
+  return (dk(d)===dk(n)?'今天':dk(d)===dk(t)?'明天':'週'+'日一二三四五六'[d.getDay()])+' '+hm}
+function alConfirm(){if(!alDirty)return;alDirty=0;const l=alRows().filter(r=>r.on).map(r=>alFmt(+r.t.slice(0,2),+r.t.slice(3))+' 「'+(r.m||'時間到了')+'」（'+['只提醒一次','每天','工作天'][alMd(r)]+'）');
+  say(l.length?'我知道了，'+l.join('；')+'，我會提醒妳。'+(S.mute?'（我休息中，但鬧鐘照響）':''):'好，提醒都關掉了。',{lv:'info',rx:'ok',hold:6000,id:'alset'})}
+function alPaint(){const p=$('spal');if(!p||!Array.isArray(S.al))return;
+  p.querySelectorAll('.alr').forEach(el=>{const r=S.al[+el.dataset.i];if(!r)return;el.querySelector('.alo').checked=!!r.on;el.querySelector('.alc').value=String(alMd(r));el.querySelector('.aln').textContent=r.on&&r.nx?'下次　'+alWhen(r.nx):'';
+    const hh=+(r.t||'22:00').slice(0,2),mm=+(r.t||'22:00').slice(3),m=el.querySelector('.alm');el.querySelector('.alap').value=hh>=12?'1':'0';el.querySelector('.alh').value=String(hh%12||12);el.querySelector('.alm2').value=String(mm);if(document.activeElement!==m)m.value=r.m||''});
+  $('spalf').checked=!!S.alf}
+function alRead(el){const r=alRows()[+el.dataset.i];
+  r.on=el.querySelector('.alo').checked?1:0;r.t=p2((+el.querySelector('.alh').value%12)+12*(+el.querySelector('.alap').value))+':'+p2(+el.querySelector('.alm2').value);r.m=el.querySelector('.alm').value.slice(0,30);r.md=+el.querySelector('.alc').value;
+  if(r.on){r.nx=alNext(r.t,Date.now(),r.md);r.su=0;r.sn=0}else{r.nx=0;r.sn=0}
+  alDirty=1;alPaint();save()}
+
+function tick(){const d=new Date();chime(d);try{alTick()}catch(e){}$('cd').textContent=`${d.getFullYear()}/${p2(d.getMonth()+1)}/${p2(d.getDate())} 週${'日一二三四五六'[d.getDay()]}`;$('ct').textContent=clkText(d)}
 tick();setInterval(tick,5000);$('ct').parentNode.style.userSelect='none';chk();setInterval(chk,60000);
 const README=`R note 使用說明
 ════════════════════════
@@ -2342,6 +2393,8 @@ R note 是架構在瀏覽器裡的純文字筆記工具……
 
 外觀與聲音
 ．搜尋框右邊，從左到右是：音效開關、音色、亮色系／灰色系／暗色系三顆主題按鈕。同一顆主題按鈕連續點，會換成同色系的下一組。
+．機器人設定裡有「定時提醒」：填好時間和一句話（可選一次、每天、工作天），時間到了機器人會把那句話固定在畫面上，可以按「知道了」或「5 分鐘後再提醒」（最多延 2 次）。網頁沒開著就不會響，之後打開會補提醒；可勾「強制出聲」。
+．個人檔案多了「紀錄」分頁（累計打字、使用天數等），可以把紀錄卡存成圖片；備份檔會帶著紀錄，匯入時驗證碼對不上會標「未驗證」。
 ．機器人左邊的齒輪是「設定」：字級、時鐘與日期時間樣式、備份提醒與自動備份、清除資料等都在這裡；「機器人」分頁可以調整報時，以及機器人說話和活動的頻率。
 ．設定打開時，設定左緣下方有一個「Profile」標籤，拉出來就是「個人檔案」（檔案櫃右邊那一張）；再按一次標籤就收回。
 
@@ -2413,7 +2466,7 @@ o、t、e 的開關會被記住；R 和 n 每次重新開啟都是關閉。
 
 祝順心如意。`;
 const hs=t=>{let a=5381,b=0;for(let i=0;i<t.length;i++){const c=t.charCodeAt(i);a=((a<<5)+a+c)|0;b=(b*31+c)|0}return a+':'+b+':'+t.length};
-const OLDH=['115170983:550979746:2688','-276557875:1915655092:2638','1717136960:1119175561:2617','259163584:-342899575:2615','122576712:509132133:2551','156150843:-758912478:2459','-2106340733:-1114159256:3876','-1983915602:171529411:6757','561492873:771823936:2645','-1652934029:957503828:2482','-38752457:-718458112:2588','652580955:1757969548:2647','-1716669469:1205189334:2735'];
+const OLDH=['672367486:-215089409:3488','1046457898:2125655681:3323','115170983:550979746:2688','-276557875:1915655092:2638','1717136960:1119175561:2617','259163584:-342899575:2615','122576712:509132133:2551','156150843:-758912478:2459','-2106340733:-1114159256:3876','-1983915602:171529411:6757','561492873:771823936:2645','-1652934029:957503828:2482','-38752457:-718458112:2588','652580955:1757969548:2647','-1716669469:1205189334:2735'];
 function diaryTitle(){const d=new Date();return `${d.getFullYear()}/${p2(d.getMonth()+1)}/${p2(d.getDate())}_週${'日一二三四五六'[d.getDay()]}`}
 const PHN='【給手機使用者】這是為電腦瀏覽器設計的筆記工具。手機上只提供簡易版：一張便條紙，打字也能挖礦；右上方的按鈕可以複製便條紙內容，齒輪可以調整字級、清除資料。完整功能（多篇筆記、排序、封存、備份等）請改用電腦的 Chrome 或 Edge 打開。\n\n════════════════════════\n\n';
 function seedNotes(){
@@ -2953,14 +3006,15 @@ function cabPaintPanel(){
   const can=f.full&&!f.max,tip=f.max?'已是最高等級':can?'點擊升級':'採礦等級 Lv.'+f.lv;
   p.classList.toggle('drw',!!PD.open);
   p.innerHTML='<div class="phd"><b>個人檔案</b><small>Profile</small><button class="sg prt" data-tip="收回">收回 ›</button></div>'
-   +'<div class="ptabs"><button data-t="0"'+(PTB===0?' class="on"':'')+'>進度</button><button data-t="1"'+(PTB===1?' class="on"':'')+'>外觀</button></div>'
+   +'<div class="ptabs"><button data-t="0"'+(PTB===0?' class="on"':'')+'>進度</button><button data-t="1"'+(PTB===1?' class="on"':'')+'>外觀</button><button data-t="2"'+(PTB===2?' class="on"':'')+'>紀錄</button></div>'
    +'<div class="pbd"><div class="ppg'+(PTB===0?' on':'')+'" data-p="0"><div class="pcard"><div class="pkt"><button class="pkb'+(can?' go':'')+'" data-tip="'+tip+'">'+pkSvg(f.lv,96)+'<span class="plv">Lv.'+f.lv+'</span><span class="pxb"><i style="width:'+(f.frac*100).toFixed(1)+'%"></i></span></button><div class="pkr"><b class="pkh">採礦等級</b><span class="pkn">提升採礦的能力</span><div class="av">'+av+'</div><label class="chk'+(f.max?' dis':'')+'"'+(f.max?' data-tip="十字鎬已是最高等級，這個選項暫時沒作用"':'')+'><input type="checkbox" class="xbk"'+(L.xb?' checked':'')+(f.max?' disabled':'')+'><span>顯示經驗條</span></label></div></div></div>'
    +(S.tt?'<div class="pcard">'+tPanel()+'</div>':'')+'</div>'
-   +'<div class="ppg'+(PTB===1?' on':'')+'" data-p="1"><div class="pcard"><div class="rrow"><svg class="rl" viewBox="3 3 22 32" width="36" height="52" fill="none" stroke="var(--ry)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 28V6h7a6 6 0 0 1 0 12H6M13 18l7 10"/></svg><div class="rsx"><div class="rsl">R 字色相 <b class="rhv">'+(S.rh||0)+'</b></div><input type="range" class="hue" min="0" max="360" value="'+(S.rh||0)+'"></div><button class="sg rhr">還原</button></div></div></div></div>';
+   +'<div class="ppg'+(PTB===1?' on':'')+'" data-p="1"><div class="pcard"><div class="rrow"><svg class="rl" viewBox="3 3 22 32" width="36" height="52" fill="none" stroke="var(--ry)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 28V6h7a6 6 0 0 1 0 12H6M13 18l7 10"/></svg><div class="rsx"><div class="rsl">R 字色相 <b class="rhv">'+(S.rh||0)+'</b></div><input type="range" class="hue" min="0" max="360" value="'+(S.rh||0)+'"></div><button class="sg rhr">還原</button></div></div></div><div class="ppg'+(PTB===2?' on':'')+'" data-p="2">'+rcPaint()+'</div></div>';
   tPanelBind(p);
   const tb=[...p.querySelectorAll('.ptabs button')],pg=[...p.querySelectorAll('.ppg')];
   tb.forEach(x=>x.onclick=()=>{PTB=+x.dataset.t;tb.forEach(y=>y.classList.toggle('on',y===x));pg.forEach(g=>g.classList.toggle('on',+g.dataset.p===PTB));playSfx('tick')});
   const rt=p.querySelector('.prt');if(rt)rt.onclick=()=>profClose();
+  const rsb=p.querySelector('.rcs');if(rsb)rsb.onclick=rcSave;
   p.querySelector('.pkb').onclick=()=>{if(!can)return;if(pend){lockMsg();return}if(pickUp()){const lv0=f.lv+1;cabPaintPanel();pkBurst(p.querySelector('.pkb'),lv0)}};
   p.querySelector('.xbk').onchange=e=>{L.xb=e.target.checked?1:0;saveL();xpPaint();playSfx('tick')};
   const hu=p.querySelector('.hue'),hv=p.querySelector('.rhv');
@@ -3309,7 +3363,7 @@ const TT={roll:0,ds:0,dRoll:-1,ss:0,del:0,arr:0,th:[],nk:'',nc:0,fN:null,fL:0,fA
 function tInit(quiet){
   const fresh=!S.tt;
   S.tt=Object.assign({p:[0,1,2],n:[0,1],nw:[],sp:0,sn:0,up:0,show:1,auto:1},S.tt||{});
-  S.ts=Object.assign({tw:0,imp:0,pst:0,md:0,fx:0,hr:0,rsc:0,pk:0,pv:0,lc:0,ab:0,dl:'',dc:0,dyk:'',dy:0},S.ts||{});
+  rcFix();S.ts=Object.assign({tw:0,imp:0,pst:0,md:0,fx:0,hr:0,rsc:0,pk:0,pv:0,lc:0,ab:0,dl:'',dc:0,dyk:'',dy:0},S.ts||{});
   [0,1,2].forEach(i=>{if(!S.tt.p.includes(i))S.tt.p.push(i)});[0,1].forEach(i=>{if(!S.tt.n.includes(i))S.tt.n.push(i)});
   if(fresh&&!quiet){TT.retro=1;tSlow();TT.retro=0;const c=S.tt.p.length-3+S.tt.n.length-2;if(c>0&&HAD)setTimeout(()=>say('你已經獲得 '+c+' 個稱號！到檔案櫃看看。',{lv:'info',hold:9000,rx:'ok'}),4000)}
   save();tPaint()}
@@ -3332,7 +3386,7 @@ function tCnt(c){if(!S.ts)return;S.ts[c]=(+S.ts[c]||0)+1;const v=S.ts[c];
   else if(c==='pk'){if(v>=3)tGet('p',21);if(v>=6)tGet('n',23);if(v>=12)tGet('n',24)}
   save()}
 function tTyped(c){if(!c||!S.ts||PH)return;const now=Date.now(),d=new Date(),h=d.getHours(),n=byId(S.sel),ts=S.ts;
-  ts.tw+=c;if(ts.tw>=6000)tGet('n',5);if(ts.tw>=1e5)tGet('n',19);
+  rcAdd('tw',c);rcDay(dayKey());ts.tw+=c;if(ts.tw>=6000)tGet('n',5);if(ts.tw>=1e5)tGet('n',19);
   const dk=dayKey();if(ts.dl!==dk){const y=new Date(now-864e5),yk=y.getFullYear()+'-'+(y.getMonth()+1)+'-'+y.getDate();ts.dc=ts.dl===yk?ts.dc+1:1;ts.dl=dk}if(ts.dc>=3)tGet('p',8);if(ts.dc>=5)tGet('p',9);
   const slot=h>=1&&h<4?'n':h>=4&&h<6?'m':'';if(slot){const k=slot+dk;if(TT.nk!==k){TT.nk=k;TT.nc=0}TT.nc+=c;if(TT.nc>=50)tGet('p',slot==='n'?3:4)}
   const mo=d.getMonth(),dd=d.getDate(),mi=d.getMinutes();if((mo===11&&dd===31&&h===23&&mi>=50)||(mo===0&&dd===1&&h===0&&mi<=10))tGet('p',22);
@@ -3345,7 +3399,39 @@ function tTyped(c){if(!c||!S.ts||PH)return;const now=Date.now(),d=new Date(),h=d
 function tEdit(n){if(!n||n.hv)return;const now=Date.now(),dk=dayKey();
   if(TT.eN!==n.id||now-(TT.eL||0)>10*60000){n.er=(n.er||0)+1;if(n.er>=12)tGet('n',13)}TT.eN=n.id;TT.eL=now;
   if(n.edk!==dk){n.edk=dk;n.edd=(n.edd||0)+1;if(n.edd>=6)tGet('p',10)}}
-function tOre(i){if(i===0){if(TT.ds>0&&TT.dRoll!==TT.roll)TT.ds++;else if(TT.ds===0)TT.ds=1;TT.dRoll=TT.roll;if(TT.ds>=2)tGet('p',14);if(TT.ds>=3)tGet('n',29)}else TT.ds=0;
+
+/* ===== 紀錄（1.60）：累計數據 + 驗證碼。純網頁沒有伺服器，驗證碼只擋「隨手改 JSON」，擋不住有心人。GM 模式不計入。 ===== */
+function rcFix(){const r=S.rc&&typeof S.rc==='object'?S.rc:{},n=v=>{v=Math.floor(+v);return v>=0&&isFinite(v)?v:0};
+  S.rc={t0:n(r.t0)||Date.now(),tw:n(r.tw),dd:n(r.dd),dl:typeof r.dl==='string'?r.dl.slice(0,12):'',ps:n(r.ps),pz:n(r.pz),ore:n(r.ore)};return S.rc}
+function rcSig(r){const t=[r.t0,r.tw,r.dd,r.ps,r.pz,r.ore].join('|')+'|R_note.rc.1';let h1=0xdeadbeef,h2=0x41c6ce57;
+  for(let i=0;i<t.length;i++){const c=t.charCodeAt(i);h1=Math.imul(h1^c,2654435761);h2=Math.imul(h2^c,1597334677)}
+  h1=Math.imul(h1^(h1>>>16),2246822507)^Math.imul(h2^(h2>>>13),3266489909);h2=Math.imul(h2^(h2>>>16),2246822507)^Math.imul(h1^(h1>>>13),3266489909);
+  return (4294967296*(2097151&h2)+(h1>>>0)).toString(36).toUpperCase().padStart(10,'0').slice(0,10)}
+function rcIn(r,sg){if(!r||typeof r!=='object')return null;const k=['t0','tw','dd','ps','pz','ore'];if(!k.every(x=>+r[x]>=0&&isFinite(+r[x])))return null;
+  const o={t0:Math.floor(+r.t0),tw:Math.floor(+r.tw),dd:Math.floor(+r.dd),dl:typeof r.dl==='string'?r.dl.slice(0,12):'',ps:Math.floor(+r.ps),pz:Math.floor(+r.pz),ore:Math.floor(+r.ore)};
+  return{rc:o,v:typeof sg==='string'&&sg===rcSig(o)}}
+function rcAdd(k,v){if(PH||gmOn||!S.rc)return;S.rc[k]=(+S.rc[k]||0)+(v||1)}
+function rcDay(dk){if(PH||gmOn||!S.rc)return;if(S.rc.dl!==dk){S.rc.dl=dk;S.rc.dd++}}
+ta.addEventListener('paste',e=>{if(PH||ta.readOnly)return;let t='';try{t=(e.clipboardData&&e.clipboardData.getData('text'))||''}catch(x){}if(!t)return;rcAdd('ps');rcAdd('pz',[...t].length)});
+const fmtN=v=>(+v||0).toLocaleString('en-US');
+function rcRows(){const r=S.rc||rcFix(),f=xpInfo(),d=new Date(r.t0);
+  return[['開始使用',d.getFullYear()+'/'+p2(d.getMonth()+1)+'/'+p2(d.getDate())],['使用天數',fmtN(r.dd)+' 天'],['累計打字',fmtN(r.tw)+' 字'],['採到的礦石',fmtN(r.ore)+' 顆'],['採礦等級','Lv.'+f.lv]]}
+function rcPaint(){return '<div class="pcard rcd"><div class="rctt">'+(S.tt&&S.tt.show!==0?'《'+tName()+'》':'R note')+'</div>'
+  +rcRows().map(x=>'<div class="rcr"><span>'+x[0]+'</span><b>'+x[1]+'</b></div>').join('')
+  
+  +(S.rcu?'<p class="rcn">這份紀錄來自被改動過的備份檔，標為「未驗證」，不能存成圖片。</p>':'')
+  +'<button class="sg rcs"'+(S.rcu?' disabled':'')+'>存成圖片</button></div>'}
+function rcSave(){if(S.rcu)return;const r=S.rc||rcFix(),cs=getComputedStyle(document.documentElement),v=(n,d)=>(cs.getPropertyValue(n)||'').trim()||d;
+  const W=720,rows=rcRows(),H=170+rows.length*46+70,c=document.createElement('canvas'),x=c.getContext('2d'),bg=v('--p2','#fbfaf6'),tx=v('--tx','#222'),ln=v('--ln','#bbb'),ry=v('--ry','#c0392b');
+  c.width=W*2;c.height=H*2;x.scale(2,2);x.fillStyle=bg;x.fillRect(0,0,W,H);x.strokeStyle=ln;x.lineWidth=2;x.strokeRect(10,10,W-20,H-20);
+  x.fillStyle=ry;x.font='800 54px Georgia,serif';x.textBaseline='alphabetic';x.fillText('R',44,92);
+  x.fillStyle=tx;x.font='700 30px sans-serif';x.fillText('R note 紀錄卡',104,88);
+  x.font='600 22px sans-serif';x.globalAlpha=.7;x.fillText(S.tt&&S.tt.show!==0?'《'+tName()+'》':'',44,132);x.globalAlpha=1;
+  rows.forEach((q,i)=>{const y=190+i*46;x.strokeStyle=ln;x.globalAlpha=.5;x.beginPath();x.moveTo(44,y+14);x.lineTo(W-44,y+14);x.stroke();x.globalAlpha=1;x.fillStyle=tx;x.globalAlpha=.7;x.font='22px sans-serif';x.textAlign='left';x.fillText(q[0],44,y);x.globalAlpha=1;x.font='700 24px sans-serif';x.textAlign='right';x.fillText(q[1],W-44,y)});
+  x.textAlign='left';x.fillStyle=tx;x.globalAlpha=.6;x.font='18px monospace';x.fillText('R note '+VERSION,44,H-34);x.globalAlpha=1;
+  c.toBlob(b=>{if(!b){say('存圖失敗，請再試一次。',{lv:'warn'});return}const u=URL.createObjectURL(b),a=document.createElement('a');a.href=u;a.download='R_note_record.png';document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),4000);playSfx('pick');say('紀錄卡已存成圖片，請見瀏覽器的下載。',{lv:'info',rx:'ok'})},'image/png')}
+
+function tOre(i){rcAdd('ore');if(i===0){if(TT.ds>0&&TT.dRoll!==TT.roll)TT.ds++;else if(TT.ds===0)TT.ds=1;TT.dRoll=TT.roll;if(TT.ds>=2)tGet('p',14);if(TT.ds>=3)tGet('n',29)}else TT.ds=0;
   if(i>4){TT.ss++;if(TT.ss>=6)tGet('n',7)}else TT.ss=0}
 function tTheme(){const now=Date.now();TT.th=TT.th.filter(t=>now-t<12*60000);TT.th.push(now);if(TT.th.length>=12)tGet('p',20)}
 function tDiary(){const dk=dayKey();if(S.ts.dyk!==dk){S.ts.dyk=dk;S.ts.dy++;if(S.ts.dy>=7)tGet('n',26);save()}}
@@ -3404,8 +3490,9 @@ let selRaf=0;
 function selUpdate(){const b=$('wcb');if(!b)return;const n=byId(S.sel);let c=0;
   if(n&&!PH){
     if(mdOn()){const g=getSelection(),v=$('mdv');if(g&&!g.isCollapsed&&v.contains(g.anchorNode)&&v.contains(g.focusNode))c=wcCount(g.toString())}  // Markdown 預覽中，算預覽區裡選到的字
-    else if(ta.selectionStart!==ta.selectionEnd)c=wcCount(ta.value.slice(ta.selectionStart,ta.selectionEnd))}
+    else if(document.activeElement===ta&&ta.selectionStart!==ta.selectionEnd)c=wcCount(ta.value.slice(ta.selectionStart,ta.selectionEnd))}
   b.classList.toggle('sel',c>0);if(c>0)$('wcsn').textContent=c;
+  if(c>0&&!S.sh&&!PH&&!selHint){selHint=1;setTimeout(()=>{selHint=0;if(S.sh||S.mute||!selText()||!canSay())return;S.sh=1;save();say('框選文字後，「複製內文」會變成「複製選取」，只複製框選的部分。',{lv:'info',hold:7000,rx:'nod'})},900)}
   const cb=$('cpb');if(cb.classList.contains('sel')!==(c>0)){cb.classList.toggle('sel',c>0);cb.dataset.tip=c>0?'複製選取':'複製內文';if(!cpBusy)$('cpi').innerHTML=sv(c>0?'copysel':'copy')}}
 const selSoon=()=>{if(selRaf)return;selRaf=requestAnimationFrame(()=>{selRaf=0;selUpdate()})};
 ['select','keyup','mouseup','input','focus','blur'].forEach(v=>ta.addEventListener(v,selSoon));document.addEventListener('selectionchange',selSoon);
@@ -3598,6 +3685,11 @@ setp.innerHTML=`<div class="hd"><b>設定</b><button class="sg" id="spx">✕ 關
   <div class="line"><span>整點報時</span><div class="seg" id="sphz"><button data-v="0">不報時</button><button data-v="1">一般</button><button data-v="2">安靜時也報</button></div></div>
   <div class="line" id="sphl" style="justify-content:flex-start"><label><input type="checkbox" id="sphh"> 半點也報時</label></div>
  </div>
+ <div class="sec" id="spal"><h3>定時提醒</h3>
+  ${[0,1].map(i=>`<div class="alr" data-i="${i}"><label class="alk"><input type="checkbox" class="alo" aria-label="啟用提醒 ${i+1}"></label><span class="alt"><select class="alap" aria-label="上午或下午"><option value="0">上午</option><option value="1">下午</option></select><select class="alh" aria-label="小時"><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option><option value="11">11</option><option value="12">12</option></select>:<select class="alm2" aria-label="分鐘"><option value="0">00</option><option value="1">01</option><option value="2">02</option><option value="3">03</option><option value="4">04</option><option value="5">05</option><option value="6">06</option><option value="7">07</option><option value="8">08</option><option value="9">09</option><option value="10">10</option><option value="11">11</option><option value="12">12</option><option value="13">13</option><option value="14">14</option><option value="15">15</option><option value="16">16</option><option value="17">17</option><option value="18">18</option><option value="19">19</option><option value="20">20</option><option value="21">21</option><option value="22">22</option><option value="23">23</option><option value="24">24</option><option value="25">25</option><option value="26">26</option><option value="27">27</option><option value="28">28</option><option value="29">29</option><option value="30">30</option><option value="31">31</option><option value="32">32</option><option value="33">33</option><option value="34">34</option><option value="35">35</option><option value="36">36</option><option value="37">37</option><option value="38">38</option><option value="39">39</option><option value="40">40</option><option value="41">41</option><option value="42">42</option><option value="43">43</option><option value="44">44</option><option value="45">45</option><option value="46">46</option><option value="47">47</option><option value="48">48</option><option value="49">49</option><option value="50">50</option><option value="51">51</option><option value="52">52</option><option value="53">53</option><option value="54">54</option><option value="55">55</option><option value="56">56</option><option value="57">57</option><option value="58">58</option><option value="59">59</option></select></span><input type="text" class="alm" maxlength="30" placeholder="提醒內容，例如：該睡了喔～" autocomplete="off"><select class="alc" aria-label="重複"><option value="0">一次</option><option value="1">每天</option><option value="2">工作天</option></select><small class="aln"></small></div>`).join('')}
+  <div class="line" style="justify-content:flex-start"><label><input type="checkbox" id="spalf"> 強制出聲（音效關閉時，提醒仍會響）</label></div>
+  <div class="line"><small>網頁開著時才會提醒；可選一次、每天或工作天（週一到週五）。時間到了，機器人會把這句話固定在畫面上，等你按「知道了」。</small></div>
+ </div>
  <div class="sec" id="spact"><h3>活躍度</h3>
   <div class="rbat" data-k="rbm"><span>訊息</span><div class="rbw"><div class="rbf" role="slider" tabindex="0" aria-label="訊息活躍度" aria-valuemin="1" aria-valuemax="5" data-tip="訊息活躍度"><i></i></div><u></u></div><small></small></div>
   <div class="rbat" data-k="rba"><span>動態</span><div class="rbw"><div class="rbf" role="slider" tabindex="0" aria-label="動態活躍度" aria-valuemin="1" aria-valuemax="5" data-tip="動態活躍度"><i></i></div><u></u></div><small></small></div>
@@ -3643,7 +3735,7 @@ function setpPaint(){
   sq('#spcs').value=String(+S.cs||0);mark('#sphz button',b=>+b.dataset.v===hzOf());sq('#sphh').checked=!!S.hh;sq('#sphh').disabled=!hzOf();sq('#sphl').classList.toggle('dis',!hzOf());
   sqa('.rbat').forEach(b=>{const k=b.dataset.k,n=rbLv(k),w=b.querySelector('.rbf');b.querySelector('i').style.width=(n===1?9:n*20)+'%';b.classList.toggle('low',n===1);b.querySelector('small').textContent=RBW[k][n-1];w.setAttribute('aria-valuenow',n);w.tabIndex=S.mute?-1:0});
   sq('#spact').classList.toggle('busy',!!S.mute);sq('#sprest').style.display=S.mute?'':'none';
-  sq('#spbk').value=String(S.bki||7);
+  sq('#spbk').value=String(S.bki||7);alRows();alPaint();
   if(AB.sup){sq('#spai').value=String(ABM.iv===undefined?300:ABM.iv);setpAbPaint()}
   const f=dfc(),ti=DFTPL.indexOf(f);sq('#dfn').textContent=ti>=0?DFNAME[ti]:'自訂';if(document.activeElement!==sq('#dff'))sq('#dff').value=S.df&&typeof S.df.f==='string'?S.df.f:DFDEF;
   sq('#sppv').textContent=dfText(new Date(),f)}
@@ -3654,7 +3746,7 @@ function setpAbPaint(){const s=sq('#spas');if(!s)return;const st=AB.st,nm={none:
   sq('#spab').textContent=st==='none'?'指定檔案並啟用…':'重新指定位置…'}
 function dfSet(f){S.df={f};save();setpPaint()}
 function setpOpen(){setp.classList.add('on');tabGo(0);setpPaint();playSfx('tick');ogPaint();profTuck()}
-function setpClose(quick){if(!setp.classList.contains('on'))return;setp.classList.remove('on');profUntuck(quick);if(!quick)playSfx('tick');ogPaint()}
+function setpClose(quick){if(!setp.classList.contains('on'))return;setp.classList.remove('on');alConfirm();profUntuck(quick);if(!quick)playSfx('tick');ogPaint()}
 function tabGo(i){mark('#setp .tabs button',b=>+b.dataset.t===i);sqa('.pg').forEach(p=>p.classList.toggle('on',+p.dataset.p===i));setp.scrollTop=0}
 
 /* ===== 個人檔案抽屜（1.57 改版） =====
@@ -3824,13 +3916,15 @@ async function clRun(sc){
     }else{
       S.notes.forEach(n=>{delete n.ore;delete n.coin;delete n.tk});
       S.xp=0;S.pick=0;S.tom=0;delete S.tmd;delete S.tz;delete S.hst;
-      S.tt={p:[0,1,2],n:[0,1],nw:[],sp:0,sn:0,up:0,show:S.tt&&S.tt.show===0?0:1,auto:S.tt&&S.tt.auto===0?0:1};S.ts=undefined;wr();
+      S.tt={p:[0,1,2],n:[0,1],nw:[],sp:0,sn:0,up:0,show:S.tt&&S.tt.show===0?0:1,auto:S.tt&&S.tt.auto===0?0:1};S.ts=undefined;S.rc=undefined;delete S.rcu;wr();
     }
   }catch(e){}
   const w=$('clw').querySelector('.wc');if(w)w.innerHTML='<h2>已清除</h2><p class="sub">正在重新載入……</p>';
   setTimeout(()=>location.reload(),500);
 }
 setp.querySelector('#spdz').onclick=clOpen;
+sqa('#spal .alr').forEach(el=>el.querySelectorAll('input,select').forEach(i=>i.addEventListener('change',()=>alRead(el))));
+sq('#spalf').onchange=e=>{S.alf=e.target.checked?1:0;save();playSfx('tick')};
 </script>
 </body>
 </html>
