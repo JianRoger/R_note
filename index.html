@@ -82,7 +82,7 @@ button,input,textarea{font:inherit;color:inherit}
 #snd>svg{transform:translateX(-1.5px)}#tsb>svg{transform:translateX(1.5px)}
 html.ph #plg{display:none!important}
 .sep{width:1px;height:22px;background:var(--ln);margin:0 4px;align-self:center;flex:none}
-.ore{padding:0;flex:none}
+.ore{padding:0;flex:none}.orem{flex:none;padding:0 6px;width:auto;font-size:12px;opacity:.8}
 .orew{display:flex;align-items:center;gap:6px;min-width:0;overflow:hidden}html.ph .orew{display:contents}
 .ore svg{display:block;filter:var(--oref)}
 .ore b{position:absolute;right:3px;bottom:1px;font-size:9px;font-weight:500;color:var(--tx);text-shadow:0 0 2px var(--cs),0 0 2px var(--cs)}
@@ -454,7 +454,7 @@ html.ph #tks{display:none!important}
 #hwa button:disabled{opacity:.4;cursor:default}
 .hwe{color:var(--dm);font-size:13px;padding:16px}
 #sysmsg .ln{max-width:var(--smw,none)}
-#sysmsg.wr .ln{white-space:normal}
+#sysmsg.wr .ln{white-space:normal;text-wrap:pretty}
 #sysmsg.wr .ln span{white-space:pre-wrap}
 #sysmsg.ovl .ln{background:var(--p1);border:1px solid var(--ln);border-radius:8px;padding:2px 8px;box-shadow:0 2px 8px rgba(0,0,0,.25)}
 #cabl .capr{flex:0 1 230px;min-width:130px;display:flex;align-items:center;gap:8px;font-size:12px;color:var(--dm)}
@@ -666,7 +666,7 @@ html{--rok:#3fb27f}html[data-th=d]{--rok:#2f9e6b}html[data-th=u]{--rok:#1f7d52}
 <body>
 <div class="app">
   <div id="logo" style="grid-column:1;grid-row:1;align-self:end;position:relative;z-index:22"><span id="ver" style="position:absolute;left:228px;top:12px;font-size:12px;color:var(--dm);pointer-events:none;user-select:none"></span>
-    <svg viewBox="0 0 106 36" width="240" style="display:block;fill:none;stroke:var(--tx);stroke-width:2.2px;stroke-linecap:round;stroke-linejoin:round" aria-label="R note"><rect id="rbox" x="1" y="2" width="24" height="32" rx="4" style="display:none;fill:color-mix(in srgb,var(--ry) 16%,transparent);stroke:color-mix(in srgb,var(--ry) 55%,transparent);stroke-width:1px;vector-effect:non-scaling-stroke"/><path d="M6 28V6h7a6 6 0 0 1 0 12H6M13 18l7 10" style="stroke:var(--ry);vector-effect:non-scaling-stroke"/><defs><linearGradient id="sg" x1="0" x2="1" y1="0" y2="0"><stop offset=".4" style="stop-color:var(--bg)" stop-opacity="0"/><stop offset="1" style="stop-color:var(--bg)" stop-opacity=".9"/></linearGradient><radialGradient id="osg" gradientUnits="userSpaceOnUse" cx="54" cy="20" r="13"><stop offset=".62" stop-color="#000" stop-opacity="0"/><stop offset=".645" stop-color="#000" stop-opacity=".42"/><stop offset=".8" stop-color="#000" stop-opacity=".16"/><stop offset="1" stop-color="#000" stop-opacity="0"/></radialGradient><radialGradient id="og"><stop offset="0" stop-color="#fff" stop-opacity=".95"/><stop offset=".6" stop-color="#fff" stop-opacity=".35"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient></defs><g id="ng" style="transform-box:fill-box;transform-origin:center"><path id="nl" d="M28 28V12M28 18a6 6 0 0 1 12 0v10" style="vector-effect:non-scaling-stroke"/><path id="nu" d="M28 28V12l12 16V12" style="vector-effect:non-scaling-stroke;opacity:0"/><rect id="nshade" x="26" y="4" width="16" height="26" fill="url(#sg)" opacity="0" style="stroke:none;pointer-events:none"/></g><circle id="oshade" cx="54" cy="20" r="13" fill="url(#osg)" style="display:none;stroke:none;pointer-events:none"/><circle cx="54" cy="20" r="8" style="vector-effect:non-scaling-stroke"/><circle id="odot" cx="54" cy="20" r="2.6" style="display:none;fill:#fff;stroke:none"/><circle id="oglow" cx="54" cy="20" r="7.4" fill="url(#og)" style="display:none;stroke:none;pointer-events:none"/><path d="M71 8v16a4 4 0 0 0 4 4h2M71 14h6" style="vector-effect:non-scaling-stroke"/><path id="tl" d="M66 14h5" style="vector-effect:non-scaling-stroke"/><path id="ep" d="M84 20h16a8 8 0 1 0-2.343 5.657" style="vector-effect:non-scaling-stroke"/><rect id="rhit" x="1" y="2" width="24" height="32" fill="transparent" stroke="none" style="pointer-events:all"/><rect id="ohit" x="44" y="10" width="20" height="20" fill="transparent" stroke="none" style="pointer-events:all"/><rect id="thit" x="64" y="4" width="16" height="28" fill="transparent" stroke="none" style="pointer-events:all"/><rect id="nhit" x="26" y="4" width="16" height="28" fill="transparent" stroke="none" style="pointer-events:all"/><rect id="ehit" x="82" y="10" width="20" height="20" fill="transparent" stroke="none" style="pointer-events:all"/></svg><div id="rglass"></div>
+    <svg viewBox="0 0 106 36" width="240" style="display:block;fill:none;stroke:var(--tx);stroke-width:2.2px;stroke-linecap:round;stroke-linejoin:round" aria-label="R note"><rect x="1" y="2" width="24" height="32" rx="4" style="display:none;fill:color-mix(in srgb,var(--ry) 16%,transparent);stroke:color-mix(in srgb,var(--ry) 55%,transparent);stroke-width:1px;vector-effect:non-scaling-stroke"/><path d="M6 28V6h7a6 6 0 0 1 0 12H6M13 18l7 10" style="stroke:var(--ry);vector-effect:non-scaling-stroke"/><defs><linearGradient id="sg" x1="0" x2="1" y1="0" y2="0"><stop offset=".4" style="stop-color:var(--bg)" stop-opacity="0"/><stop offset="1" style="stop-color:var(--bg)" stop-opacity=".9"/></linearGradient><radialGradient id="osg" gradientUnits="userSpaceOnUse" cx="54" cy="20" r="13"><stop offset=".62" stop-color="#000" stop-opacity="0"/><stop offset=".645" stop-color="#000" stop-opacity=".42"/><stop offset=".8" stop-color="#000" stop-opacity=".16"/><stop offset="1" stop-color="#000" stop-opacity="0"/></radialGradient><radialGradient id="og"><stop offset="0" stop-color="#fff" stop-opacity=".95"/><stop offset=".6" stop-color="#fff" stop-opacity=".35"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient></defs><g id="ng" style="transform-box:fill-box;transform-origin:center"><path id="nl" d="M28 28V12M28 18a6 6 0 0 1 12 0v10" style="vector-effect:non-scaling-stroke"/><path id="nu" d="M28 28V12l12 16V12" style="vector-effect:non-scaling-stroke;opacity:0"/><rect id="nshade" x="26" y="4" width="16" height="26" fill="url(#sg)" opacity="0" style="stroke:none;pointer-events:none"/></g><circle id="oshade" cx="54" cy="20" r="13" fill="url(#osg)" style="display:none;stroke:none;pointer-events:none"/><circle cx="54" cy="20" r="8" style="vector-effect:non-scaling-stroke"/><circle id="odot" cx="54" cy="20" r="2.6" style="display:none;fill:#fff;stroke:none"/><circle id="oglow" cx="54" cy="20" r="7.4" fill="url(#og)" style="display:none;stroke:none;pointer-events:none"/><path d="M71 8v16a4 4 0 0 0 4 4h2M71 14h6" style="vector-effect:non-scaling-stroke"/><path id="tl" d="M66 14h5" style="vector-effect:non-scaling-stroke"/><path id="ep" d="M84 20h16a8 8 0 1 0-2.343 5.657" style="vector-effect:non-scaling-stroke"/><rect id="rhit" x="1" y="2" width="24" height="32" fill="transparent" stroke="none" style="pointer-events:all"/><rect id="ohit" x="44" y="10" width="20" height="20" fill="transparent" stroke="none" style="pointer-events:all"/><rect id="thit" x="64" y="4" width="16" height="28" fill="transparent" stroke="none" style="pointer-events:all"/><rect id="nhit" x="26" y="4" width="16" height="28" fill="transparent" stroke="none" style="pointer-events:all"/><rect id="ehit" x="82" y="10" width="20" height="20" fill="transparent" stroke="none" style="pointer-events:all"/></svg><div id="rglass"></div>
   </div>
   <div id="sysmsg"></div>
   <div class="row" id="nr" style="grid-column:1;grid-row:2">
@@ -696,7 +696,7 @@ html{--rok:#3fb27f}html[data-th=d]{--rok:#2f9e6b}html[data-th=u]{--rok:#1f7d52}
 <script>
 const RBM=[16,12,7,4,2],RBA=[.25,.5,.75,1,1],RBI=[20,10,7,5,2.5];function rbLv(k){const v=+S[k];return v>=1&&v<=5?Math.floor(v):4}
 const TKMAX=9,TKLIVE=false;const TKS={s:26};let gmOn=false,gmCoin=0,gmTom=0,gmTk=0,tomPend=0,tomHold=0;
-const VERSION='1.62';const APPNAME='R note';
+const VERSION='1.66';const APPNAME='R note';
 const PROMO_URL='https://line.me/S/shop/sticker/author/123908';
 const PH=(()=>{try{const q=new URLSearchParams(location.search).get('phone');if(q==='1')return true;if(q==='0')return false;return matchMedia('(pointer:coarse)').matches&&!matchMedia('(hover:hover)').matches&&Math.min(screen.width,innerWidth)<=820}catch(e){return false}})();
 document.documentElement.classList.toggle('ph',PH);
@@ -853,7 +853,7 @@ $('pn').onclick=async()=>{
   if(addNote(uniq(o,null),tx.replace(/\r\n?/g,'\n'),'📋')){slabTop();tCnt('pst')}
 };
 let arcWarn=null;
-ta.oninput=()=>{const n=byId(S.sel);if(!n)return;hBefore(n);tEdit(n);if(n.archived||n.vault){if(arcWarn!==n.id){arcWarn=n.id;say('溫馨提醒：你現在正在編輯「'+(n.vault?'暗格':'封存')+'」裡面的文章。',{lv:'info',id:'arcwarn',hold:6000})}}else arcWarn=null;n.content=ta.value;n.modified=Date.now();save();meta()};
+ta.oninput=()=>{const n=byId(S.sel);if(!n)return;hBefore(n);tEdit(n);if(n.archived||n.vault){if(arcWarn!==n.id){arcWarn=n.id;say('溫馨提醒：你現在正在編輯「'+(n.vault?'暗格':'封存')+'」裡面的文章。',{lv:'info',id:'arcwarn'})}}else arcWarn=null;n.content=ta.value;n.modified=Date.now();save();meta()};
 $('sq').onkeydown=e=>{if(e.key=='Enter'&&!e.isComposing){S.q=e.target.value.trim().toLowerCase();if(S.q)cabV=false;sIdx=0;fms.clear();fmulti=false;playSfx('search');render();searchMsg()}};
 $('sq').oninput=e=>{if(!e.target.value.trim()&&S.q){S.q='';render()}else if(S.q)fitSq()};
 document.querySelectorAll('.sb').forEach(b=>b.onclick=()=>{
@@ -953,7 +953,7 @@ function setIn(x){if(!x||typeof x!=='object')return null;const o={};
   if([0,1,2].includes(x.hz))o.hz=x.hz;
   if('hh' in x)o.hh=x.hh?1:0;
   ['rbm','rba'].forEach(k=>{if(+x[k]>=1&&+x[k]<=5)o[k]=Math.floor(+x[k])});
-  if(Array.isArray(x.al)&&x.al.length===2)o.al=x.al.map(r=>{r=r||{};const md=[0,1,2].includes(+r.md)?+r.md:(r.once?0:1);const t=/^([01]\d|2[0-3]):[0-5]\d$/.test(r.t)?r.t:'22:00',on=r.on?1:0;return{on,t,m:String(r.m||'').slice(0,30),md,nx:on?alNext(t,Date.now(),md):0}});
+  if(Array.isArray(x.al)&&x.al.length===2)o.al=x.al.map((r,i)=>{r=r||{};const md=[0,1,2].includes(+r.md)?+r.md:(r.once?0:1);const t=/^([01]\d|2[0-3]):[0-5]\d$/.test(r.t)?r.t:(i?'23:00':'07:00'),on=r.on?1:0;return{on,t,m:String(r.m||'').slice(0,30),md,nx:on?alNext(t,Date.now(),md):0}});
   if('alf' in x)o.alf=x.alf?1:0;
   if(+x.bki>=1&&+x.bki<=720)o.bki=Math.floor(+x.bki);
   if(x.df&&typeof x.df.f==='string'&&x.df.f.length<=120)o.df={f:x.df.f};
@@ -971,7 +971,7 @@ $('exp').onclick=()=>{
   const d=new Date(),a=document.createElement('a');
   a.href=URL.createObjectURL(new Blob([JSON.stringify(buildExport(d),null,2)],{type:'application/json;charset=utf-8'}));
   a.download=`R_note_backup_${d.getFullYear()}${p2(d.getMonth()+1)}${p2(d.getDate())}_${p2(d.getHours())}${p2(d.getMinutes())}.json`;a.click();URL.revokeObjectURL(a.href);
-  S.lastExport=Date.now();S.bkN=S.notes.length;S.bkF=S.folders.length;save();chk();
+  S.lastExport=Date.now();S.bkN=S.notes.length;S.bkF=S.folders.length;save();chk();guideDone('exp');
 };
 function importJson(j){
   const newer=parseFloat(j.appVersion||0)>parseFloat(VERSION),g2=j.global&&j.global.coin>0,seen={},now=Date.now();
@@ -1099,10 +1099,11 @@ ta.addEventListener('input',e=>{
   glow();if(comp||e.isComposing)return;
   const t=e.inputType||'',n=ta.value.length-fxPrev,h=fxHint;fxPrev=ta.value.length;fxHint=null;
   if(h==='tab')return;
-  if(t.indexOf('delete')===0){{const d=-n,bf=ta.value.length+d,w=Date.now();if(d>=100&&d>=bf*.5&&w-(A.delAt||0)>=10*60000&&chat(pickOf(['剛剛那些我都看見了。（其實沒有）','誤刪的話先按 Ctrl＋Z，也可以到檔案櫃找「全筆記歷史紀錄」。']),'startle'))A.delAt=w}if(S.fx.chips){const c=carets([ta.selectionStart])[0],p=pos(c);spawn(p.x,p.y+lh()*.8,2,'dust')}return}
+  if(t.indexOf('delete')===0){{const d=-n,bf=ta.value.length+d,w=Date.now();if(d>=100&&d>=bf*.5&&w-(A.delAt||0)>=10*60000&&chat(pickOf(['剛剛那些我都看見了。（其實沒有）','誤刪先按 Ctrl＋Z，或到檔案櫃找「全筆記歷史紀錄」。']),'startle'))A.delAt=w}if(S.fx.chips){const c=carets([ta.selectionStart])[0],p=pos(c);spawn(p.x,p.y+lh()*.8,2,'dust')}return}
   if(t=='insertLineBreak')return;
+  // 1.64：打過的字一律算（含框選後直接打字覆蓋、輸入法一次送出很多字）；貼上、拖入、插入日期不算
+  if(h!='date'&&!/Paste|Drop/.test(t)){if(/^insert(Text|ReplacementText)$/.test(t)&&e.data)tTyped(wcCount(e.data));else if(n>0&&n<=8)tTyped(wcCount(ta.value.slice(Math.max(0,ta.selectionStart-n),ta.selectionStart)))}
   if(n<=0)return;
-  if(n<=8&&h!='date'&&!/Paste|Drop/.test(t))tTyped(wcCount(ta.value.slice(Math.max(0,ta.selectionStart-n),ta.selectionStart)));
   if(n>8&&h!='date'&&S.fx.chips&&!RM())playSfx('paste');
   burst(n,h);
 });
@@ -1154,6 +1155,10 @@ function shelf(){
   const cn=gmOn?gmCoin:n.coin,rdy=bagRdy(n),bag=`<span class="bagw${rdy?' rdy':''}"${rdy?' data-tip="點擊兌換番茄鐘"':''}>${bagSvg(34)}${rdy?'<span class="bgt">'+TKI(34)+'</span>':''}</span>`+(cn>0?`<span class="coin" data-tip="共 ${cn.toLocaleString('en-US')} 金幣${gmOn?'．下一顆 '+tkNext(gmTk):''}">${fmtCoin(cn)}</span>`:'');
   if(PH){pb.innerHTML=bag}else{h='<span class="orew">'+h+'</span>';if(ids.length)h+='<span class="sep"></span>';h+=bag}
   el.innerHTML=h;
+  // 1.64：礦石列放不下時，從最後面收起來，改成「+N」（滑過看收起來的是哪些）
+  if(!PH){const w=el.querySelector('.orew');if(w&&w.scrollWidth>w.clientWidth+1){const bs=[...w.querySelectorAll('.ore')],more=document.createElement('span');more.className='ib orem';w.appendChild(more);const hid=[];
+    while(bs.length>1&&w.scrollWidth>w.clientWidth+1){const b=bs.pop();hid.unshift(+b.dataset.i);b.remove();more.textContent='+'+hid.length}
+    if(!hid.length)more.remove();else more.dataset.tip='還有 '+hid.length+' 種礦石沒顯示，視窗拉寬就看得到'}}
   if(!RM())el.querySelectorAll('.ore').forEach(b=>{const p=prev[b.dataset.i];if(p===undefined)return;const dx=p-b.getBoundingClientRect().left;if(Math.abs(dx)>1)b.animate([{transform:`translateX(${dx}px)`},{transform:'none'}],{duration:150,easing:'ease-out'})});
   {const k=ids.length+':'+String(cn).length;if(k!==shelf.k){shelf.k=k;if(L.xb&&!PH)xpWidth()}}  // 礦石列變寬時，重新檢查提示熱區
 }
@@ -1171,7 +1176,7 @@ const fmtWan=x=>x>=1e6?Math.round(x/1e4)+'萬':x>=1e4?(x/1e4).toFixed(1)+'萬':x
 function capInfo(){let u=0;try{for(let i=0;i<localStorage.length;i++){const k=localStorage.key(i);u+=k.length+(localStorage.getItem(k)||'').length}}catch(e){}return{u,p:Math.min(100,Math.round(u/CAPN*100)),t:'約 '+fmtWan(u)+'／'+fmtWan(CAPN)+'字'}}
 let capAt=0;
 function capCheck(){try{const now=Date.now();if(now-capAt<30000)return;capAt=now;const c=capInfo(),lv=c.p>=95?95:c.p>=80?80:0;
-  if(lv>(MS.cap||0)){MS.cap=lv;msSave();say('資料量已用 '+c.p+'%，建議匯出備份，也可以整理舊筆記。',{lv:lv>=95?'warn':'info',hold:8000,rx:lv>=95?'warn':'nod'})}
+  if(lv>(MS.cap||0)){MS.cap=lv;msSave();say('資料量已用 '+c.p+'%，建議匯出備份，也可以整理舊筆記。',{lv:lv>=95?'warn':'info',rx:lv>=95?'warn':'nod'})}
   else if(c.p<70&&MS.cap){MS.cap=0;msSave()}}catch(e){}}
 function tomUse(k){k=Math.max(0,Math.floor(+k||0));if(!k)return;if(gmOn)gmTom=Math.max(0,gmTom-k);else{S.tom=Math.max(0,(S.tom||0)-k);if(S.tom===0)S.tz=1;save()}tomPaint(true)}
 const tzHint=()=>!PH&&!!S.tz&&S.tmd!==dayKey();
@@ -1179,13 +1184,13 @@ setTimeout(function(){if(PH)return;const a=$('nt'),b=$('sq');a.placeholder='輸�
 function tomGift(k){
   if(gmOn)gmTom=Math.min(TKMAX,gmTom+k);else{S.tom=Math.min(TKMAX,(S.tom||0)+k);S.tz=0;save()}
   tkFly(k,null,true);
-  if(!MS.tom){MS.tom=1;msSave();setTimeout(()=>say('獲得隱藏獎勵：番茄鐘 ×'+k+'！先收著，之後會用到。',{lv:'info',id:'tomg',hold:8000,rx:'ok'}),400)}}
+  if(!MS.tom){MS.tom=1;msSave();setTimeout(()=>say('獲得隱藏獎勵：番茄鐘 ×'+k+'！先收著，之後會用到。',{lv:'info',id:'tomg',rx:'ok'}),400)}}
 function tomSearch(){if(pend||PH)return;tCnt('pk');
   if(!gmOn){if(!TKLIVE)return;if(S.tmd===dayKey())return}  // 一般版：今天領過就是一般搜尋
-  if(TKMAX-(gmOn?gmTom:(S.tom||0))<2){say('你的番茄鐘滿了，我沒辦法再送你更多。',{lv:'info',id:'tomfull',hold:6000,rx:'nod'});return}  // 不超出、不浪費：缺額不到 2 顆就整筆不給
+  if(TKMAX-(gmOn?gmTom:(S.tom||0))<2){say('你的番茄鐘滿了，我沒辦法再送你更多。',{lv:'info',id:'tomfull',rx:'nod'});return}  // 不超出、不浪費：缺額不到 2 顆就整筆不給
   if(!gmOn)S.tmd=dayKey();tomGift(2)}
 function tomGain(k){if(pend||PH)return;if(gmOn)gmTom=Math.min(TKMAX,gmTom+k);else{S.tom=Math.min(TKMAX,(S.tom||0)+k);S.tz=0}save();tomPaint(true);playSfx('coin',k);
-  if(!MS.tom){MS.tom=1;msSave();setTimeout(()=>say('獲得隱藏獎勵：番茄鐘 ×'+k+'！先收著，之後會用到。',{lv:'info',id:'tomg',hold:8000,rx:'ok'}),400)}}
+  if(!MS.tom){MS.tom=1;msSave();setTimeout(()=>say('獲得隱藏獎勵：番茄鐘 ×'+k+'！先收著，之後會用到。',{lv:'info',id:'tomg',rx:'ok'}),400)}}
 const tkNext=h=>h<1?1000:5000*h;
 const tkDue=c=>c>=5000?1+Math.floor(c/5000):c>=1000?1:0;
 function tkFly(k,el,gift){
@@ -1214,12 +1219,12 @@ function tkClaim(n,el){
   const room=TKMAX-(gmOn?gmTom:(S.tom||0));if(room<=0)return;const g=Math.min(k,room);
   if(gmOn){gmTk+=g;gmTom+=g}else{n.tk=have+g;S.tom=(S.tom||0)+g;S.tz=0;save()}
   if(gmOn){shelf();el=document.querySelector('.bagw')}tkFly(g,el);
-  if(!gmOn&&!MS.tkb){MS.tkb=1;msSave();setTimeout(()=>say('錢袋裝滿了，孵出番茄鐘！',{lv:'info',id:'tkb',hold:6000,rx:'ok'}),1200)}}
+  if(!gmOn&&!MS.tkb){MS.tkb=1;msSave();setTimeout(()=>say('錢袋裝滿了，孵出番茄鐘！',{lv:'info',id:'tkb',rx:'ok'}),1200)}}
 function tkBack(quiet){if(!TKLIVE)return;let room=TKMAX-(S.tom||0),g=0,ch=false;
   S.notes.forEach(n=>{const have=+n.tk||0,k=Math.min(tkDue(+n.coin||0)-have,room);if(n.tk===undefined||k>0){n.tk=have+Math.max(0,k);ch=true}if(k>0){room-=k;g+=k}});
   if(g>0){S.tom=(S.tom||0)+g;S.tz=0}
   if(ch){save();tomPaint()}
-  if(g>0&&!quiet)setTimeout(()=>say('舊筆記的錢袋，補給你 '+g+' 顆番茄鐘。',{lv:'info',hold:7000,rx:'ok'}),800)}
+  if(g>0&&!quiet)setTimeout(()=>say('舊筆記的錢袋，補給你 '+g+' 顆番茄鐘。',{lv:'info',rx:'ok'}),800)}
 function sell(i){if(pend){lockMsg();return}
   const n=byId(S.sel);if(!n)return;if(!gmOn&&(!n.ore||!n.ore[i]))return;
   const c=gmOn?99:n.ore[i];let t=0;if(i==0){for(let k=0;k<c;k++)t+=150+Math.floor(Math.random()*151)}else t=c*PR[i];
@@ -1285,7 +1290,7 @@ $('nhit').onclick=()=>{
 $('dy').onclick=()=>{const d=new Date();tDiary();const ttl=uniq(`${d.getFullYear()}/${p2(d.getMonth()+1)}/${p2(d.getDate())}_週${'日一二三四五六'[d.getDay()]}`,null);
   if(addNote(ttl,'','📕')){ta.focus();dyQuip(ttl)}};
 function dyQuip(t){if(PH)return;const m=/\((\d+)\)$/.exec(t),k=m?+m[1]:0,key=k===3?'q3':k===10?'q10':'';if(!key)return;const dk=dayKey();if(MS[key]===dk)return;MS[key]=dk;msSave();
-  setTimeout(()=>say(k===3?'今天有這麼多祕密要藏嗎？':'今天的日記已經第十篇了，要不要回頭整理一下，把不要的刪掉？',{lv:'info',hold:7000,rx:'nod'}),500)}
+  setTimeout(()=>say(k===3?'今天有這麼多祕密要藏嗎？':'今天的日記已經第十篇了，要不要回頭整理一下，把不要的刪掉？',{lv:'info',rx:'nod'}),500)}
 
 const GMSEQ='RLLOOSMSM',gmBuf=[];
 function gmEnter(){if(gmOn)return;gmOn=true;tGet('n',25);gmCoin=0;gmTom=0;gmTk=0;gmXp=1e9;gmPick=0;const v=$('ver'),g=document.createElement('span');g.id='gm';g.textContent=' GM';g.style.cssText='font-size:14px;font-weight:600;color:var(--tx);margin-left:2px;opacity:0;transition:opacity .6s';v.appendChild(g);requestAnimationFrame(()=>{g.style.opacity='1'});applyTh();tomPaint();shelf()}
@@ -1495,7 +1500,7 @@ function paintPlug(){const p=$('plgp');if(!p)return;const k=(S.tpk|0)%6,yl=k>2?2
 const TIMB=['薄瓷','檜木','磚塊','霓虹','蘆笛','琉璃'];
 function paintTs(){const b=$('tsb');if(!b)return;paintPlug();if(!b.innerHTML)b.innerHTML=NOTE;b.dataset.tip='音色：'+(TIMB[S.tpk]||'')+(S.sfx?'':'\n音效關閉中')+'\n'+(S.tpk+1)+'/6 右鍵可選';if(typeof tcur!=='undefined'&&tcur===b&&tip.style.display==='block')tip.textContent=b.dataset.tip}
 function tsPreview(){try{if(!actx())return;const g=MG.gain.value;if(!S.sfx)MG.gain.value=VOL[1];const id=curPack(),sx=SFXS[id]||(SFXS[id]=build(id));[0,90,180,300].forEach((d,k)=>setTimeout(()=>{try{k<3?sx.key():sx.commit()}catch(e){}},d));if(!S.sfx)setTimeout(()=>{MG.gain.value=VOL[S.sfx]||0},900)}catch(e){}}
-$('tsb').onclick=()=>{S.tpk=(S.tpk+1)%6;save();paintTs();if(!S.sfx&&!PH)say('音效現在關著，打字時聽不到這個音色。',{lv:'info',id:'tsmute',hold:7000,rx:'nod',actions:[{label:'打開音效',fn:()=>{sayOff('tsmute');S.sfx=1;save();paintSnd();playSfx('vol')}}]});const b=$('tsb');b.removeAttribute('data-n');void b.offsetWidth;b.dataset.n=S.tpk+1;clearTimeout(b._tn);b._tn=setTimeout(()=>b.removeAttribute('data-n'),1600);tsPreview()};
+$('tsb').onclick=()=>{S.tpk=(S.tpk+1)%6;save();paintTs();if(!S.sfx&&!PH)say('音效現在關著，打字時聽不到這個音色。',{lv:'info',id:'tsmute',rx:'nod',actions:[{label:'打開音效',fn:()=>{sayOff('tsmute');S.sfx=1;save();paintSnd();playSfx('vol')}}]});const b=$('tsb');b.removeAttribute('data-n');void b.offsetWidth;b.dataset.n=S.tpk+1;clearTimeout(b._tn);b._tn=setTimeout(()=>b.removeAttribute('data-n'),1600);tsPreview()};
 function paintSnd(){paintTs();const b=$('snd');b.innerHTML=sv('vol'+S.sfx);b.dataset.tip=SNDT[S.sfx];b.classList.toggle('on',S.sfx>0)}
 $('snd').onclick=()=>{S.sfx=[2,0,1][S.sfx];save();paintSnd();playSfx('vol')};
 document.addEventListener('click',e=>{
@@ -1540,96 +1545,114 @@ function fitSq(){
   mcv.font=getComputedStyle(i).font;
   f.style.flex='0 1 '+(Math.ceil(mcv.measureText(i.value||S.q).width)+32+32+2)+'px';
 }
-const SM={list:[],LH:20};
+const SM={list:[],LH:20,q:[]};
 function smFit(){const h=$('sysmsg');if(!h||PH)return;const row=document.querySelector('#tr .row'),hr=h.getBoundingClientRect(),rr=row?row.getBoundingClientRect():null;if(!rr||!rr.width||!hr.width)return;const sx=parseFloat(getComputedStyle(h).getPropertyValue('--smx'))||11,left=hr.left+sx;let av=Math.floor(rr.left-left-10),ov=false;if(av<150){ov=true;av=Math.max(150,Math.min(360,innerWidth-left-12))}h.classList.add('wr');h.classList.toggle('ovl',ov);h.style.setProperty('--smw',av+'px')}
 addEventListener('resize',()=>{smFit();if(SM.list.length)smLayout()});
+/* ===== 1.64 訊息規則（越單純越好）=====
+   兩種訊息：「會走的」(info/tip/warn) 與「要按的」(act/wait/crit、鬧鐘、匯入確認、引導)。
+   1. 會走的停留一條公式：4 秒＋每字 0.05 秒；有按鈕或是警告 ×2。警告可點掉。
+   2. 時間到就走，比它舊的一起走（舊的在上面先飛）；不排隊。
+   3. 放不下時最舊的會走的提早走（一樣是上飄）。
+   4. 離場中飛出訊息區後，被下面飛上來的字碰到就消失。
+   5. 同一句話已經在場：不新增，原句跳一下並重新計時（帶按鈕的換成新按鈕）。
+   6. 要按的最多 2 則，滿了排隊，前面的按掉才出現。 */
 function smLayout(){
   smFit();
   const H=$('sysmsg').clientHeight-4,live=SM.list.filter(m=>!m.leaving);
   const order=live.filter(m=>!m.sticky).concat(live.filter(m=>m.sticky));
   let tot=0;order.forEach(m=>{m.h=m.el.offsetHeight||SM.LH;tot+=m.h});
-  while(tot>H){const v=order.find(m=>!m.sticky);if(!v)break;tot-=v.h;order.splice(order.indexOf(v),1);retire(v,true,true)}
+  while(tot>H){const v=order.find(m=>!m.sticky);if(!v)break;tot-=v.h;order.splice(order.indexOf(v),1);retire(v,false,true)}
   let y=H-tot;
   order.forEach(m=>{m.y=y;m.el.style.transform=`translateY(${y}px)`;y+=m.h});
 }
 function retire(m,fast,nl){
   if(!m||m.leaving)return;
-  m.leaving=true;m.tm.forEach(clearTimeout);if(fast)m.fastOut=1;
+  m.leaving=true;m.tm.forEach(clearTimeout);
   const el=m.el,gone=d=>setTimeout(()=>{el.remove();SM.list=SM.list.filter(x=>x!==m)},d);
   el.style.pointerEvents='none';
   if(RM()){gone(0)}
-  else if(fast){
-    el.style.transition='transform .22s ease-out,opacity .3s ease-out';
-    el.style.transform=`translateY(${-SM.LH}px)`;el.style.opacity='0';gone(380);
-  }else{
-    const rise=2400,hit=480,fade=2000;m.leaveEnd=Date.now()+rise+hit+fade;
+  else if(fast){m.out=1;el.style.transition='opacity .15s linear';el.style.opacity='0';gone(200)}
+  else{
+    const rise=nl?1200:2400,hit=480,fade=nl?1200:2000;   // 1.65：被擠走的飛快一點，少跟新訊息疊在一起
     const ceil=-($('sysmsg').getBoundingClientRect().top)-2;
-    el.style.transition=`transform ${rise}ms cubic-bezier(.45,0,.9,.6),opacity ${fade}ms linear ${rise+hit}ms`;
+    el.style.transition=`transform ${rise}ms ${nl?'cubic-bezier(.3,.5,.7,1)':'cubic-bezier(.45,0,.9,.6)'},opacity ${fade}ms linear ${rise+hit}ms`;
     el.style.transform=`translateY(${ceil}px)`;el.style.opacity='0';
-    m.tm.push(setTimeout(()=>{if(el.isConnected)el.animate([{transform:`translateY(${ceil}px)`},{transform:`translateY(${ceil+4}px)`,offset:.32},{transform:`translateY(${ceil}px)`,offset:.6},{transform:`translateY(${ceil+1.5}px)`,offset:.8},{transform:`translateY(${ceil}px)`}],{duration:hit,easing:'ease-out'})},rise));
-    gone(rise+hit+fade+120);
+    m.tm.push(setTimeout(()=>{if(el.isConnected&&!m.out)el.animate([{transform:`translateY(${ceil}px)`},{transform:`translateY(${ceil+4}px)`,offset:.32},{transform:`translateY(${ceil}px)`,offset:.6},{transform:`translateY(${ceil+1.5}px)`,offset:.8},{transform:`translateY(${ceil}px)`}],{duration:hit,easing:'ease-out'})},rise));
+    gone(rise+hit+fade+120);smBump();
   }
   if(!nl)smLayout();
   rbRel(m);
+  if(m.sticky)setTimeout(smFlush,0);
 }
-function shove(){
-  const host=$('sysmsg'),hr=host.getBoundingClientRect(),live=SM.list.filter(m=>!m.leaving);if(!live.length||RM())return;
-  const lim=Math.min(...live.map(m=>m.y)),ceil=-hr.top-2;
-  SM.list.filter(m=>m.leaving&&!m.fastOut&&!m.shoved).forEach(m=>{
-    const cur=m.el.getBoundingClientRect().top-hr.top-4;
-    if(cur>lim-SM.LH+2){m.shoved=1;m.el.style.transition='transform .5s ease-out,opacity 2000ms linear';m.el.style.transform=`translateY(${ceil}px)`}
-  });
-}
-function sayOff(id){SM.list.filter(m=>m.id===id&&!m.leaving).forEach(m=>retire(m,false))}
+// 規則 4：飛出訊息區的字被下面飛上來的字碰到就淡掉
+function smBump(){if(SM.raf)return;const f=()=>{
+  const fl=SM.list.filter(m=>m.leaving&&!m.out).sort((a,b)=>a.born-b.born);if(!fl.length){SM.raf=0;return}
+  const top=$('sysmsg').getBoundingClientRect().top,r=fl.map(m=>m.el.getBoundingClientRect());
+  for(let i=0;i<fl.length;i++){if(r[i].top>=top)continue;for(let j=i+1;j<fl.length;j++){if(r[j].top<r[i].bottom-2){const m=fl[i];m.out=1;m.el.getAnimations().forEach(a=>a.cancel());m.el.style.transition='opacity .15s linear';m.el.style.transform=`translateY(${r[i].top-top-4}px)`;m.el.style.opacity='0';break}}}
+  SM.raf=requestAnimationFrame(f)};SM.raf=requestAnimationFrame(f)}
+function sayOff(id){SM.q=SM.q.filter(x=>x[1].id!==id);SM.list.filter(m=>m.id===id&&!m.leaving).forEach(m=>retire(m,false))}
+const smHas=id=>SM.list.some(m=>m.id===id&&!m.leaving)||SM.q.some(x=>x[1].id===id);
+function smFlush(){const st=SM.list.filter(m=>m.sticky&&!m.leaving).length;if(st<2&&SM.q.length){const x=SM.q.shift();say(x[0],x[1])}}
 function waveLoop(m){
   if(m.leaving||RM())return;
   m.sp.forEach((s,i)=>s.animate([{transform:'translateY(0)'},{transform:'translateY(-5px)'},{transform:'translateY(0)'}],{duration:560,delay:i*45,easing:'ease-in-out'}));
   m.tm.push(setTimeout(()=>waveLoop(m),3600+m.sp.length*45));
 }
-function tryLeave(m){
-  if(m.leaving)return;
-  const now=Date.now();
-  if(SM.list.some(x=>x!==m&&!x.sticky&&((!x.leaving&&x.born<m.born)||(x.leaving&&x.leaveEnd>now)))){m.tm.push(setTimeout(()=>tryLeave(m),300));return}
-  retire(m,false);
-}
+// 規則 2：時間到，連同比它舊的會走的一起走
+function leaveNow(m){if(m.leaving)return;SM.list.filter(x=>!x.leaving&&!x.sticky&&x.born<=m.born).sort((a,b)=>a.born-b.born).forEach(x=>retire(x,false))}
+const smAct=(m,acts)=>{m.el.querySelectorAll('button').forEach(b=>b.remove());(acts||[]).forEach(a=>{const bt=document.createElement('button');bt.textContent=a.label;bt.onclick=ev=>{ev.stopPropagation();playSfx('ui');a.fn()};m.el.appendChild(bt)})};
 function say(text,o){
   o=o||{};const lv=o.lv||'info',host=$('sysmsg');if(!host||!text)return;if(PH&&lv!=='warn'&&lv!=='crit')return;
-  if(o.id&&SM.list.some(m=>m.id===o.id&&!m.leaving))return;
-  const sticky=lv==='wait'||lv==='crit'||lv==='act',warn=lv==='warn'||lv==='crit';
-  if(!sticky&&!o.actions){
-    const ex=SM.list.find(m=>!m.leaving&&m.text===text);
+  if(o.id&&smHas(o.id))return;
+  const sticky=lv==='wait'||lv==='crit'||lv==='act'||!!o.guide,warn=lv==='warn'||lv==='crit';
+  {const ex=SM.list.find(m=>!m.leaving&&m.text===text);
     if(ex){
       if(!RM())ex.sp.forEach((x,i)=>x.animate([{transform:'translateY(0)'},{transform:'translateY(-5px)'},{transform:'translateY(0)'}],{duration:420,delay:i*25,easing:'ease-out'}));
-      if(ex.done&&ex.hv){ex.tm.forEach(clearTimeout);ex.tm=[setTimeout(()=>tryLeave(ex),ex.hv)]}
-      rbReact(ex,ex.rx0,o.rxd);return}
-  }
-  if(sticky){const st=SM.list.filter(m=>m.sticky&&!m.leaving);if(st.length>=2){const v=st.find(m=>!m.pin)||(lv==='crit'?st[0]:null);if(!v)return;retire(v,true)}}
-  const m={id:o.id||null,text,rx0:o.rx||{info:'nod',wait:'wait',warn:'warn',crit:'crit',act:'act'}[lv],lv,sticky,pin:!!o.pin,leaving:false,el:document.createElement('div'),tm:[],born:Date.now(),sp:[]};
+      if(ex.done&&o.actions)smAct(ex,o.actions);
+      if(ex.done&&ex.hv){ex.tm.forEach(clearTimeout);ex.tm=[setTimeout(()=>leaveNow(ex),ex.hv)]}
+      rbReact(ex,ex.rx0,o.rxd);return}}
+  if(sticky&&SM.list.filter(m=>m.sticky&&!m.leaving).length>=2){const g=!o.guide&&SM.list.find(m=>m.guide&&!m.leaving);if(g)retire(g,false);else{SM.q.push([text,o]);return}}   // 1.65：要按的滿了，引導先讓位（下次再問）
+  const m={id:o.id||null,text,rx0:o.rx||{info:'nod',wait:'wait',warn:'warn',crit:'crit',act:'act'}[lv],lv,sticky,guide:o.guide||null,pin:!!o.pin,leaving:false,el:document.createElement('div'),tm:[],born:Date.now(),sp:[]};
   m.el.className='ln'+(warn?' w':'');if(RM())m.el.style.transition='none';
   const chars=[...String(text)];let ls=-1,le=-1;
   if(o.link){const w=[...o.link.word];for(let i=0;i+w.length<=chars.length;i++){if(chars.slice(i,i+w.length).join('')===w.join('')){ls=i;le=i+w.length;break}}}
   chars.forEach((c,i)=>{const sp=document.createElement('span');sp.textContent=c;if(!RM())sp.style.opacity='0';if(i>=ls&&i<le){sp.style.textDecoration='underline';sp.style.cursor='pointer';sp.style.pointerEvents='auto';sp.onclick=ev=>{ev.stopPropagation();window.open(o.link.url,'_blank','noopener')}}m.el.appendChild(sp);m.sp.push(sp)});
   if(warn){m.el.style.pointerEvents='auto';m.el.style.cursor='pointer';m.el.onclick=()=>retire(m,false)}
-  host.appendChild(m.el);SM.list.push(m);smLayout();shove();
+  host.appendChild(m.el);SM.list.push(m);smLayout();
   rbReact(m,o.rx||{info:'nod',wait:'wait',warn:'warn',crit:'crit',act:'act'}[lv],o.rxd);
   const typed=()=>{
     if(m.leaving)return;
-    if(o.actions)o.actions.forEach(a=>{const bt=document.createElement('button');bt.textContent=a.label;bt.onclick=ev=>{ev.stopPropagation();playSfx('ui');a.fn()};m.el.appendChild(bt)});
+    if(o.actions)smAct(m,o.actions);
     if(lv==='wait')waveLoop(m);
-    else if(!sticky){m.hv=o.hold||((warn?9000:4200)+m.sp.length*(warn?60:50));m.tm.push(setTimeout(()=>tryLeave(m),m.hv))}
+    else if(!sticky){m.hv=(4000+m.sp.length*50)*(warn||o.actions?2:1);m.tm.push(setTimeout(()=>leaveNow(m),m.hv))}
     m.done=true;
   };
   let i=0;
   const step=()=>{if(m.leaving)return;if(i<m.sp.length){m.sp[i++].style.opacity='';m.tm.push(setTimeout(step,26))}else typed()};
   if(RM()||o.instant){m.sp.forEach(x=>x.style.opacity='');typed()}else step();
 }
+/* ===== 1.64 引導：邀請使用者試一個還不知道的東西。
+   不自己飄走；做了（guideDone）或開始打字就收；每則最多問兩次；一次一則；
+   一天最多 2 則（開局的選色調、t e、光色連點不算）；正在打字時先等。 ===== */
+const GFREE={thm:1,tut:1,ths:1};
+function guide(k,text,o){
+  if(PH)return;const G=MS.g||(MS.g={});if((G[k]|0)>=2)return;
+  const d=dayKey();if(MS.gd!==d){MS.gd=d;MS.gn=0}
+  if(!GFREE[k]&&(MS.gn|0)>=2)return;
+  if(smHas(k))return;
+  if(SM.list.some(m=>m.guide&&!m.leaving)||SM.q.some(x=>x[1].guide)||Date.now()-(A.lt||0)<3000||pend){clearTimeout(guide['t'+k]);const n=guide['n'+k]=(guide['n'+k]|0)+1;if(n<=20)guide['t'+k]=setTimeout(()=>guide(k,text,o),3000);return}   // 1.65：最多等 20 次（約 1 分鐘），下次開網頁再說
+  guide['n'+k]=0;G[k]=(G[k]|0)+1;if(!GFREE[k])MS.gn=(MS.gn|0)+1;msSave();
+  say(text,Object.assign({lv:'act',rx:'tip'},o,{id:k,guide:k}));
+}
+function guideDone(k){const G=MS.g||(MS.g={});G[k]=9;msSave();clearTimeout(guide['t'+k]);sayOff(k)}
+ta.addEventListener('input',()=>{SM.list.filter(m=>m.guide&&!m.leaving).forEach(m=>retire(m,false));SM.q=SM.q.filter(x=>!x[1].guide)});
 let tutA=false,tutDone=false,tutF={t:0,e:0};
 const tutCond=()=>S.notes.some(n=>n.icon==='📜')&&S.notes.every(n=>n.icon==='📜'||!String(n.content).trim());
 function tutCheck(){
   if(PH||tutDone||tutA)return;
-  if(tutCond()){tutA=true;tutF={t:0,e:0};const go=()=>{if(!tutA||tutDone)return;if(typeof thBusy==='function'&&thBusy()){setTimeout(go,800);return}say('↖點擊左上角「t、e」體驗打字新樂趣，還可以打開音效喔↘',{lv:'wait',id:'tut',pin:true})};setTimeout(go,2200)}
+  if(tutCond()){tutA=true;tutF={t:0,e:0};const go=()=>{if(!tutA||tutDone)return;if(typeof thBusy==='function'&&thBusy()){setTimeout(go,800);return}guide('tut','↖點左上角「t、e」體驗打字新樂趣，也能開音效↘',{lv:'wait',pin:true})};setTimeout(go,2200)}
 }
-function tutClick(k){if(!tutA)return;tutF[k]=1;if(tutF.t&&tutF.e){tutDone=true;tutA=false;sayOff('tut')}}
+function tutClick(k){if(!tutA)return;tutF[k]=1;if(tutF.t&&tutF.e){tutDone=true;tutA=false;guideDone('tut')}}
 function lunarMD(d){
   try{const p=new Intl.DateTimeFormat('en-u-ca-chinese',{month:'numeric',day:'numeric'}).formatToParts(d),mo=p.find(x=>x.type==='month').value,dy=+p.find(x=>x.type==='day').value;if(/\D/.test(mo))return null;return[+mo,dy]}catch(e){return null}
 }
@@ -1669,12 +1692,12 @@ const WK=[
   [[5],17,24,'週末快到了，心早就飄走了吧！'],
   [[6,0],0,24,'週末還在寫？也太自律了吧。']
 ];
-const FN=['點兩下標題可以改名。','按住 Ctrl 點標題，可以一次選取多則。','把標題拖到下方，就是封存。','想了解更多功能細節，請點擊右上角的『？』圖示。','複製一個 Emoji，再點標題前的圖示，選「貼上自訂 Emoji」，就能自訂筆記圖示喔。','按住 Ctrl，筆記裡的網址會亮起來，點一下就能在新分頁開啟。','音量按鈕下方的鉛筆按鈕，可以把筆記設為唯讀。','搜尋框輸入關鍵字後，按 Enter 開始搜尋。','拖曳左右欄之間的拉條可以調整寬度，點兩下拉條還原預設位置。','選取筆記後按 Delete，會移到底下的封存區。','按一下標題框左邊的 +，就能新增今天的日記。','重要的筆記，記得匯出備份一份。','寫到一百字，會有小驚喜喔。','點一下標題前面的圖示，可以換成別的。','封存區裡的筆記還在，只是先收起來而已。','搜尋連封存區都找得到。'];
+const FN=['點兩下標題可以改名。','按住 Ctrl 點標題，可以一次選取多則。','把標題拖到下方，就是封存。','想知道更多，點右上角的『？』。','複製一個 Emoji，點標題前的圖示選「貼上自訂 Emoji」就能換上。','按住 Ctrl，網址會亮起來，點一下在新分頁開。','音量按鈕下方的鉛筆按鈕，可以把筆記設為唯讀。','搜尋框輸入關鍵字後，按 Enter 開始搜尋。','拖曳左右欄中間的拉條可調寬度，點兩下還原。','選取筆記後按 Delete，會移到底下的封存區。','按一下標題框左邊的 +，就能新增今天的日記。','重要的筆記，記得匯出備份一份。','寫到一百字，會有小驚喜喔。','點一下標題前面的圖示，可以換成別的。','封存區裡的筆記還在，只是先收起來而已。','搜尋連封存區都找得到。'];
 const FH=['↖左上角的 R note 字母，每個都點過了嗎？','要不要先存檔？……不用，這裡會自動存。','Ctrl + Z 可以反悔，在離開同一筆記之前；走了只剩後悔。','備份了嗎？右上角的匯出按鈕等你很久了。'];
-const FF=['左上角的 R note 字母都可以點擊。','資料會自動儲存，不需要手動存檔。','Ctrl + Z 可以復原；離開同一筆記後，復原紀錄會清除。','建議定期使用匯出功能備份資料。'];
+const FF=['左上角的 R note 字母都可以點擊。','資料會自動儲存，不需要手動存檔。','Ctrl + Z 可復原；換到別篇筆記後就清掉了。','建議定期使用匯出功能備份資料。'];
 const CHAT=['你好，來挖礦的嗎？','這裡很適合草擬 AI 對話。','打字不會變胖，請放心打。'];
 const TIPS=FN.concat(FH,FF,CHAT),QTIPS=FN.concat(FF);
-const IDLE=['想不到要寫什麼？那就寫「想不到要寫什麼」。','發呆也是工作的一部分。','想法卡住了嗎？『鎖定打字範圍』會讓打字區域卡得很貼心喔！（按兩支鉛筆圖示）','寫下來，腦袋就可以放空了。','你是認真來寫作，不是來玩的吧？'];
+const IDLE=['想不到要寫什麼？那就寫「想不到要寫什麼」。','發呆也是工作的一部分。','想法卡住了？試試兩支鉛筆的『鎖定打字範圍』。','寫下來，腦袋就可以放空了。','你是認真來寫作，不是來玩的吧？'];
 const REST=['喝口水，伸個懶腰再繼續。','眼睛休息一下，看看遠方吧。','背挺直，肩膀放鬆。','記得喝水。','有記得去尿尿嗎？'];
 const NIGHT=['夜深了，大綱寫完就早點休息。','這麼晚還沒睡，先記下想法，明天再說。','（呵欠～）準備要睡了嗎？','蔡依林比你早睡。','明天的你會感謝現在去睡的你。'];
 const BACK=['歡迎回來～','回來啦，剛剛想到什麼了嗎？','回來啦，剛剛去倒水嗎？','你回來了，要繼續了嗎？'];
@@ -1738,9 +1761,9 @@ ta.addEventListener('keydown',e=>{
 });
 document.addEventListener('visibilitychange',()=>{if(!document.hidden){if(Date.now()-A.act>5*60000){A.away=true;A.awayGap=Date.now()-A.act;A.run=0;A.runKeys=0;A.qp=true}}else hbSave()});
 function chat(t,rx){if(S.mute||!canSay()||Date.now()-A.msg<60000)return false;A.msg=Date.now();say(t,{lv:'info',rx:rx||'nod'});return true}
-function wander(){if(S.mute||PH||MS.wd===dayKey())return;if(chat('找不到筆記嗎？可以看看封存或暗格，也能查「全筆記歷史紀錄」。','tip')){MS.wd=dayKey();msSave()}}
+function wander(){if(S.mute||PH||MS.wd===dayKey())return;if(chat('找不到筆記？看看封存、暗格或「全筆記歷史紀錄」。','tip')){MS.wd=dayKey();msSave()}}
 function canSay(){return !(PH||document.hidden||pv||pend||SM.list.some(m=>!m.leaving&&(m.lv==='warn'||m.lv==='crit')))}
-function sayPromo(){A.promo=true;A.msg=Date.now();say('你知道【像素刻工館】的 LINE 貼圖嗎？',{lv:'info',rx:'greet',link:{word:'像素刻工館',url:PROMO_URL},hold:9000})}
+function sayPromo(){A.promo=true;A.msg=Date.now();say('你知道【像素刻工館】的 LINE 貼圖嗎？',{lv:'info',rx:'greet',link:{word:'像素刻工館',url:PROMO_URL}})}
 function fire(kind){
   if(S.mute)return;
   const now=Date.now();let t=null;
@@ -1765,7 +1788,7 @@ function fireQuiet(){
   const seen=Array.isArray(MS.seen)?MS.seen:[];let c=QTIPS.filter(t=>!seen.includes(t));
   if(!c.length){MS.seen=[];c=QTIPS.slice()}
   const t=pickRec(c);MS.seen=(Array.isArray(MS.seen)?MS.seen:[]).concat([t]);MS.qt=now;msSave();
-  A.msg=now;say(t,{lv:'info',rx:'tip',hold:(4200+[...t].length*50)*2});
+  A.msg=now;say(t,{lv:'info',rx:'tip'});
 }
 ta.addEventListener('paste',e=>{
   if(ta.readOnly||PH)return;
@@ -1792,7 +1815,7 @@ $('lipb').onclick=()=>{
   if(lipT.length>=3){lipT=[];say('你是在跟我玩嗎？',{lv:'info',rx:'none'});return}
   if(S.mute){
     say(pickRec(HUSH),{lv:'info',rx:'none'});
-    if(!MS.lm)setTimeout(()=>{if(S.mute&&!MS.lm){MS.lm=1;msSave();say('我先打盹了，功能提示和警告還是會出現。',{lv:'info',hold:6000,rx:'none'})}},1500);
+    if(!MS.lm)setTimeout(()=>{if(S.mute&&!MS.lm){MS.lm=1;msSave();say('我先打盹了，功能提示和警告還是會出現。',{lv:'info',rx:'none'})}},1500);
   }else say(pickRec(HELLO),{lv:'info',rx:'none'});
 };
 paintLip();
@@ -1864,7 +1887,6 @@ class Mascot{
     const o=this.off,bp=this.pose==='bulb';
     const nod=[[0,()=>o.head=1],[220,()=>o.head=0]];
     const wave=n=>{const s=[];for(let i=0;i<n;i++){s.push([i?150:0,()=>o.arm=-1]);s.push([i===n-1&&n>1?320:200,()=>o.arm=0])}return s};
-    const hn=n=>{const s=[];for(let i=0;i<n;i++){s.push([i?150:0,()=>o.head=1]);s.push([i===n-1?270:150,()=>o.head=0])}return s};
     const seq={
       blink:[[0,()=>this.blink=1],[260,()=>this.blink=0]],
       nod:nod,
@@ -2229,7 +2251,7 @@ function mdPaint(){
   const k=n.id+'|'+n.modified+'|'+n.content.length;
   if(k!==mdKey){const st=mdKey.split('|')[0]===n.id?v.scrollTop:0;mdKey=k;v.innerHTML=mdToHtml(n.content);v.scrollTop=st}
 }
-$('mdb').onclick=()=>{const n=byId(S.sel);if(!n)return;if(pend){lockMsg();return}n.mv=n.mv?0:1;if(!n.mv)delete n.mv;else tCnt('md');mdKey='';playSfx('tick');if(n.mv){ta.blur();if(!MS.md){MS.md=1;msSave();say('Markdown 預覽：只能看不能改，待辦的勾選可以直接點。再按一次回到文字。',{lv:'info',hold:7000})}}save();applyRO();if(n.mv)$('mdv').focus({preventScroll:true});else ta.focus()};
+$('mdb').onclick=()=>{const n=byId(S.sel);if(!n)return;if(pend){lockMsg();return}n.mv=n.mv?0:1;if(!n.mv)delete n.mv;else tCnt('md');mdKey='';playSfx('tick');if(n.mv){ta.blur();if(!MS.md){MS.md=1;msSave();say('Markdown 預覽：只能看，待辦可直接勾。再按一次回到文字。',{lv:'info'})}}save();applyRO();if(n.mv)$('mdv').focus({preventScroll:true});else ta.focus()};
 $('mdv').addEventListener('dblclick',()=>{const n=byId(S.sel);if(!n||!n.ro)return;if(pend){lockMsg();return}n.ro=false;playSfx('unlock');save();render()});
 $('mdv').addEventListener('click',e=>{
   const c=e.target.closest('.cb');if(!c||!c.dataset.ln)return;
@@ -2290,7 +2312,7 @@ function pendMsg(){
 function impOk(){
   if(!pend)return;pend=null;tCnt('imp');try{localStorage.removeItem(PKEY)}catch(e){}
   sayOff('imp');playSfx('pick');render();say('已確認，可以繼續編輯了。',{lv:'info',rx:'ok'});
-  if(AB.later){AB.later=0;setTimeout(()=>say('想開始自動備份的話，再點一次右上角的「自動備份」按鈕，選同一個檔案。',{lv:'info',hold:9000}),2500)}
+  if(AB.later){AB.later=0;setTimeout(()=>say('要開始自動備份，再點一次「自動備份」，選同一個檔案。',{lv:'info'}),2500)}
   if(AB.st==='conflict'&&AB.impEx){ABM.last=Math.max(ABM.last||0,AB.impEx);abMetaSave();abEnable()}   // 已經匯入過那份備份，就不再算「比這台新」
 }
 function impUndo(){
@@ -2305,34 +2327,48 @@ function impUndo(){
 /* ===== 定時提醒（鬧鐘，1.60，僅電腦版）：兩列，每列 on/t/m/once，另有 nx(下次時間)、pend(待確認)、sn(再提醒時間)、su(已延後次數)。
    錯過規則：「只響一次」一定補提醒並註明錯過多久；每天重複的超過 2 小時就當作沒發生、直接排下一次。 ===== */
 function alMd(r){return r.md===0||r.md===1||r.md===2?r.md:(r.once?0:1)}
-function alRows(){if(!Array.isArray(S.al)||S.al.length!==2)S.al=[0,1].map(()=>({on:0,t:'22:00',m:'',md:1}));S.al.forEach(r=>{r.md=alMd(r);delete r.once});return S.al}
+function alRows(){if(!Array.isArray(S.al)||S.al.length!==2)S.al=[0,1].map(i=>({on:0,t:i?'23:00':'07:00',m:'',md:1}));S.al.forEach(r=>{r.md=alMd(r);delete r.once});if(!S.alv){S.alv=1;S.al.forEach((r,i)=>{if(!r.on&&!r.m&&r.t==='22:00')r.t=i?'23:00':'07:00'})}return S.al}
 let alDirty=0;
 function alNext(t,from,md){const m=/^([01]\d|2[0-3]):([0-5]\d)$/.exec(t||'');if(!m)return 0;const d=new Date(from);d.setHours(+m[1],+m[2],0,0);if(d.getTime()<=from)d.setDate(d.getDate()+1);if(md===2)while(d.getDay()===0||d.getDay()===6)d.setDate(d.getDate()+1);return d.getTime()}
 const alSnd={};
 function alTick(){if(PH||!Array.isArray(S.al))return;const now=Date.now();
   S.al.forEach((r,i)=>{
-    if(r.pend){alShow(i);return}
-    if(r.sn&&now>=r.sn){r.sn=0;r.pend=1;r.late=0;r.tries=0;save();alShow(i);return}
+    if(r.pend)return;
+    if(r.sn&&now>=r.sn){const c=alClaim(i,r.sn);r.sn=0;if(!c){save();return}r.pend=1;r.late=0;r.tries=0;save();return}
     if(!r.on||!r.nx||now<r.nx||r.sn)return;
-    const late=now-r.nx;
+    const late=now-r.nx,mine=alClaim(i,r.nx);
     if(alMd(r)===0){r.on=0;r.nx=0}else{r.nx=alNext(r.t,now,alMd(r));if(late>2*36e5){save();alPaint();return}}
-    r.su=0;r.pend=1;r.late=late;r.tries=0;save();alPaint();alShow(i)})}
-function alShow(i){const r=S.al[i];if(!r||!r.pend)return;
-  const id='al'+i,up=()=>{alOpen=S.al.filter(x=>x.pend).length;alTitle()};
-  if(SM.list.some(m=>m.id===id&&!m.leaving)){up();return}
-  if((r.tries=(r.tries||0)+1)>30){r.pend=0;save();up();return}
-  const mn=Math.floor((r.late||0)/6e4),lt=mn>=60?Math.floor(mn/60)+' 小時'+(mn%60?' '+mn%60+' 分鐘':''):mn+' 分鐘',txt=(r.m||'時間到了')+(mn>=2?'（錯過了 '+lt+'）':'');
-  const acts=[{label:'知道了',fn:()=>alAck(i)}];if((r.su||0)<2)acts.push({label:'5 分鐘後再提醒',fn:()=>alSnooze(i)});
-  say('⏰ '+txt,{lv:'act',id,pin:true,actions:acts,rx:'act'});
-  if(SM.list.some(m=>m.id===id&&!m.leaving)){up();if(!alSnd[i]){alSnd[i]=1;alSound()}}}
-function alSound(){if(S.sfx){playSfx('alarm');return}if(S.alf){S.sfx=1;try{playSfx('alarm')}finally{S.sfx=0}}}
-function alAck(i){const r=S.al[i];if(!r)return;r.pend=0;r.su=0;r.sn=0;r.tries=0;alSnd[i]=0;sayOff('al'+i);save();alOpen=S.al.filter(x=>x.pend).length;alTitle()}
-function alSnooze(i){const r=S.al[i];if(!r)return;r.pend=0;r.su=(r.su||0)+1;r.sn=Date.now()+5*60000;r.tries=0;alSnd[i]=0;sayOff('al'+i);save();alOpen=S.al.filter(x=>x.pend).length;alTitle();say('好，5 分鐘後再提醒妳。',{lv:'info',rx:'ok',hold:3500})}
+    if(!mine){save();alPaint();return}
+    r.su=0;r.pend=1;r.late=late;r.tries=0;save();alPaint()});
+  alShow()}
+/* 1.64：同一個網頁開在兩個分頁時，同一次提醒只由先搶到的分頁響 */
+function alClaim(i,t){const k='R_note_alc'+i;try{if(localStorage.getItem(k)===String(t))return false;localStorage.setItem(k,String(t))}catch(e){}return true}
+/* 1.63：同時待處理的鬧鐘合併成一則（一次鈴聲、一組按鈕，按一次全部處理） */
+const alIsMsg=m=>m.id&&/^al\d+$/.test(m.id)&&!m.leaving;
+function alShow(){
+  const up=()=>{alOpen=S.al.filter(x=>x.pend).length;alTitle()};
+  let P=S.al.map((r,i)=>r.pend?i:-1).filter(i=>i>=0);
+  const id='al'+P.join('');
+  SM.list.filter(m=>alIsMsg(m)&&m.id!==id).forEach(m=>retire(m,true));
+  if(!P.length){up();return}
+  if(SM.list.some(m=>m.id===id&&!m.leaving)){up();if(P.some(i=>!alSnd[i])){P.forEach(i=>alSnd[i]=1);alSound()}return}
+  if(smHas(id)){up();return}   // 1.65：排隊中，算在等，不計次
+  P.forEach(i=>{const r=S.al[i];if((r.tries=(r.tries||0)+1)>30){r.pend=0;save()}});
+  P=P.filter(i=>S.al[i].pend);if(!P.length){up();return}
+  const tx=r=>{const mn=Math.floor((r.late||0)/6e4),lt=mn>=60?Math.floor(mn/60)+' 小時'+(mn%60?' '+mn%60+' 分鐘':''):mn+' 分鐘';return (r.m||'時間到了')+(mn>=2?'（錯過了 '+lt+'，剛剛我叫不到你）':'')};
+  const acts=[{label:'知道了',fn:alAck}];if(P.every(i=>(S.al[i].su||0)<2))acts.push({label:'5 分鐘後再提醒',fn:alSnooze});
+  const blk=!!(navigator.userActivation&&!navigator.userActivation.hasBeenActive)&&(S.sfx||S.alf);
+  say('⏰ '+P.map(i=>tx(S.al[i])).join('／')+(blk?'（點一下畫面就會響）':''),{lv:'act',id:'al'+P.join(''),pin:true,actions:acts,rx:'act'});
+  if(SM.list.some(m=>m.id==='al'+P.join('')&&!m.leaving)){up();if(P.some(i=>!alSnd[i])){P.forEach(i=>alSnd[i]=1);alSound()}}}
+function alSound(){if(navigator.userActivation&&!navigator.userActivation.hasBeenActive){if(!alSound.w){alSound.w=1;const f=()=>{removeEventListener('pointerdown',f,true);removeEventListener('keydown',f,true);alSound.w=0;if(S.al&&S.al.some(r=>r.pend))alSound()};addEventListener('pointerdown',f,true);addEventListener('keydown',f,true)}return}
+  if(S.sfx){playSfx('alarm');return}if(S.alf){S.sfx=1;try{playSfx('alarm')}finally{S.sfx=0}}}
+function alAck(){S.al.forEach((r,i)=>{if(!r.pend)return;r.pend=0;r.su=0;r.sn=0;r.tries=0;alSnd[i]=0});SM.list.filter(alIsMsg).forEach(m=>retire(m,false));save();alOpen=0;alTitle()}
+function alSnooze(){const t=Date.now()+5*60000;S.al.forEach((r,i)=>{if(!r.pend)return;r.pend=0;r.su=(r.su||0)+1;r.sn=t;r.tries=0;alSnd[i]=0});SM.list.filter(alIsMsg).forEach(m=>retire(m,false));save();alOpen=0;alTitle();say('好，5 分鐘後再提醒你。',{lv:'info',rx:'ok'})}
 function alFmt(h,m){return (h<12?'上午 ':'下午 ')+(h%12||12)+':'+p2(m)}
 function alWhen(ts){const d=new Date(ts),n=new Date(),dk=x=>x.getFullYear()*400+x.getMonth()*32+x.getDate(),t=new Date(n.getTime()+864e5),hm=alFmt(d.getHours(),d.getMinutes());
   return (dk(d)===dk(n)?'今天':dk(d)===dk(t)?'明天':'週'+'日一二三四五六'[d.getDay()])+' '+hm}
 function alConfirm(){if(!alDirty)return;alDirty=0;const l=alRows().filter(r=>r.on).map(r=>alFmt(+r.t.slice(0,2),+r.t.slice(3))+' 「'+(r.m||'時間到了')+'」（'+['只提醒一次','每天','工作天'][alMd(r)]+'）');
-  say(l.length?'我知道了，'+l.join('；')+'，我會提醒妳。'+(S.mute?'（我休息中，但鬧鐘照響）':''):'好，提醒都關掉了。',{lv:'info',rx:'ok',hold:6000,id:'alset'})}
+  say(l.length?'我知道了，'+l.join('；')+'，我會提醒你。'+(MS.alw?'':(MS.alw=1,msSave(),'記得別關掉網頁，不然我喊破喉嚨你也聽不到。'))+(l.length===2&&alRows()[0].t===alRows()[1].t?'兩個提醒同時間，我會一起說。':'')+(S.mute?'（我休息中，但鬧鐘照響）':''):'好，提醒都關掉了。',{lv:'info',rx:'ok',id:'alset'})}
 function alPaint(){const p=$('spal');if(!p||!Array.isArray(S.al))return;
   p.querySelectorAll('.alr').forEach(el=>{const r=S.al[+el.dataset.i];if(!r)return;el.querySelector('.alo').checked=!!r.on;el.querySelector('.alc').value=String(alMd(r));el.querySelector('.aln').textContent=r.on&&r.nx?'下次　'+alWhen(r.nx):'';
     const hh=+(r.t||'22:00').slice(0,2),mm=+(r.t||'22:00').slice(3),m=el.querySelector('.alm');el.querySelector('.alap').value=hh>=12?'1':'0';el.querySelector('.alh').value=String(hh%12||12);el.querySelector('.alm2').value=String(mm);if(document.activeElement!==m)m.value=r.m||''});
@@ -2393,7 +2429,7 @@ R note 是架構在瀏覽器裡的純文字筆記工具……
 
 外觀與聲音
 ．搜尋框右邊，從左到右是：音效開關、音色、亮色系／灰色系／暗色系三顆主題按鈕。同一顆主題按鈕連續點，會換成同色系的下一組。
-．機器人設定裡有「定時提醒」：填好時間和一句話（可選一次、每天、工作天），時間到了機器人會把那句話固定在畫面上，可以按「知道了」或「5 分鐘後再提醒」（最多延 2 次）。網頁沒開著就不會響，之後打開會補提醒；可勾「強制出聲」。
+．機器人設定裡有「定時提醒」：填好時間和一句話（可選一次、每天、工作天），時間到了機器人會把那句話固定在畫面上，可以按「知道了」或「5 分鐘後再提醒」（最多延 2 次）。機器人只住在這個網頁裡：關掉分頁或瀏覽器，它就喊不到你了（之後打開會補提醒）；分頁放在背景時，可能會晚一點點才響。可勾「強制出聲」。
 ．個人檔案多了「紀錄」分頁（累計打字、使用天數等），可以把紀錄卡存成圖片；備份檔會帶著紀錄，匯入時驗證碼對不上會標「未驗證」。
 ．機器人左邊的齒輪是「設定」：字級、時鐘與日期時間樣式、備份提醒與自動備份、清除資料等都在這裡；「機器人」分頁可以調整報時，以及機器人說話和活動的頻率。
 ．設定打開時，設定左緣下方有一個「Profile」標籤，拉出來就是「個人檔案」（檔案櫃右邊那一張）；再按一次標籤就收回。
@@ -2466,7 +2502,7 @@ o、t、e 的開關會被記住；R 和 n 每次重新開啟都是關閉。
 
 祝順心如意。`;
 const hs=t=>{let a=5381,b=0;for(let i=0;i<t.length;i++){const c=t.charCodeAt(i);a=((a<<5)+a+c)|0;b=(b*31+c)|0}return a+':'+b+':'+t.length};
-const OLDH=['672367486:-215089409:3488','1046457898:2125655681:3323','115170983:550979746:2688','-276557875:1915655092:2638','1717136960:1119175561:2617','259163584:-342899575:2615','122576712:509132133:2551','156150843:-758912478:2459','-2106340733:-1114159256:3876','-1983915602:171529411:6757','561492873:771823936:2645','-1652934029:957503828:2482','-38752457:-718458112:2588','652580955:1757969548:2647','-1716669469:1205189334:2735'];
+const OLDH=['-230977925:-1006534530:3501','672367486:-215089409:3488','1046457898:2125655681:3323','115170983:550979746:2688','-276557875:1915655092:2638','1717136960:1119175561:2617','259163584:-342899575:2615','122576712:509132133:2551','156150843:-758912478:2459','-2106340733:-1114159256:3876','-1983915602:171529411:6757','561492873:771823936:2645','-1652934029:957503828:2482','-38752457:-718458112:2588','652580955:1757969548:2647','-1716669469:1205189334:2735'];
 function diaryTitle(){const d=new Date();return `${d.getFullYear()}/${p2(d.getMonth()+1)}/${p2(d.getDate())}_週${'日一二三四五六'[d.getDay()]}`}
 const PHN='【給手機使用者】這是為電腦瀏覽器設計的筆記工具。手機上只提供簡易版：一張便條紙，打字也能挖礦；右上方的按鈕可以複製便條紙內容，齒輪可以調整字級、清除資料。完整功能（多篇筆記、排序、封存、備份等）請改用電腦的 Chrome 或 Edge 打開。\n\n════════════════════════\n\n';
 function seedNotes(){
@@ -2523,7 +2559,7 @@ function importDialog(j,clean,newer,g2){
   const exInfo=ex?'<div style="color:var(--dm);font-size:13px;margin-bottom:4px">備份存於 '+abTime(ex)+(mod?'；你這台最後修改：'+abTime(mod):'')+'</div>':'';
   if(!okR)warn.push('備份檔太大，超出瀏覽器可儲存的範圍，無法匯入。');
   else if(!okA)warn.push('合併後會超出瀏覽器可儲存的範圍，無法「追加」全部。');
-  else if(sNow+sImp>IMPLIM*.8)warn.push('合併後接近瀏覽器儲存上限，建議先整理或刪除不需要的筆記。');
+  else if(sNow+sImp>IMPLIM*.8)warn.push('合併後快到儲存上限了，建議先整理不需要的筆記。');
   const o=document.createElement('div');
   o.style.cssText='position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:90;display:flex;align-items:center;justify-content:center;padding:16px';
   const b='padding:8px 14px;border-radius:8px;border:1px solid var(--ln);background:var(--p2);color:var(--tx);cursor:pointer;font:inherit',bd=ok=>ok?b:b+';opacity:.4;cursor:default';
@@ -2563,7 +2599,7 @@ function applyTh(){const th=S.th||'n',k=curSer(th),q=THS[th][k],F=THF[th],r=docu
 /* 點光色按鈕：同一顆再點＝換下一個系列（共 6 個）；點完在按鈕右上角閃一下編號 1～6，之後淡出，方便大家說「暗色5」 */
 function thFlash(b,t){b.removeAttribute('data-n');void b.offsetWidth;b.dataset.n=curSer(t)+1;clearTimeout(b._tn);b._tn=setTimeout(()=>b.removeAttribute('data-n'),1600);
   if(typeof tcur!=='undefined'&&tcur===b&&tip.style.display==='block')tip.textContent=b.dataset.tip}
-document.querySelectorAll('#ths .ib[data-th]').forEach(b=>b.onclick=()=>{const t=b.dataset.th;tTheme();{const w=Date.now();A.ths=(A.ths||[]).filter(x=>w-x<60000);A.ths.push(w);if(A.ths.length>=6&&w-(A.thAt||0)>=10*60000&&chat(pickOf(['慢慢選，我不急。','顏色選好了嗎？我眼睛快跟不上了。'])))A.thAt=w}if((S.th||'n')===t)S.ser[t]=(curSer(t)+1)%THS[t].length;else S.th=t;S.thSeen=1;sayOff('thm');save();applyTh();thFlash(b,t)});
+document.querySelectorAll('#ths .ib[data-th]').forEach(b=>b.onclick=()=>{const t=b.dataset.th;tTheme();if(S.thSeen)guideDone('ths');{const w=Date.now();A.ths=(A.ths||[]).filter(x=>w-x<60000);A.ths.push(w);if(A.ths.length>=6&&w-(A.thAt||0)>=10*60000&&chat(pickOf(['慢慢選，我不急。','顏色選好了嗎？我眼睛快跟不上了。'])))A.thAt=w}if((S.th||'n')===t)S.ser[t]=(curSer(t)+1)%THS[t].length;else S.th=t;S.thSeen=1;sayOff('thm');save();applyTh();thFlash(b,t)});
 const h2x=(h,s,l)=>{h=((h%360)+360)%360;s=Math.max(0,Math.min(100,s))/100;l=Math.max(0,Math.min(100,l))/100;const f=n=>{const k=(n+h/30)%12,a=s*Math.min(l,1-l);return Math.round(255*(l-a*Math.max(-1,Math.min(k-3,9-k,1))))};return'#'+[f(0),f(8),f(4)].map(v=>v.toString(16).padStart(2,'0')).join('')};
 const hrgb=h=>[1,3,5].map(i=>parseInt(h.substr(i,2),16));
 const FPAL=['#e5484d','#f08a24','#e8c21a','#46b45a','#1fa99a','#3b8eea','#6e5ce6','#c04fd1','#ec5f9a','#8a9199'];
@@ -2610,7 +2646,7 @@ function copyNotes(ids){
   ms=new Set(made);mzone='a';anchor=made[0];S.sel=made[0];save();render();
   const undo=()=>{if(!made.some(id=>byId(id)))return;S.notes=S.notes.filter(m=>!made.includes(m.id));ms.clear();fixSel();sayOff('fcopy');playSfx('restore');save();render()};
   const t0=byId(made[0]).title;
-  say((made.length>1?'已建立 '+made.length+' 份副本':'已建立副本『'+(t0.length>12?t0.slice(0,12)+'…':t0)+'』')+'。',{lv:'info',id:'fcopy',hold:5000,actions:[{label:'復原',fn:undo}]});
+  say((made.length>1?'已建立 '+made.length+' 份副本':'已建立副本『'+(t0.length>12?t0.slice(0,12)+'…':t0)+'』')+'。',{lv:'info',id:'fcopy',actions:[{label:'復原',fn:undo}]});
 }
 function pinNotes(ids){if(pend){lockMsg();return}const ns=ids.map(byId).filter(n=>n&&!n.archived&&!n.vault);if(!ns.length)return;const on=!ns.every(n=>n.pin);ns.forEach(n=>{if(on)n.pin=1;else delete n.pin});playSfx('tick');save();render();if(on&&!MS.pin){MS.pin=1;msSave();say('這篇釘在最上面了，排序也動不了它。',{lv:'info',rx:'nod'})}}
 function archiveNotes(ids){
@@ -2672,7 +2708,7 @@ document.addEventListener('contextmenu',e=>{
   let items=null;
   {const tb=t.closest('#ths .ib[data-th]'),sb=t.closest('#tsb');
    if(t.closest('#lipb'))items=[{bat:'rbm',ic:'m_msg',t:'訊息'},{bat:'rba',ic:'m_act',t:'動態'}];
-   else if(tb){const th=tb.dataset.th;items=THS[th].map((q,i)=>({t:(i+1)+' '+q[0],c:q[9],ring:1,on:curSer(th)===i,fn:()=>{tTheme();S.th=th;S.ser[th]=i;S.thSeen=1;sayOff('thm');save();applyTh();thFlash(tb,th);playSfx('theme',th)}}))}
+   else if(tb){const th=tb.dataset.th;items=THS[th].map((q,i)=>({t:(i+1)+' '+q[0],c:q[9],ring:1,on:curSer(th)===i,fn:()=>{tTheme();S.th=th;S.ser[th]=i;S.thSeen=1;guideDone('thm');save();applyTh();thFlash(tb,th);playSfx('theme',th)}}))}
    else if(sb){items=TIMB.map((n,i)=>({jack:1,t:(i+1)+' '+n,on:(S.tpk|0)===i,fn:()=>{S.tpk=i;save();paintTs();sb.removeAttribute('data-n');void sb.offsetWidth;sb.dataset.n=i+1;clearTimeout(sb._tn);sb._tn=setTimeout(()=>sb.removeAttribute('data-n'),1600);tsPreview()}}))}
    if(items){e.preventDefault();cmOpen(e.clientX,e.clientY,items);return}}
   const it=t.closest('#act .item'),ar=t.closest('#arc .item'),fo=t.closest('.fo'),tab=t.closest('#ftab');let ftid=null;if(!it&&!fo&&colOn()&&t.closest('#fr')){const ci=colPoint(e,true);if(ci>=0)ftid=S.folders[ci].id}
@@ -2741,7 +2777,7 @@ function fvSec(f,l){
     const ic=document.createElement('span');ic.className='ic'+(n.icon?'':' e');ic.textContent=n.icon||'';r.appendChild(ic);
     const t=document.createElement('span');t.className='t';t.textContent=n.title;r.appendChild(t);const cc=document.createElement('span');cc.className='fvc';cc.textContent=fvNum(fvChars(n));r.appendChild(cc);const tm=document.createElement('span');tm.className='fvt';tm.dataset.t=n.modified;tm.textContent=fAgo(n.modified);r.appendChild(tm);
     r.draggable=true;r.ondragstart=e=>{if(PH||pend){e.preventDefault();if(pend)lockMsg();return}drag=n.id;dragIds=[n.id];fvDrag=loose?null:f.id;e.dataTransfer.setData('text/plain',n.id);e.dataTransfer.effectAllowed='move';setTimeout(()=>r.classList.add('dragging'),0)};r.ondragend=()=>{drag=null;dragIds=[];clearDrag();r.classList.remove('dragging')};
-    r.onclick=()=>{if(pend){lockMsg();return}cabV=false;fms.clear();ms.clear();if(loose){curF=null;ms=new Set([n.id]);mzone='a';anchor=n.id}else{curF=f.id;fEdit=false}S.sel=n.id;playSfx('tick');save();render()};
+    r.onclick=()=>{cabV=false;fms.clear();ms.clear();if(loose){curF=null;ms=new Set([n.id]);mzone='a';anchor=n.id}else{curF=f.id;fEdit=false}S.sel=n.id;playSfx('tick');save();render()};
     box.appendChild(r)});
   sec.appendChild(box);return sec}
 function fvRender(){
@@ -2754,8 +2790,7 @@ function fvRender(){
 function paintFms(){const wasCab=cabV&&fms.size>0;if(fms.size)cabV=false;if(!fms.size)fmulti=false;if(fms.size){ms.clear();document.querySelectorAll('.item.ms').forEach(x=>x.classList.remove('ms'))}document.querySelectorAll('.fo').forEach(x=>x.classList.toggle('fsel',fms.has(x.dataset.id)));fAddUI();if(colOn())colRender(true);fvRender();if(wasCab)renderF()}
 function enterF(id){cabV=false;curF=id;fEdit=false;ms.clear();fixSel();playSfx('tick');save();render()}
 function leaveF(){cabV=false;const was=curF;curF=null;fEdit=false;ms.clear();fixSel();if(was&&!S.q&&fById(was)){fms=new Set([was]);fanc=was;fmulti=false}playSfx('tick');save();render()}
-function fClick(e,f){
-  if(pend){lockMsg();return}
+function fClick(e,f){   // 1.66：匯入確認中也能翻資料夾（只是瀏覽）
   if(e.ctrlKey||e.metaKey){if(curF)return;fms.has(f.id)?fms.delete(f.id):fms.add(f.id);fanc=f.id;fmulti=true;playSfx('tick');paintFms();return}
   if(e.shiftKey){if(curF)return;const ids=S.folders.map(x=>x.id),b=ids.indexOf(f.id);let a=ids.indexOf(fanc);if(a<0)a=b;fms=new Set(ids.slice(Math.min(a,b),Math.max(a,b)+1));fmulti=true;playSfx('tick');paintFms();return}
   fanc=f.id;
@@ -2772,11 +2807,11 @@ function moveNotes(ids,fid){
   ns.forEach(n=>{if(n.archived||n.vault){n.archived=false;n.vault=false;delete n.pf}if(fid)n.folderId=fid;else delete n.folderId});
   ms.clear();fixSel();playSfx('restore');save();render();
 }
-function colAsk(){if(PH||S.mute||MS.ac||L.cl||curF||pend||S.folders.length<8||!canSay()||Date.now()-A.act<4000||!booted)return;MS.ac=1;msSave();say('資料夾太多了，要幫你收納嗎？',{lv:'info',id:'acq',hold:15000,rx:'nod',actions:[{label:'好，收納',fn:()=>{sayOff('acq');if(!L.cl){colToggle();setTimeout(()=>say('你可以點眼睛左邊的『展開資料夾』按鈕，回到剛剛的排列狀態。',{lv:'info',hold:8000,rx:'tip'}),500)}}},{label:'先不用',fn:()=>sayOff('acq')}]})}
+function colAsk(){if(PH||L.cl||curF||pend||S.folders.length<8||!canSay()||Date.now()-A.act<4000||!booted||(MS.g&&MS.g.acq>=2)||SM.list.some(m=>m.id==='acq'))return;guide('acq','資料夾太多了，要幫你收納嗎？',{rx:'nod',actions:[{label:'好，收納',fn:()=>{guideDone('acq');if(!L.cl){colToggle();setTimeout(()=>say('點眼睛左邊的「展開資料夾」，回到剛剛的排列。',{lv:'info',rx:'tip'}),500)}}},{label:'先不用',fn:()=>guideDone('acq')}]})}
 setInterval(colAsk,15000);
 function newFolder(){
   if(pend){lockMsg();return}
-  if(S.folders.length>=99){say('資料夾已達上限 99 個，無法再建立新的資料夾。',{lv:'warn',id:'fcap'});return}
+  if(S.folders.length>=99){say('資料夾已滿 99 個，無法再新增。',{lv:'warn',id:'fcap'});return}
   structOp();
   eyeOpen=true;
   const used=new Set(S.folders.map(f=>f.color));let c=0;while(used.has(c)&&c<FPAL.length-1)c++;if(used.size>=FPAL.length)c=S.folders.length%FPAL.length;
@@ -2785,8 +2820,8 @@ function newFolder(){
   S.folders.unshift(f);sel.forEach(n=>{n.folderId=f.id});if(sel.length)S.sel=sel[0].id;
   curF=f.id;fEdit=true;ms.clear();fixSel();playSfx('new');save();render();
   if(sel.length){const undo=()=>{if(!fById(f.id))return;prev.forEach(p=>{const n=byId(p.id);if(!n)return;if(p.fid)n.folderId=p.fid;else delete n.folderId});S.folders=S.folders.filter(x=>x.id!==f.id);if(curF===f.id)curF=null;fEdit=false;fms.clear();sayOff('fwrap');playSfx('restore');save();render()};
-    say('已建立資料夾，'+sel.length+' 篇筆記已放入。',{lv:'info',id:'fwrap',hold:5000,actions:[{label:'復原',fn:undo}]});return}
-  if(!MS.ff){MS.ff=1;msSave();say('資料夾已建立。點資料夾圖示進入，把筆記拖到圖示上就能收進去。',{lv:'info',hold:7000})}
+    say('已建立資料夾，'+sel.length+' 篇筆記已放入。',{lv:'info',id:'fwrap',actions:[{label:'復原',fn:undo}]});return}
+  if(!MS.ff){MS.ff=1;msSave();say('資料夾建好了。把筆記拖到資料夾圖示上就能收進去。',{lv:'info'})}
 }
 function delFolder(){if(curF)delFolders([curF])}
 function delFolders(ids){
@@ -2798,7 +2833,7 @@ function delFolders(ids){
   if(ids.includes(curF))curF=null;fms.clear();fEdit=false;ms.clear();fixSel();playSfx('archive');save();render();
   const cnt=rec.reduce((a,r)=>a+r.ns.length,0);
   const undo=()=>{if(rec.some(r=>fById(r.f.id)))return;rec.slice().sort((a,b)=>a.idx-b.idx).forEach(r=>S.folders.splice(Math.min(r.idx,S.folders.length),0,r.f));rec.forEach(r=>r.ns.forEach(id=>{const n=byId(id);if(n)n.folderId=r.f.id}));sayOff('fdel');playSfx('restore');save();render()};
-  say('已刪除'+(rec.length>1?' '+rec.length+' 個資料夾':'資料夾『'+rec[0].f.name+'』')+(cnt?'，'+cnt+' 篇筆記已移到檔案櫃':'')+'。',{lv:'info',id:'fdel',hold:5000,actions:[{label:'復原',fn:undo}]});
+  say('已刪除'+(rec.length>1?' '+rec.length+' 個資料夾':'資料夾『'+rec[0].f.name+'』')+(cnt?'，'+cnt+' 篇筆記已移到檔案櫃':'')+'。',{lv:'info',id:'fdel',actions:[{label:'復原',fn:undo}]});
 }
 let fLastHint='';
 function fHint(t){if(t===fLastHint)return;fLastHint=t;say(t,{lv:'info',id:'fdraghint'})}
@@ -2894,7 +2929,7 @@ function colDrop(i){
   fr.addEventListener('click',e=>{
     if(!colOn())return;const i=colPoint(e,true);if(i<0)return;
     e.stopPropagation();e.preventDefault();const f=S.folders[i],now=Date.now(),lc=colLC;
-    if(lc&&now-lc.t<420&&Math.abs(e.clientX-lc.x)<7&&Math.abs(e.clientY-lc.y)<7&&fById(lc.id)){colLC=null;if(pend){lockMsg();return}fms.clear();enterF(lc.id);return}
+    if(lc&&now-lc.t<420&&Math.abs(e.clientX-lc.x)<7&&Math.abs(e.clientY-lc.y)<7&&fById(lc.id)){colLC=null;fms.clear();enterF(lc.id);return}
     colLC={t:now,x:e.clientX,y:e.clientY,id:f.id};fClick(e,f)},true);
   fr.addEventListener('dragover',e=>{
     if(!colOn()||dragF.length||!drag){colDrop(-1);return}
@@ -2993,7 +3028,7 @@ function pkBurst(k,lv){
     const dx=Math.cos(a)*d,dy=Math.sin(a)*d;
     parts.push(e.animate([{transform:'translate(0,0) scale(.3)',opacity:1},{transform:'translate('+dx+'px,'+dy+'px) scale(1)',opacity:1,offset:.4},{transform:'translate('+dx*1.15+'px,'+(dy-30)+'px) scale(.4) rotate('+(star?90:0)+'deg)',opacity:0}],{duration:1100+Math.random()*300,easing:'cubic-bezier(.2,.7,.3,1)',fill:'forwards'}).finished);
   }
-  if(f.max&&!L.pkm){L.pkm=1;saveL();setTimeout(()=>say('恭喜！十字鎬升到最高等級 Lv.'+f.lv+' 了。',{lv:'info',hold:6000}),700)}
+  if(f.max&&!L.pkm){L.pkm=1;saveL();setTimeout(()=>say('恭喜！十字鎬升到最高等級 Lv.'+f.lv+' 了。',{lv:'info'}),700)}
   Promise.allSettled(parts).then(()=>W.remove());setTimeout(()=>W.remove(),2600);
 }
 /* ===== 個人檔案（原「十字鎬介面」，1.56 改名） =====
@@ -3026,8 +3061,8 @@ const thBusy=()=>SM.list.some(m=>(m.id==='thm'||m.id==='ths')&&!m.leaving);  // 
 function thAsk(){
   if(PH||S.thSeen||(S.thAsk||0)>=2||pend||!canSay())return;
   S.thAsk=(S.thAsk||0)+1;save();
-  const pick=t=>()=>{S.th=t;S.thSeen=1;save();applyTh();sayOff('thm');setTimeout(()=>say('想換別的顏色？右上角光色按鈕連續點同一顆試試看。',{lv:'info',id:'ths',hold:7000,rx:'nod'}),800)};  // 選完，這句才出現（指的是右上角真正的光色按鈕）
-  say('先挑個看得舒服的色調吧。',{lv:'info',id:'thm',hold:30000,rx:'nod',actions:[{label:'亮色系',fn:pick('d')},{label:'灰色系',fn:pick('u')},{label:'暗色系',fn:pick('n')}]});
+  const pick=t=>()=>{S.th=t;S.thSeen=1;save();applyTh();guideDone('thm');setTimeout(()=>guide('ths','想換顏色？連續點右上角同一顆光色按鈕試試。',{rx:'nod'}),800)};  // 選完，這句才出現（指的是右上角真正的光色按鈕）
+  guide('thm','先挑個看得舒服的色調吧。',{rx:'nod',actions:[{label:'亮色系',fn:pick('d')},{label:'灰色系',fn:pick('u')},{label:'暗色系',fn:pick('n')}]});
 }
 ta.addEventListener('input',()=>{if(!S.thSeen)sayOff('thm')});
 /* ===== 自動備份（1.32 原型） =====
@@ -3059,32 +3094,32 @@ function abPaintBtn(){
   if(typeof tcur!=='undefined'&&tcur===b&&tip.style.display==='block')tip.textContent=b.dataset.tip;
   try{setpAbPaint()}catch(e){}}
 function abClick(){
-  if(AB.st==='ok'){say('自動備份運作中，上次備份：'+abAgo(ABM.last)+'。',{lv:'info',id:'abi',hold:8000,actions:[{label:'現在備份',fn:abNow},{label:'停止自動備份',fn:abStop}]})}
+  if(AB.st==='ok'){say('自動備份運作中，上次備份：'+abAgo(ABM.last)+'。',{lv:'info',id:'abi',actions:[{label:'現在備份',fn:abNow},{label:'停止自動備份',fn:abStop}]})}
   else if(AB.st==='none')abPick();
-  else if(AB.st==='guard')say('筆記突然變少了，自動備份先暫停。要照樣備份嗎？',{lv:'info',id:'abi',hold:15000,actions:[{label:'照樣備份',fn:abForce},{label:'停止自動備份',fn:abStop}]});
-  else if(AB.st==='paused')say('要延續自動備份嗎？（瀏覽器每次重開網頁，都會請你再同意一次）',{lv:'info',id:'abi',hold:14000,actions:[{label:'延續',fn:abResume},{label:'停止自動備份',fn:abStop}]});
-  else say(AB.st==='conflict'?'備份檔比這台電腦新，為了不蓋掉它，已暫停。':'自動備份失敗了，筆記仍安全存在瀏覽器裡。',{lv:'info',id:'abi',hold:12000,actions:[{label:'重新指定檔案',fn:abPick},{label:'停止自動備份',fn:abStop}]})}
+  else if(AB.st==='guard')say('筆記突然變少了，自動備份先暫停。要照樣備份嗎？',{lv:'info',id:'abi',actions:[{label:'照樣備份',fn:abForce},{label:'停止自動備份',fn:abStop}]});
+  else if(AB.st==='paused')say('要繼續自動備份嗎？（瀏覽器每次重開都會再問一次）',{lv:'info',id:'abi',actions:[{label:'延續',fn:abResume},{label:'停止自動備份',fn:abStop}]});
+  else say(AB.st==='conflict'?'備份檔比這台電腦新，為了不蓋掉它，已暫停。':'自動備份失敗了，筆記仍安全存在瀏覽器裡。',{lv:'info',id:'abi',actions:[{label:'重新指定檔案',fn:abPick},{label:'停止自動備份',fn:abStop}]})}
 function abKick(){   // 每隔 n 分鐘最多寫一次；間隔內的變動先等著（也就是備份檔比手上資料慢一點，給你後悔的空間）
   if(AB.st!=='ok')return;clearTimeout(AB.t);
   const iv=(ABM.iv===undefined?300:ABM.iv)*1000;AB.t=setTimeout(abWrite,Math.max(4000,(ABM.last||0)+iv-Date.now()))}
-async function abNow(){sayOff('abi');if(AB.st!=='ok')return;clearTimeout(AB.t);const t0=ABM.last||0;await abWrite();if(AB.st==='ok'&&(ABM.last||0)>t0)say('已備份。',{lv:'info',hold:3000})}
+async function abNow(){sayOff('abi');if(AB.st!=='ok')return;clearTimeout(AB.t);const t0=ABM.last||0;await abWrite();if(AB.st==='ok'&&(ABM.last||0)>t0)say('已備份。',{lv:'info'})}
 async function abForce(){sayOff('abg');sayOff('abi');AB.force=1;abSet('ok');await abWrite();AB.force=0}
 async function abWrite(){
   if(AB.st!=='ok'||!AB.h||stale)return;
   if(AB.busy){AB.again=true;return}
   {const nN=S.notes.length,pn=ABM.n||0;   // 筆記突然變很少：先不寫，免得把手滑的狀態存進去
-   if(!AB.force&&pn>0&&(nN===0||(pn>=4&&nN<=pn*.5))){abSet('guard');abSayOnce('guard',()=>say('筆記突然少了很多（'+pn+' 則變成 '+nN+' 則），自動備份先暫停，避免把這個狀態存進去。',{lv:'warn',id:'abg',hold:25000,actions:[{label:'照樣備份',fn:abForce},{label:'停止自動備份',fn:abStop}]}));return}}
+   if(!AB.force&&pn>0&&(nN===0||(pn>=4&&nN<=pn*.5))){abSet('guard');abSayOnce('guard',()=>say('筆記突然少了很多（'+pn+' 則變成 '+nN+' 則），自動備份先暫停，避免把這個狀態存進去。',{lv:'warn',id:'abg',actions:[{label:'照樣備份',fn:abForce},{label:'停止自動備份',fn:abStop}]}));return}}
   AB.busy=true;
   try{
-    if(!AB.force&&AB.lm){const f0=await AB.h.getFile();if(f0&&f0.lastModified>AB.lm+1500){abSet('conflict');abSayOnce('conf',()=>say('備份檔比這台電腦新（可能在別處更新過），為了不蓋掉它，已暫停寫入。',{lv:'warn',id:'abg',hold:20000,actions:[{label:'重新指定檔案',fn:abPick},{label:'停止自動備份',fn:abStop}]}));AB.busy=false;return}}
+    if(!AB.force&&AB.lm){const f0=await AB.h.getFile();if(f0&&f0.lastModified>AB.lm+1500){abSet('conflict');abSayOnce('conf',()=>say('備份檔比這台電腦新，為了不蓋掉它，已暫停寫入。',{lv:'warn',id:'abg',actions:[{label:'重新指定檔案',fn:abPick},{label:'停止自動備份',fn:abStop}]}));AB.busy=false;return}}
     const d=new Date(),txt=JSON.stringify(buildExport(d),null,2),w=await AB.h.createWritable();
     await w.write(txt);await w.close();try{const f1=await AB.h.getFile();AB.lm=(f1&&f1.lastModified)||0}catch(e){}
     ABM.last=d.getTime();ABM.n=S.notes.length;abMetaSave();AB.fails=0;AB.said.fail=0;AB.said.guard=0;
     abPaintBtn();const b=$('abb');if(b){b.classList.remove('fl');void b.offsetWidth;b.classList.add('fl')}chk();
   }catch(e){
     const n=e&&e.name;
-    if(n==='NotAllowedError'||n==='SecurityError'){abSet('paused');abSayOnce('pause',()=>canSay()&&say('瀏覽器需要你再同意一次，要延續自動備份嗎？',{lv:'info',id:'abp',hold:20000,actions:[{label:'延續',fn:abResume},{label:'停止自動備份',fn:abStop}]}))}
-    else{AB.fails++;if(AB.fails<3){clearTimeout(AB.t);AB.t=setTimeout(abWrite,30000)}else{abSet('fail');if(!AB.said.fail){AB.said.fail=1;say('自動備份失敗了，筆記還是安全存在瀏覽器裡。請點右上角的「自動備份」按鈕重新指定備份檔案。',{lv:'warn'})}}}
+    if(n==='NotAllowedError'||n==='SecurityError'){abSet('paused');abSayOnce('pause',()=>canSay()&&say('瀏覽器需要你再同意一次，要延續自動備份嗎？',{lv:'info',id:'abp',actions:[{label:'延續',fn:abResume},{label:'停止自動備份',fn:abStop}]}))}
+    else{AB.fails++;if(AB.fails<3){clearTimeout(AB.t);AB.t=setTimeout(abWrite,30000)}else{abSet('fail');if(!AB.said.fail){AB.said.fail=1;say('自動備份失敗了，筆記仍安全存在瀏覽器裡。請點「自動備份」重新指定檔案。',{lv:'warn'})}}}
   }
   AB.busy=false;if(AB.again){AB.again=false;abKick()}
 }
@@ -3094,16 +3129,16 @@ async function abVerify(){  // 開頁時：備份檔如果被別處更新過，�
   return true}
 async function abEnable(){
   const ok=await abVerify();
-  if(!ok){abSet('conflict');abSayOnce('conf',()=>say('自動備份的檔案比這台電腦新（可能在別台電腦更新過），為了不蓋掉它，已暫停。請先用「匯入」確認內容，再點右上角的「自動備份」按鈕重新指定。',{lv:'warn'}));return}
+  if(!ok){abSet('conflict');abSayOnce('conf',()=>say('備份檔比這台新，已暫停以免蓋掉。請先匯入確認，再重新指定「自動備份」。',{lv:'warn'}));return}
   abSet('ok');if(!ABM.last||bkDirty())abKick()}
 async function abInit(){
   abPaintBtn();$('abb').onclick=abClick;setInterval(abPaintBtn,20000);
   if(!AB.sup||!ABM.on)return;
   let h=null;try{h=await ABS.load()}catch(e){}
-  if(!h){abSet('fail');abSayOnce('lost',()=>say('自動備份的設定不見了，要重新指定嗎？',{lv:'info',id:'abl',hold:20000,actions:[{label:'重新指定',fn:abPick},{label:'不用了',fn:abStop}]}));return}
+  if(!h){abSet('fail');abSayOnce('lost',()=>say('自動備份的設定不見了，要重新指定嗎？',{lv:'info',id:'abl',actions:[{label:'重新指定',fn:abPick},{label:'不用了',fn:abStop}]}));return}
   AB.h=h;let perm='prompt';try{perm=await h.queryPermission({mode:'readwrite'})}catch(e){}
   if(perm==='granted')abEnable();
-  else{abSet('paused');setTimeout(()=>abSayOnce('pause',()=>canSay()&&say('要延續自動備份嗎？（瀏覽器每次重開網頁，都會請你再同意一次）',{lv:'info',id:'abp',hold:20000,actions:[{label:'延續',fn:abResume},{label:'停止自動備份',fn:abStop}]})),2500)}
+  else{abSet('paused');setTimeout(()=>abSayOnce('pause',()=>canSay()&&say('要繼續自動備份嗎？（瀏覽器每次重開都會再問一次）',{lv:'info',id:'abp',actions:[{label:'延續',fn:abResume},{label:'停止自動備份',fn:abStop}]})),2500)}
 }
 const abSig=a=>a.length+':'+a.reduce((x,n)=>x+String((n&&n.title)||'').length+String((n&&n.content)||'').length,0);
 async function abPick(){
@@ -3135,14 +3170,14 @@ async function abStart(h){
   AB.h=h;AB.fails=0;AB.said={};try{await ABS.save(h)}catch(e){}
   AB.lm=0;ABM.on=1;ABM.last=0;ABM.n=0;ABM.name=h.name||'';abMetaSave();   // 使用者自己選的檔案：視為同意覆蓋，從頭開始
   abSet('ok');await abWrite();
-  if(AB.st==='ok')say('自動備份已啟用，之後有變動會自動存到「'+(h.name||'備份檔')+'」。這是備份，不是同步。',{lv:'info',hold:8000});
+  if(AB.st==='ok'){guideDone('hrs');guideDone('exp')}if(AB.st==='ok')say('自動備份已啟用，之後有變動會自動存到「'+(h.name||'備份檔')+'」。這是備份，不是同步。',{lv:'info'});
 }
 async function abResume(){
   if(!AB.h){abPick();return}
   let perm='denied';try{perm=await AB.h.requestPermission({mode:'readwrite'})}catch(e){}
   sayOff('abp');
   if(perm==='granted'){AB.fails=0;AB.said.pause=0;await abEnable();if(AB.st==='ok')say('自動備份已延續。',{lv:'info'})}
-  else say('沒有同意，自動備份先擱著。想延續時，點右上角的「自動備份」按鈕。',{lv:'info'})
+  else say('沒有同意，自動備份先擱著。想繼續就點「自動備份」。',{lv:'info'})
 }
 async function abStop(){
   sayOff('abi');sayOff('abp');sayOff('abl');clearTimeout(AB.t);AB.h=null;ABM.on=0;abMetaSave();try{await ABS.clear()}catch(e){}
@@ -3163,14 +3198,17 @@ function xpPaint(lite){
   const full=f.full&&!f.max;
   b.classList.toggle('full',full);
   if(full&&!xpWasFull){b.classList.remove('pulse');void b.offsetWidth;b.classList.add('pulse');const t=Date.now();if(!MS.xf||t-MS.xf>3*864e5)xpRemPend=true}
-  if(!full){xpRemPend=false;b.classList.remove('pulse')}
+  if(!full){xpRemPend=false;b.classList.remove('pulse');if(MS.g&&MS.g.xp){delete MS.g.xp;msSave();sayOff('xp')}}
   xpWasFull=full;
   $('cabb').classList.toggle('dot',full);
   if(cabOn()||PD.tuck)cabPaintPanel();
 }
 xpHook=()=>xpPaint(1);  // 挖到礦時只更新比例，不重新量版面
-function xpRemind(){if(!xpRemPend||!booted||cabOn()||!canSay()||Date.now()-A.act<3000)return;xpRemPend=false;MS.xf=Date.now();msSave();say('你的採礦經驗值已滿，記得升級十字鎬。',{lv:'info',hold:9000,rx:'nod',actions:[{label:'去升級',fn:()=>{if(!cabOn())cabToggle()}}]})}
+function xpRemind(){if(!xpRemPend||!booted||cabOn()||!canSay()||Date.now()-A.act<3000)return;xpRemPend=false;MS.xf=Date.now();msSave();guide('xp','你的採礦經驗值已滿，記得升級十字鎬。',{rx:'nod',actions:[{label:'去升級',fn:()=>{sayOff('xp');if(!cabOn())cabToggle()}}]})}
 setInterval(xpRemind,10000);
+/* 1.64 引導：從沒匯出過、也沒開自動備份，筆記累積到 10 篇或用了 3 天，邀請匯出一次 */
+function expAsk(){if(PH||!booted||pend||S.lastExport||AB.st==='ok')return;const n=S.notes.filter(x=>!x.hv&&String(x.content).trim()).length;if(n<10&&!(S.rc&&S.rc.dd>=3))return;guide('exp','要匯出一份備份嗎？清除瀏覽器資料時，筆記會一起不見。',{rx:'tip',actions:[{label:'匯出',fn:()=>$('exp').click()},{label:'之後再說',fn:()=>sayOff('exp')}]})}
+setInterval(expAsk,30000);
 try{new ResizeObserver(()=>requestAnimationFrame(()=>{if(cabOn())cabSize()})).observe($('cell'))}catch(e){}
 const fpk=document.createElement('div');fpk.id='fpk';document.body.appendChild(fpk);
 function openFpk(id,el){const f=fById(id);if(!f)return;fpk.innerHTML=FPAL.map((c,i)=>`<button data-i="${i}" style="background:${c}"${(+f.color||0)===i?' class="cur"':''}></button>`).join('');const r=el.getBoundingClientRect();fpk.style.display='grid';fpk.style.left=Math.max(4,Math.min(r.left,innerWidth-fpk.offsetWidth-8))+'px';fpk.style.top=(r.bottom+6)+'px';fpk.dataset.id=id}
@@ -3278,7 +3316,7 @@ twP.forEach((p,i)=>{
 });
 $('twb').onclick=()=>{
   L.tw.on=L.tw.on?0:1;saveL();twPaint();
-  if(L.tw.on){if(!MS.tw){MS.tw=1;msSave();say('已鎖定打字範圍，可拖動兩支鉛筆調整。',{lv:'info',hold:5000})}else say('已鎖定打字範圍。',{lv:'info'});twFollow()}
+  if(L.tw.on){if(!MS.tw){MS.tw=1;msSave();say('已鎖定打字範圍，可拖動兩支鉛筆調整。',{lv:'info'})}else say('已鎖定打字範圍。',{lv:'info'});twFollow()}
   else say('已解除鎖定打字範圍。',{lv:'info'});
 };
 ta.addEventListener('input',()=>setTimeout(twFollow,0));
@@ -3307,7 +3345,7 @@ async function hTrim(nid){try{const db=await hOpenDb();const l=await new Promise
 function hForce(n){if(PH||!n||n.hv)return Promise.resolve();const now=Date.now();HS.last[n.id]={t:now,c:n.content};return hPut(hRec(n,'auto',now)).then(()=>hTrim(n.id)).catch(()=>{})}
 /* 永久刪除、匯入「取代」被蓋掉的筆記：整篇存起來，7 天內可救回 */
 function hDel(ns,kind){if(PH)return;const t=Date.now();(ns||[]).filter(n=>n&&!n.hv).forEach((n,i)=>hPut(hRec(n,kind||'del',t+i)).catch(()=>{}));
-  if(!MS.hdl&&kind!=='imp'&&(ns||[]).length){MS.hdl=1;msSave();setTimeout(()=>say('刪掉的筆記，7 天內可以到檔案櫃的「歷史紀錄」救回。',{lv:'info',hold:8000,rx:'tip'}),900)}}
+  if(!MS.hdl&&kind!=='imp'&&(ns||[]).length){MS.hdl=1;msSave();setTimeout(()=>say('刪掉的筆記，7 天內可在檔案櫃「歷史紀錄」救回。',{lv:'info',rx:'tip'}),900)}}
 const hT=t=>{const d=new Date(t),n=new Date(),hm=p2(d.getHours())+':'+p2(d.getMinutes());if(d.toDateString()===n.toDateString())return '今天 '+hm;const y=new Date(n.getTime()-864e5);if(d.toDateString()===y.toDateString())return '昨天 '+hm;return (d.getMonth()+1)+'/'+d.getDate()+' '+hm};
 let HW=null;
 async function hOpen(nid){if(PH)return;if(pend){lockMsg();return}cmClose();
@@ -3319,7 +3357,7 @@ async function hOpen(nid){if(PH)return;if(pend){lockMsg();return}cmClose();
   const o=document.createElement('div');o.id='hw';HW=o;
   const nm=nid&&byId(nid)?byId(nid).title:'';
   o.innerHTML='<div id="hwb"><div id="hwh"><b>歷史紀錄</b><i></i><button id="hwc">清空全部</button><button id="hwx">關閉</button></div><div id="hwm"><div id="hwl"></div><div id="hwp"><div id="hwpv"></div><div id="hwa"></div></div></div></div>';
-  o.querySelector('#hwh i').textContent=(nm?'「'+nm+'」・':'')+'保留 7 天．只存在這台電腦的這個瀏覽器，匯出備份不會帶走';if(!MS.hwo){MS.hwo=1;msSave();setTimeout(()=>say('歷史紀錄只存在這台電腦，匯出備份不會帶走喔。',{lv:'info',hold:8000,rx:'tip'}),600)}
+  o.querySelector('#hwh i').textContent=(nm?'「'+nm+'」・':'')+'保留 7 天．只存在這台電腦的這個瀏覽器，匯出備份不會帶走';if(!MS.hwo){MS.hwo=1;msSave();setTimeout(()=>say('歷史紀錄只存在這台電腦，匯出備份不會帶走喔。',{lv:'info',rx:'tip'}),600)}
   document.body.appendChild(o);const L1=o.querySelector('#hwl'),pv=o.querySelector('#hwpv'),ac=o.querySelector('#hwa');
   const close=()=>{o.remove();HW=null;document.removeEventListener('keydown',esc,true)},esc=e=>{if(e.key==='Escape'){e.preventDefault();e.stopPropagation();close()}};
   document.addEventListener('keydown',esc,true);o.querySelector('#hwx').onclick=close;
@@ -3340,7 +3378,7 @@ async function hOpen(nid){if(PH)return;if(pend){lockMsg();return}cmClose();
     else if(cur){btn('換回這一版','目前內容會先存一版',()=>{hRevert(r,cur);close()});btn('另存成新筆記','原筆記不動',()=>{hSaveNew(r,cur);close()},1)}
     else btn('另存成新筆記','',()=>{hSaveNew(r,null);close()},1)}
 }
-function hDone(rescue){S.hst=Object.assign({r:0},S.hst);S.hst.r++;tCnt('hr');if(rescue)tCnt('rsc');save();if(!MS.hrs){MS.hrs=1;msSave();setTimeout(()=>say('救回來了！想連換電腦都不怕，可以打開右上角的「自動備份」。',{lv:'info',hold:8000,rx:'ok'}),1200)}}
+function hDone(rescue){S.hst=Object.assign({r:0},S.hst);S.hst.r++;tCnt('hr');if(rescue)tCnt('rsc');save();if(AB.st!=='ok')setTimeout(()=>guide('hrs','救回來了！打開右上角「自動備份」，換電腦也不怕。',{rx:'ok'}),1200)}
 function hSaveNew(r,orig){if(pend){lockMsg();return}const d=new Date(r.t),now=Date.now();
   const nxt=orig?S.notes.filter(m=>m.order>orig.order).reduce((x,m)=>Math.min(x,m.order),Infinity):Infinity;
   const n={id:'n'+now+'h'+Math.random().toString(36).slice(2,5),title:uniq(r.title+'_舊版'+p2(d.getMonth()+1)+p2(d.getDate())+'-'+p2(d.getHours())+p2(d.getMinutes()),null),content:r.content||'',created:now,modified:now,archived:false,archivedAt:0,order:orig?(nxt===Infinity?orig.order+1:(orig.order+nxt)/2):Math.min(0,...S.notes.map(m=>m.order||0))-1,icon:'🕰️'};
@@ -3363,9 +3401,9 @@ const TT={roll:0,ds:0,dRoll:-1,ss:0,del:0,arr:0,th:[],nk:'',nc:0,fN:null,fL:0,fA
 function tInit(quiet){
   const fresh=!S.tt;
   S.tt=Object.assign({p:[0,1,2],n:[0,1],nw:[],sp:0,sn:0,up:0,show:1,auto:1},S.tt||{});
-  rcFix();S.ts=Object.assign({tw:0,imp:0,pst:0,md:0,fx:0,hr:0,rsc:0,pk:0,pv:0,lc:0,ab:0,dl:'',dc:0,dyk:'',dy:0},S.ts||{});
+  rcFix();S.ts=Object.assign({tw:0,imp:0,pst:0,md:0,fx:0,hr:0,rsc:0,pk:0,pv:0,lc:0,ab:0,dl:'',dc:0,dyk:'',dy:0},S.ts||{});twSync();
   [0,1,2].forEach(i=>{if(!S.tt.p.includes(i))S.tt.p.push(i)});[0,1].forEach(i=>{if(!S.tt.n.includes(i))S.tt.n.push(i)});
-  if(fresh&&!quiet){TT.retro=1;tSlow();TT.retro=0;const c=S.tt.p.length-3+S.tt.n.length-2;if(c>0&&HAD)setTimeout(()=>say('你已經獲得 '+c+' 個稱號！到檔案櫃看看。',{lv:'info',hold:9000,rx:'ok'}),4000)}
+  if(fresh&&!quiet){TT.retro=1;tSlow();TT.retro=0;const c=S.tt.p.length-3+S.tt.n.length-2;if(c>0&&HAD)setTimeout(()=>say('你已經獲得 '+c+' 個稱號！到檔案櫃看看。',{lv:'info',rx:'ok'}),4000)}
   save();tPaint()}
 const tHas=(k,i)=>gmOn||S.tt[k].includes(i);
 function tName(){const t=gmOn?TT.gm:S.tt;return (t.up?TP[t.sp]||'':'')+(TN[t.sn]||TN[0])}
@@ -3375,9 +3413,9 @@ function tGet(k,i){if(PH||!S.tt||S.tt[k].includes(i))return;S.tt[k].push(i);S.tt
   save();tPaint();if(TT.retro)return;
   TT.q.push([k,i]);clearTimeout(TT.qt);TT.qt=setTimeout(tAnnounce,400)}
 function tAnnounce(){const q=TT.q.splice(0);if(!q.length)return;playSfx('unlock');
-  if(q.length>1){say('獲得 '+q.length+' 個稱號！到檔案櫃看看。',{lv:'info',hold:8000,rx:'ok'});return}
+  if(q.length>1){say('獲得 '+q.length+' 個稱號！到檔案櫃看看。',{lv:'info',rx:'ok'});return}
   const [k,i]=q[0],nm=k==='n'?TN[i]:TP[i],applied=k==='n'?S.tt.sn===i:(S.tt.up&&S.tt.sp===i);
-  say('獲得稱號「'+nm+'」！',Object.assign({lv:'info',hold:8000,rx:'ok'},applied?{}:{actions:[{label:'套用',fn:()=>{if(k==='n')S.tt.sn=i;else{S.tt.sp=i;S.tt.up=1}S.tt.nw=S.tt.nw.filter(x=>x!==k+i);save();tPaint()}}]}))}
+  say('獲得稱號「'+nm+'」！',Object.assign({lv:'info',rx:'ok'},applied?{}:{actions:[{label:'套用',fn:()=>{if(k==='n')S.tt.sn=i;else{S.tt.sp=i;S.tt.up=1}S.tt.nw=S.tt.nw.filter(x=>x!==k+i);save();tPaint()}}]}))}
 function tCnt(c){if(!S.ts)return;S.ts[c]=(+S.ts[c]||0)+1;const v=S.ts[c];
   if(c==='imp'){if(v>=2)tGet('n',2);if(v>=6)tGet('n',3)}
   else if(c==='pst'&&v>=6)tGet('n',10);else if(c==='md'&&v>=6)tGet('n',9);else if(c==='fx')tGet('n',14);
@@ -3386,7 +3424,7 @@ function tCnt(c){if(!S.ts)return;S.ts[c]=(+S.ts[c]||0)+1;const v=S.ts[c];
   else if(c==='pk'){if(v>=3)tGet('p',21);if(v>=6)tGet('n',23);if(v>=12)tGet('n',24)}
   save()}
 function tTyped(c){if(!c||!S.ts||PH)return;const now=Date.now(),d=new Date(),h=d.getHours(),n=byId(S.sel),ts=S.ts;
-  rcAdd('tw',c);rcDay(dayKey());ts.tw+=c;if(ts.tw>=6000)tGet('n',5);if(ts.tw>=1e5)tGet('n',19);
+  rcAdd('tw',c);rcDay(dayKey());if(!gmOn){ts.tw+=c;twSync();{const dk=dayKey();if(!S.twd||S.twd.d!==dk)S.twd={d:dk,n:0};S.twd.n+=c}}if(ts.tw>=6000)tGet('n',5);if(ts.tw>=1e5)tGet('n',19);
   const dk=dayKey();if(ts.dl!==dk){const y=new Date(now-864e5),yk=y.getFullYear()+'-'+(y.getMonth()+1)+'-'+y.getDate();ts.dc=ts.dl===yk?ts.dc+1:1;ts.dl=dk}if(ts.dc>=3)tGet('p',8);if(ts.dc>=5)tGet('p',9);
   const slot=h>=1&&h<4?'n':h>=4&&h<6?'m':'';if(slot){const k=slot+dk;if(TT.nk!==k){TT.nk=k;TT.nc=0}TT.nc+=c;if(TT.nc>=50)tGet('p',slot==='n'?3:4)}
   const mo=d.getMonth(),dd=d.getDate(),mi=d.getMinutes();if((mo===11&&dd===31&&h===23&&mi>=50)||(mo===0&&dd===1&&h===0&&mi<=10))tGet('p',22);
@@ -3401,6 +3439,8 @@ function tEdit(n){if(!n||n.hv)return;const now=Date.now(),dk=dayKey();
   if(n.edk!==dk){n.edk=dk;n.edd=(n.edd||0)+1;if(n.edd>=6)tGet('p',10)}}
 
 /* ===== 紀錄（1.60）：累計數據 + 驗證碼。純網頁沒有伺服器，驗證碼只擋「隨手改 JSON」，擋不住有心人。GM 模式不計入。 ===== */
+/* 1.63：「累計打字」只有一個數字——紀錄(rc.tw)與稱號(ts.tw)永遠同步成較大者（載入、匯入、復原都會經過 tInit） */
+function twSync(){if(!S.rc||!S.ts)return;const m=Math.max(+S.rc.tw||0,+S.ts.tw||0);S.rc.tw=m;S.ts.tw=m}
 function rcFix(){const r=S.rc&&typeof S.rc==='object'?S.rc:{},n=v=>{v=Math.floor(+v);return v>=0&&isFinite(v)?v:0};
   S.rc={t0:n(r.t0)||Date.now(),tw:n(r.tw),dd:n(r.dd),dl:typeof r.dl==='string'?r.dl.slice(0,12):'',ps:n(r.ps),pz:n(r.pz),ore:n(r.ore)};return S.rc}
 function rcSig(r){const t=[r.t0,r.tw,r.dd,r.ps,r.pz,r.ore].join('|')+'|R_note.rc.1';let h1=0xdeadbeef,h2=0x41c6ce57;
@@ -3412,23 +3452,29 @@ function rcIn(r,sg){if(!r||typeof r!=='object')return null;const k=['t0','tw','d
   return{rc:o,v:typeof sg==='string'&&sg===rcSig(o)}}
 function rcAdd(k,v){if(PH||gmOn||!S.rc)return;S.rc[k]=(+S.rc[k]||0)+(v||1)}
 function rcDay(dk){if(PH||gmOn||!S.rc)return;if(S.rc.dl!==dk){S.rc.dl=dk;S.rc.dd++}}
-ta.addEventListener('paste',e=>{if(PH||ta.readOnly)return;let t='';try{t=(e.clipboardData&&e.clipboardData.getData('text'))||''}catch(x){}if(!t)return;rcAdd('ps');rcAdd('pz',[...t].length)});
 const fmtN=v=>(+v||0).toLocaleString('en-US');
 function rcRows(){const r=S.rc||rcFix(),f=xpInfo(),d=new Date(r.t0);
-  return[['開始使用',d.getFullYear()+'/'+p2(d.getMonth()+1)+'/'+p2(d.getDate())],['使用天數',fmtN(r.dd)+' 天'],['累計打字',fmtN(r.tw)+' 字'],['採到的礦石',fmtN(r.ore)+' 顆'],['採礦等級','Lv.'+f.lv]]}
-function rcPaint(){return '<div class="pcard rcd"><div class="rctt">'+(S.tt&&S.tt.show!==0?'《'+tName()+'》':'R note')+'</div>'
+  // 1.66：含金量＝錢袋總和÷100；珠璣值＝（錢袋＋礦石換算）÷100＋累計打字÷20，再乘筆力倍率（1→最高 1.5，寫越多越接近）
+  // 礦石換算照售價，鑽石取 150～300 的中位數 225。兩個值都不公開算法；珠璣值一定大於含金量。
+  let coin=0,ore=0;S.notes.forEach(n=>{coin+=+n.coin||0;const o=n.ore||{};for(const k in o){const c=Math.floor(+o[k]||0);if(c>0)ore+=c*(+k===0?225:(PR[+k]||0))}});
+  const tw=+r.tw||0,gold=coin/100,pearl=((coin+ore)/100+tw/20)*(1+.5*(1-Math.exp(-tw/1e5)));
+  const f1=v=>{v=Math.floor(v*10)/10;return '約 '+(v%1?v.toLocaleString('en-US',{minimumFractionDigits:1,maximumFractionDigits:1}):fmtN(v))};
+  return[['稱號','《'+tName()+'》'],['含金量',f1(gold)],['珠璣值',f1(pearl)],['今天打字',fmtN(S.twd&&S.twd.d===dayKey()?S.twd.n:0)+' 字'],['累計打字',fmtN(r.tw)+' 字'],['採到的礦石',fmtN(r.ore)+' 顆'],['採礦等級','Lv.'+f.lv],['使用天數',fmtN(r.dd)+' 天'],['開始使用',d.getFullYear()+'/'+p2(d.getMonth()+1)+'/'+p2(d.getDate())]]}
+function rcPaint(){return '<div class="pcard rcd"><div class="rctt">R note</div>'
   +rcRows().map(x=>'<div class="rcr"><span>'+x[0]+'</span><b>'+x[1]+'</b></div>').join('')
   
   +(S.rcu?'<p class="rcn">這份紀錄來自被改動過的備份檔，標為「未驗證」，不能存成圖片。</p>':'')
   +'<button class="sg rcs"'+(S.rcu?' disabled':'')+'>存成圖片</button></div>'}
 function rcSave(){if(S.rcu)return;const r=S.rc||rcFix(),cs=getComputedStyle(document.documentElement),v=(n,d)=>(cs.getPropertyValue(n)||'').trim()||d;
-  const W=720,rows=rcRows(),H=170+rows.length*46+70,c=document.createElement('canvas'),x=c.getContext('2d'),bg=v('--p2','#fbfaf6'),tx=v('--tx','#222'),ln=v('--ln','#bbb'),ry=v('--ry','#c0392b');
+  const W=720,rows=rcRows(),H=150+rows.length*46+90,c=document.createElement('canvas'),x=c.getContext('2d'),bg=v('--p2','#fbfaf6'),tx=v('--tx','#222'),ln=v('--ln','#bbb'),ry=v('--ry','#c0392b');
   c.width=W*2;c.height=H*2;x.scale(2,2);x.fillStyle=bg;x.fillRect(0,0,W,H);x.strokeStyle=ln;x.lineWidth=2;x.strokeRect(10,10,W-20,H-20);
   x.fillStyle=ry;x.font='800 54px Georgia,serif';x.textBaseline='alphabetic';x.fillText('R',44,92);
   x.fillStyle=tx;x.font='700 30px sans-serif';x.fillText('R note 紀錄卡',104,88);
-  x.font='600 22px sans-serif';x.globalAlpha=.7;x.fillText(S.tt&&S.tt.show!==0?'《'+tName()+'》':'',44,132);x.globalAlpha=1;
-  rows.forEach((q,i)=>{const y=190+i*46;x.strokeStyle=ln;x.globalAlpha=.5;x.beginPath();x.moveTo(44,y+14);x.lineTo(W-44,y+14);x.stroke();x.globalAlpha=1;x.fillStyle=tx;x.globalAlpha=.7;x.font='22px sans-serif';x.textAlign='left';x.fillText(q[0],44,y);x.globalAlpha=1;x.font='700 24px sans-serif';x.textAlign='right';x.fillText(q[1],W-44,y)});
-  x.textAlign='left';x.fillStyle=tx;x.globalAlpha=.6;x.font='18px monospace';x.fillText('R note '+VERSION,44,H-34);x.globalAlpha=1;
+  rows.forEach((q,i)=>{const y=160+i*46;x.strokeStyle=ln;x.globalAlpha=.5;x.beginPath();x.moveTo(44,y+14);x.lineTo(W-44,y+14);x.stroke();x.globalAlpha=1;x.fillStyle=tx;x.globalAlpha=.7;x.font='22px sans-serif';x.textAlign='left';x.fillText(q[0],44,y);x.globalAlpha=1;x.font='700 24px sans-serif';x.textAlign='right';x.fillText(q[1],W-44,y)});
+  // 1.66：左下角放當下的機器人（之後有裝飾就一起畫進來），右下角是存檔當下的日期時間（跟右上角一樣的寫法）
+  let vx=44;const rb=$('rbt');if(rb&&rb.width){const sc=Math.max(1,Math.floor(64/rb.height)),rw=rb.width*sc,rh=rb.height*sc;x.imageSmoothingEnabled=false;try{x.drawImage(rb,24,H-24-rh,rw,rh)}catch(e){}vx=24+rw+8}
+  x.textAlign='left';x.fillStyle=tx;x.globalAlpha=.6;x.font='18px monospace';x.fillText('R note '+VERSION,vx,H-34);
+  x.textAlign='right';x.font='18px sans-serif';x.fillText(($('cd').textContent+'  '+$('ct').textContent).trim(),W-44,H-34);x.globalAlpha=1;x.textAlign='left';
   c.toBlob(b=>{if(!b){say('存圖失敗，請再試一次。',{lv:'warn'});return}const u=URL.createObjectURL(b),a=document.createElement('a');a.href=u;a.download='R_note_record.png';document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),4000);playSfx('pick');say('紀錄卡已存成圖片，請見瀏覽器的下載。',{lv:'info',rx:'ok'})},'image/png')}
 
 function tOre(i){rcAdd('ore');if(i===0){if(TT.ds>0&&TT.dRoll!==TT.roll)TT.ds++;else if(TT.ds===0)TT.ds=1;TT.dRoll=TT.roll;if(TT.ds>=2)tGet('p',14);if(TT.ds>=3)tGet('n',29)}else TT.ds=0;
@@ -3492,7 +3538,7 @@ function selUpdate(){const b=$('wcb');if(!b)return;const n=byId(S.sel);let c=0;
     if(mdOn()){const g=getSelection(),v=$('mdv');if(g&&!g.isCollapsed&&v.contains(g.anchorNode)&&v.contains(g.focusNode))c=wcCount(g.toString())}  // Markdown 預覽中，算預覽區裡選到的字
     else if(document.activeElement===ta&&ta.selectionStart!==ta.selectionEnd)c=wcCount(ta.value.slice(ta.selectionStart,ta.selectionEnd))}
   b.classList.toggle('sel',c>0);if(c>0)$('wcsn').textContent=c;
-  if(c>0&&!S.sh&&!PH&&!selHint){selHint=1;setTimeout(()=>{selHint=0;if(S.sh||S.mute||!selText()||!canSay())return;S.sh=1;save();say('框選文字後，「複製內文」會變成「複製選取」，只複製框選的部分。',{lv:'info',hold:7000,rx:'nod'})},900)}
+  if(c>0&&!S.sh&&!PH&&!selHint){selHint=1;setTimeout(()=>{selHint=0;if(S.sh||S.mute||!selText()||!canSay())return;S.sh=1;save();say('框選後按「複製」，只複製框選的部分。',{lv:'info',rx:'nod'})},900)}
   const cb=$('cpb');if(cb.classList.contains('sel')!==(c>0)){cb.classList.toggle('sel',c>0);cb.dataset.tip=c>0?'複製選取':'複製內文';if(!cpBusy)$('cpi').innerHTML=sv(c>0?'copysel':'copy')}}
 const selSoon=()=>{if(selRaf)return;selRaf=requestAnimationFrame(()=>{selRaf=0;selUpdate()})};
 ['select','keyup','mouseup','input','focus','blur'].forEach(v=>ta.addEventListener(v,selSoon));document.addEventListener('selectionchange',selSoon);
@@ -3587,7 +3633,7 @@ const selSoon=()=>{if(selRaf)return;selRaf=requestAnimationFrame(()=>{selRaf=0;s
       });
       S.q='';$('sq').value='';ms.clear();playSfx('new');save();render();pick(ids[0]);{const el=document.querySelector('.item[data-id="'+ids[0]+'"]');if(el)el.scrollIntoView({block:'nearest'})}if(!PH){ta.focus();ta.setSelectionRange(0,0);ta.scrollTop=0}
       const undo=()=>{if(!ids.some(id=>byId(id)))return;S.notes=S.notes.filter(m=>!ids.includes(m.id));ms.clear();S.sel=(prevSel&&byId(prevSel))?prevSel:null;fixSel();sayOff('dropdone');playSfx('restore');save();render();showNote()};
-      say('已建立 '+ids.length+' 篇筆記'+(fid?'，放在『'+fById(fid).name+'』資料夾':manyF?'，選了多個資料夾，先放在檔案櫃':'')+'。',{lv:'info',id:'dropdone',hold:6000,rx:'ok',actions:[{label:'復原',fn:undo}]});
+      say('已建立 '+ids.length+' 篇筆記'+(fid?'，放在『'+fById(fid).name+'』資料夾':manyF?'，選了多個資料夾，先放在檔案櫃':'')+'。',{lv:'info',id:'dropdone',rx:'ok',actions:[{label:'復原',fn:undo}]});
     }
     const RS={ext:'不是文字文件',big:'太大（上限 1 MB）',enc:'無法讀取內容',full:'會超出儲存空間',more:'超過一次 50 個的上限'};
     const keys=Object.keys(RS).filter(k=>sk[k].length),total=keys.reduce((a,k)=>a+sk[k].length,0);
@@ -3688,7 +3734,7 @@ setp.innerHTML=`<div class="hd"><b>設定</b><button class="sg" id="spx">✕ 關
  <div class="sec" id="spal"><h3>定時提醒</h3>
   ${[0,1].map(i=>`<div class="alr" data-i="${i}"><label class="alk"><input type="checkbox" class="alo" aria-label="啟用提醒 ${i+1}"></label><span class="alt"><select class="alap" aria-label="上午或下午"><option value="0">上午</option><option value="1">下午</option></select><select class="alh" aria-label="小時"><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option><option value="11">11</option><option value="12">12</option></select>:<select class="alm2" aria-label="分鐘"><option value="0">00</option><option value="1">01</option><option value="2">02</option><option value="3">03</option><option value="4">04</option><option value="5">05</option><option value="6">06</option><option value="7">07</option><option value="8">08</option><option value="9">09</option><option value="10">10</option><option value="11">11</option><option value="12">12</option><option value="13">13</option><option value="14">14</option><option value="15">15</option><option value="16">16</option><option value="17">17</option><option value="18">18</option><option value="19">19</option><option value="20">20</option><option value="21">21</option><option value="22">22</option><option value="23">23</option><option value="24">24</option><option value="25">25</option><option value="26">26</option><option value="27">27</option><option value="28">28</option><option value="29">29</option><option value="30">30</option><option value="31">31</option><option value="32">32</option><option value="33">33</option><option value="34">34</option><option value="35">35</option><option value="36">36</option><option value="37">37</option><option value="38">38</option><option value="39">39</option><option value="40">40</option><option value="41">41</option><option value="42">42</option><option value="43">43</option><option value="44">44</option><option value="45">45</option><option value="46">46</option><option value="47">47</option><option value="48">48</option><option value="49">49</option><option value="50">50</option><option value="51">51</option><option value="52">52</option><option value="53">53</option><option value="54">54</option><option value="55">55</option><option value="56">56</option><option value="57">57</option><option value="58">58</option><option value="59">59</option></select></span><input type="text" class="alm" maxlength="30" placeholder="提醒內容，例如：該睡了喔～" autocomplete="off"><select class="alc" aria-label="重複"><option value="0">一次</option><option value="1">每天</option><option value="2">工作天</option></select><small class="aln"></small></div>`).join('')}
   <div class="line" style="justify-content:flex-start"><label><input type="checkbox" id="spalf"> 強制出聲（音效關閉時，提醒仍會響）</label></div>
-  <div class="line"><small>網頁開著時才會提醒；可選一次、每天或工作天（週一到週五）。時間到了，機器人會把這句話固定在畫面上，等你按「知道了」。</small></div>
+  <div class="line"><small>我只住在這個網頁裡：關掉分頁或瀏覽器，我就喊不到你了；分頁放在背景時，可能會晚一點點。可選一次、每天或工作天（週一到週五）。時間到了，機器人會把這句話固定在畫面上，等你按「知道了」。</small></div>
  </div>
  <div class="sec" id="spact"><h3>活躍度</h3>
   <div class="rbat" data-k="rbm"><span>訊息</span><div class="rbw"><div class="rbf" role="slider" tabindex="0" aria-label="訊息活躍度" aria-valuemin="1" aria-valuemax="5" data-tip="訊息活躍度"><i></i></div><u></u></div><small></small></div>
