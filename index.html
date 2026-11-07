@@ -696,7 +696,7 @@ html{--rok:#3fb27f}html[data-th=d]{--rok:#2f9e6b}html[data-th=u]{--rok:#1f7d52}
 <script>
 const RBM=[16,12,7,4,2],RBA=[.25,.5,.75,1,1],RBI=[20,10,7,5,2.5];function rbLv(k){const v=+S[k];return v>=1&&v<=5?Math.floor(v):4}
 const TKMAX=9,TKLIVE=false;const TKS={s:26};let gmOn=false,gmCoin=0,gmTom=0,gmTk=0,tomPend=0,tomHold=0;
-const VERSION='1.66';const APPNAME='R note';
+const VERSION='1.68';const APPNAME='R note';
 const PROMO_URL='https://line.me/S/shop/sticker/author/123908';
 const PH=(()=>{try{const q=new URLSearchParams(location.search).get('phone');if(q==='1')return true;if(q==='0')return false;return matchMedia('(pointer:coarse)').matches&&!matchMedia('(hover:hover)').matches&&Math.min(screen.width,innerWidth)<=820}catch(e){return false}})();
 document.documentElement.classList.toggle('ph',PH);
@@ -749,7 +749,7 @@ const abMetaSave=()=>{try{localStorage.setItem(ABK,JSON.stringify(ABM))}catch(e)
 try{const l=JSON.parse(localStorage.getItem(LK)||localStorage.getItem('plain-notes-layout-v1'));if(l)Object.assign(L,l)}catch(e){}
 if(L.sw===276&&!L.w314){L.sw=314;L.w314=1}L.cl=L.cl?1:0;
 /* 1.31：光色重新排序。舊使用者存的是「第幾個系列」，用顏色名字對回新的位置；新使用者直接用新順序。 */
-const OLDORD={"d":["露草","朽葉","苔色","朧月","藤紫","杏色"],"u":["暮灰","深煙","沉煙","焦糖","苔綠","靛灰"],"n":["藍墨","落栗","鐵御","鶯茶","煤竹","山居"]},NEWORD={"d":["露草","藤紫","苔色","朽葉","杏色","朧月"],"u":["靛灰","苔綠","沉煙","焦糖","暮灰","深煙"],"n":["藍墨","鐵御","山居","鶯茶","煤竹","落栗"]};
+const OLDORD={"d":["露草","朽葉","苔色","朧月","藤紫","杏色"],"u":["暮灰","淺檀","沉煙","焦糖","苔綠","靛灰"],"n":["藍墨","落栗","鐵御","鶯茶","煤竹","山居"]},NEWORD={"d":["露草","藤紫","苔色","朽葉","杏色","朧月"],"u":["靛灰","苔綠","沉煙","焦糖","暮灰","淺檀"],"n":["藍墨","鐵御","山居","鶯茶","煤竹","落栗"]};
 const OLDUSER=HAD&&!S.ordv;  // 1.31 以前就在用的人（只有第一次升級會是 true）
 if(OLDUSER){S.ser=Object.assign({n:0,u:0,d:0},S.ser);['d','u','n'].forEach(t=>{const o=Math.floor(+S.ser[t]);if(o>=0&&o<5){const i=NEWORD[t].indexOf(OLDORD[t][o]);if(i>=0)S.ser[t]=i}})}
 S.ordv=1;if(OLDUSER&&S.thSeen===undefined)S.thSeen=1;  // 舊使用者不會被問「選色調」
@@ -1603,7 +1603,8 @@ function leaveNow(m){if(m.leaving)return;SM.list.filter(x=>!x.leaving&&!x.sticky
 const smAct=(m,acts)=>{m.el.querySelectorAll('button').forEach(b=>b.remove());(acts||[]).forEach(a=>{const bt=document.createElement('button');bt.textContent=a.label;bt.onclick=ev=>{ev.stopPropagation();playSfx('ui');a.fn()};m.el.appendChild(bt)})};
 function say(text,o){
   o=o||{};const lv=o.lv||'info',host=$('sysmsg');if(!host||!text)return;if(PH&&lv!=='warn'&&lv!=='crit')return;
-  if(o.id&&smHas(o.id))return;
+  // 1.67：同一個 id 已在場——同一句就跳一下（下面的同句合併），不同句就換掉舊的（會走的才換）；不再疊出一串
+  if(o.id){const ex=SM.list.find(m=>m.id===o.id&&!m.leaving);if(ex&&ex.text!==text&&!ex.sticky)retire(ex,false);else if(!(ex&&ex.text===text)&&smHas(o.id))return}
   const sticky=lv==='wait'||lv==='crit'||lv==='act'||!!o.guide,warn=lv==='warn'||lv==='crit';
   {const ex=SM.list.find(m=>!m.leaving&&m.text===text);
     if(ex){
@@ -1611,6 +1612,8 @@ function say(text,o){
       if(ex.done&&o.actions)smAct(ex,o.actions);
       if(ex.done&&ex.hv){ex.tm.forEach(clearTimeout);ex.tm=[setTimeout(()=>leaveNow(ex),ex.hv)]}
       rbReact(ex,ex.rx0,o.rxd);return}}
+  // 1.67：同一句正在飄走——飄走中的立刻淡掉，新的這句出現後跳一下（只留一個）
+  let rep=false;SM.list.filter(m=>m.leaving&&!m.out&&m.text===text).forEach(m=>{rep=true;m.out=1;const rr=m.el.getBoundingClientRect(),top=host.getBoundingClientRect().top;m.el.getAnimations().forEach(a=>a.cancel());m.el.style.transition='opacity .15s linear';m.el.style.transform=`translateY(${rr.top-top-4}px)`;m.el.style.opacity='0'});
   if(sticky&&SM.list.filter(m=>m.sticky&&!m.leaving).length>=2){const g=!o.guide&&SM.list.find(m=>m.guide&&!m.leaving);if(g)retire(g,false);else{SM.q.push([text,o]);return}}   // 1.65：要按的滿了，引導先讓位（下次再問）
   const m={id:o.id||null,text,rx0:o.rx||{info:'nod',wait:'wait',warn:'warn',crit:'crit',act:'act'}[lv],lv,sticky,guide:o.guide||null,pin:!!o.pin,leaving:false,el:document.createElement('div'),tm:[],born:Date.now(),sp:[]};
   m.el.className='ln'+(warn?' w':'');if(RM())m.el.style.transition='none';
@@ -1623,6 +1626,7 @@ function say(text,o){
   const typed=()=>{
     if(m.leaving)return;
     if(o.actions)smAct(m,o.actions);
+    if(rep&&!RM())m.sp.forEach((x,i)=>x.animate([{transform:'translateY(0)'},{transform:'translateY(-5px)'},{transform:'translateY(0)'}],{duration:420,delay:i*25,easing:'ease-out'}));
     if(lv==='wait')waveLoop(m);
     else if(!sticky){m.hv=(4000+m.sp.length*50)*(warn||o.actions?2:1);m.tm.push(setTimeout(()=>leaveNow(m),m.hv))}
     m.done=true;
@@ -2430,7 +2434,7 @@ R note 是架構在瀏覽器裡的純文字筆記工具……
 外觀與聲音
 ．搜尋框右邊，從左到右是：音效開關、音色、亮色系／灰色系／暗色系三顆主題按鈕。同一顆主題按鈕連續點，會換成同色系的下一組。
 ．機器人設定裡有「定時提醒」：填好時間和一句話（可選一次、每天、工作天），時間到了機器人會把那句話固定在畫面上，可以按「知道了」或「5 分鐘後再提醒」（最多延 2 次）。機器人只住在這個網頁裡：關掉分頁或瀏覽器，它就喊不到你了（之後打開會補提醒）；分頁放在背景時，可能會晚一點點才響。可勾「強制出聲」。
-．個人檔案多了「紀錄」分頁（累計打字、使用天數等），可以把紀錄卡存成圖片；備份檔會帶著紀錄，匯入時驗證碼對不上會標「未驗證」。
+．個人檔案多了「紀錄」分頁（累計打字、寫作天數等），可以把 Writer's Card 存成圖片；備份檔會帶著紀錄，匯入時驗證碼對不上會標「未驗證」。
 ．機器人左邊的齒輪是「設定」：字級、時鐘與日期時間樣式、備份提醒與自動備份、清除資料等都在這裡；「機器人」分頁可以調整報時，以及機器人說話和活動的頻率。
 ．設定打開時，設定左緣下方有一個「Profile」標籤，拉出來就是「個人檔案」（檔案櫃右邊那一張）；再按一次標籤就收回。
 
@@ -2502,7 +2506,7 @@ o、t、e 的開關會被記住；R 和 n 每次重新開啟都是關閉。
 
 祝順心如意。`;
 const hs=t=>{let a=5381,b=0;for(let i=0;i<t.length;i++){const c=t.charCodeAt(i);a=((a<<5)+a+c)|0;b=(b*31+c)|0}return a+':'+b+':'+t.length};
-const OLDH=['-230977925:-1006534530:3501','672367486:-215089409:3488','1046457898:2125655681:3323','115170983:550979746:2688','-276557875:1915655092:2638','1717136960:1119175561:2617','259163584:-342899575:2615','122576712:509132133:2551','156150843:-758912478:2459','-2106340733:-1114159256:3876','-1983915602:171529411:6757','561492873:771823936:2645','-1652934029:957503828:2482','-38752457:-718458112:2588','652580955:1757969548:2647','-1716669469:1205189334:2735'];
+const OLDH=['2054947897:-7581604:3539','-230977925:-1006534530:3501','672367486:-215089409:3488','1046457898:2125655681:3323','115170983:550979746:2688','-276557875:1915655092:2638','1717136960:1119175561:2617','259163584:-342899575:2615','122576712:509132133:2551','156150843:-758912478:2459','-2106340733:-1114159256:3876','-1983915602:171529411:6757','561492873:771823936:2645','-1652934029:957503828:2482','-38752457:-718458112:2588','652580955:1757969548:2647','-1716669469:1205189334:2735'];
 function diaryTitle(){const d=new Date();return `${d.getFullYear()}/${p2(d.getMonth()+1)}/${p2(d.getDate())}_週${'日一二三四五六'[d.getDay()]}`}
 const PHN='【給手機使用者】這是為電腦瀏覽器設計的筆記工具。手機上只提供簡易版：一張便條紙，打字也能挖礦；右上方的按鈕可以複製便條紙內容，齒輪可以調整字級、清除資料。完整功能（多篇筆記、排序、封存、備份等）請改用電腦的 Chrome 或 Edge 打開。\n\n════════════════════════\n\n';
 function seedNotes(){
@@ -2572,7 +2576,7 @@ function importDialog(j,clean,newer,g2){
   const N=o.querySelector('#imN');if(N)N.onclick=()=>{close();const r=buildAppend(fresh,false,j.folders);if(commitImport(r))say('已追加 '+r.add+' 則標題全新的筆記。',{lv:'info'})};
 }
 try{localStorage.setItem('R_note_seen',VERSION)}catch(e){}
-const THS={"d":[["露草","#f4f5f5","#233f58","#ffffff","#fbfbfb","#d7d8d9","#f0f1f1","#a6a9ab","#4c6b81","#4a9ecf","#4f93ba",0.23,"#a3cee7","#233f58"],["藤紫","#f7f7f8","#3b284d","#ffffff","#ffffff","#c2c0c4","#f0eff0","#a8a6ab","#71657c","#9a84b3","#996fbe",0.31,"#cdc2d9","#3b284d"],["苔色","#f0f0ef","#2c4224","#ffffff","#fafbfa","#bfc1bc","#e9eae8","#a8aca5","#617850","#709461","#548443",0.34,"#c6d4c0","#2c4224"],["朽葉","#f5f5f4","#44382c","#ffffff","#fbfbfb","#d9d9d7","#f1f1f0","#abaaa6","#746a59","#a88b71","#895725",0.32,"#dcd1c6","#44382c"],["杏色","#fafaf9","#583622","#ffffff","#ffffff","#dcd9d6","#f6f5f5","#afa8a1","#916d57","#ecd4c5","#c47940",0.48,"#ecd4c5","#583622"],["朧月","#f8f7f7","#482e34","#ffffff","#fffefe","#d8d6d6","#f3f3f3","#aaa7a7","#745d63","#c3a2a8","#cc6178",0.23,"#dbc7cb","#482e34"]],"u":[["靛灰","#8d9fb0","#172b3b","#9faebc","#b3bfca","#ced7e0","#b3bfca","#929faa","#324c62","#365c7c","#ceddee",0.31,"#587690","#f8fafc"],["苔綠","#abb5ac","#223424","#b7bfb8","#c5cbc5","#d7ded7","#c5cbc5","#98a499","#3f5141","#517055","#3a5940",0.29,"#768c79","#ffffff"],["沉煙","#b4a493","#33251a","#c0b3a5","#cec4b9","#e4dcd4","#cec4b9","#aa9e92","#5f4b37","#75593e","#614d38",0.29,"#8b735c","#ffffff"],["焦糖","#a78e76","#2e2115","#b19b86","#bca997","#cfbdad","#bca997","#aa9e92","#4d3d2f","#68482c","#ebdbd1",0.29,"#82654c","#f2ebe3"],["暮灰","#c4b5b8","#382428","#cec2c4","#d9d0d2","#ebe4e5","#d9d0d2","#a99397","#5c4247","#884e5a","#864653",0.28,"#a17880","#ffffff"],["深煙","#b49ca1","#29191d","#bda8ac","#c7b5b9","#d7c5c9","#c7b5b9","#aa9298","#4e363d","#6f3945","#4c383d",0.21,"#a18087","#29191d"]],"n":[["藍墨","#222c3a","#eff0f0","#293445","#303e51","#374b67","#303e51","#929caa","#acb3bc","#55799b","#5d8ab1",0.23,"#47637f","#eff0f0"],["鐵御","#293d47","#c8dce4","#2f4753","#37525f","#3d6275","#37525f","#92a2aa","#96b3c3","#6c9cb2","#6ca4cb",0.2,"#4d7182","#e7f0f3"],["山居","#404a42","#eff0ef","#454f46","#4a554c","#4e6151","#4a554c","#97a59a","#b5c5b8","#a9b7aa","#86c193",0.2,"#646f65","#eff0ef"],["鶯茶","#493f2d","#f6f5f4","#544833","#60533b","#756342","#60533b","#aaa292","#d0c8ba","#bdb093","#d9ae6d",0.18,"#7e7259","#fbfafa"],["煤竹","#342823","#eeedec","#3c2e28","#44352d","#533e33","#44352d","#aa9a92","#c3b3ab","#c0a991","#c99e78",0.14,"#5e4e43","#eeedec"],["落栗","#4b2f25","#f5f5f4","#5b392d","#6b4335","#88513d","#6b4335","#aa9992","#cdb6b0","#bf8d78","#d28b65",0.32,"#8a6050","#f5f5f4"]]};
+const THS={"d":[["露草","#f4f5f5","#233f58","#ffffff","#fbfbfb","#d7d8d9","#f0f1f1","#a6a9ab","#4c6b81","#4a9ecf","#4f93ba",0.23,"#a3cee7","#233f58"],["藤紫","#f7f7f8","#3b284d","#ffffff","#ffffff","#c2c0c4","#f0eff0","#a8a6ab","#71657c","#9a84b3","#996fbe",0.31,"#cdc2d9","#3b284d"],["苔色","#f0f0ef","#2c4224","#ffffff","#fafbfa","#bfc1bc","#e9eae8","#a8aca5","#617850","#709461","#548443",0.34,"#c6d4c0","#2c4224"],["朽葉","#f5f5f4","#44382c","#ffffff","#fbfbfb","#d9d9d7","#f1f1f0","#abaaa6","#746a59","#a88b71","#895725",0.32,"#dcd1c6","#44382c"],["杏色","#fafaf9","#583622","#ffffff","#ffffff","#dcd9d6","#f6f5f5","#afa8a1","#916d57","#ecd4c5","#c47940",0.48,"#ecd4c5","#583622"],["朧月","#f8f7f7","#482e34","#ffffff","#fffefe","#d8d6d6","#f3f3f3","#aaa7a7","#745d63","#c3a2a8","#cc6178",0.23,"#dbc7cb","#482e34"]],"u":[["靛灰","#8d9fb0","#172b3b","#9faebc","#b3bfca","#ced7e0","#b3bfca","#929faa","#324c62","#365c7c","#ceddee",0.31,"#587690","#f8fafc"],["苔綠","#abb5ac","#223424","#b7bfb8","#c5cbc5","#d7ded7","#c5cbc5","#98a499","#3f5141","#517055","#3a5940",0.29,"#768c79","#ffffff"],["沉煙","#b4a493","#33251a","#c0b3a5","#cec4b9","#e4dcd4","#cec4b9","#aa9e92","#5f4b37","#75593e","#614d38",0.29,"#8b735c","#ffffff"],["焦糖","#a78e76","#2e2115","#b19b86","#bca997","#cfbdad","#bca997","#aa9e92","#4d3d2f","#68482c","#ebdbd1",0.29,"#82654c","#f2ebe3"],["暮灰","#c4b5b8","#382428","#cec2c4","#d9d0d2","#ebe4e5","#d9d0d2","#a99397","#5c4247","#884e5a","#864653",0.28,"#a17880","#ffffff"],["淺檀","#b49ca1","#29191d","#bda8ac","#c7b5b9","#d7c5c9","#c7b5b9","#aa9298","#4e363d","#6f3945","#4c383d",0.21,"#a18087","#29191d"]],"n":[["藍墨","#222c3a","#eff0f0","#293445","#303e51","#374b67","#303e51","#929caa","#acb3bc","#55799b","#5d8ab1",0.23,"#47637f","#eff0f0"],["鐵御","#293d47","#c8dce4","#2f4753","#37525f","#3d6275","#37525f","#92a2aa","#96b3c3","#6c9cb2","#6ca4cb",0.2,"#4d7182","#e7f0f3"],["山居","#404a42","#eff0ef","#454f46","#4a554c","#4e6151","#4a554c","#97a59a","#b5c5b8","#a9b7aa","#86c193",0.2,"#646f65","#eff0ef"],["鶯茶","#493f2d","#f6f5f4","#544833","#60533b","#756342","#60533b","#aaa292","#d0c8ba","#bdb093","#d9ae6d",0.18,"#7e7259","#fbfafa"],["煤竹","#342823","#eeedec","#3c2e28","#44352d","#533e33","#44352d","#aa9a92","#c3b3ab","#c0a991","#c99e78",0.14,"#5e4e43","#eeedec"],["落栗","#4b2f25","#f5f5f4","#5b392d","#6b4335","#88513d","#6b4335","#aa9992","#cdb6b0","#bf8d78","#d28b65",0.32,"#8a6050","#f5f5f4"]]};
 const THF={"d":{"bag":"#e19214","glow":"#ffcd1e","fb":0.82,"fs":1.2,"gg":1},"u":{"bag":"#ffc94a","glow":"#bb652b","fb":0.6,"fs":1.55,"gg":0.9},"n":{"bag":"#ffc94a","glow":"#b8692e","fb":1.05,"fs":1.05,"gg":1}};
 const THN={d:'亮色系',u:'灰色系',n:'暗色系'},DG0={d:'#d63a3f',u:'#e5484d',n:'#e5484d'},SR0={d:'#d93f33',u:'#ff6b5f',n:'#ff6b5f'},RYH=0;
 let OGG=1;
@@ -2985,7 +2989,7 @@ function cabSize(){const c=$('cell'),sn=$('twb'),v=$('cabv');if(!c||!sn||!v)retu
   let w=Math.round(cr.right-sr.left);if(!(sr.width>0)||w<200)w=300;v.classList.toggle('nar',cr.width-w<280);document.documentElement.classList.toggle('cnar',cr.width-w<280);v.style.setProperty('--cpw',w+'px')}
 let cabWas=false;
 function cabRender(){
-  const on=cabOn(),v=$('cabv');if(!on)sayOff('cabsay');
+  const on=cabOn(),v=$('cabv');
   const chg=on!==cabWas;cabWas=on;
   document.documentElement.classList.toggle('cbm',on);
   if(chg)cabAnim(on);
@@ -3454,28 +3458,55 @@ function rcAdd(k,v){if(PH||gmOn||!S.rc)return;S.rc[k]=(+S.rc[k]||0)+(v||1)}
 function rcDay(dk){if(PH||gmOn||!S.rc)return;if(S.rc.dl!==dk){S.rc.dl=dk;S.rc.dd++}}
 const fmtN=v=>(+v||0).toLocaleString('en-US');
 function rcRows(){const r=S.rc||rcFix(),f=xpInfo(),d=new Date(r.t0);
-  // 1.66：含金量＝錢袋總和÷100；珠璣值＝（錢袋＋礦石換算）÷100＋累計打字÷20，再乘筆力倍率（1→最高 1.5，寫越多越接近）
+  // 1.66：含金量＝錢袋總和÷100（1.67：再加上手上沒賣的礦石換算的兩成）；珠璣值＝（錢袋＋礦石換算）÷100＋累計打字÷20，再乘筆力倍率（1→最高 1.5，寫越多越接近）
   // 礦石換算照售價，鑽石取 150～300 的中位數 225。兩個值都不公開算法；珠璣值一定大於含金量。
   let coin=0,ore=0;S.notes.forEach(n=>{coin+=+n.coin||0;const o=n.ore||{};for(const k in o){const c=Math.floor(+o[k]||0);if(c>0)ore+=c*(+k===0?225:(PR[+k]||0))}});
-  const tw=+r.tw||0,gold=coin/100,pearl=((coin+ore)/100+tw/20)*(1+.5*(1-Math.exp(-tw/1e5)));
+  const tw=+r.tw||0,gold=(coin+ore*.2)/100,pearl=((coin+ore)/100+tw/20)*(1+.5*(1-Math.exp(-tw/1e5)));
   const f1=v=>{v=Math.floor(v*10)/10;return '約 '+(v%1?v.toLocaleString('en-US',{minimumFractionDigits:1,maximumFractionDigits:1}):fmtN(v))};
-  return[['稱號','《'+tName()+'》'],['含金量',f1(gold)],['珠璣值',f1(pearl)],['今天打字',fmtN(S.twd&&S.twd.d===dayKey()?S.twd.n:0)+' 字'],['累計打字',fmtN(r.tw)+' 字'],['採到的礦石',fmtN(r.ore)+' 顆'],['採礦等級','Lv.'+f.lv],['使用天數',fmtN(r.dd)+' 天'],['開始使用',d.getFullYear()+'/'+p2(d.getMonth()+1)+'/'+p2(d.getDate())]]}
-function rcPaint(){return '<div class="pcard rcd"><div class="rctt">R note</div>'
+  return[['稱號','《'+tName()+'》'],['含金量',f1(gold)],['珠璣值',f1(pearl)],['今天打字',fmtN(S.twd&&S.twd.d===dayKey()?S.twd.n:0)+' 字'],['累計打字',fmtN(r.tw)+' 字'],['採到的礦石',fmtN(r.ore)+' 顆'],['採礦等級','Lv.'+f.lv],['寫作天數',fmtN(r.dd)+' 天'],['紀錄起點',d.getFullYear()+'/'+p2(d.getMonth()+1)+'/'+p2(d.getDate())]]}
+function rcPaint(){return '<div class="pcard rcd"><div class="rctt">Writer\'s Card</div>'
   +rcRows().map(x=>'<div class="rcr"><span>'+x[0]+'</span><b>'+x[1]+'</b></div>').join('')
   
   +(S.rcu?'<p class="rcn">這份紀錄來自被改動過的備份檔，標為「未驗證」，不能存成圖片。</p>':'')
   +'<button class="sg rcs"'+(S.rcu?' disabled':'')+'>存成圖片</button></div>'}
-function rcSave(){if(S.rcu)return;const r=S.rc||rcFix(),cs=getComputedStyle(document.documentElement),v=(n,d)=>(cs.getPropertyValue(n)||'').trim()||d;
-  const W=720,rows=rcRows(),H=150+rows.length*46+90,c=document.createElement('canvas'),x=c.getContext('2d'),bg=v('--p2','#fbfaf6'),tx=v('--tx','#222'),ln=v('--ln','#bbb'),ry=v('--ry','#c0392b');
-  c.width=W*2;c.height=H*2;x.scale(2,2);x.fillStyle=bg;x.fillRect(0,0,W,H);x.strokeStyle=ln;x.lineWidth=2;x.strokeRect(10,10,W-20,H-20);
-  x.fillStyle=ry;x.font='800 54px Georgia,serif';x.textBaseline='alphabetic';x.fillText('R',44,92);
-  x.fillStyle=tx;x.font='700 30px sans-serif';x.fillText('R note 紀錄卡',104,88);
-  rows.forEach((q,i)=>{const y=160+i*46;x.strokeStyle=ln;x.globalAlpha=.5;x.beginPath();x.moveTo(44,y+14);x.lineTo(W-44,y+14);x.stroke();x.globalAlpha=1;x.fillStyle=tx;x.globalAlpha=.7;x.font='22px sans-serif';x.textAlign='left';x.fillText(q[0],44,y);x.globalAlpha=1;x.font='700 24px sans-serif';x.textAlign='right';x.fillText(q[1],W-44,y)});
-  // 1.66：左下角放當下的機器人（之後有裝飾就一起畫進來），右下角是存檔當下的日期時間（跟右上角一樣的寫法）
-  let vx=44;const rb=$('rbt');if(rb&&rb.width){const sc=Math.max(1,Math.floor(64/rb.height)),rw=rb.width*sc,rh=rb.height*sc;x.imageSmoothingEnabled=false;try{x.drawImage(rb,24,H-24-rh,rw,rh)}catch(e){}vx=24+rw+8}
-  x.textAlign='left';x.fillStyle=tx;x.globalAlpha=.6;x.font='18px monospace';x.fillText('R note '+VERSION,vx,H-34);
-  x.textAlign='right';x.font='18px sans-serif';x.fillText(($('cd').textContent+'  '+$('ct').textContent).trim(),W-44,H-34);x.globalAlpha=1;x.textAlign='left';
-  c.toBlob(b=>{if(!b){say('存圖失敗，請再試一次。',{lv:'warn'});return}const u=URL.createObjectURL(b),a=document.createElement('a');a.href=u;a.download='R_note_record.png';document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),4000);playSfx('pick');say('紀錄卡已存成圖片，請見瀏覽器的下載。',{lv:'info',rx:'ok'})},'image/png')}
+/* 1.68：Writer's Card（800×1024），排版照 Roger 在 writers_card_preview.html 定的數值；色調用使用者當下的光色與 R 字色。
+   卡片框留了空間給之後新增的列（專注次數、時數…）。 */
+const WC={logo:{x:50,y:53,w:270,sw:1.6},title:{text:"Writer's Card",x:542,y:129,size:33,alpha:.65},card:{x:48,y:155,w:704,h:792,r:20,bw:2,pad:36},
+  guil:{angle:-12,gap:12,lw:.8,alpha:.08,dashEvery:3,dash:9,dgap:9,mtext:'R NotE- r nOTe-',msize:11,mEvery:6,malpha:.11},
+  rows:{top:43,gap:64,lsize:28,vsize:26,divA:.9},band:{off:-6,angle:-12,alpha:.8},robot:{x:311,y:35,scale:3},ver:{x:50,y:996,size:25,alpha:.6},date:{x:748,y:996,size:18,alpha:.75},url:{text:'jianroger.github.io/R_note',x:624,y:84,size:20,alpha:.35}};
+function rcSave(){if(S.rcu)return;const cs=getComputedStyle(document.documentElement),v=(n,d)=>(cs.getPropertyValue(n)||'').trim()||d;
+  const C={bg:v('--bg','#222c3a'),p1:v('--p1','#293445'),p2:v('--p2','#303e51'),ln:v('--ln','#374b67'),tx:v('--tx','#eff0f0'),dm:v('--dm','#acb3bc'),ry:v('--ry','#ff8080'),ac:v('--ac','#5d8ab1')};
+  const L=WC.logo,svg='<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 106 36" width="'+L.w*2+'" height="'+Math.round(L.w*72/106)+'" fill="none" stroke="'+C.tx+'" stroke-width="'+L.sw+'" stroke-linecap="round" stroke-linejoin="round"><path d="M6 28V6h7a6 6 0 0 1 0 12H6M13 18l7 10" stroke="'+C.ry+'"/><path d="M28 28V12M28 18a6 6 0 0 1 12 0v10"/><circle cx="54" cy="20" r="8"/><path d="M71 8v16a4 4 0 0 0 4 4h2M71 14h6"/><path d="M66 14h5"/><path d="M84 20h16a8 8 0 1 0-2.343 5.657"/></svg>';
+  const rows=rcRows(),stamp=($('cd').textContent+'  '+$('ct').textContent).trim(),rb=$('rbt');
+  const go=lg=>{const W=800,H=1024,c=document.createElement('canvas');c.width=W;c.height=H;const x=c.getContext('2d'),SANS='"Microsoft JhengHei","PingFang TC","Noto Sans TC",sans-serif';
+    const rr=(a,b,w,h,r)=>{x.beginPath();if(x.roundRect)x.roundRect(a,b,w,h,r);else x.rect(a,b,w,h)};
+    x.fillStyle=C.bg;x.fillRect(0,0,W,H);
+    if(lg)x.drawImage(lg,L.x,L.y,L.w,L.w*36/106);
+    const T=WC.title;x.globalAlpha=T.alpha;x.fillStyle=C.tx;x.textAlign='left';x.textBaseline='alphabetic';x.font='italic 400 '+T.size+'px '+SANS;x.fillText(T.text,T.x,T.y);x.globalAlpha=1;
+    const U=WC.url;x.globalAlpha=U.alpha;x.textAlign='center';x.font=U.size+'px '+SANS;x.fillText(U.text,U.x,U.y);x.globalAlpha=1;
+    if(rb&&rb.width){const B=WC.robot;x.imageSmoothingEnabled=false;try{x.drawImage(rb,B.x,B.y,rb.width*B.scale,rb.height*B.scale)}catch(e){}x.imageSmoothingEnabled=true}
+    const K=WC.card;x.save();x.shadowColor='rgba(0,0,0,.25)';x.shadowBlur=24;x.shadowOffsetY=6;x.fillStyle=C.p1;rr(K.x,K.y,K.w,K.h,K.r);x.fill();x.restore();
+    // 防偽底紋：淡斜線、每 3 條穿插虛線、每 6 條換成微縮文字
+    const G=WC.guil;x.save();rr(K.x,K.y,K.w,K.h,K.r);x.clip();x.translate(K.x+K.w/2,K.y+K.h/2);x.rotate(G.angle*Math.PI/180);const D=Math.hypot(K.w,K.h);
+    x.font=G.msize+'px sans-serif';x.textBaseline='middle';x.textAlign='left';let ms='';while(x.measureText(ms).width<D)ms+=G.mtext;
+    for(let t=-D/2,i=0;t<=D/2;t+=G.gap,i++){if(i%G.mEvery===0){x.globalAlpha=G.malpha;x.fillStyle=C.tx;x.fillText(ms,-D/2,t);continue}
+      x.globalAlpha=G.alpha;x.strokeStyle=C.tx;x.lineWidth=G.lw;x.setLineDash(i%G.dashEvery===0?[G.dash,G.dgap]:[]);x.beginPath();x.moveTo(-D/2,t);x.lineTo(D/2,t);x.stroke()}
+    x.restore();
+    const R=WC.rows;x.save();rr(K.x,K.y,K.w,K.h,K.r);x.clip();
+    rows.forEach((q,i)=>{const y=K.y+R.top+i*R.gap,l=K.x+K.pad,r=K.x+K.w-K.pad;
+      if(i===0){// 前三列色塊：強調色淡化，下緣斜 -12°（跟防偽線同方向），落在第三、四列之間
+        const Bd=WC.band,yb=K.y+R.top+2*R.gap+R.gap/2-2+Bd.off,cx=K.x+K.w/2,tn=Math.tan(Bd.angle*Math.PI/180),n=parseInt((C.ac.match(/^#([0-9a-f]{6})$/i)||[0,'5d8ab1'])[1],16);
+        x.beginPath();x.moveTo(K.x,K.y);x.lineTo(K.x+K.w,K.y);x.lineTo(K.x+K.w,yb+(K.w/2)*tn);x.lineTo(K.x,yb-(K.w/2)*tn);x.closePath();
+        x.globalAlpha=Bd.alpha;x.fillStyle='rgba('+(n>>16&255)+','+(n>>8&255)+','+(n&255)+',.14)';x.fill();x.globalAlpha=1}
+      x.textBaseline='middle';x.textAlign='left';x.fillStyle=C.dm;x.font=R.lsize+'px '+SANS;x.fillText(q[0],l,y);
+      x.textAlign='right';x.fillStyle=C.tx;x.font='400 '+R.vsize+'px '+SANS;x.fillText(q[1],r,y);
+      if(i<rows.length-1){x.globalAlpha=R.divA;x.strokeStyle=C.ln;x.lineWidth=1.5;x.setLineDash([]);x.beginPath();x.moveTo(l,y+R.gap/2-2);x.lineTo(r,y+R.gap/2-2);x.stroke();x.setLineDash([]);x.globalAlpha=1}});
+    x.restore();
+    x.strokeStyle=C.ln;x.lineWidth=K.bw;rr(K.x+K.bw/2,K.y+K.bw/2,K.w-K.bw,K.h-K.bw,K.r);x.stroke();
+    const V=WC.ver;x.globalAlpha=V.alpha;x.fillStyle=C.tx;x.textAlign='left';x.textBaseline='alphabetic';x.font=V.size+'px ui-monospace,Consolas,monospace';x.fillText('R note '+VERSION,V.x,V.y);
+    const Dt=WC.date;x.globalAlpha=Dt.alpha;x.textAlign='right';x.font=Dt.size+'px '+SANS;x.fillText(stamp,Dt.x,Dt.y);x.globalAlpha=1;
+    c.toBlob(b=>{if(!b){say('存圖失敗，請再試一次。',{lv:'warn'});return}const u=URL.createObjectURL(b),a=document.createElement('a');a.href=u;a.download='R_note_writers_card.png';document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),4000);playSfx('pick');say('Writer\'s Card 已存成圖片，請見瀏覽器的下載。',{lv:'info',rx:'ok'})},'image/png')};
+  const im=new Image();im.onload=()=>go(im);im.onerror=()=>go(null);im.src='data:image/svg+xml;charset=utf-8,'+encodeURIComponent(svg)}
 
 function tOre(i){rcAdd('ore');if(i===0){if(TT.ds>0&&TT.dRoll!==TT.roll)TT.ds++;else if(TT.ds===0)TT.ds=1;TT.dRoll=TT.roll;if(TT.ds>=2)tGet('p',14);if(TT.ds>=3)tGet('n',29)}else TT.ds=0;
   if(i>4){TT.ss++;if(TT.ss>=6)tGet('n',7)}else TT.ss=0}
@@ -3514,8 +3545,8 @@ function tPanelBind(p){const q=c=>p.querySelector(c);if(!q('.tsec'))return;const
   q('.trd').onclick=()=>{const pk=(L,k,cur)=>{const a=L.map((_,i)=>i).filter(i=>tHas(k,i)&&i!==cur);return a.length?a[Math.floor(Math.random()*a.length)]:cur};
     if(t.up)t.sp=pk(TP,'p',t.sp);t.sn=pk(TN,'n',t.sn);S.tt.nw=S.tt.nw.filter(x=>x!=='p'+t.sp&&x!=='n'+t.sn);re()}}
 /* 打開檔案櫃：機器人宣告稱號與「刻劃了 N 個字」；有需要處理的停住訊息時讓位 */
-function tCabSay(){if(PH||!S.tt||!cabOn())return;if(SM.list.some(m=>!m.leaving&&m.sticky))return;sayOff('cabsay');
-  say('《'+tName()+'》刻劃了 '+(+S.ts.tw||0).toLocaleString('en-US')+' 個字。',{lv:'act',id:'cabsay',rx:'act',instant:TT.once++>0})}
+function tCabSay(){if(PH||!S.tt||!cabOn())return;   // 1.67：改成會走的；連開連關只會讓同一句跳一下
+  say('《'+tName()+'》刻劃了 '+(+S.ts.tw||0).toLocaleString('en-US')+' 個字。',{lv:'info',id:'cabsay',rx:'act',instant:TT.once++>0})}
 tkBack(!!pend);tInit();paintSnd();$('ver').textContent=VERSION;applyTh();phoneEnsure();layout();render();fxVis(false);booted=true;if(RB)setTimeout(()=>{RB.R.enter();RB.place()},350);if(pend)setTimeout(pendMsg,1200);setTimeout(thAsk,1500);abInit();tomPaint();paintTs();
 {const n=byId(S.sel);if(n){if(!PH)ta.focus();ta.setSelectionRange(n.caret||0,n.caret||0);reveal(n.caret||0)}}
 
@@ -3860,7 +3891,7 @@ sq('#sphh').onchange=e=>{S.hh=e.target.checked?1:0;save()};
 sqa('.rbat').forEach(b=>{const k=b.dataset.k,f=b.querySelector('.rbf');let v0=0;
   for(const p of [20,40,60,80]){const t=document.createElement('b');t.style.left=p+'%';f.appendChild(t)}
   const set=v=>{v=Math.max(1,Math.min(5,v));if(v!==rbLv(k)){S[k]=v;save();setpPaint()}},at=e=>{const r=f.getBoundingClientRect();set(Math.ceil((e.clientX-r.left)/r.width*5))};
-  const end=()=>{const v=rbLv(k);if(v===v0)return;if(v===5||v<=2)sayOff('rbb');if(v===5)say(RBS[k][0],{lv:'info',id:'rbb',rx:k==='rba'?'ok':'nod'});else if(v<=2)say(RBS[k][1],{lv:'info',id:'rbb',rx:'nod'})};
+  const end=()=>{const v=rbLv(k);if(v===v0)return;if(v===5)say(RBS[k][0],{lv:'info',id:'rbb',rx:k==='rba'?'ok':'nod'});else if(v<=2)say(RBS[k][1],{lv:'info',id:'rbb',rx:'nod'})};
   f.onpointerdown=e=>{if(S.mute)return;v0=rbLv(k);f.setPointerCapture(e.pointerId);at(e);f.onpointermove=at};
   f.onpointerup=()=>{if(f.onpointermove){f.onpointermove=null;end()}};f.onpointercancel=()=>{f.onpointermove=null};
   f.onkeydown=e=>{const d=e.key==='ArrowRight'?1:e.key==='ArrowLeft'?-1:0;if(!d||S.mute)return;e.preventDefault();v0=rbLv(k);set(v0+d);end()}});
